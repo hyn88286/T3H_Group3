@@ -1,7 +1,5 @@
-CREATE
-DATABASE pet_shop_1;
-USE
-pet_shop_1;
+CREATE DATABASE pet_shop_1;
+USE pet_shop_1;
 
 CREATE TABLE user
 (
@@ -60,6 +58,7 @@ CREATE TABLE product
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
     name              NVARCHAR(100),
     description       NVARCHAR(1000),
+    code              VARCHAR(50),
     price             DECIMAL(10, 2),
     quantity          INT,
     short_description NVARCHAR(1000),
@@ -89,7 +88,6 @@ CREATE TABLE order_master
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id       BIGINT NOT NULL,
-    order_date    DATETIME DEFAULT CURRENT_TIMESTAMP,
     total_amount  DECIMAL(10, 2),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
@@ -105,7 +103,7 @@ CREATE TABLE order_detail
     order_id      BIGINT NOT NULL,
     product_id    BIGINT NOT NULL,
     quantity      INT,
-    price         DECIMAL(10, 2),
+    total_amount  DECIMAL(10, 2),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -120,7 +118,7 @@ CREATE TABLE comment
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id       BIGINT NOT NULL,
     product_id    BIGINT NOT NULL,
-    comment       NVARCHAR(1000),
+    content       NVARCHAR(1000),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -149,13 +147,14 @@ CREATE TABLE size
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     name          VARCHAR(255) NULL,
-    code          VARCHAR(50) NULL,
+    code          VARCHAR(50)  NULL,
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_by   VARCHAR(50),
-    modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 create table product_size
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
