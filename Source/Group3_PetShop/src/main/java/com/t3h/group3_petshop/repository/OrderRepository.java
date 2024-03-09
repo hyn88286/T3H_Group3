@@ -18,5 +18,4 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "AND o.deleted=false ORDER BY o.createdDate desc "
     )
     Page<OrderEntity> findAllByFilter(@Param("condition") OrderFilterRequest filterRequest, Pageable pageable);
-
 }
