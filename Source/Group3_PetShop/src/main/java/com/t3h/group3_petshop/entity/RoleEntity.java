@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,6 @@ public class RoleEntity extends AbstractEntity {
     private String name;
 
     private String code;
-
-    @ManyToMany(mappedBy = "roleEntities")
-    private Set<UserEntity> userEntities;
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserEntity> users = new HashSet<>();
 }

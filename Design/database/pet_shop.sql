@@ -6,7 +6,7 @@ CREATE TABLE user
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     fullname      NVARCHAR(255) NULL,
     username      VARCHAR(50),
-    password      VARCHAR(50),
+    password      VARCHAR(255),
     email         VARCHAR(100),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
