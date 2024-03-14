@@ -14,11 +14,12 @@ public class SizeEntity extends AbstractEntity{
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JoinTable(name = "product_size",
-    joinColumns = {@JoinColumn(name = "size_id")},
-    inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<ProductSizeEntity> productSizeEntities;
+            joinColumns = @JoinColumn(name = "size_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<ProductEntity> productEntities;
 }

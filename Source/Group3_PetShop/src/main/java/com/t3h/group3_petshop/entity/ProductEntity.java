@@ -2,8 +2,10 @@ package com.t3h.group3_petshop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.Set;
 
 
 @Table(name = "product")
@@ -22,5 +24,9 @@ public class ProductEntity extends AbstractEntity{
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     private CategoryEntity categoryEntity;
+
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productEntities",fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    private Set<SizeEntity> sizeEntities;
 
 }
