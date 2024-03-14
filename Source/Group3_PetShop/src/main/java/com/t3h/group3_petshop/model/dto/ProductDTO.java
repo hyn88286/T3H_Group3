@@ -14,6 +14,7 @@ public class ProductDTO {
     private String createdBY;
     private LocalDateTime modifiedDate;
     private String modifiedBy;
+
     private String code;
     private String name;
     private Float price;
@@ -24,6 +25,7 @@ public class ProductDTO {
     private String size;
     private Long categoryId;
     private String category;
+    private int quantity;
 
     public ProductDTO(Long id, String code, String name) {
         this.id = id;
