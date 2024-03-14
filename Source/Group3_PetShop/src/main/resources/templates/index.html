@@ -1,9 +1,9 @@
-<!doctype html>
-<html lang="en">
 
-<!--Head-->
-<div th:replace="client/common/head :: head('Trang chủ')"></div>
-<!--End Head-->
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:03 GMT -->
+<head th:replace="layout/head :: head"></head>
 
 <body>
 
@@ -14,21 +14,18 @@
         </div>
     </div>
 </div>
-
 <b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
 
-<!--Script-->
-<div th:replace="client/common/header :: header"></div>
-<!--End Script-->
 <article class="card mobile-offcanvas offcanvas-right" id="card_mobile">
     <div class="shop-sidebar">
         <div class="offcanvas-header">
-            <button class="btn btn-close"><i data-feather="x-circle"></i></button>
+            <button class="btn btn-close"> <i data-feather="x-circle"></i> </button>
         </div>
         <h3 class="head">My Cart</h3>
         <ul class="list-unstyled">
             <li>
-                <img src="client/images/shop/sidebar_shop_1.jpg" alt>
+                <img src="/frontend/images/shop/sidebar_shop_1.jpg" alt>
                 <div>
                     <h4><a href="shop-single.html">Lounger Dog Bed</a></h4>
                     <h6>$85</h6>
@@ -38,7 +35,7 @@
                 </div>
             </li>
             <li>
-                <img src="client/images/shop/sidebar_shop_2.jpg" alt>
+                <img src="/frontend/images/shop/sidebar_shop_2.jpg" alt>
                 <div>
                     <h4><a href="shop-single.html">Sara's Doggie Treat</a></h4>
                     <h6>$45</h6>
@@ -63,142 +60,45 @@
     </div>
 </article>
 <section>
-    <div id="rev_slider_26_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="mask-showcase"
-         data-source="gallery" style="background:#aaaaaa;padding:0px;">
+    <div id="rev_slider_26_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="mask-showcase" data-source="gallery" style="background:#aaaaaa;padding:0px;">
 
-        <div id="rev_slider_26_1" class="rev_slider fullscreenbanner tiny_bullet_slider" style="display:none;"
-             data-version="5.4.1">
+        <div id="rev_slider_26_1" class="rev_slider fullscreenbanner tiny_bullet_slider" style="display:none;" data-version="5.4.1">
             <ul>
 
-                <li data-index="rs-73" data-transition="fade" data-slotamount="default" data-hideafterloop="0"
-                    data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300"
-                    data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/" data-rotate="0"
-                    data-saveperformance="off" data-title="Slide" data-param1 data-param2 data-param3 data-param4
-                    data-param5 data-param6 data-param7 data-param8 data-param9 data-param10 data-description>
+                <li data-index="rs-73" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1 data-param2 data-param3 data-param4 data-param5 data-param6 data-param7 data-param8 data-param9 data-param10 data-description>
 
-                    <img src="client/images/slider/h5_slider_1.jpg" data-kenburns="on" data-duration="5000"
-                         data-ease="Power3.easeInOut" data-scalestart="110" data-scaleend="100" data-rotatestart="0"
-                         style="background:linear-gradient(90deg, rgba(134,143,150,1) 0%, rgba(89,97,100,1) 100%)" alt
-                         data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
-                         data-bgparallax="off" class="rev-slidebg" data-no-retina>
+                    <img src="/frontend/images/slider/h5_slider_1.jpg" data-kenburns="on" data-duration="5000" data-ease="Power3.easeInOut" data-scalestart="110" data-scaleend="100" data-rotatestart="0" style="background:linear-gradient(90deg, rgba(134,143,150,1) 0%, rgba(89,97,100,1) 100%)" alt data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="off" class="rev-slidebg" data-no-retina>
 
 
-                    <div class="tp-caption btn-theme bg-orange btn-shadow" id="slide-73-layer-4"
-                         data-x="['left','left','left','left']" data-hoffset="['65','120','70','40']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['150','150','150','10']"
-                         data-width="['180','180','180','180']" data-height="none" data-whitespace="normal"
-                         data-type="button" data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:1000,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;},{&quot;frame&quot;:&quot;hover&quot;,&quot;speed&quot;:&quot;0&quot;,&quot;ease&quot;:&quot;Linear.easeNone&quot;,&quot;to&quot;:&quot;o:1;rX:0;rY:0;rZ:0;z:0;&quot;,&quot;style&quot;:&quot;c:rgb(0,0,0);bg:rgb(255,255,255);&quot;}]"
-                         data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]"
-                         data-paddingright="[30,30,30,30]" data-paddingbottom="[0,0,0,0]"
-                         data-paddingleft="[30,30,30,30]"
-                         style="z-index: 5; white-space: normal; font-size: 18px; line-height: 50px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Karla', sans-serif;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; font-weight: 600; text-transform: uppercase;">
-                        Give us call
-                    </div>
+                    <div class="tp-caption btn-theme bg-orange btn-shadow" id="slide-73-layer-4" data-x="['left','left','left','left']" data-hoffset="['65','120','70','40']" data-y="['middle','middle','middle','middle']" data-voffset="['150','150','150','10']" data-width="['180','180','180','180']" data-height="none" data-whitespace="normal" data-type="button" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:1000,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;},{&quot;frame&quot;:&quot;hover&quot;,&quot;speed&quot;:&quot;0&quot;,&quot;ease&quot;:&quot;Linear.easeNone&quot;,&quot;to&quot;:&quot;o:1;rX:0;rY:0;rZ:0;z:0;&quot;,&quot;style&quot;:&quot;c:rgb(0,0,0);bg:rgb(255,255,255);&quot;}]" data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[30,30,30,30]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[30,30,30,30]" style="z-index: 5; white-space: normal; font-size: 18px; line-height: 50px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Karla', sans-serif;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; font-weight: 600; text-transform: uppercase;">
+                        Give us call </div>
 
-                    <div class="tp-caption tp-resizeme" id="slide-73-layer-1" data-x="['left','left','left','left']"
-                         data-hoffset="['270','325','270','40']" data-y="['middle','middle','middle','middle']"
-                         data-voffset="['150','150','150','65']" data-width="['180','180','180','180']"
-                         data-whitespace="nowrap" data-type="text" data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:400,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#2f3b4a&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]"
-                         data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
-                         data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                         style="z-index: 6; color: #FFF; font-size: 18px;">
-                        (+44) 123 456 789
-                    </div>
+                    <div class="tp-caption tp-resizeme" id="slide-73-layer-1" data-x="['left','left','left','left']" data-hoffset="['270','325','270','40']" data-y="['middle','middle','middle','middle']" data-voffset="['150','150','150','65']" data-width="['180','180','180','180']" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:400,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#2f3b4a&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 6; color: #FFF; font-size: 18px;">
+                        (+44) 123 456 789 </div>
 
-                    <div class="tp-caption   tp-resizeme" id="slide-73-layer-3" data-x="['left','left','left','left']"
-                         data-hoffset="['45','100','50','20']" data-y="['middle','middle','middle','middle']"
-                         data-voffset="['-177','-135','-135','-220']" data-width="['360','360','360','250']"
-                         data-height="none" data-whitespace="normal" data-type="text" ata-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:300,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]"
-                         data-textAlign="['left','left','left','left']" data-paddingtop="[10,10,10,10]"
-                         data-paddingright="[20,20,20,20]" data-paddingbottom="[10,10,10,10]"
-                         data-paddingleft="[20,20,20,20]"
-                         style="z-index: 7; white-space: normal; font-size: 20px; line-height: 20px; font-weight: 400; color: #ffffff; font-family:Karla', sans-serif;">
-                        Pet Care Services, in New York City
-                    </div>
+                    <div class="tp-caption   tp-resizeme" id="slide-73-layer-3" data-x="['left','left','left','left']" data-hoffset="['45','100','50','20']" data-y="['middle','middle','middle','middle']" data-voffset="['-177','-135','-135','-220']" data-width="['360','360','360','250']" data-height="none" data-whitespace="normal" data-type="text" ata-responsive_offset="on" data-frames="[{&quot;delay&quot;:300,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['left','left','left','left']" data-paddingtop="[10,10,10,10]" data-paddingright="[20,20,20,20]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[20,20,20,20]" style="z-index: 7; white-space: normal; font-size: 20px; line-height: 20px; font-weight: 400; color: #ffffff; font-family:Karla', sans-serif;">
+                        Pet Care Services, in New York City </div>
 
-                    <div class="tp-caption tp-resizeme" id="slide-73-layer-2" data-x="['left','left','left','left']"
-                         data-hoffset="['45','100','50','20']" data-y="['middle','middle','middle','middle']"
-                         data-voffset="['-50','-30','-30','-110']" data-fontsize="['70','70','70','50']"
-                         data-lineheight="['70','70','70','50']" data-width="['600','650','620','380']"
-                         data-height="['200','200','200','200']" data-whitespace="normal" data-type="text"
-                         data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:200,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]"
-                         data-textAlign="['left','left','left','left']" data-paddingtop="[20,20,20,20]"
-                         data-paddingright="[20,20,20,20]" data-paddingbottom="[30,30,30,30]"
-                         data-paddingleft="[20,20,20,20]"
-                         style="z-index: 8; font-family: 'Changa', sans-serif; min-width : 650px; max-width: 650px; white-space: normal; font-size: 70px; line-height: 70px; font-weight: 400; color: #ffffff; letter-spacing: -2px; font-weight: 700;">
-                        We Provide Care, That Your Pet Deserves!
-                    </div>
+                    <div class="tp-caption tp-resizeme" id="slide-73-layer-2" data-x="['left','left','left','left']" data-hoffset="['45','100','50','20']" data-y="['middle','middle','middle','middle']" data-voffset="['-50','-30','-30','-110']" data-fontsize="['70','70','70','50']" data-lineheight="['70','70','70','50']" data-width="['600','650','620','380']" data-height="['200','200','200','200']" data-whitespace="normal" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:200,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['left','left','left','left']" data-paddingtop="[20,20,20,20]" data-paddingright="[20,20,20,20]" data-paddingbottom="[30,30,30,30]" data-paddingleft="[20,20,20,20]" style="z-index: 8; font-family: 'Changa', sans-serif; min-width : 650px; max-width: 650px; white-space: normal; font-size: 70px; line-height: 70px; font-weight: 400; color: #ffffff; letter-spacing: -2px; font-weight: 700;">
+                        We Provide Care, That Your Pet Deserves! </div>
                 </li>
 
-                <li data-index="rs-75" data-transition="fade" data-slotamount="default" data-hideafterloop="0"
-                    data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300"
-                    data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/" data-rotate="0"
-                    data-saveperformance="off" data-title="Slide" data-param1 data-param2 data-param3 data-param4
-                    data-param5 data-param6 data-param7 data-param8 data-param9 data-param10 data-description>
+                <li data-index="rs-75" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1 data-param2 data-param3 data-param4 data-param5 data-param6 data-param7 data-param8 data-param9 data-param10 data-description>
 
-                    <img src="client/images/slider/h5_slider_2.jpg" data-kenburns="on" data-duration="5000"
-                         data-ease="Power3.easeInOut" data-scalestart="110" data-scaleend="100" data-rotatestart="0"
-                         data-bgcolor="linear-gradient(180deg, rgba(22,160,133,1) 0%, rgba(244,208,63,1) 100%)"
-                         style="background:linear-gradient(180deg, rgba(22,160,133,1) 0%, rgba(244,208,63,1) 100%)" alt
-                         data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
-                         data-bgparallax="off" class="rev-slidebg" data-no-retina>
+                    <img src="/frontend/images/slider/h5_slider_2.jpg" data-kenburns="on" data-duration="5000" data-ease="Power3.easeInOut" data-scalestart="110" data-scaleend="100" data-rotatestart="0" data-bgcolor="linear-gradient(180deg, rgba(22,160,133,1) 0%, rgba(244,208,63,1) 100%)" style="background:linear-gradient(180deg, rgba(22,160,133,1) 0%, rgba(244,208,63,1) 100%)" alt data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="off" class="rev-slidebg" data-no-retina>
 
 
-                    <div class="tp-caption   tp-resizeme rs-parallaxlevel-2" id="slide-75-layer-1"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['250','200','135','50']"
-                         data-width="none" data-height="none" data-whitespace="nowrap" data-type="image"
-                         data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#27304b&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]"
-                         data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
-                         data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                         style="z-index: 6; color: #FFF; font-size: 18px;">
-                        (+44) 123 456 789
-                    </div>
+                    <div class="tp-caption   tp-resizeme rs-parallaxlevel-2" id="slide-75-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['250','200','135','50']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="image" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#27304b&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 6; color: #FFF; font-size: 18px;">
+                        (+44) 123 456 789 </div>
 
-                    <div class="tp-caption   tp-resizeme" id="slide-75-layer-2"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['10','-50','-100','-140']"
-                         data-fontsize="['70','70','70','50']" data-lineheight="['70','70','70','50']"
-                         data-width="['650','650','620','380']" data-height="none" data-whitespace="normal"
-                         data-type="text" data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:200,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]"
-                         data-textAlign="['center','center','center','center']" data-paddingtop="[20,20,20,20]"
-                         data-paddingright="[20,20,20,20]" data-paddingbottom="[30,30,30,30]"
-                         data-paddingleft="[20,20,20,20]"
-                         style="z-index: 8; font-family: 'Changa', sans-serif; min-width: 650px; max-width: 650px; white-space: normal; font-size: 70px; line-height: 70px; font-weight: 400; color: #ffffff; letter-spacing: -2px; font-weight: 700;">
-                        We Provide Care, That Your Pet Deserves!
-                    </div>
+                    <div class="tp-caption   tp-resizeme" id="slide-75-layer-2" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['10','-50','-100','-140']" data-fontsize="['70','70','70','50']" data-lineheight="['70','70','70','50']" data-width="['650','650','620','380']" data-height="none" data-whitespace="normal" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:200,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['center','center','center','center']" data-paddingtop="[20,20,20,20]" data-paddingright="[20,20,20,20]" data-paddingbottom="[30,30,30,30]" data-paddingleft="[20,20,20,20]" style="z-index: 8; font-family: 'Changa', sans-serif; min-width: 650px; max-width: 650px; white-space: normal; font-size: 70px; line-height: 70px; font-weight: 400; color: #ffffff; letter-spacing: -2px; font-weight: 700;">
+                        We Provide Care, That Your Pet Deserves! </div>
 
-                    <div class="tp-caption   tp-resizeme" id="slide-75-layer-3"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['-140','-200','-250','-250']"
-                         data-width="['360','360','360','360']" data-height="none" data-whitespace="normal"
-                         data-type="text" data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:300,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]"
-                         data-textAlign="['left','left','left','left']" data-paddingtop="[10,10,10,10]"
-                         data-paddingright="[20,20,20,20]" data-paddingbottom="[10,10,10,10]"
-                         data-paddingleft="[20,20,20,20]"
-                         style="z-index: 7; text-align: center !important;  white-space: normal; font-size: 20px; line-height: 20px; font-weight: 400; color: #ffffff; font-family:Karla', sans-serif;">
-                        Pet Care Services, in New York City
-                    </div>
+                    <div class="tp-caption   tp-resizeme" id="slide-75-layer-3" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-140','-200','-250','-250']" data-width="['360','360','360','360']" data-height="none" data-whitespace="normal" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:300,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['left','left','left','left']" data-paddingtop="[10,10,10,10]" data-paddingright="[20,20,20,20]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[20,20,20,20]" style="z-index: 7; text-align: center !important;  white-space: normal; font-size: 20px; line-height: 20px; font-weight: 400; color: #ffffff; font-family:Karla', sans-serif;">
+                        Pet Care Services, in New York City </div>
 
-                    <div class="tp-caption btn-theme bg-green btn-shadow tp-resizeme" id="slide-75-layer-4"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['180','120','50','-20']"
-                         data-width="['180','180','180','180']" data-height="none" data-whitespace="normal"
-                         data-type="button" data-responsive_offset="on"
-                         data-frames="[{&quot;delay&quot;:400,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;},{&quot;frame&quot;:&quot;hover&quot;,&quot;speed&quot;:&quot;0&quot;,&quot;ease&quot;:&quot;Linear.easeNone&quot;,&quot;to&quot;:&quot;o:1;rX:0;rY:0;rZ:0;z:0;&quot;,&quot;style&quot;:&quot;c:rgb(0,0,0);bg:rgb(255,255,255);&quot;}]"
-                         data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
-                         data-paddingright="[30,30,30,30]" data-paddingbottom="[0,0,0,0]"
-                         data-paddingleft="[30,30,30,30]"
-                         style="z-index: 5; white-space: normal; font-size: 18px; line-height: 50px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Karla', sans-serif;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; font-weight: 600; text-transform: uppercase;">
-                        Give us call
-                    </div>
+                    <div class="tp-caption btn-theme bg-green btn-shadow tp-resizeme" id="slide-75-layer-4" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['180','120','50','-20']" data-width="['180','180','180','180']" data-height="none" data-whitespace="normal" data-type="button" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:400,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;},{&quot;frame&quot;:&quot;hover&quot;,&quot;speed&quot;:&quot;0&quot;,&quot;ease&quot;:&quot;Linear.easeNone&quot;,&quot;to&quot;:&quot;o:1;rX:0;rY:0;rZ:0;z:0;&quot;,&quot;style&quot;:&quot;c:rgb(0,0,0);bg:rgb(255,255,255);&quot;}]" data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[30,30,30,30]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[30,30,30,30]" style="z-index: 5; white-space: normal; font-size: 18px; line-height: 50px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Karla', sans-serif;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; font-weight: 600; text-transform: uppercase;">
+                        Give us call </div>
                 </li>
             </ul>
             <div class="tp-bannertimer tp-bottom" style="height: 5px; background: rgba(255, 255, 255, 0.15);"></div>
@@ -212,17 +112,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
-                    <img src="client/images/home_welcom_one.png" alt>
+                    <img src="/frontend/images/home_welcom_one.png" alt>
                 </div>
                 <div class="col-lg-5">
                     <h1 class="heading-main">
                         <small>Quality & Experience <i class="pethund_repeat_grid"></i></small>
                         <span>Welcome to</span> Pethund
                     </h1>
-                    <p>At Pethund, the ambition is that you should always feel welcome both as an advertiser and a
-                        visitor. A modern and easy-to-manage page makes it easier for Users to maneuver forward. or then
-                        randomised words which don't look even slightly believable you need to be sure there isn't
-                        anything embarrassing vestibu lum at eros.</p>
+                    <p>At Pethund, the ambition is that you should always feel welcome both as an advertiser and a visitor. A modern and easy-to-manage page makes it easier for Users to maneuver forward. or then randomised words which don't look even slightly believable you need to be sure there isn't anything embarrassing vestibu lum at eros.</p>
                     <ul class="list-unstyled icons-listing theme-green paws fw-7 mt-5 txt-blue">
                         <li>Abore et dolore magna aliqua ut enim veniam</li>
                         <li>Quis nostrud exercitation ullamco laboris nisi aliquip</li>
@@ -241,7 +138,7 @@
                 <div class="col-lg-4 col-md-4 wow pulse" data-wow-duration="0" data-wow-delay="0">
 
                     <div class="gdr-img-box bg-green">
-                        <img src="client/images/gdr_img_1.jpg" alt class="ms-auto d-flex">
+                        <img src="/frontend/images/gdr_img_1.jpg" alt class="ms-auto d-flex">
                         <div class="info-text">
                             <i class="icofont-paw"></i>
                             <h3>We Heal</h3>
@@ -253,7 +150,7 @@
                 <div class="col-lg-4 col-md-4 wow pulse" data-wow-duration="0" data-wow-delay="0.2s">
 
                     <div class="gdr-img-box bg-orange">
-                        <img src="client/images/gdr_img_2.jpg" alt class="ms-auto d-flex">
+                        <img src="/frontend/images/gdr_img_2.jpg" alt class="ms-auto d-flex">
                         <div class="info-text">
                             <i class="icofont-paw"></i>
                             <h3>Our Mission</h3>
@@ -265,7 +162,7 @@
                 <div class="col-lg-4 col-md-4 wow pulse" data-wow-duration="0" data-wow-delay="0.4s">
 
                     <div class="gdr-img-box bg-blue">
-                        <img src="client/images/gdr_img_3.jpg" alt class="ms-auto d-flex">
+                        <img src="/frontend/images/gdr_img_3.jpg" alt class="ms-auto d-flex">
                         <div class="info-text">
                             <i class="icofont-paw"></i>
                             <h3>Adopt Anyone</h3>
@@ -283,8 +180,7 @@
                         aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum.
                     </p>
                     <div class="text-center mt-4">
-                        <a href="contact-us.html" class="btn-theme bg-orange capusle bordered me-4"><span
-                                class="txt-white">Contact us</span></a>
+                        <a href="contact-us.html" class="btn-theme bg-orange capusle bordered me-4"><span class="txt-white">Contact us</span></a>
                         (+44) 123 456 789
                     </div>
                 </div>
@@ -415,7 +311,7 @@
             <div class="row g-0">
                 <div class="col-lg-6">
                     <div class="about-home-one-img h-100">
-                        <img src="client/images/counter_bg.jpg" class="d-lg-none d-block" alt>
+                        <img src="/frontend/images/counter_bg.jpg" class="d-lg-none d-block" alt>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -425,27 +321,20 @@
                             About Us <span class="txt-blue">Few words</span>
                         </h1>
                         <p class="mb-4">
-                            Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In
-                            aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
-                            convall.
+                            Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall.
                         </p>
                         <div class="accordion accordion-flush theme-accordian" id="accordionFlushExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                            aria-controls="flush-collapseOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                         Our Philosophy
                                     </button>
                                 </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                                     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
                                         <div class="content">
-                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
-                                            magna
-                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum
-                                            ipsum
+                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna
+                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
                                             convall.
                                         </div>
                                     </div>
@@ -453,20 +342,15 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                            aria-controls="flush-collapseTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                         Our Organization
                                     </button>
                                 </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                     aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
                                         <div class="content">
-                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
-                                            magna
-                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum
-                                            ipsum
+                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna
+                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
                                             convall.
                                         </div>
                                     </div>
@@ -474,20 +358,15 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                            aria-controls="flush-collapseThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                                         Know More About Adoption
                                     </button>
                                 </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                     aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
                                         <div class="content">
-                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
-                                            magna
-                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum
-                                            ipsum
+                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna
+                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
                                             convall.
                                         </div>
                                     </div>
@@ -522,7 +401,7 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="client/images/team/team-1.jpg" alt>
+                            <img src="/frontend/images/team/team-1.jpg" alt>
                         </div>
                         <div class="team-name">
                             <h4><a href="team-single.html">Meghan Smith</a></h4>
@@ -543,7 +422,7 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="client/images/team/team-2.jpg" alt>
+                            <img src="/frontend/images/team/team-2.jpg" alt>
                         </div>
                         <div class="team-name">
                             <h4><a href="team-single.html">Alissa Silva</a></h4>
@@ -564,7 +443,7 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="client/images/team/team-3.jpg" alt>
+                            <img src="/frontend/images/team/team-3.jpg" alt>
                         </div>
                         <div class="team-name">
                             <h4><a href="team-single.html">Lucas Manson</a></h4>
@@ -585,7 +464,7 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="client/images/team/team-4.jpg" alt>
+                            <img src="/frontend/images/team/team-4.jpg" alt>
                         </div>
                         <div class="team-name">
                             <h4><a href="team-single.html">Cindey Harris</a></h4>
@@ -606,7 +485,7 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="client/images/team/team-5.jpg" alt>
+                            <img src="/frontend/images/team/team-5.jpg" alt>
                         </div>
                         <div class="team-name">
                             <h4><a href="team-single.html">Alissa Silva</a></h4>
@@ -627,7 +506,7 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="client/images/team/team-6.jpg" alt>
+                            <img src="/frontend/images/team/team-6.jpg" alt>
                         </div>
                         <div class="team-name">
                             <h4><a href="team-single.html">Lucas Manson</a></h4>
@@ -729,61 +608,55 @@
                 <div class="col-md-4 gallery-item mb-0">
                     <div class="captured-gallery-item mb-4">
                         <div class="gallery-content">
-                            <span href="client/images/gallery/home/img_gallery1.jpg" title="Simba Jake"><i
-                                    class="icofont-plus"></i></span>
+                            <span href="/frontend/images/gallery/home/img_gallery1.jpg" title="Simba Jake"><i class="icofont-plus"></i></span>
                             <h3><a href="gallery-single.html">Simba Jake</a></h3>
                             <h5>Kitten</h5>
                         </div>
-                        <img src="client/images/gallery/home/img_gallery1.jpg" class="rounded" alt>
+                        <img src="/frontend/images/gallery/home/img_gallery1.jpg" class="rounded" alt>
                     </div>
                     <div class="captured-gallery-item mb-4">
                         <div class="gallery-content">
-                            <span href="client/images/gallery/home/img_gallery5.jpg" title="Molly Cat"><i
-                                    class="icofont-plus"></i></span>
+                            <span href="/frontend/images/gallery/home/img_gallery5.jpg" title="Molly Cat"><i class="icofont-plus"></i></span>
                             <h3><a href="gallery-single.html">Molly Cat</a></h3>
                             <h5>Kitten</h5>
                         </div>
-                        <img src="client/images/gallery/home/img_gallery5.jpg" class="rounded" alt>
+                        <img src="/frontend/images/gallery/home/img_gallery5.jpg" class="rounded" alt>
                     </div>
                 </div>
                 <div class="col-md-4 gallery-item mb-0">
                     <div class="captured-gallery-item mb-4">
                         <div class="gallery-content">
-                            <span href="client/images/gallery/home/img_gallery2.jpg" title="Tiger Wood"><i
-                                    class="icofont-plus"></i></span>
+                            <span href="/frontend/images/gallery/home/img_gallery2.jpg" title="Tiger Wood"><i class="icofont-plus"></i></span>
                             <h3><a href="gallery-single.html">Tiger Wood</a></h3>
                             <h5>Kitten</h5>
                         </div>
-                        <img src="client/images/gallery/home/img_gallery2.jpg" class="rounded" alt>
+                        <img src="/frontend/images/gallery/home/img_gallery2.jpg" class="rounded" alt>
                     </div>
                     <div class="captured-gallery-item mb-4">
                         <div class="gallery-content">
-                            <span href="client/images/gallery/home/img_gallery6.jpg" title="Gizmo Moody"><i
-                                    class="icofont-plus"></i></span>
+                            <span href="/frontend/images/gallery/home/img_gallery6.jpg" title="Gizmo Moody"><i class="icofont-plus"></i></span>
                             <h3><a href="gallery-single.html">Gizmo Moody</a></h3>
                             <h5>Kitten</h5>
                         </div>
-                        <img src="client/images/gallery/home/img_gallery6.jpg" class="rounded" alt>
+                        <img src="/frontend/images/gallery/home/img_gallery6.jpg" class="rounded" alt>
                     </div>
                 </div>
                 <div class="col-md-4 gallery-item mb-0">
                     <div class="captured-gallery-item mb-4">
                         <div class="gallery-content">
-                            <span href="client/images/gallery/home/img_gallery3.jpg" title="Charlie Taz"><i
-                                    class="icofont-plus"></i></span>
+                            <span href="/frontend/images/gallery/home/img_gallery3.jpg" title="Charlie Taz"><i class="icofont-plus"></i></span>
                             <h3><a href="gallery-single.html">Charlie Taz</a></h3>
                             <h5>Kitten</h5>
                         </div>
-                        <img src="client/images/gallery/home/img_gallery3.jpg" class="rounded" alt>
+                        <img src="/frontend/images/gallery/home/img_gallery3.jpg" class="rounded" alt>
                     </div>
                     <div class="captured-gallery-item mb-4">
                         <div class="gallery-content">
-                            <span href="client/images/gallery/home/img_gallery7.jpg" title="Sophie Cute"><i
-                                    class="icofont-plus"></i></span>
+                            <span href="/frontend/images/gallery/home/img_gallery7.jpg" title="Sophie Cute"><i class="icofont-plus"></i></span>
                             <h3><a href="gallery-single.html">Sophie Cute</a></h3>
                             <h5>Kitten</h5>
                         </div>
-                        <img src="client/images/gallery/home/img_gallery7.jpg" class="rounded" alt>
+                        <img src="/frontend/images/gallery/home/img_gallery7.jpg" class="rounded" alt>
                     </div>
                 </div>
                 <div class="text-center wow fadeInUp col-md-12" data-wow-duration="0" data-wow-delay="0s">
@@ -820,7 +693,7 @@
                                         Consonantia, there live the blind texts. Aliquam gravida, urna quis ornare
                                         imperdiet, </p>
                                     <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
-                                        <img src="client/images/testimonial_thumb_1.jpg" alt class="rounded-circle">
+                                        <img src="/frontend/images/testimonial_thumb_1.jpg" alt class="rounded-circle">
                                         <h3>Tina Cambell <span>Pet Owner</span></h3>
                                     </div>
                                 </div>
@@ -836,7 +709,7 @@
                                         Consonantia, there live the blind texts. Aliquam gravida, urna quis ornare
                                         imperdiet, </p>
                                     <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
-                                        <img src="client/images/team_2.jpg" alt class="rounded-circle">
+                                        <img src="/frontend/images/team_2.jpg" alt class="rounded-circle">
                                         <h3>Tina Cambell <span>Pet Owner</span></h3>
                                     </div>
                                 </div>
@@ -852,7 +725,7 @@
                                         Consonantia, there live the blind texts. Aliquam gravida, urna quis ornare
                                         imperdiet, </p>
                                     <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
-                                        <img src="client/images/team_3.jpg" alt class="rounded-circle">
+                                        <img src="/frontend/images/team_3.jpg" alt class="rounded-circle">
                                         <h3>Tina Cambell <span>Pet Owner</span></h3>
                                     </div>
                                 </div>
@@ -862,7 +735,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 order-md-first wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
-                    <img src="client/images/dog_sitting.png" alt>
+                    <img src="/frontend/images/dog_sitting.png" alt>
                 </div>
             </div>
         </div>
@@ -880,7 +753,7 @@
                 <div class="item">
                     <div class="blog-wrap">
                         <div class="img">
-                            <a href="blog-single.html"><img src="client/images/blog/blog_img_1.jpg" alt></a>
+                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_1.jpg" alt></a>
                         </div>
                         <div class="meta-wrap">
                             <div class="date">08 <span>APR</span></div>
@@ -890,8 +763,7 @@
                             <a href="blog-single.html">How to Create a Cat’s Patio, or Outdoor Space</a>
                         </h3>
                         <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat,
-                                sem mi suscipit mi.</p>
+                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
                         </div>
                         <a href="blog-single.html" class="read-more-arrow">
                             Read More <span> <i class="icofont-simple-right"></i></span>
@@ -903,7 +775,7 @@
                 <div class="item">
                     <div class="blog-wrap">
                         <div class="img">
-                            <a href="blog-single.html"><img src="client/images/blog/blog_img_2.jpg" alt></a>
+                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_2.jpg" alt></a>
                         </div>
                         <div class="meta-wrap">
                             <div class="date">08 <span>APR</span></div>
@@ -913,8 +785,7 @@
                             <a href="blog-single.html">Fun Overload Is When A Girl Is Exhausted From Fun</a>
                         </h3>
                         <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat,
-                                sem mi suscipit mi.</p>
+                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
                         </div>
                         <a href="blog-single.html" class="read-more-arrow">
                             Read More <span> <i class="icofont-simple-right"></i></span>
@@ -926,7 +797,7 @@
                 <div class="item">
                     <div class="blog-wrap">
                         <div class="img">
-                            <a href="blog-single.html"><img src="client/images/blog/blog_img_3.jpg" alt></a>
+                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_3.jpg" alt></a>
                         </div>
                         <div class="meta-wrap">
                             <div class="date">08 <span>APR</span></div>
@@ -936,8 +807,7 @@
                             <a href="blog-single.html">Dog Flu – Does Your Dog Need Protecting?</a>
                         </h3>
                         <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat,
-                                sem mi suscipit mi.</p>
+                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
                         </div>
                         <a href="blog-single.html" class="read-more-arrow">
                             Read More <span> <i class="icofont-simple-right"></i></span>
@@ -949,7 +819,7 @@
                 <div class="item">
                     <div class="blog-wrap">
                         <div class="img">
-                            <a href="blog-single.html"><img src="client/images/blog/blog_img_4.jpg" alt></a>
+                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_4.jpg" alt></a>
                         </div>
                         <div class="meta-wrap">
                             <div class="date">08 <span>APR</span></div>
@@ -959,8 +829,7 @@
                             <a href="blog-single.html">Watch Your Step When You Have a Cat</a>
                         </h3>
                         <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat,
-                                sem mi suscipit mi.</p>
+                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
                         </div>
                         <a href="blog-single.html" class="read-more-arrow">
                             Read More <span> <i class="icofont-simple-right"></i></span>
@@ -972,7 +841,7 @@
                 <div class="item">
                     <div class="blog-wrap">
                         <div class="img">
-                            <a href="blog-single.html"><img src="client/images/blog/blog_img_5.jpg" alt></a>
+                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_5.jpg" alt></a>
                         </div>
                         <div class="meta-wrap">
                             <div class="date">08 <span>APR</span></div>
@@ -982,8 +851,7 @@
                             <a href="blog-single.html">5 Tips to Help with Dog Separation Anxiety</a>
                         </h3>
                         <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat,
-                                sem mi suscipit mi.</p>
+                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
                         </div>
                         <a href="blog-single.html" class="read-more-arrow">
                             Read More <span> <i class="icofont-simple-right"></i></span>
@@ -995,7 +863,7 @@
                 <div class="item">
                     <div class="blog-wrap">
                         <div class="img">
-                            <a href="blog-single.html"><img src="client/images/blog/blog_img_6.jpg" alt></a>
+                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_6.jpg" alt></a>
                         </div>
                         <div class="meta-wrap">
                             <div class="date">08 <span>APR</span></div>
@@ -1005,8 +873,7 @@
                             <a href="blog-single.html">How To Train Your Canine Running Partner</a>
                         </h3>
                         <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat,
-                                sem mi suscipit mi.</p>
+                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
                         </div>
                         <a href="blog-single.html" class="read-more-arrow">
                             Read More <span> <i class="icofont-simple-right"></i></span>
@@ -1029,7 +896,7 @@
         <div class="col-sm-12">
             <div class="callout-style-side-img d-lg-flex align-items-center">
                 <div class="img-callout">
-                    <img src="client/images/callout_side_img.jpg" alt>
+                    <img src="/frontend/images/callout_side_img.jpg" alt>
                 </div>
                 <div class="text-callout">
                     <div class="d-md-flex align-items-center">
@@ -1040,8 +907,7 @@
                             <h3>Have Questions? Call Us <span class="txt-green">+1 (800) 123 456 789</span>
                             </h3>
                             <div>In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat,
-                                nec elementum ipsum convall.
-                            </div>
+                                nec elementum ipsum convall.</div>
                         </div>
                     </div>
                 </div>
@@ -1050,11 +916,7 @@
 
     </div>
 </div>
-
-<!--Footer-->
-<div th:replace="client/common/footer :: footer"></div>
-<!--End Footer-->
-
+<footer th:replace="layout/footer :: footer"></footer>
 
 <div class="overlay overlay-hugeinc">
     <form class="form-inline mt-2 mt-md-0">
@@ -1074,11 +936,13 @@
     </form>
 </div>
 
-<!--Back to top-->
+
 <a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
 
-<!--Script-->
-<div th:replace="client/common/script :: script"></div>
-<!--End Script-->
+
+<div th:replace="layout/script :: script"></div>
+
 </body>
+
+<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:23 GMT -->
 </html>

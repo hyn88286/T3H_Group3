@@ -42,6 +42,13 @@ public class SecurityConfig {
                         .requestMatchers("/server/**").hasRole("ADMIN")
                         .requestMatchers("/process-after-login").permitAll()
                         .requestMatchers("/login/**", "/server/**").permitAll()
+                .authorizeHttpRequests((author) -> author.requestMatchers("/","/login").permitAll() // config cho phép vào page login mà không cần đăng nhập
+                        .requestMatchers("/views/home/index").hasAnyRole("USER") // config chỉ cho phép vào url /views/home/index khi có quyền admin
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN") // chỉ cho phép truy cập vào url /product/** khi có quyền admin
+                        .requestMatchers("/views/**").hasAnyRole("USER") // cho phép truy cập vào /user/** khi có quyền user
+                        .requestMatchers("/process-after-login").hasAnyRole(new String[]{"ADMIN", "USER"}) // cho phép truy cập khi có quyền user hoặc admin
+                        .requestMatchers("/login/**", "/assets/**", "/frontend/**").permitAll()
+                        //.requestMatchers("/css/**","/js/**","/assets/**","/login/**").permitAll()
                 ).formLogin(form ->
                         form.
                                 loginPage("/login") // GET
