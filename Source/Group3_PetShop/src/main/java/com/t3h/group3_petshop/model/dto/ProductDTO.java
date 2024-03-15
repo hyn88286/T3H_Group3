@@ -14,7 +14,7 @@ public class ProductDTO {
     private String createdBY;
     private LocalDateTime modifiedDate;
     private String modifiedBy;
-
+    private List<Long> imageIds;
     private String code;
     private String name;
     private Float price;

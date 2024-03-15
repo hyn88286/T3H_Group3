@@ -12,6 +12,7 @@ import com.t3h.group3_petshop.repository.SizeRepository;
 import com.t3h.group3_petshop.service.IProductService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -27,19 +28,15 @@ import org.springframework.util.CollectionUtils;
 
 @Service
 public class ProductServiceImpl implements IProductService {
-
     private Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-    private final ProductRepository productRepository;
-    private final ModelMapper modelMapper;
-    private final CategoryRepository categoryRepository;
-    private final SizeRepository sizeRepository;
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, CategoryRepository categoryRepository, SizeRepository sizeRepository) {
-        this.productRepository = productRepository;
-        this.modelMapper = modelMapper;
-        this.categoryRepository = categoryRepository;
-        this.sizeRepository = sizeRepository;
-    }
-
+    @Autowired
+    private  ProductRepository productRepository;
+    @Autowired
+    private  ModelMapper modelMapper;
+    @Autowired
+    private  CategoryRepository categoryRepository;
+    @Autowired
+    private  SizeRepository sizeRepository;
 
     @Override
     public BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size) {
@@ -66,7 +63,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public BaseResponse<?> createProduct(ProductDTO productDTO) {
         logger.info("Start create product: {}",productDTO.toString());
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<?> baseResponse = new BaseResponse<>();
         Optional<CategoryEntity> category = categoryRepository.findById(productDTO.getCategoryId());
 
         if (category.isEmpty()){
