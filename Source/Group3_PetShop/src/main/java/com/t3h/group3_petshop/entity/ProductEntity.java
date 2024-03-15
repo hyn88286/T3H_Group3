@@ -25,8 +25,8 @@ public class ProductEntity extends AbstractEntity{
     @ToString.Exclude
     private CategoryEntity categoryEntity;
 
-//    @ManyToMany(mappedBy = "productEntities",fetch = FetchType.LAZY)
-//    @EqualsAndHashCode.Exclude
-//    private Set<SizeEntity> sizeEntities;
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productEntities",fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    private Set<SizeEntity> sizeEntities;
 
 }

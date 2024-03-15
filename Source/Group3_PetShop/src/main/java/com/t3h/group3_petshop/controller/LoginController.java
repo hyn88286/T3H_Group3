@@ -25,7 +25,6 @@ public class LoginController {
     public String processAfterLogin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println(username + "jadbhjakfcbbabchajbchajbchabc");
         UserDTO userDTO= userService.findUserByUsername(username);
         if (CollectionUtils.isEmpty(userDTO.getRoleDTOS())){
             return "redirect:/logout";

@@ -39,13 +39,12 @@
         <div class="card">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Quick Example</h3>
+                    <h3 class="card-title">Chỉnh sửa thông tin</h3>
                 </div>
-                <!-- /.card-header -->
-                <!-- form start -->
 
                 <div class="card-body">
-                    <form role="form" method="post" th:action="@{/admin/add-category}" th:object="${category}">
+                    <form role="form" method="post" th:action="@{/admin/edit-category}" th:object="${category}">
+                        <input type="hidden" class="form-control" id="exampleInputEmail3" th:field="*{id}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên danh mục</label>
@@ -74,7 +73,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary" id="submitId">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="submitId">Update</button>
                         </div>
                     </form>
 
