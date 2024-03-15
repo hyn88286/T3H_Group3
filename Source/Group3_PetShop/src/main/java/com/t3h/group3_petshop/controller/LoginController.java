@@ -18,14 +18,13 @@ public class LoginController {
 
     @GetMapping(value = {"/login"})
     public String loginPage(){
-        return "form/login";
+        return "login";
     }
 
     @GetMapping(value = "/process-after-login")
     public String processAfterLogin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println(username + "jadbhjakfcbbabchajbchajbchabc");
         UserDTO userDTO= userService.findUserByUsername(username);
         if (CollectionUtils.isEmpty(userDTO.getRoleDTOS())){
             return "redirect:/logout";
@@ -42,10 +41,10 @@ public class LoginController {
             }
         }
         if (isAdmin){
-            return "redirect:/server/home";
+            return "redirect:/admin";
         }
         if (isUser){
-            return "redirect:/web/home";
+            return "redirect:/views/home/index";
         }
         return "redirect:/logout";
     }
