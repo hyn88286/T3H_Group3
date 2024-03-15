@@ -26,4 +26,9 @@ public class ProductResource {
 
         return ResponseEntity.ok(service.getAll(filterRequest,page,size));
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createProduction(@RequestBody ProductDTO productDTO){
+        return ResponseEntity.ok(service.createProduct(productDTO));
+    }
 }
