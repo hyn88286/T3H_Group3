@@ -223,26 +223,14 @@
                     </div>
                 </div>
             </div>
-            <div id = tableData class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-sm-1">
+            <div id=recorData class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-sm-1">
 
             </div>
             <div class="my-3">
                 <div class="theme-pagination">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true"><i data-feather="arrow-left"></i></span>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true"><i data-feather="arrow-right"></i></span>
-                                </a>
-                            </li>
+                        <ul id="pag" class="pagination justify-content-center">
+
                         </ul>
                     </nav>
                 </div>
@@ -311,7 +299,7 @@
 
     function initData() {
         let page = 0;
-        let size = 9;
+        let size = 1;
         let objFilter = {
             name: null
         };
@@ -327,19 +315,21 @@
             dataType: "json",
             success: function (response) {
                 console.log(response);
-                let products = response?.data?.content;
+                let productData = response.data;
+                let products = productData.content;
                 // hiển thị dữ liệu trên bảng
                 for (let i = 0; i < products.length; i++) {
-                    data = products[i];
+                    let dataProduct = products[i];
                     $.ajax({
                         type: "POST",
                         url: "http://localhost:8080/api/image/product",
                         contentType: "application/json",
                         data: JSON.stringify({
-                            productId: 1
+                            productId: dataProduct.id
                         }),
                         dataType: "json",
                         success: function (response) {
+                            $('#recorData').empty();
                             let imageData = response.data
                             let row = '<div class="col mb-5">' +
                                 '<div class="product-grid">' +
@@ -347,19 +337,51 @@
                                 ' <a href="shop-single.html" class="image">' +
                                 '<img class="pic-1" src="/frontend/images/product/' + imageData.name + '">' +
                                 '</a>' +
-                                '<ul class="product-links">' +
-                                '<li><a href="#" data-tip="Add to Wishlist"><i data-feather="eye"></i></a></li>' +
-                                ' <li><a href="#" data-tip="Quick View"><i data-feather="heart"></i></a></li>' +
-                                '</ul>' +
                                 '<a class="add-to-cart btn-theme bg-navy-blue capusle" href="#">add to cart <span class="ml-2"> <i data-feather="shopping-bag"></i></span></a>' +
                                 '</div>' +
                                 '<div class="product-content">' +
-                                '<h3 class="title"><a href="shop-single.html">Dog Blanket with Cushion</a></h3>' +
-                                '<div class="price">'+data.price+'</div>' +
+                                '<h3 class="title"><a href="shop-single.html">' + dataProduct.name + '</a></h3>' +
+                                '<div class="price">' + dataProduct.price + '</div>' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>';
-                            $('#tableData').append(row);
+                            $('#recorData').append(row);
+
+                            let totalPage = productData.totalPages - 1;
+                            let currentPage = productData.pageable.pageNumber;
+                            console.log(totalPage, currentPage);
+                            $('#pag').empty();
+                            if (totalPage > 0) {
+                                let pages = '<li class="page-item">';
+                                if (currentPage - 1 < 0) {
+                                    pages = '<li class="page-item disabled">';
+                                }
+                                pages +=
+                                    '<a class="page-link" href="#" onclick="changePage(' + (currentPage - 1) + ',' + size + ')" aria-label="Previous">' +
+                                    '<span aria-hidden="true">Pre</span>' +
+                                    '</a>' +
+                                    '</li>';
+
+                                for (let i = 0; i < totalPage; i++) {
+                                    if (currentPage === i) {
+                                        pages += '<li class="page-item active"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
+                                    } else pages += '<li class="page-item"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
+                                }
+
+                                if(currentPage + 1 > totalPage-1){
+                                    pages += '<li class="page-item disabled">'
+                                }else{
+                                    pages += '<li class="page-item">'
+                                }
+                                 pages +=
+                                    '<a class="page-link" href="#" onclick="changePage(' + (currentPage + 1) + ',' + size + ')" aria-label="Next">' +
+                                    '<span aria-hidden="true">Next</i></span>' +
+                                    '</a>' +
+                                    '</li>'
+
+                                $('#pag').append(pages);
+                            }
+
                         },
                         error: function (error) {
                             console.log(error);
@@ -371,10 +393,23 @@
             error: function (error) {
                 console.log(error);
             }
-        })
+        });
+    }
+
+    function searchCondition(page, size) {
+        let filter = {};
+        filter.name = $("#name").val() === '' ? null : $("#name").val();
+        filter.price = $("#price").val() === '' ? null : $("#price").val();
+        filter.categoryId = $("#category").val() === '' ? null : $("#category").val();
+        filter.code = $("#code").val() === '' ? null : $("#code").val();
+        filter.sizeId = $("#size").val() === '' ? null : $("#size").val();
+        getProducts(page, size, filter);
+    }
+
+    function changePage(page, size) {
+
+        searchCondition(page, size);
     }
 </script>
 </body>
-
-<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:23 GMT -->
 </html>

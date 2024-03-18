@@ -40,11 +40,10 @@ public class StorageServiceImpl implements IStorageService {
         BaseResponse<?> baseResponse = new BaseResponse<>();
         for (MultipartFile file : files) {
             boolean uploadFile = false;
-            //Thêm timestamp trước phần extension để tránh trùng file name
+
             int lastIndex = file.getOriginalFilename().lastIndexOf('.');
-            String nameBeforeExtension = file.getOriginalFilename().substring(0, lastIndex);
             String extension = file.getOriginalFilename().substring(lastIndex + 1);
-            String fileName = nameBeforeExtension + "_" + timestamp + "." + extension;
+            String fileName =  timestamp + "." + extension;
 
             String filePath = Constant.IMAGE_PRODUCT_PATH + fileName; //Đường dẫn lưu ảnh
 
