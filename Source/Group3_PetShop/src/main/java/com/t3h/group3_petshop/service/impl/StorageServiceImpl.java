@@ -5,7 +5,7 @@ import com.t3h.group3_petshop.entity.ProductImageEntity;
 import com.t3h.group3_petshop.model.dto.ProductImageDTO;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.ProductRepository;
-import com.t3h.group3_petshop.repository.StorageRepository;
+import com.t3h.group3_petshop.repository.ImageRepository;
 import com.t3h.group3_petshop.service.IStorageService;
 import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
@@ -23,7 +23,7 @@ import java.util.Set;
 @Service
 public class StorageServiceImpl implements IStorageService {
     @Autowired
-    private StorageRepository storageRepository;
+    private ImageRepository storageRepository;
 
     @Autowired
     private ProductRepository productRepository;
@@ -60,7 +60,7 @@ public class StorageServiceImpl implements IStorageService {
 
             //Lưu ảnh vào trong database
             ProductImageEntity fileData = modelMapper.map(productImageDTO, ProductImageEntity.class);
-            fileData.setName(file.getOriginalFilename());
+            fileData.setName(fileName);
             fileData.setType(file.getContentType());
             fileData.setFilePath(filePath);
             fileData.setProductEntity(productEntity.get());

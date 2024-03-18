@@ -26,13 +26,4 @@ public class ProductDTO {
     private Long categoryId;
     private String category;
     private int quantity;
-
-    public ProductDTO(Long id, String code, String name) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-    }
-
-    public ProductDTO() {
-    }
 }

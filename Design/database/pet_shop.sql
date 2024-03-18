@@ -8,6 +8,7 @@ CREATE TABLE user
     username      VARCHAR(50),
     password      VARCHAR(255),
     email         VARCHAR(100),
+    address       NVARCHAR(500),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -40,6 +41,7 @@ CREATE TABLE user_role
     FOREIGN KEY (user_id) REFERENCES user (id),
     FOREIGN KEY (role_id) REFERENCES role (id)
 );
+
 
 CREATE TABLE category
 (
