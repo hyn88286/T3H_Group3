@@ -4,24 +4,17 @@ USE pet_shop_1;
 CREATE TABLE user
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-    numerical_order int,
     fullname      NVARCHAR(255) NULL,
     username      VARCHAR(50),
     password      VARCHAR(255),
     email         VARCHAR(100),
+    phone         VARCHAR(20),
+    address       NVARCHAR(500),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_by   VARCHAR(50),
     modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-create table address(
-   id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-   address       VARCHAR(500),
-   phone         VARCHAR(50),
-   user_id       INT,
-   foreign key (user_id) references user(BIGINT)
 );
 
 CREATE TABLE role
@@ -66,12 +59,11 @@ CREATE TABLE category
 CREATE TABLE product
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
-    numerical_order int,
     name              NVARCHAR(100),
     description       NVARCHAR(1000),
     code              VARCHAR(50),
-    price             DECIMAL(10, 2),
     quantity          INT,
+    price         DECIMAL(10, 2),
     short_description NVARCHAR(1000),
     category_id       BIGINT NOT NULL,
     deleted           BOOLEAN  DEFAULT false,
@@ -82,11 +74,29 @@ CREATE TABLE product
     FOREIGN KEY (category_id) REFERENCES category (id)
 );
 
-create table image
+CREATE TABLE cart(
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id           BIGINT NOT NULL,
+    product_id        BIGINT NOT NULL,
+    size_id           BIGINT NOT NULL,
+    deleted           BOOLEAN  DEFAULT false,
+    quantity          INT,
+    created_by        VARCHAR(50),
+    created_date      DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modified_by       VARCHAR(50),
+    modified_date     DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user (id)
+    FOREIGN KEY (product_id) REFERENCES product (id)
+    FOREIGN KEY (size_id) REFERENCES size (id)
+)
+
+create table product_image
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     product_id    BIGINT NOT NULL,
-    base64_data   blob, -- convert multipathfile image to string base64
+    type          VARCHAR(50),
+    name          VARCHAR(100),
+    file_path     VARCHAR(255),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -100,7 +110,10 @@ CREATE TABLE order_master
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id       BIGINT NOT NULL,
     total_amount  DECIMAL(10, 2),
+    address_shipping   NVARCHAR(500),
+    phone_shipping  VARCHAR(20),
     deleted       BOOLEAN  DEFAULT false,
+    status        INT,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_by   VARCHAR(50),
@@ -114,25 +127,16 @@ CREATE TABLE order_detail
     order_id      BIGINT NOT NULL,
     product_id    BIGINT NOT NULL,
     quantity      INT,
-    total_amount  DECIMAL(10, 2),
+    size_id       BIGINT NOT NULL,
+    total         DECIMAL(10, 2),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_by   VARCHAR(50),
     modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES order_master (id),
-    FOREIGN KEY (product_id) REFERENCES product (id)
-);
-
-create table cart(
-    user_id       BIGINT,
-    product_id    BIGINT,
-    quantity      INT,
-    order_id      INT,
-    total_amount  DECIMAL(10, 2),
-    FOREIGN KEY (user_id) REFERENCES user (BIGINT),
-    FOREIGN KEY (product_id) REFERENCES product (BIGINT)
-    FOREIGN KEY (order_id) REFERENCES order_detail (BIGINT)
+    FOREIGN KEY (product_id) REFERENCES product (id),
+    FOREIGN KEY (size_id) REFERENCES size (id)
 );
 
 CREATE TABLE comment
@@ -169,6 +173,7 @@ CREATE TABLE size
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     name          VARCHAR(255) NULL,
+    weight        INT,
     code          VARCHAR(50)  NULL,
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
@@ -190,3 +195,10 @@ create table product_size
     FOREIGN KEY (product_id) REFERENCES product (id),
     FOREIGN KEY (size_id) REFERENCES size (id)
 );
+
+-- Master data
+INSERT INTO pet_shop_1.size (name, weight, code) VALUES ('Size S', 1, 'SIZE_S');
+INSERT INTO pet_shop_1.size (name, weight, code) VALUES ('Size M', 2,'SIZE_M');
+INSERT INTO pet_shop_1.size (name, weight, code) VALUES ('Size L', 5, 'SIZE_L');
+INSERT INTO pet_shop_1.size (name, weight, code) VALUES ('Size XL', 10, 'SIZE_XL');
+
