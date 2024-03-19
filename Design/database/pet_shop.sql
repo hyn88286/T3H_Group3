@@ -4,6 +4,7 @@ USE pet_shop_1;
 CREATE TABLE user
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
+    numerical_order int,
     fullname      NVARCHAR(255) NULL,
     username      VARCHAR(50),
     password      VARCHAR(255),
@@ -13,6 +14,14 @@ CREATE TABLE user
     created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_by   VARCHAR(50),
     modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+create table address(
+   id            BIGINT AUTO_INCREMENT PRIMARY KEY,
+   address       VARCHAR(500),
+   phone         VARCHAR(50),
+   user_id       INT,
+   foreign key (user_id) references user(BIGINT)
 );
 
 CREATE TABLE role
@@ -41,6 +50,7 @@ CREATE TABLE user_role
     FOREIGN KEY (role_id) REFERENCES role (id)
 );
 
+
 CREATE TABLE category
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -56,6 +66,7 @@ CREATE TABLE category
 CREATE TABLE product
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    numerical_order int,
     name              NVARCHAR(100),
     description       NVARCHAR(1000),
     code              VARCHAR(50),
@@ -113,6 +124,17 @@ CREATE TABLE order_detail
     FOREIGN KEY (product_id) REFERENCES product (id)
 );
 
+create table cart(
+    user_id       BIGINT,
+    product_id    BIGINT,
+    quantity      INT,
+    order_id      INT,
+    total_amount  DECIMAL(10, 2),
+    FOREIGN KEY (user_id) REFERENCES user (BIGINT),
+    FOREIGN KEY (product_id) REFERENCES product (BIGINT)
+    FOREIGN KEY (order_id) REFERENCES order_detail (BIGINT)
+);
+
 CREATE TABLE comment
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -168,5 +190,3 @@ create table product_size
     FOREIGN KEY (product_id) REFERENCES product (id),
     FOREIGN KEY (size_id) REFERENCES size (id)
 );
-
-
