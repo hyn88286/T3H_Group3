@@ -24,7 +24,7 @@ public class CategoryController {
     @GetMapping("/add-category")
     public String add(Model model){;
         CategoryEntity category =new CategoryEntity();
-        category.setCategoryStatus(true);
+
         model.addAttribute("category",category);
 //        this.categoryService.create(category);
         return "admin/category/add";

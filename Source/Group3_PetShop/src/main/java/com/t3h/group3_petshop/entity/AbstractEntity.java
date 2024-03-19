@@ -27,9 +27,6 @@ public abstract class AbstractEntity {
      @Column(name = "lastmodified_by")
     private String lastModifiedBy;
 
-    @Column(name = "categoryStatus")
-    private Boolean categoryStatus;
-
      private Boolean deleted = false ;
 
     public Long getId() {
@@ -80,11 +77,4 @@ public abstract class AbstractEntity {
         this.deleted = deleted;
     }
 
-    public Boolean getCategoryStatus() {
-        return categoryStatus;
-    }
-
-    public void setCategoryStatus(Boolean categoryStatus) {
-        this.categoryStatus = categoryStatus;
-    }
 }

@@ -5,7 +5,11 @@ import com.t3h.group3_petshop.entity.ProductImageEntity;
 import com.t3h.group3_petshop.model.dto.ProductImageDTO;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.ProductRepository;
+<<<<<<< HEAD
 import com.t3h.group3_petshop.repository.StorageRepository;
+=======
+import com.t3h.group3_petshop.repository.ImageRepository;
+>>>>>>> bbf2cbc8586955739e77511c509b1a72e5a6bc94
 import com.t3h.group3_petshop.service.IStorageService;
 import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
@@ -23,7 +27,11 @@ import java.util.Set;
 @Service
 public class StorageServiceImpl implements IStorageService {
     @Autowired
+<<<<<<< HEAD
     private StorageRepository storageRepository;
+=======
+    private ImageRepository storageRepository;
+>>>>>>> bbf2cbc8586955739e77511c509b1a72e5a6bc94
 
     @Autowired
     private ProductRepository productRepository;
@@ -40,11 +48,18 @@ public class StorageServiceImpl implements IStorageService {
         BaseResponse<?> baseResponse = new BaseResponse<>();
         for (MultipartFile file : files) {
             boolean uploadFile = false;
+<<<<<<< HEAD
             //Thêm timestamp trước phần extension để tránh trùng file name
             int lastIndex = file.getOriginalFilename().lastIndexOf('.');
             String nameBeforeExtension = file.getOriginalFilename().substring(0, lastIndex);
             String extension = file.getOriginalFilename().substring(lastIndex + 1);
             String fileName = nameBeforeExtension + "_" + timestamp + "." + extension;
+=======
+
+            int lastIndex = file.getOriginalFilename().lastIndexOf('.');
+            String extension = file.getOriginalFilename().substring(lastIndex + 1);
+            String fileName =  timestamp + "." + extension;
+>>>>>>> bbf2cbc8586955739e77511c509b1a72e5a6bc94
 
             String filePath = Constant.IMAGE_PRODUCT_PATH + fileName; //Đường dẫn lưu ảnh
 
@@ -60,7 +75,11 @@ public class StorageServiceImpl implements IStorageService {
 
             //Lưu ảnh vào trong database
             ProductImageEntity fileData = modelMapper.map(productImageDTO, ProductImageEntity.class);
+<<<<<<< HEAD
             fileData.setName(file.getOriginalFilename());
+=======
+            fileData.setName(fileName);
+>>>>>>> bbf2cbc8586955739e77511c509b1a72e5a6bc94
             fileData.setType(file.getContentType());
             fileData.setFilePath(filePath);
             fileData.setProductEntity(productEntity.get());

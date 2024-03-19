@@ -52,7 +52,7 @@
                         <th style="width: 10px">ID</th>
                         <th>Tên danh mục</th>
                         <th>Loại danh mục</th>
-                        <th>Status</th>
+
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -61,8 +61,7 @@
                         <td th:text="${category.id}"></td>
                         <td th:text="${category.name}"></td>
                         <td th:text="${category.code}"></td>
-                        <td th:if="${category.categoryStatus}" ><span class="badge bg-success">Hiện</span> </td>
-                        <td th:if="${!category.categoryStatus}" ><span class="badge bg-danger">Ẩn</span> </td>
+
                         <td>
                             <a th:href="@{/admin/edit-category/{id}(id=${category.id})}" class="btn btn-success">Edit</a>
                             <a th:href="@{/admin/delete-category/{id}(id=${category.id})}" onclick="return confirm('Bạn có muốn xóa không')" class="btn btn-danger">Delete</a>
