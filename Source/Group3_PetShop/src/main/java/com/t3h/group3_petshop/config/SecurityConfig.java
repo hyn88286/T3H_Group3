@@ -58,5 +58,4 @@ public class SecurityConfig {
     public static void main(String[] args) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     }
-
 }
