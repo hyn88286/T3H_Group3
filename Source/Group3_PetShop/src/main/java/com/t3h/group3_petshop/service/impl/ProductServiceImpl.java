@@ -77,7 +77,7 @@ public class ProductServiceImpl implements IProductService {
             baseResponse.setMessage("Category not exits in system");
             return baseResponse;
         }
-
+        logger.info("create product");
         Set<SizeEntity> sizeEntities = sizeRepository.findByIds(productDTO.getSizeIds());
 
         if (CollectionUtils.isEmpty(sizeEntities)) {
