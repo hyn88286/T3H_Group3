@@ -90,8 +90,7 @@ CREATE TABLE cart
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id       BIGINT NOT NULL,
-    product_id    BIGINT NOT NULL,
-    size_id       BIGINT NOT NULL,
+    product_size_id    BIGINT NOT NULL,
     deleted       BOOLEAN  DEFAULT false,
     quantity      INT,
     created_by    VARCHAR(50),
@@ -99,8 +98,7 @@ CREATE TABLE cart
     modified_by   VARCHAR(50),
     modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user (id),
-    FOREIGN KEY (product_id) REFERENCES product (id),
-    FOREIGN KEY (size_id) REFERENCES size (id)
+    FOREIGN KEY (product_size_id) REFERENCES product_size (id)
 );
 
 create table product_image
@@ -138,9 +136,8 @@ CREATE TABLE order_detail
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     order_id      BIGINT NOT NULL,
-    product_id    BIGINT NOT NULL,
+    product_size_id BIGINT NOT NULL,
     quantity      INT,
-    size_id       BIGINT NOT NULL,
     total         DECIMAL(10, 2),
     deleted       BOOLEAN  DEFAULT false,
     created_by    VARCHAR(50),
@@ -148,8 +145,7 @@ CREATE TABLE order_detail
     modified_by   VARCHAR(50),
     modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES order_master (id),
-    FOREIGN KEY (product_id) REFERENCES product (id),
-    FOREIGN KEY (size_id) REFERENCES size (id)
+    FOREIGN KEY (product_size_id) REFERENCES product_size (id)
 );
 
 CREATE TABLE comment
