@@ -26,7 +26,7 @@ public class ProductDTO {
     private Long categoryId;
     private String category;
     private int quantity;
-<<<<<<< HEAD
+
 
     public ProductDTO(Long id, String code, String name) {
         this.id = id;
@@ -36,6 +36,4 @@ public class ProductDTO {
 
     public ProductDTO() {
     }
-=======
->>>>>>> bbf2cbc8586955739e77511c509b1a72e5a6bc94
 }

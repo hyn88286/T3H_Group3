@@ -40,11 +40,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((author) -> author.requestMatchers("/", "/login").permitAll() // config cho phép vào page login mà không cần đăng nhập
                         .requestMatchers("/views/home/index").hasAnyRole("USER") // config chỉ cho phép vào url /views/home/index khi có quyền admin
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN") // chỉ cho phép truy cập vào url /product/** khi có quyền admin
-<<<<<<< HEAD
+
                         .requestMatchers("/views/**").hasAnyRole("USER") // cho phép truy cập vào /user/** khi có quyền user
-=======
+
                         .requestMatchers("/views/**").permitAll()
->>>>>>> bbf2cbc8586955739e77511c509b1a72e5a6bc94
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/api/image/**").permitAll()
                         .requestMatchers("/process-after-login").hasAnyRole(new String[]{"ADMIN", "USER"}) // cho phép truy cập khi có quyền user hoặc admin
