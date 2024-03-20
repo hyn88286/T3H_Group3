@@ -43,7 +43,6 @@ CREATE TABLE user_role
     FOREIGN KEY (role_id) REFERENCES role (id)
 );
 
-
 CREATE TABLE category
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -206,4 +205,13 @@ INSERT INTO pet_shop_1.size (name, weight, code)
 VALUES ('Size L', 5, 'SIZE_L');
 INSERT INTO pet_shop_1.size (name, weight, code)
 VALUES ('Size XL', 10, 'SIZE_XL');
+-- role
+INSERT INTO pet_shop_1.role (name) VALUES ('ROLE_ADMIN'), ('ROLE_USER');
+INSERT INTO pet_shop_1.user (username, password) VALUES
+('admin',
+ '$2a$12$ks4EOu8Szdxm5pJMBF5fU.4Nj6HAK8RPoEJ4Izm7VZ6Pz0kIJ34.S'),
+('user',
+ '$2a$12$d2I8cj9kt1jTZtOpyU.mKunnv3WDxVL2tuAGHVskncRIdq9XYtnYG');
+INSERT INTO pet_shop_1.user_role (user_id, role_id) VALUES
+(1, 1),(2,2);
 
