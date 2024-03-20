@@ -12,6 +12,7 @@ import com.t3h.group3_petshop.repository.SizeRepository;
 import com.t3h.group3_petshop.service.IProductService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -22,30 +23,27 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 @Service
 public class ProductServiceImpl implements IProductService {
-
     private Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-    private final ProductRepository productRepository;
-    private final ModelMapper modelMapper;
-    private final CategoryRepository categoryRepository;
-    private final SizeRepository sizeRepository;
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, CategoryRepository categoryRepository, SizeRepository sizeRepository) {
-        this.productRepository = productRepository;
-        this.modelMapper = modelMapper;
-        this.categoryRepository = categoryRepository;
-        this.sizeRepository = sizeRepository;
-    }
-
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private SizeRepository sizeRepository;
 
     @Override
     public BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size) {
 
-        Pageable pageable = PageRequest.of(page,size);
-        Page<ProductEntity> productEntities = productRepository.findAllByFilter(filterRequest,pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductEntity> productEntities = productRepository.findAllByFilter(filterRequest, pageable);
 
         List<ProductDTO> productDTOS = productEntities.getContent().stream().map(productEntity -> {
             ProductDTO productDTO = modelMapper.map(productEntity, ProductDTO.class);
@@ -55,7 +53,7 @@ public class ProductServiceImpl implements IProductService {
             return productDTO;
         }).collect(Collectors.toList());
 
-        Page<ProductDTO> pageData = new PageImpl<>(productDTOS,pageable,productEntities.getTotalElements());
+        Page<ProductDTO> pageData = new PageImpl<>(productDTOS, pageable, productEntities.getTotalElements());
         BaseResponse<Page<ProductDTO>> response = new BaseResponse<>();
         response.setCode(200);
         response.setMessage("success");
@@ -65,33 +63,36 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public BaseResponse<?> createProduct(ProductDTO productDTO) {
-        logger.info("Start create product: {}",productDTO.toString());
-        BaseResponse baseResponse = new BaseResponse();
+        logger.info("Start create product: {}", productDTO.toString());
+        BaseResponse<ProductDTO> baseResponse = new BaseResponse<>();
         Optional<CategoryEntity> category = categoryRepository.findById(productDTO.getCategoryId());
 
-        if (category.isEmpty()){
+        if (category.isEmpty()) {
             baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
             baseResponse.setMessage("Category not exits in system");
             return baseResponse;
         }
 
         Set<SizeEntity> sizeEntities = sizeRepository.findByIds(productDTO.getSizeIds());
-        if (CollectionUtils.isEmpty(sizeEntities)){
+        if (CollectionUtils.isEmpty(sizeEntities)) {
             baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
             baseResponse.setMessage("Size not exits in system");
             return baseResponse;
         }
-        ProductEntity productEntity = modelMapper.map(productDTO,ProductEntity.class);
+        ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
         productEntity.setCategoryEntity(category.get());
         productEntity.setSizeEntities(sizeEntities);
         LocalDateTime now = LocalDateTime.now();
         productEntity.setCreatedDate(now);
         productEntity.setDeleted(false);
 
-        productRepository.save(productEntity);
+        ProductEntity productSave = productRepository.save(productEntity);
+        productDTO.setId(productSave.getId());
+        Long id = productSave.getId();
         logger.info("Save product successfully");
         baseResponse.setMessage("Save product successfully");
         baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setData(productDTO);
         return baseResponse;
     }
 }

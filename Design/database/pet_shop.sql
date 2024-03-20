@@ -43,7 +43,6 @@ CREATE TABLE user_role
     FOREIGN KEY (role_id) REFERENCES role (id)
 );
 
-
 CREATE TABLE category
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -197,6 +196,15 @@ create table product_size
     FOREIGN KEY (size_id) REFERENCES size (id)
 );
 
+-- Master data
+INSERT INTO pet_shop_1.size (name, weight, code)
+VALUES ('Size S', 1, 'SIZE_S');
+INSERT INTO pet_shop_1.size (name, weight, code)
+VALUES ('Size M', 2, 'SIZE_M');
+INSERT INTO pet_shop_1.size (name, weight, code)
+VALUES ('Size L', 5, 'SIZE_L');
+INSERT INTO pet_shop_1.size (name, weight, code)
+VALUES ('Size XL', 10, 'SIZE_XL');
 -- role
 INSERT INTO pet_shop_1.role (name) VALUES ('ROLE_ADMIN'), ('ROLE_USER');
 INSERT INTO pet_shop_1.user (username, password) VALUES
@@ -207,12 +215,3 @@ INSERT INTO pet_shop_1.user (username, password) VALUES
 INSERT INTO pet_shop_1.user_role (user_id, role_id) VALUES
 (1, 1),(2,2);
 
--- Master data
-INSERT INTO pet_shop_1.size (name, weight, code)
-VALUES ('Size S', 1, 'SIZE_S');
-INSERT INTO pet_shop_1.size (name, weight, code)
-VALUES ('Size M', 2, 'SIZE_M');
-INSERT INTO pet_shop_1.size (name, weight, code)
-VALUES ('Size L', 5, 'SIZE_L');
-INSERT INTO pet_shop_1.size (name, weight, code)
-VALUES ('Size XL', 10, 'SIZE_XL');
