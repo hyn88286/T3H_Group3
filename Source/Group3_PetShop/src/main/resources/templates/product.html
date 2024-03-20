@@ -136,7 +136,6 @@
                          data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
                          data-bgparallax="off" class="rev-slidebg" data-no-retina>
 
-
                     <div class="tp-caption   tp-resizeme rs-parallaxlevel-2" id="slide-75-layer-1"
                          data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
                          data-y="['middle','middle','middle','middle']" data-voffset="['250','200','135','50']"
@@ -196,7 +195,6 @@
 </section>
 
 <main id="body-content">
-
     <section class="wide-tb-100 pb-0">
         <div class="container">
             <div class="product-count">
@@ -278,9 +276,7 @@
     </form>
 </div>
 
-
 <a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
-
 
 <div th:replace="layout/script :: script"></div>
 
@@ -374,13 +370,11 @@
 
                                 $('#pag').append(pages);
                             }
-
                         },
                         error: function (error) {
                             console.log(error);
                         }
                     });
-
                 }
             },
             error: function (error) {
@@ -388,7 +382,6 @@
             }
         });
     }
-
     function searchCondition(page, size) {
         let filter = {};
         filter.name = $("#name").val() === '' ? null : $("#name").val();
