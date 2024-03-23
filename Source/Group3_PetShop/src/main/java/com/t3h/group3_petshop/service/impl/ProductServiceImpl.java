@@ -38,7 +38,6 @@ public class ProductServiceImpl implements IProductService {
     private CategoryRepository categoryRepository;
     @Autowired
     private SizeRepository sizeRepository;
-
     @Override
     public BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size) {
 
