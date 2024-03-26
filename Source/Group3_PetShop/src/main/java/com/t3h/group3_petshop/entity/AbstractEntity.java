@@ -76,5 +76,4 @@ public abstract class AbstractEntity {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
-
 }

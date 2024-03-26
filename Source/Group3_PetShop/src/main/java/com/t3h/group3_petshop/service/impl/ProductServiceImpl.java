@@ -39,13 +39,11 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private SizeRepository sizeRepository;
 
-
     @Override
     public BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size) {
 
-
-        Pageable pageable = PageRequest.of(page,size);
-        Page<ProductEntity> productEntities = productRepository.findAllByFilter(filterRequest,pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductEntity> productEntities = productRepository.findAllByFilter(filterRequest, pageable);
 
         List<ProductDTO> productDTOS = productEntities.getContent().stream().map(productEntity -> {
             ProductDTO productDTO = modelMapper.map(productEntity, ProductDTO.class);
@@ -55,9 +53,7 @@ public class ProductServiceImpl implements IProductService {
             return productDTO;
         }).collect(Collectors.toList());
 
-
         Page<ProductDTO> pageData = new PageImpl<>(productDTOS, pageable, productEntities.getTotalElements());
-
         BaseResponse<Page<ProductDTO>> response = new BaseResponse<>();
         response.setCode(200);
         response.setMessage("success");
@@ -67,7 +63,6 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public BaseResponse<?> createProduct(ProductDTO productDTO) {
-
         logger.info("Start create product: {}", productDTO.toString());
         BaseResponse<ProductDTO> baseResponse = new BaseResponse<>();
         Optional<CategoryEntity> category = categoryRepository.findById(productDTO.getCategoryId());
@@ -79,7 +74,6 @@ public class ProductServiceImpl implements IProductService {
         }
         logger.info("create product");
         Set<SizeEntity> sizeEntities = sizeRepository.findByIds(productDTO.getSizeIds());
-
         if (CollectionUtils.isEmpty(sizeEntities)) {
             baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
             baseResponse.setMessage("Size not exits in system");
@@ -92,11 +86,6 @@ public class ProductServiceImpl implements IProductService {
         productEntity.setCreatedDate(now);
         productEntity.setDeleted(false);
 
-        productRepository.save(productEntity);
-        logger.info("Save product successfully");
-        baseResponse.setMessage("Save product successfully");
-        baseResponse.setCode(HttpStatus.OK.value());
-
         ProductEntity productSave = productRepository.save(productEntity);
         productDTO.setId(productSave.getId());
         Long id = productSave.getId();
@@ -104,7 +93,6 @@ public class ProductServiceImpl implements IProductService {
         baseResponse.setMessage("Save product successfully");
         baseResponse.setCode(HttpStatus.OK.value());
         baseResponse.setData(productDTO);
-
         return baseResponse;
     }
 }
