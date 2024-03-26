@@ -14,21 +14,19 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up">
-        <form form th:action="@{/authentication}" method="post">
+        <form method="post">
             <h1>Create Account</h1>
             <div class="social-icons">
-                <a href="#" class="icon" ><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
             <span>or use your email for registeration</span>
-
-            <input type="text" id="fullness" placeholder="fullness" name="fullness">
-            <input type="text" id="username" placeholder="username" name="username">
-            <input type="text" placeholder="Email" name="pass">
-            <input type="password" id="password"placeholder="Password">
-            <input  type="submit" id="dk" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
+            <input type="text" placeholder="Name" name="username">
+            <input type="email" placeholder="Email" name="pass">
+            <input type="password" placeholder="Password">
+            <input  type="submit" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
         </form>
     </div>
     <div class="form-container sign-in">
@@ -45,7 +43,7 @@
             <input type="password"  placeholder="Password" name="password">
             <span style="color:red" id="message"></span>
             <a href="#">Forget Your Password?</a>
-            <input id="btnLogin" type="submit" value="Sign In" style="cursor: pointer;color: white; background-color: #512da8">
+            <input  type="submit" value="Sign In" style="cursor: pointer;color: white; background-color: #512da8">
         </form>
     </div>
     <div class="toggle-container">
@@ -64,7 +62,7 @@
     </div>
 </div>
 
-<!--<script src="/login/script.js"></script>-->
+<script src="/login/script.js"></script>
 </body>
 <script>
     $(document).ready(function() {
@@ -77,29 +75,6 @@
         }
 
     });
-    $("#dk").click(function(){
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/api/users/add",
-            contentType: "application/json",
-            data: JSON.stringify({
-                "fullName":  "",
-                "username":  $("#username").val(),
-                "password": $("#password").val(),
-                "roleDTOS": [1 , 2]
-            }),
-
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
-    });
-
 
     // Hàm để lấy giá trị của một tham số từ URL
     function getParameterByName(name, url) {
