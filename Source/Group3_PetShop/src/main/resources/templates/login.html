@@ -9,12 +9,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Login</title>
 </head>
-
 <body>
-
 <div class="container" id="container">
-    <div class="form-container sign-up">
-        <form method="post">
+    <div  class="form-container sign-up">
+        <form id="myForm"   method="post">
             <h1>Create Account</h1>
             <div class="social-icons">
                 <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -23,10 +21,12 @@
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
             <span>or use your email for registeration</span>
-            <input type="text" placeholder="Name" name="username">
-            <input type="email" placeholder="Email" name="pass">
-            <input type="password" placeholder="Password">
-            <input  type="submit" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
+            <input id="userName" type="text" placeholder="Account" name="account" >
+            <input id="fullname" type="text" placeholder="Name" name="account name">
+            <input id="email" type="email" placeholder="Email" name="email">
+            <input id="password" type="password"  placeholder="Password" name="password">
+            <span id="errorMessage" style="display:none;color:red;">Please fill in all required fields.>.</span>
+            <input id="submit" type="button" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
         </form>
     </div>
     <div class="form-container sign-in">
@@ -39,7 +39,7 @@
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
             <span>or use your email password</span>
-            <input type="text" placeholder="Email" name="username">
+            <input type="text" placeholder="Account" name="username">
             <input type="password"  placeholder="Password" name="password">
             <span style="color:red" id="message"></span>
             <a href="#">Forget Your Password?</a>
@@ -65,13 +65,71 @@
 <script src="/login/script.js"></script>
 </body>
 <script>
+    ///validate thông báo đăng ký tài khoản
+    $(document).ready(function() {
+        $("#myForm").submit(function(event) {
+
+            let fullName = $("#fullname").val();
+            let username = $("#userName").val();
+            let password = $("#password").val();
+            let email = $("#email").val();
+            if (fullName.trim() === '' || username.trim() === '' || password.trim() === '' || email.trim() === '') {
+                $("#errorMessage").text("Đăng ký không thành công. Vui lòng thử lại sau."); // Đặt thông báo lỗi
+                $("#errorMessage").show(); // Hiển thị thông báo lỗi
+                event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu nếu có trường không được điền
+            } else {
+                $("#errorMessage").hide(); // Ẩn thông báo lỗi nếu mọi thứ đều hợp lệ
+            }
+        });
+    });
+   // đăng ký tài khoản !
+    $("#submit").click(function (event){
+        let fullName = $("#fullname").val();
+        let username = $("#userName").val();
+        let password = $("#password").val();
+        let email = $("#email").val();
+        if (fullName.trim() === '' || username.trim() === '' || password.trim() === '' || email.trim() === '') {
+            $("#errorMessage").text("Đăng ký không thành công. Vui lòng thử lại sau."); // Đặt thông báo lỗi
+            $("#errorMessage").show(); // Hiển thị thông báo lỗi
+            return false;
+        } else {
+            $("#errorMessage").hide(); // Ẩn thông báo lỗi nếu mọi thứ đều hợp lệ
+        }
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/account/add",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "fullName": $("#fullname").val(),
+                "username": $("#userName").val(),
+                "password": $("#password").val(),
+                "email": $("#email").val()
+            }),
+
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+                console.log(1);
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                location.reload();
+            }
+        })
+    });
+
+    // thông báo đăng nhập sai
     $(document).ready(function() {
         // Lấy giá trị của biến login_status từ URL
         var loginStatus = getParameterByName('login_status');
-
+            console.log(loginStatus);
         // Kiểm tra nếu biến login_status có giá trị là 1
         if (loginStatus == 1) {
             $('#message').text("Thông tin đăng nhập không chính xác");
+            setTimeout(function() {
+                history.back();
+            }, 10000); // 2s
         }
 
     });
