@@ -9,12 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/account")
 public class UserController {
 
     @Autowired
     private IUserService userService;
-
     @GetMapping("/{username}")
     public ResponseEntity<?> getUser(@PathVariable String username) {
         UserDTO user = userService.findUserByUsername(username);

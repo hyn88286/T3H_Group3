@@ -95,6 +95,7 @@
         } else {
             $("#errorMessage").hide(); // Ẩn thông báo lỗi nếu mọi thứ đều hợp lệ
         }
+
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/api/account/add",
@@ -128,7 +129,6 @@
         if (loginStatus == 1) {
             $('#message').text("Thông tin đăng nhập không chính xác");
         }
-
     });
 
     // Hàm để lấy giá trị của một tham số từ URL
