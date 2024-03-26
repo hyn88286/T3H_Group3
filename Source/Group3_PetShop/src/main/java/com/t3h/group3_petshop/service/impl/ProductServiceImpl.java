@@ -112,4 +112,20 @@ public class ProductServiceImpl implements IProductService {
         baseResponse.setData(productDTO);
         return baseResponse;
     }
+
+    @Override
+    public BaseResponse<ProductDTO> getByCode(String code) {
+        Optional<ProductEntity> productEntity = productRepository.findFirstByCodeIsIgnoreCase(code);
+        BaseResponse<ProductDTO> response = new BaseResponse<>();
+        if(productEntity.isEmpty()){
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Product not exits in system");
+            return response;
+        }
+        ProductDTO productDTO = modelMapper.map(productEntity, ProductDTO.class);
+        response.setCode(HttpStatus.OK.value());
+        response.setMessage("Get product with code successfully");
+        response.setData(productDTO);
+        return response;
+    }
 }

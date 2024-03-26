@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
@@ -26,5 +28,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     )
     Page<ProductEntity> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
 
-
+    Optional<ProductEntity> findFirstByCodeIsIgnoreCase(String code);
 }
