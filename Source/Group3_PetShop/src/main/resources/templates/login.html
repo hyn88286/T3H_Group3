@@ -39,7 +39,7 @@
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
             <span>or use your email password</span>
-            <input type="text" placeholder="Account" name="username">
+            <input type="text" placeholder="Email" name="username">
             <input type="password"  placeholder="Password" name="password">
             <span style="color:red" id="message"></span>
             <a href="#">Forget Your Password?</a>
@@ -127,9 +127,6 @@
         // Kiểm tra nếu biến login_status có giá trị là 1
         if (loginStatus == 1) {
             $('#message').text("Thông tin đăng nhập không chính xác");
-            setTimeout(function() {
-                history.back();
-            }, 10000); // 2s
         }
 
     });

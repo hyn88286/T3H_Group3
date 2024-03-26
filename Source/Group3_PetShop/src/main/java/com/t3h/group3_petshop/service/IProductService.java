@@ -9,4 +9,6 @@ public interface IProductService {
     BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size);
 
     BaseResponse<?> createProduct(ProductDTO productDTO);
+
+    BaseResponse<ProductDTO> getByCode(String code);
 }
