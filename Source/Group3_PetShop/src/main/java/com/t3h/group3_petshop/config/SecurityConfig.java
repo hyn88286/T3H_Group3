@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/login/**", "/assets/**", "/frontend/**", "image/**").permitAll()
                 ).formLogin(form ->
                         form.
-                                loginPage("/login") // GET
+                                loginPage("/login") // GET  
                                 .loginProcessingUrl("/authentication") // POST
                                 .defaultSuccessUrl("/process-after-login")
                                 .failureUrl("/login?login_status=1").permitAll()

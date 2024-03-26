@@ -31,7 +31,7 @@ public class StorageServiceImpl implements IStorageService {
     private ModelMapper modelMapper;
 
     public BaseResponse<?> uploadMultipartFile(Set<MultipartFile> files, Long productId) throws IOException {
-        File directory = new File(Constant.IMAGE_PRODUCT_PATH);
+        File directory = new File(Constant.IMAGE_PATH_LOCAL);
         if (!directory.exists()) { //Kiểm tra thư mục đã tồn tại chưa
             directory.mkdirs(); //Tạo các thư mục theo path cần thiết
         }
@@ -45,7 +45,7 @@ public class StorageServiceImpl implements IStorageService {
             String extension = file.getOriginalFilename().substring(lastIndex + 1);
             String fileName =  timestamp + "." + extension;
 
-            String filePath = Constant.IMAGE_PRODUCT_PATH + fileName; //Đường dẫn lưu ảnh
+            String filePath = Constant.IMAGE_PATH_LOCAL + fileName; //Đường dẫn lưu ảnh
 
             Optional<ProductEntity> productEntity = productRepository.findById(productId);
 
