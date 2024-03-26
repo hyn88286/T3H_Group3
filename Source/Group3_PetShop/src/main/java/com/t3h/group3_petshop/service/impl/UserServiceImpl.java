@@ -8,6 +8,7 @@ import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.IUserService;
+import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class UserServiceImpl implements IUserService {
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
         // Bạn có thể tùy chỉnh logic gán vai trò ở đây
         RoleEntity userRole = new RoleEntity();
-        userRole.setName("ROLE_USER");
+        userRole.setName(Constant.ROLE_USER);
         user.setRoles(Collections.singleton(userRole));
 
         userRepository.save(user);

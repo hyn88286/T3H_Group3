@@ -17,6 +17,7 @@ public class ProductImageEntity extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
 }
