@@ -91,7 +91,7 @@ CREATE TABLE cart
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id       BIGINT NOT NULL,
     product_id    BIGINT NOT NULL,
-    size_id    BIGINT NOT NULL,
+    size_id       BIGINT NOT NULL,
     deleted       BOOLEAN  DEFAULT false,
     quantity      INT,
     created_by    VARCHAR(50),
@@ -139,7 +139,7 @@ CREATE TABLE order_detail
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     order_id      BIGINT NOT NULL,
     product_id    BIGINT NOT NULL,
-    size_id    BIGINT NOT NULL,
+    size_id       BIGINT NOT NULL,
     quantity      INT,
     total         DECIMAL(10, 2),
     deleted       BOOLEAN  DEFAULT false,
@@ -206,84 +206,87 @@ VALUES ('Size L', 5, 'SIZE_L');
 INSERT INTO pet_shop_1.size (name, weight, code)
 VALUES ('Size XL', 10, 'SIZE_XL');
 -- role
-INSERT INTO pet_shop_1.role (name) VALUES ('ROLE_ADMIN'), ('ROLE_USER');
-INSERT INTO pet_shop_1.user (username, password) VALUES
-                                                     ('admin',
-                                                      '$2a$12$ks4EOu8Szdxm5pJMBF5fU.4Nj6HAK8RPoEJ4Izm7VZ6Pz0kIJ34.S'),
-                                                     ('user',
-                                                      '$2a$12$d2I8cj9kt1jTZtOpyU.mKunnv3WDxVL2tuAGHVskncRIdq9XYtnYG');
-INSERT INTO pet_shop_1.user_role (user_id, role_id) VALUES
-                                                        (1, 1),(2,2);
+INSERT INTO pet_shop_1.role (name)
+VALUES ('ROLE_ADMIN'),
+       ('ROLE_USER');
+INSERT INTO pet_shop_1.user (username, password)
+VALUES ('admin', '$2a$12$ks4EOu8Szdxm5pJMBF5fU.4Nj6HAK8RPoEJ4Izm7VZ6Pz0kIJ34.S'),
+       ('user', '$2a$12$d2I8cj9kt1jTZtOpyU.mKunnv3WDxVL2tuAGHVskncRIdq9XYtnYG');
+INSERT INTO pet_shop_1.user_role (user_id, role_id)
+VALUES (1, 1),
+       (2, 2);
 
-INSERT INTO pet_shop_1.category (name, code, created_by, modified_by)
-VALUES ('Category Test 1', 'C001', 'Admin', 'Admin');
-INSERT INTO pet_shop_1.category (name, code, created_by, modified_by)
-VALUES ('Category Test 2', 'C002', 'Admin', 'Admin');
+INSERT INTO pet_shop_1.category (name, code)
+VALUES ('Category Test 1', 'C001'),
+       ('Category Test 2', 'C002');
 
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 1', 'Product Description', 'A001', 10, 100000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 2', 'Product Description', 'A002', 10, 200000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 3', 'Product Description', 'A003', 10, 300000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 4', 'Product Description', 'A004', 10, 100000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 5', 'Product Description', 'A005', 10, 400000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 6', 'Product Description', 'A006', 10, 500000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 7', 'Product Description', 'A007', 10, 200000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 8', 'Product Description', 'A008', 10, 300000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 9', 'Product Description', 'A009', 10, 400000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 10', 'Product Description', 'A0010', 10, 500000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 11', 'Product Description', 'A0011', 10, 100000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 12', 'Product Description', 'A0012', 10, 200000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 13', 'Product Description', 'A0013', 10, 300000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 14', 'Product Description', 'A0014', 10, 400000, 'Short Description', 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 15', 'Product Description', 'A0014', 10, 100000, 'Short Description', 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id, created_by, modified_by)
-VALUES ('Product Test 16', 'Product Description', 'A0015', 10, 500000, 'Short Description', 2, 'Admin', 'Admin');
+INSERT INTO pet_shop_1.product (name, description, code, quantity, price, short_description, category_id)
+VALUES ('Product Test 1',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A001', 10, 100000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 2',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A002', 10, 200000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 3',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A003', 10, 300000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 4',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A004', 10, 100000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 5',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A005', 10, 400000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 6',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A006', 10, 500000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 7',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A007', 10, 200000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 8',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A008', 10, 300000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 9',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A009', 10, 400000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 10',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0010', 10, 500000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 11',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0011', 10, 100000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 12',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0012', 10, 200000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 13',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0013', 10, 300000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 14',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0014', 10, 400000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2),
+       ('Product Test 15',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0014', 10, 100000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 1),
+       ('Product Test 16',
+        'Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.',
+        'A0015', 10, 500000, 'HẠT ZOI DOG CHO CÚN TRƯỞNG THÀNH TRÊN 12 THÁNG TUỔI', 2);
 
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (2, 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 1, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 2, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 3, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 4, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 5, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 6, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 7, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 8, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 9, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 10, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 11, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 12, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 13, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 14, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 15, 'Admin', 'Admin');
-INSERT INTO pet_shop_1.product_size (size_id, product_id, created_by, modified_by)
-VALUES (1, 16, 'Admin', 'Admin');
+INSERT INTO pet_shop_1.product_size (size_id, product_id)
+VALUES (2, 1),
+       (1, 1),
+       (3, 1),
+       (4, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (1, 5),
+       (1, 6),
+       (1, 7),
+       (1, 8),
+       (1, 9),
+       (1, 10),
+       (1, 11),
+       (1, 12),
+       (1, 13),
+       (1, 14),
+       (1, 15),
+       (1, 16);

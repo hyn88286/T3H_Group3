@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+<div th:replace="layout/cart :: cart"></div>
+<div th:replace="layout/banner :: banner"></div>
+
+<main id="body-content">
+
+    <section class="wide-tb-100 pb-0">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark theme-head">
+                    <tr>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col"><span style="color: white">Sản phẩm</span></th>
+                        <th scope="col"><span style="color: white">Đơn giá / Kg</span></th>
+                        <th scope="col"><span style="color: white">Size</span></th>
+                        <th scope="col"><span style="color: white">Số lượng</span></th>
+                        <th scope="col"><span style="color: white">Tổng</span></th>
+                    </tr>
+                    </thead>
+                    <tbody class="theme-body" id="bodyCart">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mt-5 justify-content-md-end">
+                <div class="col-lg-4 col-md-6">
+                    <div class="cart-totals">
+                        <div class="px-4">
+                            <div class="order-head">
+                                <span>Thanh toán ( Đơn vị : VNĐ )</span>
+                            </div>
+                        </div>
+                        <div class="order-list">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <span>Giá trị đơn hàng</span>
+                                    <span class="subtotal"></span>
+                                </li>
+                                <li>
+                                    <span>Vận chuyển</span>
+                                    <span class="txt-green">Miễn phí vận chuyển</span>
+                                </li>
+                                <li>
+                                    <span>Thành tiền</span>
+                                    <span class="subtotal text-danger"></span>
+                                </li>
+                                <li>
+                                    <form novalidate="novalidate" method="post" action="#" id="contact_form"
+                                          class="row align-items-center g-0">
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="name" placeholder="Mã giảm giá">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn-theme bg-green btn-shadow ms-4 h-100" type="submit">Áp dụng
+                                            </button>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="px-4">
+                            <button class="btn-theme bg-orange btn-shadow btn-block" type="submit">Tiến hành thanh toán
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+
+<div th:replace="layout/script :: script"></div>
+
+<script>
+    initShopCart();
+    function initShopCart() {
+        let page = 0;
+        let size = 4;
+        let objFilter = {};
+        getProductShopCart(page, size, objFilter);
+    }
+
+    function getProductShopCart(page, size, objectFilter) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/cart?page=" + page + "&size=" + size,
+            contentType: "application/json",
+            data: JSON.stringify(objectFilter),
+            dataType: "json",
+            success: function (response) {
+                if (response.code === 400) {
+                    window.location.href = "http://localhost:8080/login"
+                } else {
+                    let cartData = response.data.content;
+                    let cartHtml = '';
+                    let subTotal = 0;
+                    for (let i = 0; i < cartData.length; i++) {
+                        let cartItem = cartData[i];
+                        subTotal += cartItem.totalOneP;
+                        cartHtml += '<tr>' +
+                            '<th scope="row">' +
+                            '<input checked type="checkbox" name="proChoose" value="'+cartItem.totalOneP+'"/>'+
+                            '</th>' +
+                            '<td>' +
+                            ' <div class="item-product">' +
+                            '<span class="img-wrap"><img src="' + cartItem.imgProduct + '" alt></span>' +
+                            '<span>' + cartItem.productName + '</span>' +
+                            '</div>' +
+                            '</td>' +
+                            '<td><strong class="txt-blue">' + formatPrice(cartItem.productPrice) + '</strong></td>' +
+                            '<td><strong class="txt-blue">' + cartItem.sizeName + ' ' + cartItem.weightSize + 'kg</strong></td>' +
+                            '<td>' +
+                            '<div class="quantity">' +
+                            '<button class="minus-btn" type="button" name="button">' +
+                            '<i data-feather="minus" style="width: 200%">-</i>' +
+                            '</button>' +
+                            '<input type="text" id="qtt" value="' + cartItem.quantity + '">' +
+                            '<button class="plus-btn" type="button" name="button">' +
+                            '<i data-feather="plus" style="width: 200%">+</i>' +
+                            '</button>' +
+                            '</div>' +
+                            '</td>' +
+                            '<td><strong class="txt-orange">' + formatPrice(cartItem.totalOneP) + '</strong></td>' +
+                            '</tr>';
+                    }
+                    $('.subtotal').html(formatPrice(subTotal));
+                    $('#bodyCart').html(cartHtml);
+                }
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
+</body>
+</html>

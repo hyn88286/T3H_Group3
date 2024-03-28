@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class SizeDTO {
+    // ID
     private Long id;
+    // Tên size
     private String name;
+    // Khối lượng
+    private Integer weight;
 }
