@@ -1,10 +1,6 @@
-
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:03 GMT -->
 <head th:replace="layout/head :: head"></head>
-
 <body>
 
 <div id="pageloader">
@@ -17,48 +13,6 @@
 <b class="screen-overlay"></b>
 <div th:replace="layout/header :: header"></div>
 
-<article class="card mobile-offcanvas offcanvas-right" id="card_mobile">
-    <div class="shop-sidebar">
-        <div class="offcanvas-header">
-            <button class="btn btn-close"> <i data-feather="x-circle"></i> </button>
-        </div>
-        <h3 class="head">My Cart</h3>
-        <ul class="list-unstyled">
-            <li>
-                <img src="/frontend/images/shop/sidebar_shop_1.jpg" alt>
-                <div>
-                    <h4><a href="shop-single.html">Lounger Dog Bed</a></h4>
-                    <h6>$85</h6>
-                </div>
-                <div class="delete-btn">
-                    <a href="#"><i class="icofont-close-line"></i></a>
-                </div>
-            </li>
-            <li>
-                <img src="/frontend/images/shop/sidebar_shop_2.jpg" alt>
-                <div>
-                    <h4><a href="shop-single.html">Sara's Doggie Treat</a></h4>
-                    <h6>$45</h6>
-                </div>
-                <div class="delete-btn">
-                    <a href="#"><i class="icofont-close-line"></i></a>
-                </div>
-            </li>
-        </ul>
-        <div class="sidebar-subtotal">
-            <span>Subtotal</span>
-            <strong>$130</strong>
-        </div>
-        <div class="btn-holder">
-            <div class="col">
-                <a href="shop-cart.html" class="btn-theme bordered bg-navy-blue btn-sm btn-block">View Cart</a>
-            </div>
-            <div class="col">
-                <a href="shop-checkout.html" class="btn-theme bg-orange btn-shadow btn-sm btn-block">Checkout</a>
-            </div>
-        </div>
-    </div>
-</article>
 <section>
     <div id="rev_slider_26_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="mask-showcase" data-source="gallery" style="background:#aaaaaa;padding:0px;">
 
@@ -890,32 +844,7 @@
 
 </main>
 
-<div class="container footer-top-callout">
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="callout-style-side-img d-lg-flex align-items-center">
-                <div class="img-callout">
-                    <img src="/frontend/images/callout_side_img.jpg" alt>
-                </div>
-                <div class="text-callout">
-                    <div class="d-md-flex align-items-center">
-                        <div class="icon">
-                            <i data-feather="headphones"></i>
-                        </div>
-                        <div class="heading">
-                            <h3>Have Questions? Call Us <span class="txt-green">+1 (800) 123 456 789</span>
-                            </h3>
-                            <div>In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat,
-                                nec elementum ipsum convall.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
+<div th:replace="layout/call_us :: call_us"></div>
 <footer th:replace="layout/footer :: footer"></footer>
 
 <div class="overlay overlay-hugeinc">

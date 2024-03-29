@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class ProductDTO {
@@ -24,19 +25,21 @@ public class ProductDTO {
     // Mô tả ngắn
     private String shortDescription;
     // Danh sách ảnh
-    private List<ProductImageDTO> images;
+    private Set<ProductImageDTO> images;
     // Url ảnh
     private String urlImage;
     // Số lượng
     private int quantity;
     // Danh mục
-    private CategoryDTO category;
+    private String category;
     // Id danh mục
     private Long categoryId;
     // Danh sách size
-    private List<SizeDTO> sizes;
+    private Set<SizeDTO> sizes;
     // Danh sách id size
     private List<Long> sizeIds;
+    // Id size active
+    private Long sizeId;
     // Deleted
     private Boolean deleted;
     // Ngày tạo

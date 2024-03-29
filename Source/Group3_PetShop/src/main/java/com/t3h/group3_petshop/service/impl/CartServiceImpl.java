@@ -1,11 +1,10 @@
 package com.t3h.group3_petshop.service.impl;
 
-import com.t3h.group3_petshop.entity.CartEntity;
-import com.t3h.group3_petshop.entity.ProductEntity;
-import com.t3h.group3_petshop.entity.SizeEntity;
-import com.t3h.group3_petshop.entity.UserEntity;
+import com.t3h.group3_petshop.entity.*;
 import com.t3h.group3_petshop.model.dto.CartDTO;
 import com.t3h.group3_petshop.model.dto.ProductDTO;
+import com.t3h.group3_petshop.model.dto.SizeDTO;
+import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.model.request.CartFilterRequest;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
@@ -14,6 +13,7 @@ import com.t3h.group3_petshop.repository.ProductRepository;
 import com.t3h.group3_petshop.repository.SizeRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.ICartService;
+import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +23,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -50,21 +54,71 @@ public class CartServiceImpl implements ICartService {
     private ModelMapper modelMapper;
 
     @Override
-    public BaseResponse<Page<CartDTO>> getAll(CartFilterRequest filterRequest, int page, int size) {
+    public BaseResponse<Page<CartDTO>> getAll(int page, int size) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BaseResponse<Page<CartDTO>> response = new BaseResponse<>();
+        Long userId = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                // Lấy thông tin người dùng từ Principal
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                // Lấy giá trị username đăng nhập
+                String username = userDetails.getUsername();
+                // Lấy dữ liệu bản ghi user đang đăng nhập
+                UserEntity userEntity = userRepository.findByUsername(username);
+                // Set giá trị userId cho filter
+                userId = userEntity.getId();
+            }
+        }
 
+        if (userId == null) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("User is not login");
+            return response;
+        }
         Pageable pageable = PageRequest.of(page, size);
-        Page<CartEntity> cartEntities = cartRepository.findAllByFilter(filterRequest, pageable);
+        Page<CartEntity> cartEntities = cartRepository.findAllByFilter(userId, pageable);
 
         List<CartDTO> cartDTOS = cartEntities.getContent().stream().map(cartEntity -> {
-            CartDTO cartDTO = modelMapper.map(cartEntity, CartDTO.class);
-            cartDTO.setSize(cartEntity.getSizeEntity().getName());
-            cartDTO.setUserName(cartEntity.getUserEntity().getUsername());
-            cartDTO.setProductName(cartEntity.getProductEntity().getName());
+            CartDTO cartDTO = new CartDTO();
+            // Set tên size
+            cartDTO.setSizeName(cartEntity.getSizeEntity().getName());
+            // Set cân nặng size
+            Integer weightSize = cartEntity.getSizeEntity().getWeight();
+            cartDTO.setWeightSize(weightSize);
+            // Set username thêm sản phẩm vào giỏ hàng
+            cartDTO.setCreatedBy(cartEntity.getUserEntity().getUsername());
+            // Set tên sản phẩm
+            String productName = cartEntity.getProductEntity().getName();
+            cartDTO.setProductName(productName);
+
+            // Set giá sản phẩm
+            Double productPrice = cartEntity.getProductEntity().getPrice();
+            cartDTO.setProductPrice(productPrice);
+
+            // Set số lượng sản phẩm
+            Integer quantity = cartEntity.getQuantity();
+            cartDTO.setQuantity(quantity);
+
+            // Set tổng tiền trên 1 sản phẩm
+            Double totalOneP = productPrice * weightSize * quantity;
+            cartDTO.setTotalOneP(totalOneP);
+
+            Optional<ProductEntity> productEntity = productRepository.findById(cartEntity.getProductEntity().getId());
+
+            // Set Url ảnh ( Lấy ảnh đầu tiên trong list ảnh sản phẩm )
+            Optional<String> imageName = productEntity.get().getProductImageEntities().stream()
+                    .map(ProductImageEntity::getName)
+                    .findFirst();
+
+            String urlImage = Constant.IMAGE_PATH_DEPLOY + imageName.filter(s -> !s.isEmpty()).orElse(Constant.IMAGE_FILE_TEST);
+            cartDTO.setImgProduct(urlImage);
             return cartDTO;
         }).collect(Collectors.toList());
 
         Page<CartDTO> pageData = new PageImpl<>(cartDTOS, pageable, cartEntities.getTotalElements());
-        BaseResponse<Page<CartDTO>> response = new BaseResponse<>();
+
         response.setCode(200);
         response.setMessage("success");
         response.setData(pageData);
@@ -73,53 +127,41 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public BaseResponse<?> addToCart(CartDTO cartDTO) {
-        logger.info("Bắt đầu thêm sản phẩm vào giỏ hàng: {}", cartDTO);
+        logger.info("Start create product: {}", cartDTO.toString());
 
         BaseResponse<?> baseResponse = new BaseResponse<>();
+        Optional<ProductEntity> product = productRepository.findById(cartDTO.getProductId());
 
-        // Kiểm tra xem sản phẩm tồn tại không
-        Optional<ProductEntity> productOptional = productRepository.findById(cartDTO.getProductId());
-        if (productOptional.isEmpty()) {
-            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
-            baseResponse.setMessage("Sản phẩm không tồn tại trong hệ thống");
+        if (product.isEmpty()) {
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Product not exits in system");
             return baseResponse;
         }
 
-        // Kiểm tra xem kích thước sản phẩm tồn tại không
-        Optional<SizeEntity> sizeOptional = sizeRepository.findById(cartDTO.getSizeId());
-        if (sizeOptional.isEmpty()) {
-            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
-            baseResponse.setMessage("Kích thước không tồn tại trong hệ thống");
+        Optional<SizeEntity> size = sizeRepository.findById(cartDTO.getSizeId());
+
+        if (size.isEmpty()) {
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Size not exits in system");
             return baseResponse;
         }
 
-        // Kiểm tra xem người dùng tồn tại không
-        Optional<UserEntity> userOptional = userRepository.findById(cartDTO.getUserId());
-        if (userOptional.isEmpty()) {
-            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
-            baseResponse.setMessage("Người dùng không tồn tại trong hệ thống");
+        Optional<UserEntity> user = userRepository.findById(cartDTO.getUserId());
+
+        if (user.isEmpty()) {
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("User not exits in system");
             return baseResponse;
         }
 
-        ProductEntity product = productOptional.get();
-        SizeEntity size = sizeOptional.get();
-        UserEntity user = userOptional.get();
+        CartEntity cartEntity = modelMapper.map(cartDTO, CartEntity.class);
+        cartEntity.setSizeEntity(size.get());
+        cartEntity.setUserEntity(user.get());
 
-        // Tạo một đối tượng giỏ hàng và đặt các thuộc tính
-        CartEntity cartEntity = new CartEntity();
-        cartEntity.setProductEntity(product);
-        cartEntity.setSizeEntity(size);
-        cartEntity.setUserEntity(user);
-        cartEntity.setTotal(cartDTO.getTotal());
-
-        // Lưu giỏ hàng vào cơ sở dữ liệu
         cartRepository.save(cartEntity);
-
-        logger.info("Thêm sản phẩm vào giỏ hàng thành công");
-        baseResponse.setMessage("Thêm sản phẩm vào giỏ hàng thành công");
+        logger.info("Save product successfully");
+        baseResponse.setMessage("Save product successfully");
         baseResponse.setCode(HttpStatus.OK.value());
-
         return baseResponse;
     }
-
 }
