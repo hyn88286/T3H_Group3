@@ -14,7 +14,6 @@ public class ProductResource {
 
     private final IProductService service;
 
-
     public ProductResource(IProductService service) {
         this.service = service;
     }
@@ -32,8 +31,8 @@ public class ProductResource {
         return ResponseEntity.ok(service.createProduct(productDTO));
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<?> createProduction(@PathVariable String code) {
-        return ResponseEntity.ok(service.getByCode(code));
+    @PostMapping("/d")
+    public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
+        return ResponseEntity.ok(service.getProductBy(filterRequest));
     }
 }

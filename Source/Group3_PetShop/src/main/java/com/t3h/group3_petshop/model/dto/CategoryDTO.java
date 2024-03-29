@@ -15,17 +15,8 @@ public class CategoryDTO {
     private LocalDateTime modifiedDate;
 
     private String modifiedBy;
-    private Long userId;
 
-    private Long productId;
+    private String code;
 
-    private Long sizeId;
-
-    private Double total;
-
-    private String productName;
-
-    private String userName;
-
-    private String size;
+    private String name;
 }
