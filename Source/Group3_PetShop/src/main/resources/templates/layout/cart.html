@@ -1,0 +1,25 @@
+<div th:fragment="cart">
+    <article class="card mobile-offcanvas offcanvas-right" id="card_mobile">
+        <div class="shop-sidebar">
+            <div class="offcanvas-header">
+                <button class="btn btn-close"><i data-feather="x-circle"></i></button>
+            </div>
+            <h3 class="head">My Cart</h3>
+            <ul class="list-unstyled " id="cartItem">
+
+            </ul>
+            <div class="sidebar-subtotal">
+                <span>Subtotal</span>
+                <strong>$130</strong>
+            </div>
+            <div class="btn-holder">
+                <div class="col">
+                    <a href="http://localhost:8080/views/cart" class="btn-theme bordered bg-navy-blue btn-sm btn-block">View Cart</a>
+                </div>
+                <div class="col">
+                    <a href="shop-checkout.html" class="btn-theme bg-orange btn-shadow btn-sm btn-block">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+<div th:replace="layout/banner :: banner"></div>
+
+<main id="body-content">
+    <section class="wide-tb-100 pb-0">
+        <div class="container">
+            <div class="product-count">
+                <div class="row align-items-center">
+                    <div class="col-xl-9 col-lg-8 col-md-6 mb-2 mb-md-0">
+                        <strong>Showing 1–15 of 23 results</strong>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <select name="orderby" class="form-control wide form-light">
+                            <option selected value="1">Default sorting</option>
+                            <option value="2">Sort by popularity</option>
+                            <option value="3">Sort by newness</option>
+                            <option value="4">Sort by price: low to high</option>
+                            <option value="5">Sort by price: high to low</option>
+                            <option value="6">Product Name: Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id=pData class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-sm-1">
+
+            </div>
+            <div class="my-3">
+                <div class="theme-pagination">
+                    <nav aria-label="Page navigation example">
+                        <ul id="pag" class="pagination justify-content-center">
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+<div th:replace="layout/script :: script"></div>
+
+<script>
+    // vừa load xong trang web sẽ chạy luôn
+    $(document).ready(function () {
+        initData();
+    })
+
+    function initData() {
+        let page = 0;
+        let size = 8;
+        let objFilter = {
+            name: null
+        };
+        getProducts(page, size, objFilter);
+    }
+
+    function getProducts(page, size, objectFilter) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/product?page=" + page + "&size=" + size,
+            contentType: "application/json",
+            data: JSON.stringify(objectFilter),
+            dataType: "json",
+            success: function (response) {
+                $('#pData').empty();
+                console.log(response);
+                let products = response.data.content;
+                // hiển thị dữ liệu trên bảng
+                for (let i = 0; i < products.length; i++) {
+                    let dataProduct = products[i];
+                    let price;
+                    if (dataProduct.minPrice !== dataProduct.maxPrice) {
+                        price = formatPrice(dataProduct.minPrice) + ' - ' + formatPrice(dataProduct.maxPrice);
+                    } else price = formatPrice(dataProduct.minPrice);
+
+                    let urlDetail = "http://localhost:8080/views/product/d/" + dataProduct.code;
+                    let row = '<div class="col mb-5">' +
+                        '<div class="product-grid">' +
+                        '<div class="product-image">' +
+                        ' <a href="' + urlDetail + '" class="image">' +
+                        '<img class="pic-1" src="' + dataProduct.urlImage + '">' +
+                        '</a>' +
+                        '</div>' +
+                        '<div class="product-content">' +
+                        '<h3 class="title"><a href="' + urlDetail + '">' + dataProduct.name + '</a></h3>' +
+                        '<div class="price">' + price + '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                    $('#pData').append(row);
+
+                    let totalPage = response.data.totalPages;
+                    let currentPage = response.data.pageable.pageNumber;
+                    console.log(totalPage, currentPage);
+                    $('#pag').empty();
+                    if (totalPage > 0) {
+                        let pages = '<li class="page-item">';
+                        if (currentPage - 1 < 0) {
+                            pages = '<li class="page-item disabled">';
+                        }
+                        pages +=
+                            '<a class="page-link" href="#" onclick="changePage(' + (currentPage - 1) + ',' + size + ')" aria-label="Previous">' +
+                            '<span aria-hidden="true">Pre</span>' +
+                            '</a>' +
+                            '</li>';
+
+                        for (let i = 0; i < totalPage; i++) {
+                            if (currentPage === i) {
+                                pages += '<li class="page-item active"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
+                            } else pages += '<li class="page-item"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
+                        }
+
+                        if (currentPage + 1 > totalPage - 1) {
+                            pages += '<li class="page-item disabled">'
+                        } else {
+                            pages += '<li class="page-item">'
+                        }
+                        pages +=
+                            '<a class="page-link" href="#" onclick="changePage(' + (currentPage + 1) + ',' + size + ')" aria-label="Next">' +
+                            '<span aria-hidden="true">Next</i></span>' +
+                            '</a>' +
+                            '</li>'
+
+                        $('#pag').append(pages);
+                    }
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+
+    function searchCondition(page, size) {
+        let filter = {};
+        filter.name = $("#name").val() === '' ? null : $("#name").val();
+        filter.price = $("#price").val() === '' ? null : $("#price").val();
+        filter.categoryId = $("#category").val() === '' ? null : $("#category").val();
+        filter.code = $("#code").val() === '' ? null : $("#code").val();
+        filter.sizeId = $("#size").val() === '' ? null : $("#size").val();
+        getProducts(page, size, filter);
+    }
+
+    function changePage(page, size) {
+        searchCondition(page, size);
+    }
+</script>
+</body>
+</html>

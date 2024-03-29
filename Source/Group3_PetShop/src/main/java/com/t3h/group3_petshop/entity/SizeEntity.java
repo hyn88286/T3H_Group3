@@ -14,6 +14,8 @@ public class SizeEntity extends AbstractEntity{
 
     private String name;
 
+    private Integer weight;
+
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

@@ -1,15 +1,21 @@
 package com.t3h.group3_petshop.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-@Table(name = "product_size")
+@Data
 @Entity
-public class ProductSizeEntity extends AbstractEntity {
+@Table(name = "cart")
+public class CartEntity extends AbstractEntity{
+    private int quantity;
+    private Double total;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private UserEntity userEntity;
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude

@@ -1,38 +1,53 @@
 package com.t3h.group3_petshop.model.dto;
 
-import com.t3h.group3_petshop.entity.OrderDetailEntity;
-import com.t3h.group3_petshop.entity.SizeEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class ProductDTO {
+    // ID
     private Long id;
-    private LocalDateTime createdDate;
-    private String createdBY;
-    private LocalDateTime modifiedDate;
-    private String modifiedBy;
-    private List<Long> imageIds;
+    // Code
     private String code;
+    // Tên
     private String name;
-    private Float price;
+    // Giá
+    private Double price;
+    // Giá min
+    private Double minPrice;
+    // Giá max
+    private Double maxPrice;
+    // Mô tả
     private String description;
+    // Mô tả ngắn
     private String shortDescription;
-    private String status;
-    private List<Long> sizeIds;
-    private String size;
-    private Long categoryId;
-    private String category;
+    // Danh sách ảnh
+    private Set<ProductImageDTO> images;
+    // Url ảnh
+    private String urlImage;
+    // Số lượng
     private int quantity;
-
-    public ProductDTO(Long id, String code, String name) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-    }
-
-    public ProductDTO() {
-    }
+    // Danh mục
+    private String category;
+    // Id danh mục
+    private Long categoryId;
+    // Danh sách size
+    private Set<SizeDTO> sizes;
+    // Danh sách id size
+    private List<Long> sizeIds;
+    // Id size active
+    private Long sizeId;
+    // Deleted
+    private Boolean deleted;
+    // Ngày tạo
+    private LocalDateTime createDate;
+    // Người tạo
+    private String createBy;
+    // Ngày chỉnh sửa gần nhất
+    private LocalDateTime lastModifiedDate;
+    // Người chỉnh sửa
+    private String lastModifiedBy;
 }

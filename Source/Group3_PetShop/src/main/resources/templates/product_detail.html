@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+
+<div th:replace="layout/banner :: banner"></div>
+
+<main id="body-content">
+    <section class="wide-tb-100 pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-gallery">
+                        <div class="outer">
+                            <div id="big" class="owl-carousel owl-theme">
+
+
+                            </div>
+                            <div id="thumbs" class="owl-carousel owl-theme">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-description">
+                        <h2 class="title"></h2>
+                        <div class="price"></div>
+                        <div id="shortDes"></div>
+                        <div class="product-highlight">
+                            <h5><strong>Size</strong></h5>
+                            <div class="custom-choose mb-3" id="chooseSize"></div>
+                            <h5><strong>Vận chuyển</strong></h5>
+                            <p>Miễn phí vận chuyển</p>
+                            <h5><strong>Danh mục</strong></h5>
+                            <p id="cate"></p>
+                        </div>
+                        <div class="quantity">
+                            <button class="minus-btn" type="button" name="button">
+                                <i data-feather="minus"></i>
+                            </button>
+                            <input type="text" id="qtt" value="1">
+                            <button class="plus-btn" type="button" name="button">
+                                <i data-feather="plus"></i>
+                            </button>
+                        </div>
+                        <button class="btn-theme bg-green btn-shadow ms-4" type="submit">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12 col-lg-10 mx-auto">
+                    <div class="review-tabbing">
+                        <ul class="nav nav-pills theme-tabbing mb-3 justify-content-center" id="pills-tab"
+                            role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home"
+                                   role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile"
+                                   role="tab" aria-controls="pills-profile" aria-selected="false">Thông tin chi tiêt</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content theme-tabbing" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                 aria-labelledby="pills-home-tab">
+
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                 aria-labelledby="pills-profile-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                        <tr>
+                                            <th class="text-extra-dark-gray font-weight-500">Color</th>
+                                            <td>Black, Blue, Brown, Red, Silver</td>
+                                        </tr>
+                                        <tr class="bg-light-gray">
+                                            <th class="text-extra-dark-gray font-weight-500">Size</th>
+                                            <td>L, M, S, XL</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-extra-dark-gray font-weight-500">Style/Type</th>
+                                            <td>Sports, Formal</td>
+                                        </tr>
+                                        <tr class="bg-light-gray">
+                                            <th class="text-extra-dark-gray font-weight-500">Lining</th>
+                                            <td>100% polyester taffeta with a DWR finish</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-extra-dark-gray font-weight-500">Material</th>
+                                            <td>Lather, Cotton, Silk</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+<div th:replace="layout/script :: script"></div>
+<script>
+    $(document).ready(function () {
+        initData();
+    })
+    function initData() {
+        let codeProduct = getCode();
+        let objFilter = {
+            code: codeProduct,
+            sizeId: null
+        };
+        getProduct(objFilter, true);
+    }
+    function getProduct(objectFilter, loadImg) {
+        // Call ajax lấy ra chi tiết sản phẩm
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/product/d",
+            contentType: "application/json",
+            data: JSON.stringify(objectFilter),
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                // Lấy thông tin product theo response trả về
+                let productData = response.data;
+                let price;
+                // minPrice là giá sản phẩm theo size nhỏ nhất
+                // maxPrice là giá sản phẩm theo size lớn nhất
+                // Nếu minPrice = maxPrice thì sản phẩm có 1 size
+                if (productData.minPrice !== productData.maxPrice) {
+                    price = formatPrice(productData.minPrice) + ' - ' + formatPrice(productData.maxPrice);
+                } else price = formatPrice(productData.minPrice);
+
+                // price là giá sản phẩm theo size đang đc chọn
+                // Nếu = 0 thì ko có size đc chọn nếu != 0 thì lấy ra giá sản phẩm theo size đc chọn
+                if (productData.price !== 0) {
+                    price = formatPrice(productData.price);
+                }
+
+                let countImage = 1;
+                let imageData;
+                let img = '';
+                // Nếu sản phẩm có ảnh thì lấy ra count ảnh sản phẩm ko thì count = 1
+                if (productData.images.length > 0) {
+                    countImage = productData.images.length;
+                }
+
+                for (let i = 0; i < countImage; i++) {
+                    // Check xem sản phẩm có dữ liệu ảnh thì lấy ra dữ liệu
+                    if (productData.images.length > 0) {
+                        // Lấy ra dữ liệu ảnh
+                        imageData = productData.images[i];
+                        img += '<div class="item">' +
+                            '<img src="' + imageData.urlImage + '" alt>' +
+                            '</div>';
+                    } else {
+                        // Nếu ko có dữ liệu ảnh thì trả về ảnh mặc định của sản phẩm ( sản phẩm ko có ảnh thì lấy ảnh mặc định )
+                        img += '<div class="item">' +
+                            '<img src="' + productData.urlImage + '" alt>' +
+                            '</div>';
+                    }
+                }
+                // Load dữ liệu ảnh
+                if(loadImg){
+                    $('#big').html(img);
+                    $('#thumbs').html(img);
+                }
+
+                // Load tên sản phẩm
+                $('.title').html(productData.name);
+                // Load giá sản phẩm
+                $('.price').html(price)
+
+                let chooseSize = '';
+                // Duyệt mảng các size của sản phẩm
+                for (let i = 0; i < productData.sizes.length; i++) {
+                    let sizeData = productData.sizes[i];
+                    if (sizeData.id === productData.sizeId) {
+                        chooseSize += '<input checked type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption">' +
+                            '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
+                    } else {
+                        chooseSize += '<input  type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption">' +
+                            '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
+                    }
+                }
+
+                // Load danh sách size của sản phẩm ra màn hình
+                $('#chooseSize').html(chooseSize);
+
+                // Load mô tả ngắn
+                let shortDesciption = '<p>'+productData.shortDescription+'</p>';
+                $('#shortDes').html(shortDesciption);
+
+                // Load mô tả sản phẩm
+                let description = '<p>'+productData.description+'</p>';
+                $('#pills-home').html(description);
+
+                let category = '<a href="#" class="link-oragne">'+productData.category+'</a>'
+                $('#cate').html(category);
+                changeSize();
+                changeQuantity();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+
+    function changeSize() {
+        let sizeOptionValue;
+        let codeProduct = getCode();
+        $('input[type=radio][name=sizeOption]').change(function () {
+            sizeOptionValue = $(this).val();
+            $('input[type="radio"][name=sizeOption]').not(this).prop('checked', false);
+
+            let objFilter = {
+                code: codeProduct,
+                sizeId: sizeOptionValue
+            };
+            getProduct(objFilter, false);
+            $(this).prop('checked', true);
+        })
+
+    }
+    function getCode() {
+        let url = window.location.href;
+        let parts = url.split('/');
+        return parts[parts.length - 1];
+    }
+</script>
+</body>
+</html>

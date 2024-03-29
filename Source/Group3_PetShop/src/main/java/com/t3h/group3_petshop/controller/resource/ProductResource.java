@@ -14,21 +14,25 @@ public class ProductResource {
 
     private final IProductService service;
 
-
     public ProductResource(IProductService service) {
         this.service = service;
     }
 
     @PostMapping()
     public ResponseEntity<BaseResponse<Page<ProductDTO>>> getAll(@RequestBody ProductFilterRequest filterRequest,
-                                                                 @RequestParam(name = "page",required = false,defaultValue = "0") int page,
-                                                                 @RequestParam(name = "size",required = false,defaultValue = "10") int size){
+                                                                 @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                                 @RequestParam(name = "size", required = false, defaultValue = "10") int size) {
 
-        return ResponseEntity.ok(service.getAll(filterRequest,page,size));
+        return ResponseEntity.ok(service.getAll(filterRequest, page, size));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProduction(@RequestBody ProductDTO productDTO){
+    public ResponseEntity<?> createProduction(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(service.createProduct(productDTO));
+    }
+
+    @PostMapping("/d")
+    public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
+        return ResponseEntity.ok(service.getProductBy(filterRequest));
     }
 }
