@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/login/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Login</title>
+
 </head>
 <body>
 <div class="container" id="container">
@@ -25,8 +26,8 @@
             <input id="fullname" type="text" placeholder="Name" name="account name">
             <input id="email" type="email" placeholder="Email" name="email">
             <input id="password" type="password"  placeholder="Password" name="password">
-            <span id="errorMessage" style="display:none;color:red;">Please fill in all required fields.>.</span>
-            <input id="submit" type="button" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
+            <span id="errorMessage" style="display:none;color:red;"></span>
+            <input id="submit" class="knot" type="button" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
         </form>
     </div>
     <div class="form-container sign-in">
@@ -128,7 +129,6 @@
         if (loginStatus == 1) {
             $('#message').text("Thông tin đăng nhập không chính xác");
         }
-
     });
 
     // Hàm để lấy giá trị của một tham số từ URL

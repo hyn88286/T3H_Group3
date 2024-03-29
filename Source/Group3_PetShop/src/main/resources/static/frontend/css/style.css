@@ -4573,9 +4573,9 @@ label.error {
 .custom-choose input[type='checkbox']:checked + label
 {
     position: relative;
-    border: solid 2px #313a53;
-    background: #f5f5f5;
-    color: #313a53;
+    border: solid 2px var(--accent-color);
+    background: white;
+    color: var(--accent-color);
     transition: .4s;
 }
 .form-control {

@@ -16,10 +16,10 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
             "LEFT JOIN c.productEntity p " +
             "LEFT JOIN c.sizeEntity s " +
             " WHERE " +
-            " (:#{#condition.userId} is null or u.id = :#{#condition.userId}) " +
+            " (:#{#userId} is null or u.id = :#{#userId}) " +
             "AND p.deleted=false ORDER BY p.createdDate desc "
     )
-    Page<CartEntity> findAllByFilter(@Param("condition") CartFilterRequest filterRequest, Pageable pageable);
+    Page<CartEntity> findAllByFilter(Long userId , Pageable pageable);
 }
 
 
