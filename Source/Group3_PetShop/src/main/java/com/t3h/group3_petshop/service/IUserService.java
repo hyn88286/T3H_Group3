@@ -12,4 +12,6 @@ public interface IUserService {
     void saveUser(UserEntity user);
     void updateUser(UserEntity user);
     void deleteUser(String username);
+
+
 }
