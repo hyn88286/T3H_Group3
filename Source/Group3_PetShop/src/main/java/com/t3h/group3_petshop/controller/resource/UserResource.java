@@ -1,39 +1,47 @@
 package com.t3h.group3_petshop.controller.resource;
-
 import com.t3h.group3_petshop.entity.UserEntity;
-import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IUserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("api/account")
 public class UserResource {
     @Autowired
-    private IUserService userService;
+     private IUserService iUserService;
 
-    @GetMapping("/{username}")
-    public ResponseEntity<?> getUser(@PathVariable String username) {
-        UserDTO user = userService.findUserByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        }
-    }
+   @PostMapping("/addUser")
+    public ResponseEntity<?> addUser(@RequestBody UserEntity userEntity){
+       iUserService.addUser(userEntity);
+       return ResponseEntity.status(HttpStatus.CREATED).body("account");
+   }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestBody UserEntity user) {
-        userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.OK.value()).body("User created successfully");
-    }
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<BaseResponse<?>> deleteUser(@PathVariable("userId") Long userId) {
-        BaseResponse<?> response = userService.deleteUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-}
+  @PostMapping("/listUser")
+    public List<UserEntity> getAllUsers(){
+      return iUserService.getAllUsers();
+  }
+
+   @PutMapping("update/{id}")
+    public ResponseEntity<?>updateUser(@PathVariable Long id, @RequestBody UserEntity userEntity){
+       try{
+           userEntity.setId(id);
+           iUserService.update(userEntity);
+           return ResponseEntity.ok().build();
+       }catch(EntityNotFoundException e){
+           return ResponseEntity.notFound().build();
+       }
+   }
+
+   @DeleteMapping("/{userId}")
+    public ResponseEntity<BaseResponse<?>> deleteUser(@PathVariable("userId") Long userId){
+       BaseResponse<?> response = iUserService.deleteUser(userId);
+       return ResponseEntity.status(HttpStatus.OK).body(response);
+   }
+  }
+

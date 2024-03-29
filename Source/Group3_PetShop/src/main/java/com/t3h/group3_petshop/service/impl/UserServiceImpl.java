@@ -1,7 +1,6 @@
 package com.t3h.group3_petshop.service.impl;
 
 
-import com.t3h.group3_petshop.entity.ProductEntity;
 import com.t3h.group3_petshop.entity.RoleEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
@@ -11,6 +10,7 @@ import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.IUserService;
 import com.t3h.group3_petshop.utils.Constant;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,10 +50,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void saveUser(UserEntity user) {
+    public void addUser(UserEntity user) {
         // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
         // Bạn có thể tùy chỉnh logic gán vai trò ở đây
         RoleEntity userRole = new RoleEntity();
@@ -64,36 +63,33 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
+    @Override
+    public void update(UserEntity userEntity) {
+     userRepository.save(userEntity);
+    }
+
+    @Override
     public BaseResponse<?> deleteUser(Long userId) {
-        // Log thông báo bắt đầu xóa sản phẩm
-        logger.info("Start delete product with id {}", userId);
-
-        // Tạo một đối tượng BaseResponse để lưu kết quả
         BaseResponse<String> baseResponse = new BaseResponse<>();
-
-        // Tìm sản phẩm trong cơ sở dữ liệu theo ID
-        Optional<UserEntity> optionalUser= userRepository.findById(userId);
-
-        // Kiểm tra xem sản phẩm có tồn tại không
-        if (optionalUser.isEmpty()) {
-            // Nếu không tồn tại, trả về mã trạng thái NOT_FOUND và thông báo lỗi
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(userId);
+        if (optionalUserEntity.isEmpty()){
             baseResponse.setCode(HttpStatus.NOT_FOUND.value());
-            baseResponse.setMessage(" user not found");
+            baseResponse.setMessage("not user");
             return baseResponse;
         }
-
-        // Lấy sản phẩm từ Optional
-        UserEntity user = optionalUser.get();
-
-        // Đặt trạng thái deleted của sản phẩm thành true
+        UserEntity user = optionalUserEntity.get();
         user.setDeleted(true);
-
-        // Lưu lại sản phẩm đã xóa vào cơ sở dữ liệu
         userRepository.save(user);
 
-        // Thiết lập kết quả thành công và trả về thông báo xóa thành công
         baseResponse.setCode(HttpStatus.OK.value());
-        baseResponse.setMessage("User deleted successfully");
+        baseResponse.setMessage("user delete succerfull");
         return baseResponse;
     }
+
+
 }
