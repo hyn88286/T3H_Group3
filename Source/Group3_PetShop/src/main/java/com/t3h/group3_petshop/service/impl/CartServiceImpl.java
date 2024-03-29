@@ -73,43 +73,53 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public BaseResponse<?> addToCart(CartDTO cartDTO) {
-        logger.info("Start create product: {}", cartDTO.toString());
+        logger.info("Bắt đầu thêm sản phẩm vào giỏ hàng: {}", cartDTO);
 
         BaseResponse<?> baseResponse = new BaseResponse<>();
-        Optional<ProductEntity> product = productRepository.findById(cartDTO.getProductId());
 
-        if (product.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Product not exits in system");
+        // Kiểm tra xem sản phẩm tồn tại không
+        Optional<ProductEntity> productOptional = productRepository.findById(cartDTO.getProductId());
+        if (productOptional.isEmpty()) {
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("Sản phẩm không tồn tại trong hệ thống");
             return baseResponse;
         }
 
-        Optional<SizeEntity> size = sizeRepository.findById(cartDTO.getSizeId());
-
-        if (size.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Size not exits in system");
+        // Kiểm tra xem kích thước sản phẩm tồn tại không
+        Optional<SizeEntity> sizeOptional = sizeRepository.findById(cartDTO.getSizeId());
+        if (sizeOptional.isEmpty()) {
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("Kích thước không tồn tại trong hệ thống");
             return baseResponse;
         }
 
-        Optional<UserEntity> user = userRepository.findById(cartDTO.getUserId());
-
-        if (user.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("User not exits in system");
+        // Kiểm tra xem người dùng tồn tại không
+        Optional<UserEntity> userOptional = userRepository.findById(cartDTO.getUserId());
+        if (userOptional.isEmpty()) {
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("Người dùng không tồn tại trong hệ thống");
             return baseResponse;
         }
 
-        CartEntity cartEntity = modelMapper.map(cartDTO, CartEntity.class);
-        cartEntity.setProductEntity(product.get());
-        cartEntity.setSizeEntity(size.get());
-        cartEntity.setUserEntity(user.get());
+        ProductEntity product = productOptional.get();
+        SizeEntity size = sizeOptional.get();
+        UserEntity user = userOptional.get();
+
+        // Tạo một đối tượng giỏ hàng và đặt các thuộc tính
+        CartEntity cartEntity = new CartEntity();
+        cartEntity.setProductEntity(product);
+        cartEntity.setSizeEntity(size);
+        cartEntity.setUserEntity(user);
         cartEntity.setTotal(cartDTO.getTotal());
 
+        // Lưu giỏ hàng vào cơ sở dữ liệu
         cartRepository.save(cartEntity);
-        logger.info("Save product successfully");
-        baseResponse.setMessage("Save product successfully");
+
+        logger.info("Thêm sản phẩm vào giỏ hàng thành công");
+        baseResponse.setMessage("Thêm sản phẩm vào giỏ hàng thành công");
         baseResponse.setCode(HttpStatus.OK.value());
+
         return baseResponse;
     }
+
 }

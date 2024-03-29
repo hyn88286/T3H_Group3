@@ -128,4 +128,39 @@ public class ProductServiceImpl implements IProductService {
         response.setData(productDTO);
         return response;
     }
+    @Override
+    public BaseResponse<?> deleteProduct(Long productId) {
+        // Log thông báo bắt đầu xóa sản phẩm
+        logger.info("Start delete product with id {}", productId);
+
+        // Tạo một đối tượng BaseResponse để lưu kết quả
+        BaseResponse<String> baseResponse = new BaseResponse<>();
+
+        // Tìm sản phẩm trong cơ sở dữ liệu theo ID
+        Optional<ProductEntity> optionalProduct = productRepository.findById(productId);
+
+        // Kiểm tra xem sản phẩm có tồn tại không
+        if (optionalProduct.isEmpty()) {
+            // Nếu không tồn tại, trả về mã trạng thái NOT_FOUND và thông báo lỗi
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("Product not found");
+            return baseResponse;
+        }
+
+        // Lấy sản phẩm từ Optional
+        ProductEntity product = optionalProduct.get();
+
+        // Đặt trạng thái deleted của sản phẩm thành true
+        product.setDeleted(true);
+
+        // Lưu lại sản phẩm đã xóa vào cơ sở dữ liệu
+        productRepository.save(product);
+
+        // Thiết lập kết quả thành công và trả về thông báo xóa thành công
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage("Product deleted successfully");
+        return baseResponse;
+    }
+
+
 }

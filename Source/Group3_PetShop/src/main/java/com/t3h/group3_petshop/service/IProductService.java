@@ -11,4 +11,6 @@ public interface IProductService {
     BaseResponse<?> createProduct(ProductDTO productDTO);
 
     BaseResponse<ProductDTO> getByCode(String code);
+    BaseResponse<?> deleteProduct(Long productId);
 }
+
