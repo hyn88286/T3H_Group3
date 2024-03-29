@@ -13,7 +13,6 @@
 
 <b class="screen-overlay"></b>
 <div th:replace="layout/header :: header"></div>
-<div th:replace="layout/cart :: cart"></div>
 <div th:replace="layout/banner :: banner"></div>
 
 <main id="body-content">
@@ -62,10 +61,12 @@
                                     <form novalidate="novalidate" method="post" action="#" id="contact_form"
                                           class="row align-items-center g-0">
                                         <div class="col">
-                                            <input type="text" class="form-control" name="name" placeholder="Mã giảm giá">
+                                            <input type="text" class="form-control" name="name"
+                                                   placeholder="Mã giảm giá">
                                         </div>
                                         <div class="col-auto">
-                                            <button class="btn-theme bg-green btn-shadow ms-4 h-100" type="submit">Áp dụng
+                                            <button class="btn-theme bg-green btn-shadow ms-4 h-100" type="submit">Áp
+                                                dụng
                                             </button>
                                         </div>
                                     </form>
@@ -113,6 +114,7 @@
 
 <script>
     initShopCart();
+
     function initShopCart() {
         let page = 0;
         let size = 4;
@@ -139,7 +141,7 @@
                         subTotal += cartItem.totalOneP;
                         cartHtml += '<tr>' +
                             '<th scope="row">' +
-                            '<input checked type="checkbox" name="proChoose" value="'+cartItem.totalOneP+'"/>'+
+                            '<input id="proCheckbox" checked type="checkbox" name="proChoose" value="' + cartItem.totalOneP + '"/>' +
                             '</th>' +
                             '<td>' +
                             ' <div class="item-product">' +
@@ -154,7 +156,7 @@
                             '<button class="minus-btn" type="button" name="button">' +
                             '<i data-feather="minus" style="width: 200%">-</i>' +
                             '</button>' +
-                            '<input type="text" id="qtt" value="' + cartItem.quantity + '">' +
+                            '<input type="text" name="qtt" onchange="changeQuantityCart(this.value)" value="' + cartItem.quantity + '">' +
                             '<button class="plus-btn" type="button" name="button">' +
                             '<i data-feather="plus" style="width: 200%">+</i>' +
                             '</button>' +
@@ -165,6 +167,7 @@
                     }
                     $('.subtotal').html(formatPrice(subTotal));
                     $('#bodyCart').html(cartHtml);
+                    checkboxCart();
                 }
                 console.log(response);
             },
@@ -173,6 +176,23 @@
             }
         })
     }
+
+    function checkboxCart() {
+        $('input[name="proChoose"]').change(function () {
+            let checkboxes = $('input[type="checkbox"][name="proChoose"]:checked');
+            let total = 0;
+            checkboxes.each(function () {
+                console.log($(this).val());
+                total += parseInt($(this).val());
+            });
+            console.log(total);
+            $('.subtotal').html(formatPrice(total));
+        });
+    }
+
+
+
+
 </script>
 </body>
 </html>

@@ -12,7 +12,6 @@
 </div>
 <b class="screen-overlay"></b>
 <div th:replace="layout/header :: header"></div>
-<div th:replace="layout/cart :: cart"></div>
 <div th:replace="layout/banner :: banner"></div>
 
 <main id="body-content">
@@ -90,10 +89,6 @@
             name: null
         };
         getProducts(page, size, objFilter);
-    }
-
-    function formatPrice(amount) {
-        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
     function getProducts(page, size, objectFilter) {

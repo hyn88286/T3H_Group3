@@ -126,57 +126,56 @@
         });	/*ready*/
     </script>
     <script>
-        $('#shopping-bag').click(function () {
-            initDataCart();
-        })
-
-        function initDataCart() {
-            let page = 0;
-            let size = 4;
-            let objFilter = {};
-            getProductCart(page, size, objFilter);
-        }
-
         function formatPrice(amount) {
             return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        function getProductCart(page, size, objectFilter) {
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/cart?page=" + page + "&size=" + size,
-                contentType: "application/json",
-                data: JSON.stringify(objectFilter),
-                dataType: "json",
-                success: function (response) {
-                    if (response.code === 400) {
-                        window.location.href = "http://localhost:8080/login"
-                    } else {
-                        let cartData = response.data.content;
-                        let cartHtml = '';
-                        for (let i = 0; i < cartData.length; i++) {
-                            let cartItem = cartData[i];
-
-                            cartHtml += '<li>' +
-                                '<img src="' + cartItem.imgProduct + '" alt>' +
-                                '<div>' +
-                                '<h4><a href="shop-single.html">' + cartItem.productName + '</a></h4>' +
-                                '</div>' +
-                                '<div class="delete-btn">' +
-                                '<a href="#"><i class="icofont-close-line"></i></a>' +
-                                '</div>' +
-                                '</li>';
-
-                            $('#cartItem').html(cartHtml);
-                        }
-                    }
-
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.log(error);
+        function changeQuantity() {
+            let quantity;
+            let value;
+            $('#qtt').change(function () {
+                quantity = $('#qtt').val();
+                checkQuantity(quantity);
+            });
+            $('.minus-btn').click(function () {
+                quantity = $('#qtt').val();
+                checkQuantity(quantity);
+                value = parseInt(quantity);
+                if (value > 1) {
+                    value -= 1;
                 }
-            })
+
+
+                $('#qtt').val(value);
+            });
+
+            $('.plus-btn').click(function () {
+                quantity = $('#qtt').val();
+                checkQuantity(quantity);
+                value = parseInt(quantity);
+                if (value < 10) {
+                    value += 1;
+                }
+                $('#qtt').val(value);
+            });
         }
+
+        function checkQuantity(quantity) {
+            if (quantity.trim() === "") {
+                $('#qtt').val(1)
+            }
+            if (!$.isNumeric(quantity)) {
+                $('#qtt').val(1)
+            }
+        }
+
+        function changeQuantityCart(quantity) {
+            if (quantity.trim() === "") {
+                $('input[type="text"][name="qtt"]').val(1)
+            }
+            if (!$.isNumeric(quantity)) {
+                $('input[type="text"][name="qtt"]').val(1)
+            }
+        };
     </script>
 </div>
