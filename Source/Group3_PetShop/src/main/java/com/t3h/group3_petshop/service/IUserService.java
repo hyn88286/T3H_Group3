@@ -18,13 +18,5 @@ public interface IUserService {
 
     BaseResponse<?> deleteUser(Long userId);
 
-    void addUser(UserEntity user);
-
-    List<UserEntity> getAllUsers();
-
-    void update(UserEntity userEntity);
-
-    BaseResponse<?> deleteUser(Long userId);
-
     UserDTO getCurrentUser();
 }

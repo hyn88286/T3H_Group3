@@ -54,8 +54,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void addUser(UserEntity user) {
+        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            throw new RuntimeException("Tên người dùng đã tồn tại trong hệ thống");
+        }
+
         // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
         // Bạn có thể tùy chỉnh logic gán vai trò ở đây
         RoleEntity userRole = new RoleEntity();
@@ -64,6 +70,7 @@ public class UserServiceImpl implements IUserService {
 
         userRepository.save(user);
     }
+
 
     @Override
     public List<UserEntity> getAllUsers() {
