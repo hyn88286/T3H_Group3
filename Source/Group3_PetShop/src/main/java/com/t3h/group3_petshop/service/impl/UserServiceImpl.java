@@ -10,16 +10,17 @@ import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.IUserService;
 import com.t3h.group3_petshop.utils.Constant;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -36,15 +37,17 @@ public class UserServiceImpl implements IUserService {
     private ModelMapper modelMapper;
     @Autowired
     private final PasswordEncoder passwordEncoder;
+
     public UserServiceImpl(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
-        logger.info("Tạo ra bean: {}",UserServiceImpl.class);
+        logger.info("Tạo ra bean: {}", UserServiceImpl.class);
     }
+
     @Override
     public UserDTO findUserByUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username);
-        UserDTO userDto = modelMapper.map(userEntity,UserDTO.class);
-        List<RoleDTO> roleDtos = roleRepository.getRoleByUsername(username).stream().map(role -> modelMapper.map(role,RoleDTO.class)).toList();
+        UserDTO userDto = modelMapper.map(userEntity, UserDTO.class);
+        List<RoleDTO> roleDtos = roleRepository.getRoleByUsername(username).stream().map(role -> modelMapper.map(role, RoleDTO.class)).toList();
         userDto.setRoleDTOS(roleDtos);
         return userDto;
     }
@@ -70,14 +73,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void update(UserEntity userEntity) {
-     userRepository.save(userEntity);
+        userRepository.save(userEntity);
     }
 
     @Override
     public BaseResponse<?> deleteUser(Long userId) {
         BaseResponse<String> baseResponse = new BaseResponse<>();
         Optional<UserEntity> optionalUserEntity = userRepository.findById(userId);
-        if (optionalUserEntity.isEmpty()){
+        if (optionalUserEntity.isEmpty()) {
             baseResponse.setCode(HttpStatus.NOT_FOUND.value());
             baseResponse.setMessage("not user");
             return baseResponse;
@@ -91,5 +94,28 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
+    @Override
+    public UserDTO getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity userEntity = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                // Lấy thông tin người dùng từ Principal
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                // Lấy giá trị username đăng nhập
+                String username = userDetails.getUsername();
+                // Lấy dữ liệu bản ghi user đang đăng nhập
+                userEntity = userRepository.findByUsername(username);
+                // Set giá trị userId cho filter
+            }
+        }
+        UserDTO userDTO = new UserDTO();
+        if (userEntity != null) {
+            userDTO.setUsername(userEntity.getUsername());
+            userDTO.setId(userEntity.getId());
+        }
 
+        return userDTO;
+    }
 }
