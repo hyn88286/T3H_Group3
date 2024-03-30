@@ -28,7 +28,8 @@ public class UserResource {
   }
 
    @PutMapping("update/{id}")
-    public ResponseEntity<?>updateUser(@PathVariable Long id, @RequestBody UserEntity userEntity){
+    public ResponseEntity<?>updateUser(@PathVariable Long id,
+                                       @RequestBody UserEntity userEntity){
        try{
            userEntity.setId(id);
            iUserService.update(userEntity);

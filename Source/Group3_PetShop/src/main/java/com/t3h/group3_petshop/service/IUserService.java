@@ -1,7 +1,5 @@
 package com.t3h.group3_petshop.service;
-
 import com.t3h.group3_petshop.entity.UserEntity;
-import com.t3h.group3_petshop.model.dto.ProductDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 

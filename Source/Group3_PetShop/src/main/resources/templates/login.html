@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/login/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Login</title>
-
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/frontend/images/favicon.ico}">
 </head>
 <body>
 <div class="container" id="container">
@@ -98,7 +98,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/api/account/add",
+            url: "http://localhost:8080/api/account/addUser",
             contentType: "application/json",
             data: JSON.stringify({
                 "fullName": $("#fullname").val(),
