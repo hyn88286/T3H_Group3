@@ -9,7 +9,13 @@ import java.util.List;
 
 public interface IUserService {
     UserDTO findUserByUsername(String username);
-    void saveUser(UserEntity user);
-    void updateUser(UserEntity user);
-    void deleteUser(String username);
+
+    void addUser(UserEntity user);
+
+    List<UserEntity> getAllUsers();
+
+    void update(UserEntity userEntity);
+
+    BaseResponse<?> deleteUser(Long userId);
+
 }

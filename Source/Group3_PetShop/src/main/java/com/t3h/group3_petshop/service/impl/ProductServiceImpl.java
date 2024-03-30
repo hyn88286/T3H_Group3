@@ -5,6 +5,8 @@ import com.t3h.group3_petshop.entity.ProductEntity;
 import com.t3h.group3_petshop.entity.ProductImageEntity;
 import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.model.dto.ProductDTO;
+import com.t3h.group3_petshop.model.dto.ProductImageDTO;
+import com.t3h.group3_petshop.model.dto.SizeDTO;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.CategoryRepository;
@@ -112,6 +114,8 @@ public class ProductServiceImpl implements IProductService {
         baseResponse.setData(productDTO);
         return baseResponse;
     }
+
+
 
     @Override
     public BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest) {
