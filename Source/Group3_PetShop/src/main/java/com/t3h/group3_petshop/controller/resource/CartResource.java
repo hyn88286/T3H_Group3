@@ -26,4 +26,9 @@ public class CartResource {
     public ResponseEntity<?> addToCart(@RequestBody CartDTO cartDTO) {
         return ResponseEntity.ok(service.addToCart(cartDTO));
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> countCart() {
+        return ResponseEntity.ok(service.countCart());
+    }
 }

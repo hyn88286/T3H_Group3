@@ -32,7 +32,7 @@ public class UserResource {
        try{
            userEntity.setId(id);
            iUserService.update(userEntity);
-           return ResponseEntity.ok().build();
+           return ResponseEntity.status(HttpStatus.CREATED).body(userEntity);
        }catch(EntityNotFoundException e){
            return ResponseEntity.notFound().build();
        }

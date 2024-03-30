@@ -2,17 +2,14 @@ package com.t3h.group3_petshop.service.impl;
 
 import com.t3h.group3_petshop.entity.*;
 import com.t3h.group3_petshop.model.dto.CartDTO;
-import com.t3h.group3_petshop.model.dto.ProductDTO;
-import com.t3h.group3_petshop.model.dto.SizeDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
-import com.t3h.group3_petshop.model.request.CartFilterRequest;
-import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.CartRepository;
 import com.t3h.group3_petshop.repository.ProductRepository;
 import com.t3h.group3_petshop.repository.SizeRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.ICartService;
+import com.t3h.group3_petshop.service.IUserService;
 import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -30,13 +27,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @Service
 public class CartServiceImpl implements ICartService {
-    private Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -53,35 +49,28 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private IUserService userService;
+
     @Override
     public BaseResponse<Page<CartDTO>> getAll(int page, int size) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BaseResponse<Page<CartDTO>> response = new BaseResponse<>();
-        Long userId = null;
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                // Lấy thông tin người dùng từ Principal
-                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-                // Lấy giá trị username đăng nhập
-                String username = userDetails.getUsername();
-                // Lấy dữ liệu bản ghi user đang đăng nhập
-                UserEntity userEntity = userRepository.findByUsername(username);
-                // Set giá trị userId cho filter
-                userId = userEntity.getId();
-            }
-        }
-
+        UserDTO userDTO = userService.getCurrentUser();
+        // Lấy ra userId đang đăng nhập
+        Long userId = userDTO.getId();
         if (userId == null) {
             response.setCode(HttpStatus.BAD_REQUEST.value());
-            response.setMessage("User is not login");
+            response.setMessage("User is not login or not exit in system");
             return response;
         }
+
         Pageable pageable = PageRequest.of(page, size);
         Page<CartEntity> cartEntities = cartRepository.findAllByFilter(userId, pageable);
 
         List<CartDTO> cartDTOS = cartEntities.getContent().stream().map(cartEntity -> {
             CartDTO cartDTO = new CartDTO();
+            // Set id
+            cartDTO.setId(cartEntity.getId());
             // Set tên size
             cartDTO.setSizeName(cartEntity.getSizeEntity().getName());
             // Set cân nặng size
@@ -120,48 +109,74 @@ public class CartServiceImpl implements ICartService {
         Page<CartDTO> pageData = new PageImpl<>(cartDTOS, pageable, cartEntities.getTotalElements());
 
         response.setCode(200);
-        response.setMessage("success");
+        response.setMessage("Get all product successfully");
         response.setData(pageData);
         return response;
     }
 
     @Override
     public BaseResponse<?> addToCart(CartDTO cartDTO) {
-        logger.info("Start create product: {}", cartDTO.toString());
+        logger.info("Start add to cart: {}", cartDTO.toString());
 
-        BaseResponse<?> baseResponse = new BaseResponse<>();
+        BaseResponse<?> response = new BaseResponse<>();
+        UserDTO userDTO = userService.getCurrentUser();
+        // Lấy ra userId đang đăng nhập
+        Long userId = userDTO.getId();
+        if (userId == null) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("User is not login or not exit in system");
+            return response;
+        }
+
+        UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+
         Optional<ProductEntity> product = productRepository.findById(cartDTO.getProductId());
 
         if (product.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Product not exits in system");
-            return baseResponse;
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Product not exits in system");
+            return response;
         }
 
         Optional<SizeEntity> size = sizeRepository.findById(cartDTO.getSizeId());
 
         if (size.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Size not exits in system");
-            return baseResponse;
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Size not exits in system");
+            return response;
         }
 
-        Optional<UserEntity> user = userRepository.findById(cartDTO.getUserId());
+        Optional<CartEntity> cartExist = cartRepository.cartExist(userId, product.get().getId(), size.get().getId());
+        cartExist.ifPresent(dto -> cartDTO.setId(dto.getId()));
 
-        if (user.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("User not exits in system");
-            return baseResponse;
-        }
-
-        CartEntity cartEntity = modelMapper.map(cartDTO, CartEntity.class);
+        CartEntity cartEntity = new CartEntity();
+        cartEntity.setId(cartDTO.getId());
         cartEntity.setSizeEntity(size.get());
-        cartEntity.setUserEntity(user.get());
+        cartEntity.setUserEntity(userEntity);
+        cartEntity.setProductEntity(product.get());
+        cartEntity.setTotal(cartDTO.getTotalOneP());
+        cartEntity.setQuantity(cartDTO.getQuantity());
 
         cartRepository.save(cartEntity);
-        logger.info("Save product successfully");
-        baseResponse.setMessage("Save product successfully");
-        baseResponse.setCode(HttpStatus.OK.value());
-        return baseResponse;
+        logger.info("Add to cart successfully");
+        response.setMessage("Add to cart successfully");
+        response.setCode(HttpStatus.OK.value());
+        return response;
+    }
+
+    public BaseResponse<Long> countCart() {
+        BaseResponse<Long> response = new BaseResponse<>();
+        UserDTO userDTO = userService.getCurrentUser();
+        Long userId = userDTO.getId();
+        if (userId == null) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("User is not login or not exit in system");
+            return response;
+        }
+        Long countProductCart = cartRepository.countCartByUser(userId);
+        response.setCode(HttpStatus.OK.value());
+        response.setMessage("Get count product cart successfully");
+        response.setData(countProductCart);
+        return response;
     }
 }
