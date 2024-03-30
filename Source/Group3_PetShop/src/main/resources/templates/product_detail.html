@@ -25,7 +25,6 @@
                         <div class="outer">
                             <div id="big" class="owl-carousel owl-theme">
 
-
                             </div>
                             <div id="thumbs" class="owl-carousel owl-theme">
 
@@ -47,15 +46,19 @@
                             <p id="cate"></p>
                         </div>
                         <div class="quantity">
-                            <button class="minus-btn" type="button" name="button">
+                            <button name="qtt-0" onclick="minusQuantity(this.name, this.value)" value="1"
+                                    class="minus-btn" type="button">
                                 <i data-feather="minus"></i>
                             </button>
-                            <input type="text" id="qtt" value="1">
-                            <button class="plus-btn" type="button" name="button">
+                            <input type="text" onchange="changeQuantity(this.name,this.value)" name="qtt-0" value="1">
+                            <button name="qtt-0" onclick="plusQuantity(this.name, this.value)" value="1"
+                                    class="plus-btn" type="button">
                                 <i data-feather="plus"></i>
                             </button>
                         </div>
-                        <button class="btn-theme bg-green btn-shadow ms-4" type="submit">Thêm vào giỏ hàng</button>
+                        <button class="btn-theme bg-green btn-shadow ms-4" id="addToCart" type="button">Thêm vào giỏ
+                            hàng
+                        </button>
                     </div>
                 </div>
             </div>
@@ -140,10 +143,30 @@
 
 <div th:replace="layout/script :: script"></div>
 <script>
-    $(document).ready(function () {
-        initData();
+    initProductDetail();
+
+    $('#addToCart').click(function () {
+        let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
+        let quantity = $('input[type="text"][name="qtt-0"]').val();
+        let weight = $('input[type="radio"][name=sizeOption]:checked').data("weight");
+        let price = $('span[name=priceProduct]').data("value");
+        let productId = $('span[name=nameProduct]').data("value");
+
+        if ($.isNumeric(price) && price !== 0) {
+            let totalOneP = price * weight * quantity;
+            console.log(sizeId, quantity, weight, price, totalOneP, productId);
+            let objCart = {
+                productId: productId,
+                sizeId: sizeId,
+                quantity: quantity,
+                totalOneP: totalOneP
+            };
+            addToCart(objCart);
+        } else alert('Bạn cần chọn size để tiếp tục');
+
     })
-    function initData() {
+
+    function initProductDetail() {
         let codeProduct = getCode();
         let objFilter = {
             code: codeProduct,
@@ -151,6 +174,7 @@
         };
         getProduct(objFilter, true);
     }
+
     function getProduct(objectFilter, loadImg) {
         // Call ajax lấy ra chi tiết sản phẩm
         $.ajax({
@@ -201,25 +225,38 @@
                     }
                 }
                 // Load dữ liệu ảnh
-                if(loadImg){
+                if (loadImg) {
                     $('#big').html(img);
                     $('#thumbs').html(img);
                 }
 
                 // Load tên sản phẩm
-                $('.title').html(productData.name);
+                let nameProductHtml = '<span name="nameProduct" data-value="' + productData.id + '">' + productData.name + '</span>'
+                $('.title').html(nameProductHtml);
                 // Load giá sản phẩm
-                $('.price').html(price)
+                let priceHtml = '<span name="priceProduct" data-value="' + productData.price + '">' + price + '</span>'
+                $('.price').html(priceHtml)
 
+                // Sắp xếp theo số kg của size từ nhỏ > lớn
+                let arraySize = productData.sizes;
+                for (let i = 0; i < arraySize.length - 1; i++) {
+                    for (let j = 0; j < arraySize.length - i - 1; j++) {
+                        if (arraySize[j].weight > arraySize[j + 1].weight) {
+                            let temp = arraySize[j];
+                            arraySize[j] = arraySize[j + 1];
+                            arraySize[j + 1] = temp;
+                        }
+                    }
+                }
                 let chooseSize = '';
                 // Duyệt mảng các size của sản phẩm
-                for (let i = 0; i < productData.sizes.length; i++) {
-                    let sizeData = productData.sizes[i];
+                for (let i = 0; i < arraySize.length; i++) {
+                    let sizeData = arraySize[i];
                     if (sizeData.id === productData.sizeId) {
-                        chooseSize += '<input checked type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption">' +
+                        chooseSize += '<input checked type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption" data-weight="' + sizeData.weight + '">' +
                             '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
                     } else {
-                        chooseSize += '<input  type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption">' +
+                        chooseSize += '<input  type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption" data-weight="' + sizeData.weight + '">' +
                             '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
                     }
                 }
@@ -228,17 +265,17 @@
                 $('#chooseSize').html(chooseSize);
 
                 // Load mô tả ngắn
-                let shortDesciption = '<p>'+productData.shortDescription+'</p>';
+                let shortDesciption = '<p>' + productData.shortDescription + '</p>';
                 $('#shortDes').html(shortDesciption);
 
                 // Load mô tả sản phẩm
-                let description = '<p>'+productData.description+'</p>';
+                let description = '<p>' + productData.description + '</p>';
                 $('#pills-home').html(description);
 
-                let category = '<a href="#" class="link-oragne">'+productData.category+'</a>'
+                let category = '<a href="#" class="link-oragne">' + productData.category + '</a>'
                 $('#cate').html(category);
+                // Bắt event thay đổi size
                 changeSize();
-                changeQuantity();
             },
             error: function (error) {
                 console.log(error);
@@ -262,10 +299,29 @@
         })
 
     }
+
     function getCode() {
         let url = window.location.href;
         let parts = url.split('/');
         return parts[parts.length - 1];
+    }
+
+    function addToCart(objCart) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/cart/add-to-cart",
+            contentType: "application/json",
+            data: JSON.stringify(objCart),
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                alert("Bạn đã thêm sản phẩm vào giỏ hàng");
+                countCart();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
     }
 </script>
 </body>

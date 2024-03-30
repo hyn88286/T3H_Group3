@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,6 @@ public class RoleEntity extends AbstractEntity {
     private String name;
 
     private String code;
-    @ManyToMany(mappedBy = "roles")
-    private Set<UserEntity> users = new HashSet<>();
+    @ManyToMany(mappedBy = "roleEntities")
+    private List<UserEntity> userEntities;
 }

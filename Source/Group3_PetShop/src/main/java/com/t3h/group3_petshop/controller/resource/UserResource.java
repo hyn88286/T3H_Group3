@@ -17,9 +17,13 @@ public class UserResource {
      private IUserService iUserService;
 
    @PostMapping("/addUser")
-    public ResponseEntity<?> addUser(@RequestBody UserEntity userEntity){
-       iUserService.addUser(userEntity);
-       return ResponseEntity.status(HttpStatus.CREATED).body("account");
+   public ResponseEntity<?> addUser(@RequestBody UserEntity user) {
+       try {
+           iUserService.addUser(user);
+           return ResponseEntity.ok("Người dùng đã được thêm vào hệ thống.");
+       } catch (RuntimeException ex) {
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tên người dùng đã tồn tại trong hệ thống.");
+       }
    }
 
   @PostMapping("/listUser")
@@ -32,7 +36,7 @@ public class UserResource {
        try{
            userEntity.setId(id);
            iUserService.update(userEntity);
-           return ResponseEntity.ok().build();
+           return ResponseEntity.status(HttpStatus.CREATED).body(userEntity);
        }catch(EntityNotFoundException e){
            return ResponseEntity.notFound().build();
        }
