@@ -6,13 +6,13 @@ import lombok.ToString;
 
 import javax.management.relation.Role;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "user")
 public class UserEntity extends AbstractEntity {
-    @Column(name = "fullname")
     private String fullName;
     private String username;
     private String password;
@@ -24,5 +24,5 @@ public class UserEntity extends AbstractEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<RoleEntity> roles = new HashSet<>();
+    private List<RoleEntity> roleEntities;
 }

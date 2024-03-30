@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/category")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    @GetMapping("/category")
+    @GetMapping()
     public String index(Model model){
         List<CategoryEntity> list = this.categoryService.getAll();
         model.addAttribute("list",list);

@@ -2,6 +2,7 @@ package com.t3h.group3_petshop.service.impl;
 
 
 import com.t3h.group3_petshop.entity.RoleEntity;
+import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
@@ -20,10 +21,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -58,9 +58,12 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
         // Bạn có thể tùy chỉnh logic gán vai trò ở đây
-        RoleEntity userRole = new RoleEntity();
-        userRole.setName(Constant.ROLE_USER);
-        user.setRoles(Collections.singleton(userRole));
+
+        List<String> roleNames = new ArrayList<>();
+        roleNames.add(Constant.ROLE_USER);
+
+        List<RoleEntity> roleEntities = roleRepository.findRoleByNames(roleNames);
+        user.setRoleEntities(roleEntities);
 
         userRepository.save(user);
     }
