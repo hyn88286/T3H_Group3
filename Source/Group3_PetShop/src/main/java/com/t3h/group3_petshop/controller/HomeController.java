@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/views/home")
 public class HomeController {
-
     @GetMapping()
     public String index() {
         return "index";
