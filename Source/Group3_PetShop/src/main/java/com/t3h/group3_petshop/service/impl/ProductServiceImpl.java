@@ -113,6 +113,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     private void setCommonValueProductDTO(ProductDTO productDTO, ProductEntity productEntity, ProductFilterRequest filterRequest) {
+        // Set id
+        productDTO.setId(productEntity.getId());
         // Set tên
         productDTO.setName(productEntity.getName());
         // Set mô tả ngắn

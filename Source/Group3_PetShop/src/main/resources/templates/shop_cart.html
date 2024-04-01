@@ -117,7 +117,7 @@
 
     function initShopCart() {
         let page = 0;
-        let size = 4;
+        let size = 100;
         let objFilter = {};
         getProductShopCart(page, size, objFilter);
     }
@@ -130,9 +130,7 @@
             data: JSON.stringify(objectFilter),
             dataType: "json",
             success: function (response) {
-                if (response.code === 400) {
-                    window.location.href = "http://localhost:8080/login"
-                } else {
+                if (response.data != null) {
                     let cartData = response.data.content;
                     let cartHtml = '';
                     let subTotal = 0;
@@ -153,11 +151,11 @@
                             '<td><strong class="txt-blue">' + cartItem.sizeName + ' ' + cartItem.weightSize + 'kg</strong></td>' +
                             '<td>' +
                             '<div class="quantity">' +
-                            '<button class="minus-btn" type="button" name="button">' +
+                            '<button class="minus-btn" name="qtt-' + cartItem.id + '" onclick="minusQuantity(this.name,this.value)" type="button"  value="' + cartItem.quantity + '">' +
                             '<i data-feather="minus" style="width: 200%">-</i>' +
                             '</button>' +
-                            '<input type="text" name="qtt" onchange="changeQuantityCart(this.value)" value="' + cartItem.quantity + '">' +
-                            '<button class="plus-btn" type="button" name="button">' +
+                            '<input type="text" name="qtt-' + cartItem.id + '" onchange="changeQuantity(this.name,this.value)" value="' + cartItem.quantity + '">' +
+                            '<button class="plus-btn" name="qtt-' + cartItem.id + '" onclick="plusQuantity(this.name,this.value)" type="button"  value="' + cartItem.quantity + '">' +
                             '<i data-feather="plus" style="width: 200%">+</i>' +
                             '</button>' +
                             '</div>' +
@@ -168,7 +166,7 @@
                     $('.subtotal').html(formatPrice(subTotal));
                     $('#bodyCart').html(cartHtml);
                     checkboxCart();
-                }
+                } else window.location.href = "http://localhost:8080/login"
                 console.log(response);
             },
             error: function (error) {
@@ -189,10 +187,6 @@
             $('.subtotal').html(formatPrice(total));
         });
     }
-
-
-
-
 </script>
 </body>
 </html>

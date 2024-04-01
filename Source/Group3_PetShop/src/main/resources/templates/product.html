@@ -103,6 +103,7 @@
                 console.log(response);
                 let products = response.data.content;
                 // hiển thị dữ liệu trên bảng
+                let row = '';
                 for (let i = 0; i < products.length; i++) {
                     let dataProduct = products[i];
                     let price;
@@ -111,7 +112,8 @@
                     } else price = formatPrice(dataProduct.minPrice);
 
                     let urlDetail = "http://localhost:8080/views/product/d/" + dataProduct.code;
-                    let row = '<div class="col mb-5">' +
+                    row
+                        += '<div class="col mb-5">' +
                         '<div class="product-grid">' +
                         '<div class="product-image">' +
                         ' <a href="' + urlDetail + '" class="image">' +
@@ -124,42 +126,41 @@
                         '</div>' +
                         '</div>' +
                         '</div>';
-                    $('#pData').append(row);
+                }
+                $('#pData').html(row);
+                let totalPage = response.data.totalPages;
+                let currentPage = response.data.pageable.pageNumber;
+                console.log(totalPage, currentPage);
 
-                    let totalPage = response.data.totalPages;
-                    let currentPage = response.data.pageable.pageNumber;
-                    console.log(totalPage, currentPage);
-                    $('#pag').empty();
-                    if (totalPage > 0) {
-                        let pages = '<li class="page-item">';
-                        if (currentPage - 1 < 0) {
-                            pages = '<li class="page-item disabled">';
-                        }
-                        pages +=
-                            '<a class="page-link" href="#" onclick="changePage(' + (currentPage - 1) + ',' + size + ')" aria-label="Previous">' +
-                            '<span aria-hidden="true">Pre</span>' +
-                            '</a>' +
-                            '</li>';
-
-                        for (let i = 0; i < totalPage; i++) {
-                            if (currentPage === i) {
-                                pages += '<li class="page-item active"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
-                            } else pages += '<li class="page-item"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
-                        }
-
-                        if (currentPage + 1 > totalPage - 1) {
-                            pages += '<li class="page-item disabled">'
-                        } else {
-                            pages += '<li class="page-item">'
-                        }
-                        pages +=
-                            '<a class="page-link" href="#" onclick="changePage(' + (currentPage + 1) + ',' + size + ')" aria-label="Next">' +
-                            '<span aria-hidden="true">Next</i></span>' +
-                            '</a>' +
-                            '</li>'
-
-                        $('#pag').append(pages);
+                if (totalPage > 0) {
+                    let pages = '<li class="page-item">';
+                    if (currentPage - 1 < 0) {
+                        pages = '<li class="page-item disabled">';
                     }
+                    pages +=
+                        '<a class="page-link" href="#" onclick="changePage(' + (currentPage - 1) + ',' + size + ')" aria-label="Previous">' +
+                        '<span aria-hidden="true">Pre</span>' +
+                        '</a>' +
+                        '</li>';
+
+                    for (let i = 0; i < totalPage; i++) {
+                        if (currentPage === i) {
+                            pages += '<li class="page-item active"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
+                        } else pages += '<li class="page-item"><a onclick="changePage(' + i + ',' + size + ')" class="page-link" href="#">' + (i + 1) + '</a></li>';
+                    }
+
+                    if (currentPage + 1 > totalPage - 1) {
+                        pages += '<li class="page-item disabled">'
+                    } else {
+                        pages += '<li class="page-item">'
+                    }
+                    pages +=
+                        '<a class="page-link" href="#" onclick="changePage(' + (currentPage + 1) + ',' + size + ')" aria-label="Next">' +
+                        '<span aria-hidden="true">Next</i></span>' +
+                        '</a>' +
+                        '</li>'
+
+                    $('#pag').html(pages);
                 }
             },
             error: function (error) {

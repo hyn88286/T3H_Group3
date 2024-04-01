@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/views/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/process-after-login").hasAnyRole(new String[]{"ADMIN", "USER"}) // cho phép truy cập khi có quyền user hoặc admin
-                        .requestMatchers("/login/**", "/assets/**", "/frontend/**", "image/**").permitAll()
+                        .requestMatchers("/login/**", "/assets/**", "/frontend/**", "/image/**").permitAll()
                 ).formLogin(form ->
                         form.
                                 loginPage("/login") // GET  

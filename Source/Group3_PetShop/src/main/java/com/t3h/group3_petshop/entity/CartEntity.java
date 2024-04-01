@@ -16,13 +16,13 @@ public class CartEntity extends AbstractEntity{
     @ToString.Exclude
     private UserEntity userEntity;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "size_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

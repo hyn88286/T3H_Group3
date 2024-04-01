@@ -13,7 +13,7 @@ public interface ImageRepository extends JpaRepository<ProductImageEntity, Long>
             "LEFT JOIN i.productEntity p " +
             " WHERE " +
             " (:#{#condition.productId}  is null or p.id = :#{#condition.productId}) " +
-            "AND p.deleted=false  ORDER BY i.createdDate limit 1"
+            "AND i.deleted=false  ORDER BY i.createdDate limit 1"
     )
     ProductImageEntity findFirstImageByProductId(@Param("condition") ProductImageRequest filterRequest);
 }
