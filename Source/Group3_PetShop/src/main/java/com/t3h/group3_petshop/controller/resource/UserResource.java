@@ -23,8 +23,8 @@ public class UserResource {
    }
 
   @PostMapping("/listUser")
-    public List<UserEntity> getAllUsers(){
-      return iUserService.getAllUsers();
+  public ResponseEntity<?> listUser(){
+      return ResponseEntity.ok(iUserService.getAllUsers());
   }
 
    @PutMapping("update/{id}")
