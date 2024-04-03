@@ -23,12 +23,13 @@ public class UserResource {
    }
 
   @PostMapping("/listUser")
-    public List<UserEntity> getAllUsers(){
-      return iUserService.getAllUsers();
+  public ResponseEntity<?> listUser(){
+      return ResponseEntity.ok(iUserService.getAllUsers());
   }
 
    @PutMapping("update/{id}")
-    public ResponseEntity<?>updateUser(@PathVariable Long id, @RequestBody UserEntity userEntity){
+    public ResponseEntity<?>updateUser(@PathVariable Long id,
+                                       @RequestBody UserEntity userEntity){
        try{
            userEntity.setId(id);
            iUserService.update(userEntity);
