@@ -51,32 +51,30 @@ public class UserServiceImpl implements IUserService {
         userDto.setRoleDTOS(roleDtos);
         return userDto;
     }
-
     @Override
     public void addUser(UserEntity user) {
-        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
         // Bạn có thể tùy chỉnh logic gán vai trò ở đây
-
-        List<String> roleNames = new ArrayList<>();
-        roleNames.add(Constant.ROLE_USER);
-
-        List<RoleEntity> roleEntities = roleRepository.findRoleByNames(roleNames);
-        user.setRoleEntities(roleEntities);
+        RoleEntity userRole = new RoleEntity();
+        userRole.setName("ROLE_USER");
+        user.setRoles(Collections.singleton(userRole));
 
         userRepository.save(user);
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public BaseResponse<?> getAllUsers() {
+        BaseResponse<List<UserEntity>> baseResponse = new BaseResponse<>();
+        baseResponse.setData(userRepository.userId());
+        return baseResponse;
     }
 
 
     @Override
-    public void update(UserEntity userEntity) {
-        userRepository.save(userEntity);
+    public void update(UserEntity user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -121,4 +119,8 @@ public class UserServiceImpl implements IUserService {
 
         return userDTO;
     }
+
+
+
+
 }
