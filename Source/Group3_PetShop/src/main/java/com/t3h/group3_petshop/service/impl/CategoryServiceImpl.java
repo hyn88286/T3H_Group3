@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -20,16 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Boolean create(CategoryEntity category) {
+    public CategoryEntity create(CategoryEntity category) {
+        this.categoryRepository.save(category);
+        return category;
 
-        try {
-            this.categoryRepository.save(category);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
     }
 
     //  hàm tìm kiếm
@@ -41,27 +36,41 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public Boolean update(CategoryEntity category) {
-        try {
-            this.categoryRepository.save(category);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public CategoryEntity update(CategoryEntity category) {
 
-        return false;
+            this.categoryRepository.save(category);
+            return category;
 
     }
+
+//    @Override
+//    public Boolean delete(Long id) {
+//        try {
+//            this.categoryRepository.delete(findById(id));
+//            return true;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
     @Override
     public Boolean delete(Long id) {
         try {
-            this.categoryRepository.delete(findById(id));
-            return true;
-        }catch (Exception e){
+            Optional<CategoryEntity> categoryOptional = this.categoryRepository.findById(id);// tìm kiếm id
+            if (categoryOptional.isPresent()) {
+                CategoryEntity category = categoryOptional.get();
+                category.setDeleted(true); // Đánh dấu đối tượng là đã xóa
+                this.categoryRepository.save(category); // Lưu lại thay đổi vào cơ sở dữ liệu
+                return true;
+            } else {
+                // Xử lý trường hợp không tìm thấy đối tượng với ID cụ thể
+                return false;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
 
