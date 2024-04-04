@@ -50,6 +50,17 @@
             </div>
         </div>
     </section>
+<!--    thưu mục 1 2 3-->
+        <div class="container mt-3" style="display: ruby-text;">
+            <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+
 <!--chứa modal uodate -->
     <div class="modal" id="myModal" >
         <div class="modal-dialog" style="display: table;">
@@ -98,15 +109,7 @@
         </div>
     </div>
 
-<!--    <div class="container mt-3">-->
-<!--        <ul class="pagination">-->
-<!--            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">Next</a></li>-->
-<!--        </ul>-->
-<!--    </div>-->
+
 
 </main><!-- End #main -->
 
@@ -140,8 +143,8 @@
                          '<td data-user="' + dataUser[i].username + '">' + dataUser[i].username + '</td>' +
                          '<td data-email="' + dataUser[i].email + '">' + dataUser[i].email + '</td>' +
                          '<td data-phone="' + dataUser[i].phone + '">' + dataUser[i].phone + '</td>' +
-                         '<td data-bs-toggle="modal" data-bs-target="#myModal"><i id="iconUpdate" class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
-                         '<td><i id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
+                         '<td id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
+                         '<td><i data-delete = " '+ dataUser[i].id +' " id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
                          '</tr>';
                  }
                  $('#tbody').html(userD);
@@ -163,15 +166,18 @@
          var $tr = $(this).closest('tr');
          var  myModal = $('#myModal').attr('data-id',userId);
          myModal.find('#userId').text(userId);
+         myModal.find('#userId').val(userId);
          $('#name').val(fullName);
          $('#account').val(userName);
          $('#email').val(email);
          $('#phone').val(phone)
      });
      $(document).on('click','#buttonApply',function (e) {
+         console.log("lỗi");
+         var spanlId = $('#myModal').find('#userId').val();
          $.ajax({
              type : "PUT",
-             url: "http://localhost:8080/api/account/update/",
+             url: "http://localhost:8080/api/account/update/" + spanlId,
              contentType: "application/json",
              dataType: "json",
              data: JSON.stringify({
@@ -184,6 +190,7 @@
              success: function(response) {
                  console.log(response);
                  console.log(1);
+                 location.reload();
              },
              error: function(error) {
                  console.log("lỗi");
@@ -194,7 +201,8 @@
 
      // hàm xóa
      $(document).on('click', '#iconFix', function() {
-         var userId = $(this).closest('tr').find('td:eq(0)').text();
+         // var userId = $(this).closest('tr').find('td:eq(0)').text();
+         var userId = $(this).data('delete');
          var $tr = $(this).closest('tr');
          $.ajax({
              type: "DELETE",
