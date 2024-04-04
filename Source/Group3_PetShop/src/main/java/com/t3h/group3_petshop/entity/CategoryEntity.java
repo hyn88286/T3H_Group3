@@ -17,6 +17,7 @@ public class CategoryEntity extends AbstractEntity {
 
     private String code;
 
+
     @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
