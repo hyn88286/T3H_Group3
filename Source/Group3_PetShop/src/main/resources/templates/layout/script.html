@@ -126,8 +126,33 @@
         });	/*ready*/
     </script>
     <script>
+        $(document).ready(function () {
+            countCart();
+            showUserName();
+        });
 
-        countCart();
+        function showUserName() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/account/current-user",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    let logHtml;
+                    if (response.username != null) {
+                        logHtml = '<a href="#" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">' + response.username + '</a>'
+                        $('#logCheck').html(logHtml);
+                    } else {
+                        logHtml = '<a href="http://localhost:8080/login" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>'
+                        $('#logCheck').html(logHtml);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
 
         function countCart() {
             $.ajax({
@@ -137,9 +162,9 @@
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
-                    if(response.data != null){
+                    if (response.data != null) {
                         $('.badge-success').html(response.data);
-                    }else $('.badge-success').html(0);
+                    } else $('.badge-success').html(0);
                 },
                 error: function (error) {
                     console.log(error);
@@ -184,6 +209,12 @@
             }
             $('input[type="text"][name="' + classItem + '"]').val(value)
             $('button[type="button"][name="' + classItem + '"]').val(value)
+        }
+
+        function getCode() {
+            let url = window.location.href;
+            let parts = url.split('/');
+            return parts[parts.length - 1];
         }
     </script>
 </div>

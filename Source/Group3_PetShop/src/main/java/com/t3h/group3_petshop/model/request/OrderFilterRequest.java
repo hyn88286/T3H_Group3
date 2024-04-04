@@ -5,4 +5,6 @@ import lombok.Data;
 @Data
 public class OrderFilterRequest {
     private Integer userId;
+
+    private String code;
 }

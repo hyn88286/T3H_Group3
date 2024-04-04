@@ -11,6 +11,6 @@ public interface IUserService {
     BaseResponse<?>getAllUsers();
     void update(UserEntity userEntity);
     BaseResponse<?> deleteUser(Long userId);
-    UserDTO getCurrentUser();
+    UserDTO getCurrentUser(Boolean showId);
 
 }

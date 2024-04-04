@@ -28,9 +28,8 @@ public class ProductResource {
 
     @PostMapping("/create")
     public ResponseEntity<?> createProduction(@RequestBody ProductDTO productDTO) {
-        return ResponseEntity.ok(service.createProduct(productDTO));
+            return ResponseEntity.ok(service.createProduct(productDTO));
     }
-
     @PostMapping("/d")
     public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
         return ResponseEntity.ok(service.getProductBy(filterRequest));
