@@ -98,7 +98,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO getCurrentUser() {
+    public UserDTO getCurrentUser(Boolean showId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = null;
         if (authentication != null && authentication.isAuthenticated()) {
@@ -116,7 +116,9 @@ public class UserServiceImpl implements IUserService {
         UserDTO userDTO = new UserDTO();
         if (userEntity != null) {
             userDTO.setUsername(userEntity.getUsername());
-            userDTO.setId(userEntity.getId());
+            if(showId){
+                userDTO.setId(userEntity.getId());
+            }
         }
 
         return userDTO;

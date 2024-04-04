@@ -16,5 +16,5 @@ public interface IUserService {
 
     BaseResponse<?> deleteUser(Long userId);
 
-    UserDTO getCurrentUser();
+    UserDTO getCurrentUser(Boolean showId);
 }
