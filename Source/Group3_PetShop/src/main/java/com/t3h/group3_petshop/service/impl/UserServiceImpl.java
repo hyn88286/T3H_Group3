@@ -73,8 +73,15 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public void update(UserEntity user) {
-        userRepository.save(user);
+    public BaseResponse<?> update(Long id ,UserEntity user) {
+        BaseResponse<?> baseResponse = new BaseResponse<>();
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        userEntity.get().setUsername(user.getUsername());
+        userEntity.get().setFullName(user.getFullName());
+        userEntity.get().setEmail(user.getEmail());
+        userEntity.get().setPhone(user.getPhone());
+        userRepository.save(userEntity.get());
+        return baseResponse;
     }
 
     @Override
