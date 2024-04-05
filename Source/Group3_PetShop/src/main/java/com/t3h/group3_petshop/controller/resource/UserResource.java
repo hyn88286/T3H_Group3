@@ -29,11 +29,9 @@ public class UserResource {
 
    @PutMapping("update/{id}")
     public ResponseEntity<?>updateUser(@PathVariable Long id,
-                                       @RequestBody UserEntity userEntity){
+                                       @RequestBody UserEntity userEntity ){
        try{
-           userEntity.setId(id);
-           iUserService.update(userEntity);
-           return ResponseEntity.status(HttpStatus.CREATED).body(userEntity);
+           return ResponseEntity.status(HttpStatus.CREATED).body(iUserService.update(id, userEntity));
        }catch(EntityNotFoundException e){
            return ResponseEntity.notFound().build();
        }

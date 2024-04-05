@@ -3,84 +3,34 @@ package com.t3h.group3_petshop.model.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-
+@Data
 public class OrderDTO {
+    // ID
     private Long id;
-
-    private LocalDateTime createdDate;
-
-    private String createdBy;
-
-    private LocalDateTime modifiedDate;
-
-    private String modifiedBy;
-
-    private String username;
-
+    // Mã đơn hàng
+    private String code;
+    // Id người dùng
+    private Long userId;
+    // Ngày tạo
+    private LocalDateTime createDate;
+    // Tên tài khoản tạo
+    private String createBy;
+    // Ngày chỉnh sửa gần nhất
+    private LocalDateTime lastModifiedDate;
+    // Người chỉnh sửa
+    private String lastModifiedBy;
+    // Deleted
+    private Boolean deleted;
+    // Trạng thái đơn hàng
+    private Integer status;
+    // Địa chỉ giao hàng
+    private String addressShipping;
+    // Số điện thoại giao hàng
+    private String phoneShipping;
+    // Tổng số tiền đơn hàng
     private Double totalAmount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public OrderDTO(Long id, String username) {
-        this.id = id;
-        this.username = username;
-    }
-
-    public OrderDTO() {
-    }
+    // Chi tiết đơn hàng
+    private List<OrderDetailDTO> orderDetails;
 }

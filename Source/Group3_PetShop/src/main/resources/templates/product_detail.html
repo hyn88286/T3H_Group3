@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head th:replace="layout/head :: head"></head>
 <body>
@@ -145,26 +145,29 @@
 <script>
     initProductDetail();
 
-    $('#addToCart').click(function () {
-        let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
-        let quantity = $('input[type="text"][name="qtt-0"]').val();
-        let weight = $('input[type="radio"][name=sizeOption]:checked').data("weight");
-        let price = $('span[name=priceProduct]').data("value");
-        let productId = $('span[name=nameProduct]').data("value");
+    clickCart();
+    function clickCart(){
+        $('#addToCart').click(function () {
+            let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
+            let quantity = $('input[type="text"][name="qtt-0"]').val();
+            let weight = $('input[type="radio"][name=sizeOption]:checked').data("weight");
+            let price = $('span[name=priceProduct]').data("value");
+            let productId = $('span[name=nameProduct]').data("value");
 
-        if ($.isNumeric(price) && price !== 0) {
-            let totalOneP = price * weight * quantity;
-            console.log(sizeId, quantity, weight, price, totalOneP, productId);
-            let objCart = {
-                productId: productId,
-                sizeId: sizeId,
-                quantity: quantity,
-                totalOneP: totalOneP
-            };
-            addToCart(objCart);
-        } else alert('Bạn cần chọn size để tiếp tục');
+            if ($.isNumeric(price) && price !== 0) {
+                let totalOneP = price * weight * quantity;
+                console.log(sizeId, quantity, weight, price, totalOneP, productId);
+                let objCart = {
+                    productId: productId,
+                    sizeId: sizeId,
+                    quantity: quantity,
+                    totalOneP: totalOneP
+                };
+                addToCart(objCart);
+            } else alert('Bạn cần chọn size để tiếp tục');
 
-    })
+        })
+    }
 
     function initProductDetail() {
         let codeProduct = getCode();
@@ -297,15 +300,7 @@
             getProduct(objFilter, false);
             $(this).prop('checked', true);
         })
-
     }
-
-    function getCode() {
-        let url = window.location.href;
-        let parts = url.split('/');
-        return parts[parts.length - 1];
-    }
-
     function addToCart(objCart) {
         $.ajax({
             type: "POST",
