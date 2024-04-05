@@ -3,8 +3,9 @@ package com.t3h.group3_petshop.model.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-
+@Data
 public class OrderDTO {
     private Long id;
 
@@ -15,72 +16,15 @@ public class OrderDTO {
     private LocalDateTime modifiedDate;
 
     private String modifiedBy;
-
     private String username;
+    private Long userId;
+    private Long sizeId;
+
 
     private Double totalAmount;
+    // Thêm danh sách các mục sản phẩm trong đơn hàng
+    private List<OrderDetailDTO> orderDetails;
+    private List<ProductDTO> products;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public OrderDTO(Long id, String username) {
-        this.id = id;
-        this.username = username;
-    }
-
-    public OrderDTO() {
-    }
 }

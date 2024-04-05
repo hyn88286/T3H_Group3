@@ -8,4 +8,6 @@ import org.springframework.data.domain.Page;
 
 public interface IOrderService {
     BaseResponse<Page<OrderDTO>> getAll(OrderFilterRequest orderFilterRequest, int page, int size);
+
+
 }

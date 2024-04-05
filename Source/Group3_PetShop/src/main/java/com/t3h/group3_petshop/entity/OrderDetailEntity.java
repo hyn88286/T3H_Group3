@@ -25,4 +25,12 @@ public class OrderDetailEntity extends AbstractEntity{
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private SizeEntity sizeEntity;
+
+
 }
