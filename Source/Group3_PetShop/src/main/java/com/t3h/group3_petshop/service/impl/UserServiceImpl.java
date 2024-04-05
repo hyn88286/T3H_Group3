@@ -2,7 +2,6 @@ package com.t3h.group3_petshop.service.impl;
 
 
 import com.t3h.group3_petshop.entity.RoleEntity;
-import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
@@ -21,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -74,7 +72,6 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
     }
 
-
     @Override
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
@@ -82,9 +79,19 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public void update(UserEntity userEntity) {
-        userRepository.save(userEntity);
+    public BaseResponse<?> update(Long id ,UserEntity user) {
+        BaseResponse<?> baseResponse = new BaseResponse<>();
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        userEntity.get().setUsername(user.getUsername());
+        userEntity.get().setFullName(user.getFullName());
+        userEntity.get().setEmail(user.getEmail());
+        userEntity.get().setPhone(user.getPhone());
+        userRepository.save(userEntity.get());
+        return baseResponse;
     }
+
+
+
 
     @Override
     public BaseResponse<?> deleteUser(Long userId) {
@@ -104,8 +111,10 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
+
+
     @Override
-    public UserDTO getCurrentUser() {
+    public UserDTO getCurrentUser(Boolean  showId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = null;
         if (authentication != null && authentication.isAuthenticated()) {
@@ -128,4 +137,7 @@ public class UserServiceImpl implements IUserService {
 
         return userDTO;
     }
+
+
+
 }

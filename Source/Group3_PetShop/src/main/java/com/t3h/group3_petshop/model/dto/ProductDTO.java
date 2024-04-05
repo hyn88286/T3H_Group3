@@ -44,10 +44,12 @@ public class ProductDTO {
     private Boolean deleted;
     // Ngày tạo
     private LocalDateTime createDate;
-    // Người tạo
+    // Tên tài khoản tạo
     private String createBy;
     // Ngày chỉnh sửa gần nhất
     private LocalDateTime lastModifiedDate;
     // Người chỉnh sửa
     private String lastModifiedBy;
+    private Set<CommentDTO> commentDTOS;
+    private Double totalAmount;
 }
