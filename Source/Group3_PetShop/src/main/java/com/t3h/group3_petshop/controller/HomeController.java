@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/views/home")
 public class HomeController {
     @GetMapping()
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("title", "trang chủ");
+
         return "index";
     }
 }

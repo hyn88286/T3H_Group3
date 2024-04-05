@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head :: head"></head>
+<head th:replace="layout/head :: head">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/frontend/images/favicon.ico">
+
+    <link href="/frontend/css/theme-plugins.min.css" rel="stylesheet">
+
+    <link href="/frontend/css/style.css" rel="stylesheet">
+
+    <link href="/frontend/css/responsive.css" rel="stylesheet">
+</head>
 <body>
 
 <div id="pageloader">
@@ -21,13 +30,65 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
+<!--                    <img src="/frontend/images/product/file_test/test.jpg" alt>-->
+<!--                    <div class="product-gallery">-->
+<!--                        <div class="outer">-->
+<!--                            <div id="big" class="owl-carousel owl-theme">-->
+<!--&lt;!&ndash;                                <div class="item">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <img src="/frontend/images/product/file_test/test.jpg" alt>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div id="thumbs" class="owl-carousel owl-theme">-->
+<!--&lt;!&ndash;                                <div class="item">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <img src="/frontend/images/product/file_test/test.jpg" alt>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="product-gallery">
                         <div class="outer">
-                            <div id="big" class="owl-carousel owl-theme">
+                            <div id="big" class="owl-carousel owl-theme owl-loaded owl-drag">
+                                <div class="owl-stage-outer">
+                                    <div id="imageBig" class="owl-stage" style="transform: translate3d(-1764px, 0px, 0px); transition: all 0.3s ease 0s; width: 4704px;">
 
+                                    </div>
+                                </div>
+                                <div class="owl-nav disabled">
+                                    <button type="button" role="presentation" class="owl-prev"><i class="icofont-simple-left"></i></button>
+                                    <button type="button" role="presentation" class="owl-next"><i class="icofont-simple-right"></i></button>
+                                </div>
+                                <div class="owl-dots disabled"></div>
                             </div>
-                            <div id="thumbs" class="owl-carousel owl-theme">
-
+                            <div id="thumbs" class="owl-carousel owl-theme owl-loaded">
+                                <div class="owl-stage-outer">
+                                    <div id="imageTest" class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 608px;">
+                                        <div class="owl-item active" style="width: 132px; margin-right: 20px;">
+                                            <div class="item">
+                                                <img src="./PetHund - Animals Shop &amp; Veterinary HTML Template_files/slider_thumb_1.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="owl-item active current" style="width: 132px; margin-right: 20px;">
+                                            <div class="item">
+                                                <img src="./PetHund - Animals Shop &amp; Veterinary HTML Template_files/slider_thumb_2.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="owl-item active" style="width: 132px; margin-right: 20px;">
+                                            <div class="item">
+                                                <img src="./PetHund - Animals Shop &amp; Veterinary HTML Template_files/slider_thumb_3.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="owl-item active" style="width: 132px; margin-right: 20px;">
+                                            <div class="item">
+                                                <img src="./PetHund - Animals Shop &amp; Veterinary HTML Template_files/slider_thumb_4.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-nav disabled">
+                                    <button type="button" role="presentation" class="owl-prev"><i class="icofont-simple-left"></i></button>
+                                    <button type="button" role="presentation" class="owl-next"><i class="icofont-simple-right"></i></button>
+                                </div>
+                                <div class="owl-dots disabled"></div>
                             </div>
                         </div>
                     </div>
@@ -142,10 +203,26 @@
 <a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
 
 <div th:replace="layout/script :: script"></div>
-<script>
-    initProductDetail();
 
-    clickCart();
+<!--<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
+<script src="/frontend/js/jquery.min.js"></script>
+<script src="/frontend/js/theme-plugins.min.js"></script>
+
+<script src="/frontend/js/site-custom.js"></script>
+
+<script src="/frontend/js/product-slider.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"857f41de5bc73e0e","version":"2024.2.1","r":1,"token":"64224fc8786846928480d180dfc466bd","b":1}' crossorigin="anonymous"></script>
+<script>
+
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        initProductDetail();
+        clickCart();
+    });
+
+
+
     function clickCart(){
         $('#addToCart').click(function () {
             let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
@@ -217,20 +294,30 @@
                     if (productData.images.length > 0) {
                         // Lấy ra dữ liệu ảnh
                         imageData = productData.images[i];
-                        img += '<div class="item">' +
-                            '<img src="' + imageData.urlImage + '" alt>' +
-                            '</div>';
+                        // img += '<div class="item">' +
+                        //     '<img src="' + imageData.urlImage + '" alt>' +
+                        //     '</div>';
+                        img += '<div class="owl-item cloned" style="width: 588px;">\n' +
+                            '                                            <div class="item">\n' +
+                            '                                                <img src="' + imageData.urlImage + '" alt="" />\n' +
+                            '                                            </div>\n' +
+                            '                                        </div>';
                     } else {
                         // Nếu ko có dữ liệu ảnh thì trả về ảnh mặc định của sản phẩm ( sản phẩm ko có ảnh thì lấy ảnh mặc định )
-                        img += '<div class="item">' +
-                            '<img src="' + productData.urlImage + '" alt>' +
-                            '</div>';
+                        // img += '<div class="item">' +
+                        //     '<img src="' + productData.urlImage + '" alt>' +
+                        //     '</div>';
+                        img += '<div class="owl-item cloned" style="width: 588px;">\n' +
+                            '                                            <div class="item">\n' +
+                            '                                                <img src="' + './PetHund - Animals Shop &amp; Veterinary HTML Template_files/slider_thumb_1.jpg' + '" alt="" />\n' +
+                            '                                            </div>\n' +
+                            '                                        </div>';
                     }
                 }
                 // Load dữ liệu ảnh
                 if (loadImg) {
-                    $('#big').html(img);
-                    $('#thumbs').html(img);
+                    $('#imageBig').html(img);
+                    // $('#thumbs').html(img);
                 }
 
                 // Load tên sản phẩm
