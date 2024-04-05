@@ -73,9 +73,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public BaseResponse<?> getAllUsers() {
-        return null;
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
+
 
     @Override
     public BaseResponse<?> update(Long id ,UserEntity user) {
