@@ -1,10 +1,8 @@
 package com.t3h.group3_petshop.repository;
 
-import com.t3h.group3_petshop.entity.OrderEntity;
-import com.t3h.group3_petshop.entity.ProductImageEntity;
-import com.t3h.group3_petshop.entity.SizeEntity;
-import com.t3h.group3_petshop.entity.UserEntity;
+import com.t3h.group3_petshop.entity.*;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
+import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.request.ProductImageRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +19,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUsername(String username);
     @Query(value = "select u from UserEntity u where u.deleted=false")
     List<UserEntity> userId();
+
+//    @Query(value = "SELECT u FROM UserEntity u " +
+//            "LEFT JOIN u.roles r " +
+//            " WHERE " +
+//            " (:#{#condition.} is null or lower(u.) = :#{#condition.code}) " +
+//            "AND (:#{#condition.sizeId} is null or u.id = :#{#condition.sizeId} ) " +
+//            "AND p.deleted=false"
+//    )
+//    Page<UserEntity> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
 }

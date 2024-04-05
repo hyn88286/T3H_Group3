@@ -2,7 +2,6 @@ package com.t3h.group3_petshop.service.impl;
 
 
 import com.t3h.group3_petshop.entity.RoleEntity;
-import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
@@ -10,7 +9,6 @@ import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.IUserService;
-import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -63,7 +60,7 @@ public class UserServiceImpl implements IUserService {
 
         userRepository.save(user);
     }
-
+/// hiển thị thông tin admin
     @Override
     public BaseResponse<?> getAllUsers() {
         BaseResponse<List<UserEntity>> baseResponse = new BaseResponse<>();
@@ -102,6 +99,7 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
+    /// hiển thị thông tin ngườ dùng đăng nập tài khoản
     @Override
     public UserDTO getCurrentUser(Boolean showId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
