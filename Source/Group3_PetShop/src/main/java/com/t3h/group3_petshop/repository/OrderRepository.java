@@ -1,8 +1,6 @@
 package com.t3h.group3_petshop.repository;
 
 import com.t3h.group3_petshop.entity.OrderEntity;
-import com.t3h.group3_petshop.entity.ProductEntity;
-import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +21,13 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     )
     Page<OrderEntity> findAllByFilter(@Param("condition") OrderFilterRequest filterRequest, Pageable pageable);
 
-
-
+    @Query(value = "SELECT o FROM OrderEntity o " +
+            "LEFT JOIN o.userEntity u " +
+            " WHERE " +
+            "(:#{#userId} is null or u.id = :#{#userId} )" +
+            "AND (:#{#code} is null or lower(o.code) = :#{#code} )" +
+            "AND (:#{#status} is null or o.status = :#{#status} )" +
+            "AND o.deleted=false ORDER BY o.createdDate desc LIMIT 1"
+    )
+    OrderEntity getByCode(Long userId, String code, Integer status);
 }

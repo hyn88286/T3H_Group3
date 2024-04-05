@@ -13,4 +13,6 @@ public class OrderFilterRequest {
     private Double totalAmount;
     private List<ProductDTO> products;
 
+
+    private String code;
 }

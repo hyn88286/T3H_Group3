@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head th:replace="layout/head :: head"></head>
 <body>
@@ -16,14 +16,14 @@
 <div th:replace="layout/banner :: banner"></div>
 
 <main id="body-content">
-
     <section class="wide-tb-100 pb-0">
         <div class="container">
             <div class="table-responsive">
                 <table class="table">
                     <thead class="thead-dark theme-head">
                     <tr>
-                        <th scope="col">&nbsp;</th>
+                        <th scope="col"><input id="proCheckAll" checked type="checkbox"/> <span style="color: white">For all</span>
+                        </th>
                         <th scope="col"><span style="color: white">Sản phẩm</span></th>
                         <th scope="col"><span style="color: white">Đơn giá / Kg</span></th>
                         <th scope="col"><span style="color: white">Size</span></th>
@@ -57,24 +57,10 @@
                                     <span>Thành tiền</span>
                                     <span class="subtotal text-danger"></span>
                                 </li>
-                                <li>
-                                    <form novalidate="novalidate" method="post" action="#" id="contact_form"
-                                          class="row align-items-center g-0">
-                                        <div class="col">
-                                            <input type="text" class="form-control" name="name"
-                                                   placeholder="Mã giảm giá">
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn-theme bg-green btn-shadow ms-4 h-100" type="submit">Áp
-                                                dụng
-                                            </button>
-                                        </div>
-                                    </form>
-                                </li>
                             </ul>
                         </div>
                         <div class="px-4">
-                            <button class="btn-theme bg-orange btn-shadow btn-block" type="submit">Tiến hành thanh toán
+                            <button class="btn-theme bg-orange btn-shadow" id="checkoutCart">Tiến hành thanh toán
                             </button>
                         </div>
                     </div>
@@ -114,6 +100,8 @@
 
 <script>
     initShopCart();
+    checkoutCart();
+    checkForAll();
 
     function initShopCart() {
         let page = 0;
@@ -139,7 +127,7 @@
                         subTotal += cartItem.totalOneP;
                         cartHtml += '<tr>' +
                             '<th scope="row">' +
-                            '<input id="proCheckbox" checked type="checkbox" name="proChoose" value="' + cartItem.totalOneP + '"/>' +
+                            '<input id="proCheckbox" data-quantity="' + cartItem.quantity + '" =  data-size="' + cartItem.sizeId + '" data-pro="' + cartItem.productId + '" checked type="checkbox" name="proChoose" value="' + cartItem.totalOneP + '"/>' +
                             '</th>' +
                             '<td>' +
                             ' <div class="item-product">' +
@@ -163,7 +151,7 @@
                             '<td><strong class="txt-orange">' + formatPrice(cartItem.totalOneP) + '</strong></td>' +
                             '</tr>';
                     }
-                    $('.subtotal').html(formatPrice(subTotal));
+                    $('.subtotal').html(formatPrice(subTotal)).attr("data-value", subTotal);
                     $('#bodyCart').html(cartHtml);
                     checkboxCart();
                 } else window.location.href = "http://localhost:8080/login"
@@ -177,15 +165,103 @@
 
     function checkboxCart() {
         $('input[name="proChoose"]').change(function () {
-            let checkboxes = $('input[type="checkbox"][name="proChoose"]:checked');
-            let total = 0;
-            checkboxes.each(function () {
-                console.log($(this).val());
-                total += parseInt($(this).val());
-            });
-            console.log(total);
-            $('.subtotal').html(formatPrice(total));
+            let checkboxChecked = $('input[type="checkbox"][name="proChoose"]:checked');
+            let checkboxes = $('input[type="checkbox"][name="proChoose"]');
+            if (checkboxChecked.length === checkboxes.length) {
+                $('#proCheckAll').prop('checked', true);
+            } else $('#proCheckAll').prop('checked', false);
+            checkboxProp(checkboxChecked, true);
         });
+    }
+
+    function checkForAll() {
+        $('#proCheckAll').click(function () {
+            if ($(this).is(':checked')) {
+                let checkboxes = $('input[type="checkbox"][name="proChoose"]');
+                if (checkboxes.length > 0) {
+                    checkboxes.each(function () {
+                        $(this).prop('checked', true);
+                    });
+                }
+                let checkboxChecked = $('input[type="checkbox"][name="proChoose"]:checked');
+                checkboxProp(checkboxChecked, true);
+            } else {
+                let checkboxes = $('input[type="checkbox"][name="proChoose"]:checked');
+                checkboxProp(checkboxes, false);
+            }
+        });
+    }
+
+    function checkboxProp(checkboxes, checked) {
+        let total = 0;
+        if (checkboxes.length > 0) {
+            checkboxes.each(function () {
+                $(this).prop('checked', checked);
+                if (checked) {
+                    total += parseInt($(this).val());
+                }
+            });
+        }
+        $('.subtotal').html(formatPrice(total)).attr("data-value", total);
+    }
+
+    function checkoutCart() {
+        $('#checkoutCart').click(function () {
+            let checkboxChecked = $('input[type="checkbox"][name="proChoose"]:checked');
+
+            if (checkboxChecked.length > 0) {
+                console.log(checkboxChecked.length);
+                let arrDetail = [];
+                let totalAmount = 0;
+                checkboxChecked.each(function () {
+                    let detail = {};
+                    detail.productId = $(this).data('pro');
+                    detail.sizeId = $(this).data('size');
+                    detail.quantity = $(this).data('quantity');
+                    detail.total = $(this).val()
+                    arrDetail.push(detail);
+                    totalAmount += parseInt($(this).val());
+                });
+
+                console.log(arrDetail, totalAmount);
+                let objectFilter = {
+                    totalAmount: totalAmount,
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/api/order/create",
+                    contentType: "application/json",
+                    data: JSON.stringify(objectFilter),
+                    dataType: "json",
+                    success: function (response) {
+                        detailOrder(response.data, arrDetail);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            } else alert("Cần chọn ít nhất 1 sản phẩm để thanh toán")
+        })
+
+        function detailOrder(order, data) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].orderId = order.id;
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/api/order/detail/create",
+                    contentType: "application/json",
+                    data: JSON.stringify(data[i]),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
+            window.location.href = "http://localhost:8080/views/order/place-order/"+order.code
+        }
     }
 </script>
 </body>
