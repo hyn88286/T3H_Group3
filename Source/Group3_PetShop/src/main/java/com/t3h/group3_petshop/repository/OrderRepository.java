@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
        @Query(value = "SELECT o FROM OrderEntity o " +
             "LEFT JOIN o.userEntity u " + // Thay đổi userEntity thành user
-            "LEFT JOIN o.orderDetails d " +
+            "LEFT JOIN o.orderDetailEntity d " +
             "WHERE " +
             "(:#{#condition.userId} is null or u.id = :#{#condition.userId})" +
             " AND (:#{#condition.orderdtID} is null or u.id = :#{#condition.orderdtID} )" +
