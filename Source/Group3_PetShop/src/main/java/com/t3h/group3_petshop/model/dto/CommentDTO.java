@@ -17,4 +17,5 @@ public class CommentDTO {
     private String modifiedBy;
     private Long productId;
     private Long userId;
+    private String username;
 }

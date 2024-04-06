@@ -17,6 +17,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
             "JOIN c.userEntity userEntity " + // Sử dụng tên biến trong entity
             "JOIN c.productEntity productEntity " + // Sử dụng tên biến trong entity
             "WHERE (:#{#filter.userId} IS NULL OR userEntity.id = :#{#filter.userId}) " + // Sử dụng tên biến trong entity
+            "AND (:#{#filter.username} IS NULL OR userEntity.username = :#{#filter.username})" +
             "AND (:#{#filter.productId} IS NULL OR productEntity.id = :#{#filter.productId})") // Sử dụng tên biến trong entity
     Page<CommentEntity> findByFilter(@Param("filter") CommentFilterRequest filter, Pageable pageable);
 

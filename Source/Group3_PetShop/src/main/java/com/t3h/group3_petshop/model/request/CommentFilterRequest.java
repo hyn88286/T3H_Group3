@@ -8,6 +8,6 @@ public class CommentFilterRequest {
     private String content;
     private Long userId;
     private Long productId;
-
+    private String username;
 
 }
