@@ -2,7 +2,6 @@ package com.t3h.group3_petshop.service.impl;
 
 
 import com.t3h.group3_petshop.entity.RoleEntity;
-import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
@@ -21,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -51,24 +49,32 @@ public class UserServiceImpl implements IUserService {
         userDto.setRoleDTOS(roleDtos);
         return userDto;
     }
+
     @Override
     public void addUser(UserEntity user) {
+        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            throw new RuntimeException("Tên người dùng đã tồn tại trong hệ thống");
+        }
+
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
         // Bạn có thể tùy chỉnh logic gán vai trò ở đây
-        RoleEntity userRole = new RoleEntity();
-        userRole.setName("ROLE_USER");
-        user.setRoles(Collections.singleton(userRole));
+
+        List<String> roleNames = new ArrayList<>();
+        roleNames.add(Constant.ROLE_USER);
+
+        List<RoleEntity> roleEntities = roleRepository.findRoleByNames(roleNames);
+        user.setRoleEntities(roleEntities);
 
         userRepository.save(user);
     }
 
     @Override
-    public BaseResponse<?> getAllUsers() {
-        BaseResponse<List<UserEntity>> baseResponse = new BaseResponse<>();
-        baseResponse.setData(userRepository.userId());
-        return baseResponse;
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 
 
@@ -83,6 +89,9 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(userEntity.get());
         return baseResponse;
     }
+
+
+
 
     @Override
     public BaseResponse<?> deleteUser(Long userId) {
@@ -102,8 +111,10 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
+
+
     @Override
-    public UserDTO getCurrentUser(Boolean showId) {
+    public UserDTO getCurrentUser(Boolean  showId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = null;
         if (authentication != null && authentication.isAuthenticated()) {
@@ -121,14 +132,11 @@ public class UserServiceImpl implements IUserService {
         UserDTO userDTO = new UserDTO();
         if (userEntity != null) {
             userDTO.setUsername(userEntity.getUsername());
-            if(showId){
-                userDTO.setId(userEntity.getId());
-            }
+            userDTO.setId(userEntity.getId());
         }
 
         return userDTO;
     }
-
 
 
 

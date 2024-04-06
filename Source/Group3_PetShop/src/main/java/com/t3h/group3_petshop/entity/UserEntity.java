@@ -74,4 +74,7 @@ public class UserEntity extends AbstractEntity {
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
+
+    public void setRoleEntities(List<RoleEntity> roleEntities) {
+    }
 }

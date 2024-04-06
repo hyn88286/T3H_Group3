@@ -115,6 +115,13 @@
             error: function (error) {
                 console.log(error);
                 location.reload();
+                if (error.status === 400 && error.responseJSON && error.responseJSON.message === "Tên người dùng đã tồn tại trong hệ thống") {
+                    $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
+                    $("#errorMessage").show();
+                } else {
+                    $("#errorMessage").text("Đã xảy ra lỗi. Vui lòng thử lại sau.");
+                    $("#errorMessage").show();
+                }
             }
         })
     });

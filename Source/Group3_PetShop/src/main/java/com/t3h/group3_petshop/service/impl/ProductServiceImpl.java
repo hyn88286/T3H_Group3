@@ -45,13 +45,30 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ProductEntity> productEntities = productRepository.findAllByFilter(filterRequest, pageable);
+        Pageable pageable = PageRequest.of(page,size);
+        Page<ProductEntity> productEntities = productRepository.findAllByFilter(filterRequest,pageable);
 
         List<ProductDTO> productDTOS = productEntities.getContent().stream().map(productEntity -> {
             ProductDTO productDTO = new ProductDTO();
-            // Set giá trị productDTO
-            setCommonValueProductDTO(productDTO, productEntity, filterRequest);
+            // Set tên sản phẩm
+            productDTO.setName(productEntity.getName());
+            // Set giá sản phẩm
+            productDTO.setPrice(productEntity.getPrice());
+            // Set giá sản phẩm trong khoảng min - max
+            OptionalDouble minPrice = productEntity.getSizeEntities().stream()
+                    .mapToDouble(sizeEntity -> productEntity.getPrice() * sizeEntity.getWeight())
+                    .min();
+            productDTO.setMinPrice(minPrice.orElse(0));
+            OptionalDouble maxPrice = productEntity.getSizeEntities().stream()
+                    .mapToDouble(sizeEntity -> productEntity.getPrice() * sizeEntity.getWeight())
+                    .max();
+            productDTO.setMaxPrice(maxPrice.orElse(0));
+            // Set Url ảnh ( Lấy ảnh đầu tiên trong list ảnh sản phẩm )
+            Optional<String> imageName = productEntity.getProductImageEntities().stream()
+                    .map(ProductImageEntity::getName)
+                    .findFirst();
+            String urlImage = Constant.IMAGE_PATH_DEPLOY + imageName.filter(s -> !s.isEmpty()).orElse(Constant.IMAGE_FILE_TEST);
+            productDTO.setUrlImage(urlImage);
             return productDTO;
         }).collect(Collectors.toList());
 
@@ -97,6 +114,8 @@ public class ProductServiceImpl implements IProductService {
         baseResponse.setData(productDTO);
         return baseResponse;
     }
+
+
 
     @Override
     public BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest) {
@@ -171,4 +190,39 @@ public class ProductServiceImpl implements IProductService {
         // Size id đang đc chọn
         productDTO.setSizeId(filterRequest.getSizeId());
     }
+    @Override
+    public BaseResponse<?> deleteProduct(Long productId) {
+        // Log thông báo bắt đầu xóa sản phẩm
+        logger.info("Start delete product with id {}", productId);
+
+        // Tạo một đối tượng BaseResponse để lưu kết quả
+        BaseResponse<String> baseResponse = new BaseResponse<>();
+
+        // Tìm sản phẩm trong cơ sở dữ liệu theo ID
+        Optional<ProductEntity> optionalProduct = productRepository.findById(productId);
+
+        // Kiểm tra xem sản phẩm có tồn tại không
+        if (optionalProduct.isEmpty()) {
+            // Nếu không tồn tại, trả về mã trạng thái NOT_FOUND và thông báo lỗi
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("Product not found");
+            return baseResponse;
+        }
+
+        // Lấy sản phẩm từ Optional
+        ProductEntity product = optionalProduct.get();
+
+        // Đặt trạng thái deleted của sản phẩm thành true
+        product.setDeleted(true);
+
+        // Lưu lại sản phẩm đã xóa vào cơ sở dữ liệu
+        productRepository.save(product);
+
+        // Thiết lập kết quả thành công và trả về thông báo xóa thành công
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage("Product deleted successfully");
+        return baseResponse;
+    }
+
+
 }
