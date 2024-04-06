@@ -11,14 +11,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity,Long> {
 
-    @Query(value = "SELECT o FROM CategoryEntity o " +
+    @Query(value = "SELECT DISTINCT o FROM CategoryEntity o " +
             "LEFT JOIN o.productEntities u " +
             " WHERE " +
             "(:#{#condition.productId} is null or u.id = :#{#condition.productId} )" +
             "AND o.deleted=false ORDER BY o.createdDate desc "
     )
+
     Page<CategoryEntity> findAllByFilter(@Param("condition") CategoryFilterRequest filterRequest, Pageable pageable);
 }

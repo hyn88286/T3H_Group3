@@ -7,8 +7,10 @@ import com.t3h.group3_petshop.model.request.CategoryFilterRequest;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,22 +25,29 @@ public class CategoryResource {
     public ResponseEntity<?> addcread(@RequestBody CategoryEntity category){
         return ResponseEntity.ok(categoryService.create(category));
     }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,
+                                    @RequestBody CategoryEntity categoryEntity) {
+        try {
+            return ResponseEntity.ok(categoryService.update(id, categoryEntity));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@RequestParam("id") long id) {
+
         return ResponseEntity.ok(categoryService.delete(id ));
     }
 
-    @PostMapping("/List")
+    @PostMapping()
     public ResponseEntity<BaseResponse<Page<CategoryDTO>>> getAll(@RequestBody CategoryFilterRequest filterRequest,
-                                                                  @RequestParam(name = "page",required = false,defaultValue = "0") int page,
-                                                                  @RequestParam(name = "size",required = false,defaultValue = "10") int size){
+                                                                  @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                                  @RequestParam(name = "size", required = false, defaultValue = "10") int size){
 
         return ResponseEntity.ok(categoryService.getAll(filterRequest,page,size));
     }
 
-//    @PostMapping("/listUser")
-//    public List<UserEntity> getAllUsers(){
-//        return iUserService.getAllUsers();
-//    }
+
 }

@@ -16,4 +16,9 @@ public class AdminHomeController {
     public String adminUser() {
         return "admin/user";
     }
+
+    @GetMapping("/category")
+    public String adminCategory() {
+        return "admin/category";
+    }
 }
