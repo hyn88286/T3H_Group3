@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/views/order")
 public class OrderController {
-//    @GetMapping("/place-order/{code}")
-//    public String submitOrder(@PathVariable String code){
-//        return "place_order";
-//    }
+
 
     @GetMapping("/place-order/{code}")// link này chuyển trang trong layout dùng chung
     public String shop(@PathVariable("code") String code, Model model){
