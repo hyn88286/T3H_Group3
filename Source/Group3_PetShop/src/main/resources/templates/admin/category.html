@@ -331,6 +331,7 @@
              }),
              success: function(response) {
                  console.log("Danh mục đã được thêm thành công");
+                 window.location.reload();
                  // Xóa nội dung cũ của tbody trong bảng
                  $('#tableDate tbody').empty();
                  // Tải lại danh sách danh mục sau khi thêm
