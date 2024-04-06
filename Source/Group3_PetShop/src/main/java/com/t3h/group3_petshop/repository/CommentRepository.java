@@ -18,7 +18,10 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
             "JOIN c.productEntity productEntity " + // Sử dụng tên biến trong entity
             "WHERE (:#{#filter.userId} IS NULL OR userEntity.id = :#{#filter.userId}) " + // Sử dụng tên biến trong entity
             "AND (:#{#filter.username} IS NULL OR userEntity.username = :#{#filter.username})" +
-            "AND (:#{#filter.productId} IS NULL OR productEntity.id = :#{#filter.productId})") // Sử dụng tên biến trong entity
+            "AND (:#{#filter.productId} IS NULL OR productEntity.id = :#{#filter.productId})" + // Sử dụng tên biến trong entity
+            "AND (:#{#filter.name} IS NULL OR productEntity.name = :#{#filter.name})" +
+            "AND c.deleted=false ORDER BY c.createdDate desc ")
+
     Page<CommentEntity> findByFilter(@Param("filter") CommentFilterRequest filter, Pageable pageable);
 
     // Thêm một phương thức tìm kiếm sử dụng userId và productId

@@ -67,6 +67,7 @@ public class CommentServiceImpl implements CommentService {
             commentDTO.setContent(commentEntity.getContent());
             // Lấy tên người dùng từ UserEntity và thiết lập vào CommentDTO
             commentDTO.setUsername(commentEntity.getUserEntity().getUsername());
+            commentDTO.setName(commentEntity.getProductEntity().getName());
             return commentDTO;
         }).collect(Collectors.toList());
 

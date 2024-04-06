@@ -21,4 +21,8 @@ public class AdminHomeController {
     public String adminCategory() {
         return "admin/category";
     }
+    @GetMapping("/comment")
+    public String adminComment() {
+        return "admin/comment";
+    }
 }

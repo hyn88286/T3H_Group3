@@ -53,8 +53,8 @@ public class CommentResource {
         BaseResponse<CommentDTO> response = commentService.updateComment(commentId, commentDTO);
         return ResponseEntity.status(response.getCode()).body(response);
     }
-    @DeleteMapping("/{commentId}")
-    public ResponseEntity<BaseResponse<?>> deletecommet(@PathVariable("commentId") Long commentId){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<?>> deletecommet(@PathVariable("id") Long commentId){
         BaseResponse<?> baseResponse = commentService.deleteComment(commentId);
         return ResponseEntity.status(HttpStatus.OK).body(baseResponse);
     }

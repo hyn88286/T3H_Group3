@@ -9,5 +9,6 @@ public class CommentFilterRequest {
     private Long userId;
     private Long productId;
     private String username;
+    private String name;
 
 }
