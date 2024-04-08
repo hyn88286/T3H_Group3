@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class CategoryEntity extends AbstractEntity {
-
     private String name;
 
     private String code;

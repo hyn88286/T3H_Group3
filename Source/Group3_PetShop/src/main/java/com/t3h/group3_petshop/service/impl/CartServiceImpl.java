@@ -25,7 +25,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,7 +55,7 @@ public class CartServiceImpl implements ICartService {
     @Override
     public BaseResponse<Page<CartDTO>> getAll(int page, int size) {
         BaseResponse<Page<CartDTO>> response = new BaseResponse<>();
-        UserDTO userDTO = userService.getCurrentUser(true);
+        UserDTO userDTO = userService.getCurrentUser();
         // Lấy ra userId đang đăng nhập
         Long userId = userDTO.getId();
         if (userId == null) {
@@ -72,23 +71,13 @@ public class CartServiceImpl implements ICartService {
             CartDTO cartDTO = new CartDTO();
             // Set id
             cartDTO.setId(cartEntity.getId());
-
-            // Set id size
-            cartDTO.setSizeId(cartEntity.getSizeEntity().getId());
-
             // Set tên size
             cartDTO.setSizeName(cartEntity.getSizeEntity().getName());
-
             // Set cân nặng size
             Integer weightSize = cartEntity.getSizeEntity().getWeight();
             cartDTO.setWeightSize(weightSize);
-
             // Set username thêm sản phẩm vào giỏ hàng
             cartDTO.setCreatedBy(cartEntity.getUserEntity().getUsername());
-
-            // Set id sản phẩm
-            cartDTO.setProductId(cartEntity.getProductEntity().getId());
-
             // Set tên sản phẩm
             String productName = cartEntity.getProductEntity().getName();
             cartDTO.setProductName(productName);
@@ -107,31 +96,30 @@ public class CartServiceImpl implements ICartService {
 
             Optional<ProductEntity> productEntity = productRepository.findById(cartEntity.getProductEntity().getId());
 
-            if (productEntity.isEmpty()) {
-                cartDTO.setImgProduct(Constant.IMAGE_PATH_DEPLOY + Constant.IMAGE_FILE_TEST);
-            } else {
-                Optional<String> imageName = productEntity.get().getProductImageEntities().stream()
-                        .map(ProductImageEntity::getName)
-                        .findFirst();
-                String urlImage = Constant.IMAGE_PATH_DEPLOY + imageName.filter(s -> !s.isEmpty()).orElse(Constant.IMAGE_FILE_TEST);
-                cartDTO.setImgProduct(urlImage);
-            }
             // Set Url ảnh ( Lấy ảnh đầu tiên trong list ảnh sản phẩm )
+            Optional<String> imageName = productEntity.get().getProductImageEntities().stream()
+                    .map(ProductImageEntity::getName)
+                    .findFirst();
+
+            String urlImage = Constant.IMAGE_PATH_DEPLOY + imageName.filter(s -> !s.isEmpty()).orElse(Constant.IMAGE_FILE_TEST);
+            cartDTO.setImgProduct(urlImage);
             return cartDTO;
         }).collect(Collectors.toList());
 
         Page<CartDTO> pageData = new PageImpl<>(cartDTOS, pageable, cartEntities.getTotalElements());
 
         response.setCode(200);
-        response.setMessage("Get all product cart successfully");
+        response.setMessage("Get all product successfully");
         response.setData(pageData);
         return response;
     }
 
     @Override
     public BaseResponse<?> addToCart(CartDTO cartDTO) {
+        logger.info("Start add to cart: {}", cartDTO.toString());
+
         BaseResponse<?> response = new BaseResponse<>();
-        UserDTO userDTO = userService.getCurrentUser(true);
+        UserDTO userDTO = userService.getCurrentUser();
         // Lấy ra userId đang đăng nhập
         Long userId = userDTO.getId();
         if (userId == null) {
@@ -141,6 +129,7 @@ public class CartServiceImpl implements ICartService {
         }
 
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+
         Optional<ProductEntity> product = productRepository.findById(cartDTO.getProductId());
 
         if (product.isEmpty()) {
@@ -167,10 +156,9 @@ public class CartServiceImpl implements ICartService {
         cartEntity.setProductEntity(product.get());
         cartEntity.setTotal(cartDTO.getTotalOneP());
         cartEntity.setQuantity(cartDTO.getQuantity());
-        LocalDateTime now = LocalDateTime.now();
-        cartEntity.setCreatedDate(now);
-        cartEntity.setCreatedBy(userDTO.getUsername());
+
         cartRepository.save(cartEntity);
+        logger.info("Add to cart successfully");
         response.setMessage("Add to cart successfully");
         response.setCode(HttpStatus.OK.value());
         return response;
@@ -178,7 +166,7 @@ public class CartServiceImpl implements ICartService {
 
     public BaseResponse<Long> countCart() {
         BaseResponse<Long> response = new BaseResponse<>();
-        UserDTO userDTO = userService.getCurrentUser(true);
+        UserDTO userDTO = userService.getCurrentUser();
         Long userId = userDTO.getId();
         if (userId == null) {
             response.setCode(HttpStatus.BAD_REQUEST.value());

@@ -67,8 +67,9 @@
 </body>
 <script>
     ///validate thông báo đăng ký tài khoản
-
+    $(document).ready(function() {
         $("#myForm").submit(function(event) {
+
             let fullName = $("#fullname").val();
             let username = $("#userName").val();
             let password = $("#password").val();
@@ -81,7 +82,7 @@
                 $("#errorMessage").hide(); // Ẩn thông báo lỗi nếu mọi thứ đều hợp lệ
             }
         });
-
+    });
    // đăng ký tài khoản !
     $("#submit").click(function (event){
         let fullName = $("#fullname").val();

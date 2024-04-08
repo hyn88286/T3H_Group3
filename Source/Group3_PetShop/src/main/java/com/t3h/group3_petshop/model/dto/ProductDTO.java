@@ -44,7 +44,7 @@ public class ProductDTO {
     private Boolean deleted;
     // Ngày tạo
     private LocalDateTime createDate;
-    // Tên tài khoản tạo
+    // Người tạo
     private String createBy;
     // Ngày chỉnh sửa gần nhất
     private LocalDateTime lastModifiedDate;

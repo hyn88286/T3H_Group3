@@ -73,15 +73,8 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public BaseResponse<?> update(Long id ,UserEntity user) {
-        BaseResponse<?> baseResponse = new BaseResponse<>();
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        userEntity.get().setUsername(user.getUsername());
-        userEntity.get().setFullName(user.getFullName());
-        userEntity.get().setEmail(user.getEmail());
-        userEntity.get().setPhone(user.getPhone());
-        userRepository.save(userEntity.get());
-        return baseResponse;
+    public void update(UserEntity user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -103,7 +96,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO getCurrentUser(Boolean showId) {
+    public UserDTO getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = null;
         if (authentication != null && authentication.isAuthenticated()) {
@@ -121,9 +114,7 @@ public class UserServiceImpl implements IUserService {
         UserDTO userDTO = new UserDTO();
         if (userEntity != null) {
             userDTO.setUsername(userEntity.getUsername());
-            if(showId){
-                userDTO.setId(userEntity.getId());
-            }
+            userDTO.setId(userEntity.getId());
         }
 
         return userDTO;
