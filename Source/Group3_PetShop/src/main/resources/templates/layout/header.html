@@ -37,7 +37,7 @@
                            class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>
                     </div>
 
-                    <a class="" href="http://localhost:8080/views/cart" id="shopping-bag"><i
+                    <a class="" th:href="@{/views/Giỏ-hàng}" id="shopping-bag"><i
                             data-feather="shopping-bag"></i> <span class="badge badge-success">0</span></a>
 
                     <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="collapse"
@@ -61,9 +61,8 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle-mob" href="http://localhost:8080/views/home/index"
-                                   id="dropdown03" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Trang
-                                    chủ</a>
+                                <a class="nav-link" th:href="@{/views/home}">Trang chủ</a>
+
                             </li>
                             <li class="nav-item dropdown megamenu">
                                 <a href="#" class="nav-link dropdown-toggle-mob" id="dropdown04"
@@ -114,10 +113,11 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link" th:href="@{${'/views/product'}}">Sản phẩm</a>
+                                <a class="nav-link" th:href="@{${'/views/sản-phẩm'}}">Sản phẩm</a>
+
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact-us.html">Liên Hệ</a>
+                                <a class="nav-link" href="contact-us.html">Contact</a>
                             </li>
                         </ul>
                     </div>
