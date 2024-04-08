@@ -50,6 +50,4 @@ public class ProductDTO {
     private LocalDateTime lastModifiedDate;
     // Người chỉnh sửa
     private String lastModifiedBy;
-    private Set<CommentDTO> commentDTOS;
-    private Double totalAmount;
 }

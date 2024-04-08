@@ -1,7 +1,6 @@
 package com.t3h.group3_petshop.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,10 +12,8 @@ public class ProductController {
         return "product";
     }
 
-    @GetMapping("/d/{code}")// link này chuyển trang trong layout dùng chung
-    public String productDetail(Model model) {
-        model.addAttribute("pageTitle", "Chi tiết sản phẩm");
-
-        return "product_detail"; //  này là chỉ tới trang giao diên html
+    @GetMapping("/d/{code}")
+    public String detail(){
+        return "product_detail";
     }
 }

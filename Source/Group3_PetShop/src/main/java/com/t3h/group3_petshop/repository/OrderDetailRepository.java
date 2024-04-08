@@ -18,14 +18,4 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
             "AND p.deleted=false"
     )
     List<OrderDetailEntity> findByCode(Long orderId);
-    @Query(value = "SELECT o FROM OrderDetailEntity o " +
-            "LEFT JOIN o.orderEntity u " + // Thay đổi userEntity thành user
-            "LEFT JOIN o.productEntity p " +
-            "WHERE " +
-            "(:#{#userId} is null or u.userEntity.id = :#{#userId})" +
-            " AND (:#{#productId} is null or p.id = :#{#productId} )" +
-            "AND o.deleted=false ORDER BY o.createdDate desc ")
-    OrderDetailEntity findOrderEntitiesBy(Long userId, Long productId);
-
-
 }

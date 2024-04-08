@@ -36,8 +36,4 @@ public class OrderEntity extends AbstractEntity {
     // Tổng tiền đơn hàng
     @Column(name = "total_amount")
     private Double totalAmount;
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    @ToString.Exclude
-    private OrderDetailEntity orderDetailEntity;
 }

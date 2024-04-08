@@ -26,19 +26,18 @@
         <nav class="navbar navbar-expand-lg header-fullpage nav-light">
             <div class="container text-nowrap">
                 <div class="d-flex align-items-center w-100 col p-0 logo-brand">
-                    <a class="navbar-brand rounded-bottom light-bg" href="index.html">
+                    <a class="navbar-brand rounded-bottom light-bg" th:href="@{${'/views/home'}}">
                         <img src="/frontend/images/logo_white.svg" alt>
                     </a>
                 </div>
 
                 <div class="d-inline-flex order-lg-last col-auto p-0 align-items-center">
-                    <div>
-                        <a href="http://localhost:8080/login"
-                           class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>
+                    <div id="logCheck">
+
                     </div>
 
-                    <a class="" th:href="@{/views/Giỏ-hàng}" id="shopping-bag"><i
-                            data-feather="shopping-bag"></i> <span class="badge badge-success">0</span></a>
+                    <a class="" th:href="@{${'/views/cart'}}" id="shopping-bag"><i
+                            data-feather="shopping-bag"></i> <span class="badge badge-success"></span></a>
 
                     <button class="navbar-toggler x collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
@@ -53,7 +52,7 @@
                 <div class="navbar-collapse">
 
                     <div class="offcanvas-header">
-                        <a href="index.html" class="logo-small">
+                        <a th:href="@{${'/views/home'}}" class="logo-small">
                             <img src="/frontend/images/logo_white.svg" alt>
                         </a>
                     </div>
@@ -61,8 +60,7 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link" th:href="@{/views/home}">Trang chủ</a>
-
+                                <a class="nav-link" th:href="@{${'/views/home'}}">Trang chủ</a>
                             </li>
                             <li class="nav-item dropdown megamenu">
                                 <a href="#" class="nav-link dropdown-toggle-mob" id="dropdown04"
@@ -113,11 +111,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link" th:href="@{${'/views/sản-phẩm'}}">Sản phẩm</a>
-
+                                <a class="nav-link" th:href="@{${'/views/product'}}">Sản phẩm</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact-us.html">Contact</a>
+                                <a class="nav-link" href="contact-us.html">Liên Hệ</a>
                             </li>
                         </ul>
                     </div>

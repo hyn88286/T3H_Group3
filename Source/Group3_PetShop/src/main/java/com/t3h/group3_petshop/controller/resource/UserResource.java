@@ -17,13 +17,9 @@ public class UserResource {
      private IUserService iUserService;
 
    @PostMapping("/addUser")
-   public ResponseEntity<?> addUser(@RequestBody UserEntity user) {
-       try {
-           iUserService.addUser(user);
-           return ResponseEntity.ok("Người dùng đã được thêm vào hệ thống.");
-       } catch (RuntimeException ex) {
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tên người dùng đã tồn tại trong hệ thống.");
-       }
+    public ResponseEntity<?> addUser(@RequestBody UserEntity userEntity){
+       iUserService.addUser(userEntity);
+       return ResponseEntity.status(HttpStatus.CREATED).body("account");
    }
 
   @PostMapping("/listUser")
