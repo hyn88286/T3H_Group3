@@ -1,6 +1,5 @@
 package com.t3h.group3_petshop.model.request;
 
-import com.t3h.group3_petshop.model.dto.CommentDTO;
 import lombok.Data;
 
 @Data

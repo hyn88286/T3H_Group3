@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "comment")
 @Data
@@ -27,7 +25,4 @@ public class CommentEntity extends AbstractEntity{
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
-
-
-
 }

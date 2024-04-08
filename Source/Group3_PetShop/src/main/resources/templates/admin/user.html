@@ -133,7 +133,7 @@
 
              dataType: "json",
              success: function (response) {
-                let dataUser = response;
+                let dataUser = response.data;
                 let userD = '';
                  for (let i = 0; i < dataUser.length; i++) {
                      console.log(dataUser[i]);

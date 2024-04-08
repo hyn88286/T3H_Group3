@@ -1,10 +1,9 @@
 package com.t3h.group3_petshop.service.impl;
 
-import com.t3h.group3_petshop.entity.*;
+import com.t3h.group3_petshop.entity.CommentEntity;
+import com.t3h.group3_petshop.entity.OrderDetailEntity;
 import com.t3h.group3_petshop.model.dto.CommentDTO;
-import com.t3h.group3_petshop.model.dto.OrderDTO;
 import com.t3h.group3_petshop.model.request.CommentFilterRequest;
-import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.*;
 import com.t3h.group3_petshop.service.CommentService;
@@ -20,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
