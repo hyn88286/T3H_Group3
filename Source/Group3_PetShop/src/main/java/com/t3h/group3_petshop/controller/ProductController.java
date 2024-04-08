@@ -13,10 +13,6 @@ public class ProductController {
         return "product";
     }
 
-//    @GetMapping("/d/{code}")
-//    public String detail(){
-//        return "product_detail";
-//    }
 
     @GetMapping("/d/{code}")// link này chuyển trang trong layout dùng chung
     public String productDetail(Model model) {

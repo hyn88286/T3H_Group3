@@ -9,20 +9,30 @@ import lombok.ToString;
 @Table(name = "order_detail")
 @Data
 public class OrderDetailEntity extends AbstractEntity{
-    private int quantity;
-
-    @Column(name = "total_amount")
-    private Double totalAmount;
-
+    // ID đơn hàng
     @ManyToOne
     @JoinColumn(name = "order_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private OrderEntity orderEntity;
 
+    // ID sản phẩm
     @ManyToOne
     @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
+
+    // ID size
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private SizeEntity sizeEntity;
+
+    // Số lượng sản phẩm
+    private Integer quantity;
+
+    // Tổng tiền
+    private Double total;
 }

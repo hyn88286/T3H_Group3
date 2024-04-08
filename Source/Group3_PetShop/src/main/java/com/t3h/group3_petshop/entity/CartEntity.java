@@ -8,23 +8,31 @@ import lombok.ToString;
 @Entity
 @Table(name = "cart")
 public class CartEntity extends AbstractEntity{
-    private int quantity;
-    private Double total;
+
+    // ID người dùng
     @ManyToOne
     @JoinColumn(name = "user_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private UserEntity userEntity;
 
-    @OneToOne
+    // ID sản phẩm
+    @ManyToOne
     @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
 
-    @OneToOne
+    // ID size
+    @ManyToOne
     @JoinColumn(name = "size_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private SizeEntity sizeEntity;
+
+    // Số lượng sản phẩm
+    Integer quantity;
+
+    // Tổng tiền
+    Double total;
 }
