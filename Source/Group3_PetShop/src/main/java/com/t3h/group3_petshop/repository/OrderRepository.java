@@ -18,7 +18,8 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "LEFT JOIN o.orderDetailEntity d " +
             "WHERE " +
             "(:#{#condition.userId} is null or u.id = :#{#condition.userId})" +
-            " AND (:#{#condition.orderdtID} is null or u.id = :#{#condition.orderdtID} )" +
+            " AND (:#{#condition.orderId} is null or o.id = :#{#condition.orderId} )" +
+            " AND (:#{#condition.code} is null or lower(o.code)  = :#{#condition.code} )" +
             "AND o.deleted=false ORDER BY o.createdDate desc "
     )
     Page<OrderEntity> findAllByFilter(@Param("condition") OrderFilterRequest filterRequest, Pageable pageable);
