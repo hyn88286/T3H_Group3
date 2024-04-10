@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+<div th:replace="layout/banner :: banner"></div>
+
+
+<main id="body-content">
+    <section class="wide-tb-100 pb-0">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark theme-head">
+                    <tr>
+                        <th scope="col"><span style="color: white">Mã đơn hàng</span></th>
+                        <th scope="col"><span style="color: white">Địa chỉ giao hàng</span></th>
+                        <th scope="col"><span style="color: white">Số điện thoại đặt hàng</span></th>
+                        <th scope="col"><span style="color: white">Tổng tiền thanh toán</span></th>
+                        <th scope="col"><span style="color: white">Trạng thái</span></th>
+                    </tr>
+                    </thead>
+                    <tbody class="theme-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+
+<div th:replace="layout/script :: script"></div>
+
+</body>
+
+<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:23 GMT -->
+</html>

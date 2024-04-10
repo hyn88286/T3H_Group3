@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/views/product")
 public class ProductController {
     @GetMapping()
-    public String index(){
+    public String index(Model model) {
+        model.addAttribute("pageTitle", "Sản phẩm");
         return "product";
     }
 

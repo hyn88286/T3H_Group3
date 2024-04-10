@@ -64,12 +64,19 @@ public class OrderServiceImpl implements IOrderService {
         String code = request.getCode();
         UserDTO userDTO = userService.getCurrentUser(true);
         // Lấy bản ghi đơn hàng theo mã đơn hàng
-        OrderEntity orderEntity = orderRepository.getByCode(userDTO.getId(), code, Constant.ORDER_STATUS_UNPAID);
+        Optional<OrderEntity> orderEntity = orderRepository.getByCode(userDTO.getId(), code, Constant.ORDER_STATUS_UNPAID);
+
+        BaseResponse<OrderDTO> response = new BaseResponse<>();
+        if (orderEntity.isEmpty()) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("User not exits in system");
+            return response;
+        }
         // map OrderEntity sang OrderDTO
         OrderDTO orderDTO = modelMapper.map(orderEntity, OrderDTO.class);
 
         // Lấy danh sách chi tiết các sản phẩm và size trong đơn hàng và trả về 1 list chi tiết
-        List<OrderDetailDTO> orderDetailDTOS = orderDetailRepository.findByCode(orderEntity.getId()).stream().map(orderDetailEntity -> {
+        List<OrderDetailDTO> orderDetailDTOS = orderDetailRepository.findByCode(orderEntity.get().getId()).stream().map(orderDetailEntity -> {
             OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
 
             orderDetailDTO.setTotal(orderDetailEntity.getTotal());
@@ -90,7 +97,7 @@ public class OrderServiceImpl implements IOrderService {
 
         // Set list chi tiết các sản phẩm và size trong đơn hàng
         orderDTO.setOrderDetails(orderDetailDTOS);
-        BaseResponse<OrderDTO> response = new BaseResponse<>();
+
         response.setCode(HttpStatus.OK.value());
         response.setMessage("Get order info successfully");
         response.setData(orderDTO);
@@ -113,7 +120,7 @@ public class OrderServiceImpl implements IOrderService {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setCode(formatter.format(cld.getTime()));
+        orderEntity.setCode(formatter.format(cld.getTime()) + userDTO.getId());
         orderEntity.setStatus(Constant.ORDER_STATUS_UNPAID);
         orderEntity.setUserEntity(user.get());
         orderEntity.setTotalAmount(orderDTO.getTotalAmount());
@@ -134,7 +141,7 @@ public class OrderServiceImpl implements IOrderService {
     public BaseResponse<?> updateOrder(OrderDTO orderDTO) {
         BaseResponse<?> response = new BaseResponse<>();
         UserDTO userDTO = userService.getCurrentUser(true);
-        Optional<OrderEntity> order = orderRepository.findById(orderDTO.getId());
+        Optional<OrderEntity> order = orderRepository.getByCode(userDTO.getId(), orderDTO.getCode(), Constant.ORDER_STATUS_UNPAID);
 
         if (order.isEmpty()) {
             response.setCode(HttpStatus.BAD_REQUEST.value());
@@ -142,10 +149,16 @@ public class OrderServiceImpl implements IOrderService {
             return response;
         }
 
-        order.get().setAddressShipping(orderDTO.getAddressShipping());
-        order.get().setPhoneShipping(orderDTO.getPhoneShipping());
+        if (orderDTO.getAddressShipping() != null) {
+            order.get().setAddressShipping(orderDTO.getAddressShipping());
+        }
+        if (orderDTO.getPhoneShipping() != null) {
+            order.get().setPhoneShipping(orderDTO.getPhoneShipping());
+        }
+        if (orderDTO.getStatus() != null) {
+            order.get().setStatus(orderDTO.getStatus());
+        }
         order.get().setLastModifiedBy(userDTO.getUsername());
-
         orderRepository.save(order.get());
         response.setMessage("Update order successfully");
         response.setCode(HttpStatus.OK.value());
