@@ -1,6 +1,4 @@
 package com.t3h.group3_petshop.service.impl;
-
-
 import com.t3h.group3_petshop.entity.RoleEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
@@ -99,7 +97,7 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
-    /// hiển thị thông tin ngườ dùng đăng nập tài khoản
+    /// hiển thị thông tin người dùng đăng nhập tài khoản
     @Override
     public UserDTO getCurrentUser(Boolean showId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

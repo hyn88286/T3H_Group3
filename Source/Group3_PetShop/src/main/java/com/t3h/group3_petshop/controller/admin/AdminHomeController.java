@@ -25,4 +25,14 @@ public class AdminHomeController {
     public String adminComment() {
         return "admin/comment";
     }
+
+    @GetMapping("/help")
+    public String profile(){
+        return "admin/help";
+    }
+
+    @GetMapping("product")
+    public String product(){
+        return "admin/product";
+    }
 }
