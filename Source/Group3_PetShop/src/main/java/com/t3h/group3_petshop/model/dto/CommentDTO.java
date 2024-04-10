@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class CommentDTO {
+    private Long id;
     private String content;
     private LocalDateTime createdDate;
 
@@ -17,4 +18,6 @@ public class CommentDTO {
     private String modifiedBy;
     private Long productId;
     private Long userId;
+    private String username;
+    private String name;
 }

@@ -191,4 +191,13 @@ public class CartServiceImpl implements ICartService {
         response.setData(countProductCart);
         return response;
     }
+
+    public BaseResponse<?> deleteCart(CartDTO cartDTO) {
+        BaseResponse<?> response = new BaseResponse<>();
+        CartEntity cartEntity = modelMapper.map(cartDTO, CartEntity.class);
+        cartRepository.delete(cartEntity);
+        response.setCode(HttpStatus.OK.value());
+        response.setMessage("Delete cart successfully");
+        return response;
+    }
 }

@@ -27,6 +27,11 @@ public class CartResource {
         return ResponseEntity.ok(service.addToCart(cartDTO));
     }
 
+    @PostMapping("/delete-cart")
+    public ResponseEntity<?> deleteCart(@RequestBody CartDTO cartDTO) {
+        return ResponseEntity.ok(service.deleteCart(cartDTO));
+    }
+
     @GetMapping("/count")
     public ResponseEntity<?> countCart() {
         return ResponseEntity.ok(service.countCart());

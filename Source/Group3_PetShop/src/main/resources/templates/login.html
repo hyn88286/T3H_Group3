@@ -110,18 +110,14 @@
             success: function (response) {
                 console.log(response)
                 console.log(1);
-                location.reload();
+
             },
             error: function (error) {
                 console.log(error);
-                location.reload();
-                if (error.status === 400 && error.responseJSON && error.responseJSON.message === "Tên người dùng đã tồn tại trong hệ thống") {
-                    $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
-                    $("#errorMessage").show();
-                } else {
-                    $("#errorMessage").text("Đã xảy ra lỗi. Vui lòng thử lại sau.");
-                    $("#errorMessage").show();
-                }
+                $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
+                $("#errorMessage").show();
+
+
             }
         })
     });
@@ -132,20 +128,9 @@
         var loginStatus = getParameterByName('login_status');
             console.log(loginStatus);
         // Kiểm tra nếu biến login_status có giá trị là 1
-        if (loginStatus == 1) {
+        if (loginStatus === 1) {
             $('#message').text("Thông tin đăng nhập không chính xác");
         }
     });
-
-    // Hàm để lấy giá trị của một tham số từ URL
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
-        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
 </script>
 </html>

@@ -15,7 +15,6 @@ public interface RoleRepository extends JpaRepository<RoleEntity,Long> {
     @Query(value = "select r from RoleEntity r join r.users u where u.username=:username")
     List<RoleEntity> getRoleByUsername(@Param("username") String username);
 
-    @Query(value = "select r from RoleEntity r where r.name in :names and r.deleted=false")
-    List<RoleEntity> findRoleByNames(List<String> names);
-
+//    @Query(value = "select r from RoleEntity r where r.name in :names and r.deleted=false")
+//    Set<RoleEntity> findRoleByNames(Set<String> names);
 }

@@ -23,10 +23,7 @@
                 <div class="col-md-6">
                     <div class="product-gallery">
                         <div class="outer">
-                            <div id="big" class="owl-carousel owl-theme">
-
-                            </div>
-                            <div id="thumbs" class="owl-carousel owl-theme">
+                            <div id="big" style="text-align: center">
 
                             </div>
                         </div>
@@ -113,6 +110,71 @@
                         </div>
                     </div>
                 </div>
+
+<!--                // comen-->
+                <div class="commnets-reply">
+                    <h3 class="txt-orange fw-7 mb-3">Comments (02)</h3>
+                    <div class="media">
+                        <img class="thumb" src="/frontend/images/blog/comment_thumg_1.jpg" alt="">
+                        <div class="media-body">
+                            <div class="name">
+                                <small>January 17, 2020</small>
+                                <h5>Cindy Cambell</h5>
+                                <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
+                            </div>
+                            <p>3 years ago we wanted to go to see Michalengelos David in the Academy in Florence. The line was down the block</p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="media reply">
+                        <img class="thumb" src="/frontend/images/blog/comment_thumg_2.jpg" alt="">
+                        <div class="media-body">
+                            <div class="name">
+                                <small>January 17, 2020</small>
+                                <h5>Harry Olson</h5>
+                                <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
+                            </div>
+                            <p>3 years ago we wanted to go to see Michalengelos David in the Academy in Florence. The line was down the block</p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <img class="thumb" src="/frontend/images/blog/comment_thumg_1.jpg" alt="">
+                        <div class="media-body">
+                            <div class="name">
+                                <small>January 17, 2020</small>
+                                <h5>Cindy Cambell</h5>
+                                <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
+                            </div>
+                            <p>3 years ago we wanted to go to see Michalengelos David in the Academy in Florence. The line was down the block</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="comment-reply-form">
+                    <h3 class="txt-white fw-7 mb-3">Leave a Comment</h3>
+                    <form action="#" method="post" novalidate="novalidate" class="rounded-field">
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <textarea rows="7" placeholder="Message" class="form-control form-light"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <input type="text" name="name" class="form-control form-light" placeholder="Your Name">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="email" class="form-control form-light" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button type="submit" class="btn-theme bg-navy-blue capusle mb-3">Post Comment</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -146,7 +208,8 @@
     initProductDetail();
 
     clickCart();
-    function clickCart(){
+
+    function clickCart() {
         $('#addToCart').click(function () {
             let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
             let quantity = $('input[type="text"][name="qtt-0"]').val();
@@ -170,7 +233,7 @@
     }
 
     function initProductDetail() {
-        let codeProduct = getCode();
+        let codeProduct = getCode().substring(0, 4);
         let objFilter = {
             code: codeProduct,
             sizeId: null
@@ -212,19 +275,22 @@
                     countImage = productData.images.length;
                 }
 
-                for (let i = 0; i < countImage; i++) {
+                for (let i = 0; i < 1; i++) {
                     // Check xem sản phẩm có dữ liệu ảnh thì lấy ra dữ liệu
                     if (productData.images.length > 0) {
                         // Lấy ra dữ liệu ảnh
                         imageData = productData.images[i];
-                        img += '<div class="item">' +
-                            '<img src="' + imageData.urlImage + '" alt>' +
+                        img +=
+                            '<div class="item">' +
+                            '<img width="50%" src="' + productData.urlImage + '" alt>' +
                             '</div>';
                     } else {
                         // Nếu ko có dữ liệu ảnh thì trả về ảnh mặc định của sản phẩm ( sản phẩm ko có ảnh thì lấy ảnh mặc định )
-                        img += '<div class="item">' +
-                            '<img src="' + productData.urlImage + '" alt>' +
+                        img +=
+                            '<div class="item">' +
+                            '<img width="50%" src="' + productData.urlImage + '" alt>' +
                             '</div>';
+                        ;
                     }
                 }
                 // Load dữ liệu ảnh
@@ -288,7 +354,7 @@
 
     function changeSize() {
         let sizeOptionValue;
-        let codeProduct = getCode();
+        let codeProduct = getCode().substring(0, 4);
         $('input[type=radio][name=sizeOption]').change(function () {
             sizeOptionValue = $(this).val();
             $('input[type="radio"][name=sizeOption]').not(this).prop('checked', false);
@@ -301,6 +367,7 @@
             $(this).prop('checked', true);
         })
     }
+
     function addToCart(objCart) {
         $.ajax({
             type: "POST",

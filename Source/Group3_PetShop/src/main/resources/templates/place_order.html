@@ -150,33 +150,40 @@
             if (phoneNumber === "") {
                 $('#errPhone').html('Hãy nhập vào số điện thoại nhận hàng của bạn').addClass('text-danger');
             }else $('#errPhone').html('');
+
             let objectData = {};
-            objectData.id = $(this).data('id')
+            objectData.code = $(this).data('code')
             objectData.addressShipping = address;
             objectData.phoneShipping = phoneNumber;
             console.log(objectData);
 
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/order/update",
-                contentType: "application/json",
-                data: JSON.stringify(objectData),
-                dataType: "json",
-                success: function (response) {
-                    payment();
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            })
+            if(address !== "" && phoneNumber !== ""){
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/api/order/update",
+                    contentType: "application/json",
+                    data: JSON.stringify(objectData),
+                    dataType: "json",
+                    success: function (response) {
+                        payment();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
         });
     }
 
     function payment(){
+       let objectData = {
+            code : getCode()
+        }
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "http://localhost:8080/api/payment/vnpay",
             contentType: "application/json",
+            data: JSON.stringify(objectData),
             dataType: "json",
             success: function (response) {
                 window.location.href = response.data;
@@ -187,7 +194,7 @@
         })
     }
     function showOrder() {
-        let orderCode = getCode() + '';
+        let orderCode = getCode();
         let objData = {
             code: orderCode
         }
@@ -210,7 +217,7 @@
                 $('#productItem').html(productItemHtml);
                 $('.totalAmount').html(formatPrice(response.data.totalAmount))
 
-                $('#payment').data("id", response.data.id);
+                $('#payment').data("code", response.data.code);
                 console.log(response);
             },
             error: function (error) {

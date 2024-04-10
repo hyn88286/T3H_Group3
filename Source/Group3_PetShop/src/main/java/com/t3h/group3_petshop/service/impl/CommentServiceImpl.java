@@ -1,10 +1,9 @@
 package com.t3h.group3_petshop.service.impl;
 
-import com.t3h.group3_petshop.entity.*;
+import com.t3h.group3_petshop.entity.CommentEntity;
+import com.t3h.group3_petshop.entity.OrderDetailEntity;
 import com.t3h.group3_petshop.model.dto.CommentDTO;
-import com.t3h.group3_petshop.model.dto.OrderDTO;
 import com.t3h.group3_petshop.model.request.CommentFilterRequest;
-import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.*;
 import com.t3h.group3_petshop.service.CommentService;
@@ -20,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,27 +54,30 @@ public class CommentServiceImpl implements CommentService {
     // Phương thức lấy tất cả comment với điều kiện lọc
     @Override
     public BaseResponse<Page<CommentDTO>> getAll(CommentFilterRequest commentFilterRequest, int page, int size) {
-        Pageable pageable = PageRequest.of(page,size);
+        Pageable pageable = PageRequest.of(page, size);
 
         // Lấy dữ liệu từ repository dựa trên điều kiện lọc và phân trang
-        Page<CommentEntity> commentEntities = commentRepository.findByFilter(commentFilterRequest,pageable);
+        Page<CommentEntity> commentEntities = commentRepository.findByFilter(commentFilterRequest, pageable);
 
         // Ánh xạ các đối tượng CommentEntity sang CommentDTO
         List<CommentDTO> commentDTOS = commentEntities.getContent().stream().map(commentEntity -> {
-            CommentDTO commentDTO  = modelMapper.map(commentEntity,CommentDTO.class);
+            CommentDTO commentDTO = modelMapper.map(commentEntity, CommentDTO.class);
             commentDTO.setContent(commentEntity.getContent());
-            commentDTO.setUserId(commentEntity.getUserEntity().getId());
+            // Lấy tên người dùng từ UserEntity và thiết lập vào CommentDTO
+            commentDTO.setUsername(commentEntity.getUserEntity().getUsername());
+            commentDTO.setName(commentEntity.getProductEntity().getName());
             return commentDTO;
         }).collect(Collectors.toList());
 
         // Tạo Page<CommentDTO> mới để trả về
-        Page<CommentDTO> pageData = new PageImpl(commentDTOS,pageable,commentEntities.getTotalElements());
+        Page<CommentDTO> pageData = new PageImpl(commentDTOS, pageable, commentEntities.getTotalElements());
         BaseResponse<Page<CommentDTO>> response = new BaseResponse<>();
         response.setCode(HttpStatus.OK.value());
         response.setMessage("success");
         response.setData(pageData);
         return response;
     }
+
 
     // Phương thức thêm mới comment
     @Override
