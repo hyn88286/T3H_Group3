@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("pageTitle", "Sản Phẩm");
+        model.addAttribute("pageTitle", "Sản phẩm");
         return "product";
     }
 

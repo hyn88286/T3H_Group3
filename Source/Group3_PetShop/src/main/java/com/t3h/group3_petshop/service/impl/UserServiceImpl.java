@@ -71,7 +71,6 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
-
     @Override
     public BaseResponse<?> update(Long id ,UserEntity user) {
         BaseResponse<?> baseResponse = new BaseResponse<>();
@@ -128,8 +127,4 @@ public class UserServiceImpl implements IUserService {
 
         return userDTO;
     }
-
-
-
-
 }
