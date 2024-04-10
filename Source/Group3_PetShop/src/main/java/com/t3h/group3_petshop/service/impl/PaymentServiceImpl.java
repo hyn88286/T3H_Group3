@@ -1,8 +1,14 @@
 package com.t3h.group3_petshop.service.impl;
 
+import com.t3h.group3_petshop.entity.OrderEntity;
+import com.t3h.group3_petshop.model.dto.UserDTO;
+import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
+import com.t3h.group3_petshop.repository.OrderRepository;
 import com.t3h.group3_petshop.service.IPaymentService;
+import com.t3h.group3_petshop.service.IUserService;
 import com.t3h.group3_petshop.utils.Constant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +21,19 @@ import java.util.*;
 
 @Service
 public class PaymentServiceImpl implements IPaymentService {
-    public BaseResponse<String> createVnPay() {
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private IUserService userService;
+    public BaseResponse<String> createVnPay(OrderFilterRequest request) {
+        String orderCode = request.getCode();
+        UserDTO userDTO = userService.getCurrentUser(true);
+        Optional<OrderEntity> orderEntity = orderRepository.getByCode(userDTO.getId(), orderCode, Constant.ORDER_STATUS_UNPAID);
+
+        // Timestamp ngày giờ hiện tại
+        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+
         // Phiên bản VnPay
         String vnp_Version = "2.1.0";
 
@@ -23,29 +41,26 @@ public class PaymentServiceImpl implements IPaymentService {
         String vnp_Command = "pay";
 
         // Thông tin mô tả nội dung thanh toán
-        String vnp_OrderInfo = "Payment order";
+        String vnp_OrderInfo = "Thanh toan don hang " + orderCode;
 
         // Mã danh mục hàng hóa
         String orderType = "other";
 
-        // Mã đơn hàng trên côn thanh toán
-        String vnp_TxnRef = "1234567DS";
+        // Mã đơn hàng trên cổng thanh toán
+        String vnp_TxnRef = formatter.format(cld.getTime()) + userDTO.getId();
 
         // Địa chỉ IP
         String vnp_IpAddr = "127.0.0.1";
 
         // Mã website của merchant trên hệ thống của VNPAY
-        String vnp_TmnCode = Constant.vnp_TmnCode;
+        String vnp_TmnCode = Constant.VNP_TMN_CODE;
 
         // Ngôn ngữ giao diện hiển thị
         String locate = "vn";
 
         // Url trả về sau quá trình thanh toán
-        String vnp_ReturnUrl = "http://localhost:8080/response/";
+        String vnp_ReturnUrl = "http://localhost:8080/views/order/payment/result/" + orderCode;
 
-        // Timestamp ngày giờ hiện tại
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
 
         // Timestamp thêm 15p vào ngày giờ hiện tại
@@ -56,7 +71,7 @@ public class PaymentServiceImpl implements IPaymentService {
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(10000 * 100));
+        vnp_Params.put("vnp_Amount", String.valueOf(orderEntity.get().getTotalAmount().intValue() * 100));
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", vnp_OrderInfo);
@@ -89,12 +104,12 @@ public class PaymentServiceImpl implements IPaymentService {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = hmacSHA512(Constant.vnp_HashSecret, hashData.toString());
+        String vnp_SecureHash = hmacSHA512(Constant.VNP_HASH_SECRET, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         BaseResponse<String> response = new BaseResponse<>();
         response.setCode(HttpStatus.OK.value());
         response.setMessage("Get link payment VnPay successfully");
-        response.setData(Constant.vnp_PayUrl + "?" + queryUrl);
+        response.setData(Constant.VNP_PAY_URL + "?" + queryUrl);
 
         return response;
     }

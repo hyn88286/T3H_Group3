@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+<div th:replace="layout/banner :: banner"></div>
+
+
+<main id="body-content">
+    <div class="container">
+        <div class="row" style="background-color: #27304b; margin-top: 5%; padding: 3%">
+            <div class="col-sm-12">
+                <div class="team-single-details" id="paymentResult">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+
+<div th:replace="layout/script :: script"></div>
+<script>
+    resultPayment();
+
+    function resultPayment() {
+        let paymentStatus = getParameterByName('vnp_TransactionStatus');
+        let paymentResult = '';
+        if (paymentStatus === "00") {
+            let objectData = {
+                code: getCode().split('?')[0],
+                status: 2
+            }
+            console.log(objectData, getCode());
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/order/update",
+                contentType: "application/json",
+                data: JSON.stringify(objectData),
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+            paymentResult += '<h4>Thanh toán thành công</h4>';
+        } else paymentResult += '<h4 class="text-danger">Thanh toán thất bại</h4>';
+
+        paymentResult += '<ul className="list-unstyled">' +
+            '<li>Tổng số tiền : ' + formatPrice(getParameterByName('vnp_Amount') / 100) + ' VNĐ</li>' +
+            '<li>Ngân hàng: ' + getParameterByName('vnp_BankCode') + '</li>' +
+            '</ul>';
+        $('#paymentResult').html(paymentResult);
+    }
+</script>
+</body>
+</html>

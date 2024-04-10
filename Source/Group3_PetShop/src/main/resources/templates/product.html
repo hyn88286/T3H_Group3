@@ -19,17 +19,22 @@
         <div class="container">
             <div class="product-count">
                 <div class="row align-items-center">
-                    <div class="col-xl-9 col-lg-8 col-md-6 mb-2 mb-md-0">
-                        <strong>Showing 1–15 of 23 results</strong>
+                    <div class="col-xl-6 col-lg-8 col-md-6 mb-2 mb-md-0">
+                        <strong id="showing"></strong>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="col-xl-6 col-lg-4 col-md-6" style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 12%">
                         <select name="orderby" class="form-control wide form-light">
-                            <option selected value="1">Default sorting</option>
-                            <option value="2">Sort by popularity</option>
-                            <option value="3">Sort by newness</option>
-                            <option value="4">Sort by price: low to high</option>
-                            <option value="5">Sort by price: high to low</option>
-                            <option value="6">Product Name: Z</option>
+                            <option selected value="1"> Sắp xếp theo thời gian</option>
+                            <option value="2">Sắp xếp theo bảng chữ cái</option>
+                            <option value="3">Sắp xếp theo giá sản phẩm tăng dần</option>
+                            <option value="4">Sắp xếp theo giá sản phẩm giảm dần</option>
+                        </select>
+                        <select name="orderby" class="form-control wide form-light">
+                            <option selected value="1"> Sắp xếp theo thời gian</option>
+                            <option value="2">Sắp xếp theo bảng chữ cái</option>
+                            <option value="3">Sắp xếp theo giá sản phẩm tăng dần</option>
+                            <option value="4">Sắp xếp theo giá sản phẩm giảm dần</option>
                         </select>
                     </div>
                 </div>
@@ -85,6 +90,7 @@
     function initData() {
         let page = 0;
         let size = 8;
+
         let objFilter = {
             name: null
         };
@@ -99,7 +105,7 @@
             data: JSON.stringify(objectFilter),
             dataType: "json",
             success: function (response) {
-                $('#pData').empty();
+                $('#showing').html('Hiển thị '+size+' trên tổng số '+response.data.totalElements +' kết quả')
                 console.log(response);
                 let products = response.data.content;
                 // hiển thị dữ liệu trên bảng

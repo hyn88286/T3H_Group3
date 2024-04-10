@@ -23,10 +23,7 @@
                 <div class="col-md-6">
                     <div class="product-gallery">
                         <div class="outer">
-                            <div id="big" class="owl-carousel owl-theme">
-
-                            </div>
-                            <div id="thumbs" class="owl-carousel owl-theme">
+                            <div id="big" style="text-align: center">
 
                             </div>
                         </div>
@@ -146,7 +143,8 @@
     initProductDetail();
 
     clickCart();
-    function clickCart(){
+
+    function clickCart() {
         $('#addToCart').click(function () {
             let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
             let quantity = $('input[type="text"][name="qtt-0"]').val();
@@ -170,7 +168,7 @@
     }
 
     function initProductDetail() {
-        let codeProduct = getCode();
+        let codeProduct = getCode().substring(0, 4);
         let objFilter = {
             code: codeProduct,
             sizeId: null
@@ -212,19 +210,22 @@
                     countImage = productData.images.length;
                 }
 
-                for (let i = 0; i < countImage; i++) {
+                for (let i = 0; i < 1; i++) {
                     // Check xem sản phẩm có dữ liệu ảnh thì lấy ra dữ liệu
                     if (productData.images.length > 0) {
                         // Lấy ra dữ liệu ảnh
                         imageData = productData.images[i];
-                        img += '<div class="item">' +
-                            '<img src="' + imageData.urlImage + '" alt>' +
+                        img +=
+                            '<div class="item">' +
+                            '<img width="50%" src="' + productData.urlImage + '" alt>' +
                             '</div>';
                     } else {
                         // Nếu ko có dữ liệu ảnh thì trả về ảnh mặc định của sản phẩm ( sản phẩm ko có ảnh thì lấy ảnh mặc định )
-                        img += '<div class="item">' +
-                            '<img src="' + productData.urlImage + '" alt>' +
+                        img +=
+                            '<div class="item">' +
+                            '<img width="50%" src="' + productData.urlImage + '" alt>' +
                             '</div>';
+                        ;
                     }
                 }
                 // Load dữ liệu ảnh
@@ -288,7 +289,7 @@
 
     function changeSize() {
         let sizeOptionValue;
-        let codeProduct = getCode();
+        let codeProduct = getCode().substring(0, 4);
         $('input[type=radio][name=sizeOption]').change(function () {
             sizeOptionValue = $(this).val();
             $('input[type="radio"][name=sizeOption]').not(this).prop('checked', false);
@@ -301,6 +302,7 @@
             $(this).prop('checked', true);
         })
     }
+
     function addToCart(objCart) {
         $.ajax({
             type: "POST",
