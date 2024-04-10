@@ -9,7 +9,7 @@ public interface IUserService {
     UserDTO findUserByUsername(String username);
     void addUser(UserEntity user);
     BaseResponse<?>getAllUsers();
-    void update(UserEntity userEntity);
+    BaseResponse update(Long id ,UserEntity user);
     BaseResponse<?> deleteUser(Long userId);
     UserDTO getCurrentUser(Boolean showId);
 

@@ -14,9 +14,11 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query(value = "SELECT o FROM OrderEntity o " +
-            "LEFT JOIN o.userEntity u " +
-            " WHERE " +
-            "(:#{#condition.userId} is null or u.id = :#{#condition.userId} )" +
+            "LEFT JOIN o.userEntity u " + // Thay đổi userEntity thành user
+            "LEFT JOIN o.orderDetailEntity d " +
+            "WHERE " +
+            "(:#{#condition.userId} is null or u.id = :#{#condition.userId})" +
+            " AND (:#{#condition.orderdtID} is null or u.id = :#{#condition.orderdtID} )" +
             "AND o.deleted=false ORDER BY o.createdDate desc "
     )
     Page<OrderEntity> findAllByFilter(@Param("condition") OrderFilterRequest filterRequest, Pageable pageable);
