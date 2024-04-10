@@ -11,7 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/views/order")
 public class OrderController {
     @GetMapping("/place-order/{code}")
-    public String submitOrder(@PathVariable String code){
+    public String submitOrder(@PathVariable String code) {
         return "place_order";
     }
+
+    @GetMapping()
+    public String listOrder() {
+        return "order";
+    }
+
+    @GetMapping("/payment/result/{code}")
+    public String resultPayment(@PathVariable String code) {
+        return "result_payment";
+    }
+
 }

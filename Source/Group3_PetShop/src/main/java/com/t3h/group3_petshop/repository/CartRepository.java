@@ -11,7 +11,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface CartRepository extends JpaRepository<CartEntity, Long> {
     @Query(value = "SELECT c FROM CartEntity c " +
@@ -40,6 +42,9 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
             "AND (:#{#sizeId} is null or s.id = :#{#sizeId}) AND c.deleted = false ORDER BY c.createdDate desc LIMIT 1"
     )
     Optional<CartEntity> cartExist(Long userId, Long productId, Long sizeId);
+
+    @Query(value = "select c from CartEntity c where c.id in :ids")
+    Set<CartEntity> findByIds(List<Long> ids);
 }
 
 

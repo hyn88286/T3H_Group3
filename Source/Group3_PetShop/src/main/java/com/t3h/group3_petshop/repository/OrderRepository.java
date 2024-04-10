@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query(value = "SELECT o FROM OrderEntity o " +
@@ -27,5 +29,5 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "AND (:#{#status} is null or o.status = :#{#status} )" +
             "AND o.deleted=false ORDER BY o.createdDate desc LIMIT 1"
     )
-    OrderEntity getByCode(Long userId, String code, Integer status);
+    Optional<OrderEntity> getByCode(Long userId, String code, Integer status);
 }

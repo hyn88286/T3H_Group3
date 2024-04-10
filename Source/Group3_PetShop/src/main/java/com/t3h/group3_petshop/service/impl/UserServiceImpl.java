@@ -71,7 +71,6 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
-
     @Override
     public void update(UserEntity user) {
         userRepository.save(user);
@@ -121,8 +120,4 @@ public class UserServiceImpl implements IUserService {
 
         return userDTO;
     }
-
-
-
-
 }
