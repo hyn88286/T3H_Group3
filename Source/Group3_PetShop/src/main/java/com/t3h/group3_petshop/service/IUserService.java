@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserService {
     UserDTO findUserByUsername(String username);
-    void addUser(UserEntity user);
+    BaseResponse<?> addUser(UserEntity user);
     BaseResponse<?>getAllUsers();
     BaseResponse update(Long id ,UserEntity user);
     BaseResponse<?> deleteUser(Long userId);

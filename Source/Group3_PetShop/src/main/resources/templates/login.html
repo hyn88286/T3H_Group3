@@ -110,11 +110,14 @@
             success: function (response) {
                 console.log(response)
                 console.log(1);
-                location.reload();
+
             },
             error: function (error) {
                 console.log(error);
-                location.reload();
+                $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
+                $("#errorMessage").show();
+
+
             }
         })
     });

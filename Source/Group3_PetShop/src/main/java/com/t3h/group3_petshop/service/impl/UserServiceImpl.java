@@ -52,7 +52,17 @@ public class UserServiceImpl implements IUserService {
         return userDto;
     }
     @Override
-    public void addUser(UserEntity user) {
+    public BaseResponse<?> addUser(UserEntity user) {
+        BaseResponse <?> baseResponse = new BaseResponse<>();
+        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            // Thông báo rằng tên người dùng đã tồn tại trong hệ thống
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("tài khoản đã tồn tại");
+            return baseResponse;
+        }
+
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
@@ -61,7 +71,11 @@ public class UserServiceImpl implements IUserService {
         userRole.setName("ROLE_USER");
         user.setRoles(Collections.singleton(userRole));
 
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage(" Đăng kí thành công");
         userRepository.save(user);
+        return baseResponse;
+
     }
 
     @Override
