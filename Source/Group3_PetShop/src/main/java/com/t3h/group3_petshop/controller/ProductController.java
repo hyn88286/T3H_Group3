@@ -21,4 +21,6 @@ public class ProductController {
 
         return "product_detail"; //  này là chỉ tới trang giao diên html
     }
+
+
 }

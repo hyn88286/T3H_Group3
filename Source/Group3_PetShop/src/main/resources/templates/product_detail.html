@@ -59,27 +59,21 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mt-4">
                 <div class="col-md-12 col-lg-10 mx-auto">
                     <div class="review-tabbing">
-                        <ul class="nav nav-pills theme-tabbing mb-3 justify-content-center" id="pills-tab"
-                            role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home"
-                                   role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
+                        <ul class="nav nav-pills theme-tabbing mb-3 justify-content-center" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile"
-                                   role="tab" aria-controls="pills-profile" aria-selected="false">Thông tin chi tiêt</a>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" tabindex="-1">Thông tin chi tiêt</a>
                             </li>
                         </ul>
                         <div class="tab-content theme-tabbing" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                 aria-labelledby="pills-home-tab">
-
-                            </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                                 aria-labelledby="pills-profile-tab">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><p>Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.</p></div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                 <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
                                         <tbody>
@@ -111,71 +105,43 @@
                     </div>
                 </div>
 
-<!--                // comen-->
+                <!--                // comen-->
                 <div class="commnets-reply">
-                    <h3 class="txt-orange fw-7 mb-3">Comments (02)</h3>
+
                     <div class="media">
                         <img class="thumb" src="/frontend/images/blog/comment_thumg_1.jpg" alt="">
                         <div class="media-body">
                             <div class="name">
-                                <small>January 17, 2020</small>
-                                <h5>Cindy Cambell</h5>
+                                <small></small>
+                                <h5 style="font-size: 35px; color: black;" ></h5>
                                 <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
                             </div>
-                            <p>3 years ago we wanted to go to see Michalengelos David in the Academy in Florence. The line was down the block</p>
+                            <p></p>
                             <p></p>
                         </div>
                     </div>
-                    <div class="media reply">
-                        <img class="thumb" src="/frontend/images/blog/comment_thumg_2.jpg" alt="">
-                        <div class="media-body">
-                            <div class="name">
-                                <small>January 17, 2020</small>
-                                <h5>Harry Olson</h5>
-                                <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
-                            </div>
-                            <p>3 years ago we wanted to go to see Michalengelos David in the Academy in Florence. The line was down the block</p>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <img class="thumb" src="/frontend/images/blog/comment_thumg_1.jpg" alt="">
-                        <div class="media-body">
-                            <div class="name">
-                                <small>January 17, 2020</small>
-                                <h5>Cindy Cambell</h5>
-                                <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
-                            </div>
-                            <p>3 years ago we wanted to go to see Michalengelos David in the Academy in Florence. The line was down the block</p>
-                            <p></p>
-                        </div>
-                    </div>
+
+
                 </div>
 
 
 
                 <div class="comment-reply-form">
                     <h3 class="txt-white fw-7 mb-3">Leave a Comment</h3>
-                    <form action="#" method="post" novalidate="novalidate" class="rounded-field">
+                    <form  novalidate="novalidate" class="rounded-field">
                         <div class="form-row mb-4">
                             <div class="col">
-                                <textarea rows="7" placeholder="Message" class="form-control form-light"></textarea>
+                                <textarea rows="7"  id="content" placeholder="Message" class="form-control form-light"></textarea>
                             </div>
                         </div>
-                        <div class="form-row mb-4">
-                            <div class="col">
-                                <input type="text" name="name" class="form-control form-light" placeholder="Your Name">
-                            </div>
-                            <div class="col">
-                                <input type="text" name="email" class="form-control form-light" placeholder="Email">
-                            </div>
-                        </div>
+
                         <div class="form-row">
-                            <button type="submit" class="btn-theme bg-navy-blue capusle mb-3">Post Comment</button>
+                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3">Post Comment</button>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -345,6 +311,12 @@
                 $('#cate').html(category);
                 // Bắt event thay đổi size
                 changeSize();
+                let object = {
+                    productId: productData.id,
+
+                };
+                getCommentsAndDisplay(object);
+
             },
             error: function (error) {
                 console.log(error);
@@ -367,7 +339,70 @@
             $(this).prop('checked', true);
         })
     }
+    // hiển thị comment
 
+
+    function getCommentsAndDisplay(object) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/comments",
+            contentType: "application/json",
+            data: JSON.stringify(object),
+            dataType: "json",
+            success: function(response) {
+                // Xử lý dữ liệu nhận được từ API
+                let comments = response.data.content;
+
+                // Hiển thị dữ liệu comment trên trang web
+                displayComments(comments);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    function displayComments(comments) {
+        let commentsHTML = '';
+        comments.forEach(function(comment) {
+            commentsHTML += '<div class="card mb-3">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title" style="font-size: 35px; color: black;">' + comment.username + '</h5>' +
+                '<p class="card-text" >' + comment.content + '</p>' +
+                '<p class="card-text"><small class="text-muted">' + comment.createdDate + '</small></p>' +
+                '</div>' +
+                '</div>';
+        });
+        $('.media').html(commentsHTML);
+    }
+    $(document).on('click', '#post', function() {
+        var content1 = $('#content').val();
+        var productID =
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/comments/create",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                productCode: getCode(),
+                content: content1
+
+            }),
+            success: function(response) {
+                console.log(" đã được thêm thành công");
+                window.location.reload();
+                // Xóa nội dung cũ của tbody trong bảng
+                $('#tableDate tbody').empty();
+                // Tải lại danh sách danh mục sau khi thêm
+                getCategoryAdmin();
+            },
+            error: function(error) {
+                console.log("Lỗi khi thêm danh mục");
+            }
+        });
+    });
     function addToCart(objCart) {
         $.ajax({
             type: "POST",

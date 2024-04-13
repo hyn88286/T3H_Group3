@@ -2,11 +2,14 @@ package com.t3h.group3_petshop.service.impl;
 
 import com.t3h.group3_petshop.entity.CommentEntity;
 import com.t3h.group3_petshop.entity.OrderDetailEntity;
+import com.t3h.group3_petshop.entity.ProductEntity;
 import com.t3h.group3_petshop.model.dto.CommentDTO;
+import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.model.request.CommentFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.*;
 import com.t3h.group3_petshop.service.CommentService;
+import com.t3h.group3_petshop.service.IUserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
     // Khai báo các repository cần thiết
     private final CommentRepository commentRepository;
     private final OrderRepository orderRepository;
+    private final IUserService iUserService;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final OrderDetailRepository orderDetailRepository;
@@ -40,11 +45,12 @@ public class CommentServiceImpl implements CommentService {
 
     // Constructor để inject các repository và ModelMapper
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, OrderRepository orderRepository,
+    public CommentServiceImpl(CommentRepository commentRepository, OrderRepository orderRepository, IUserService iUserService,
                               UserRepository userRepository, ProductRepository productRepository,
                               OrderDetailRepository orderDetailRepository, ModelMapper modelMapper) {
         this.commentRepository = commentRepository;
         this.orderRepository = orderRepository;
+        this.iUserService = iUserService;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.orderDetailRepository = orderDetailRepository;
@@ -84,10 +90,13 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public BaseResponse<CommentDTO> addComment(CommentDTO commentDTO) {
         BaseResponse<CommentDTO> response = new BaseResponse<>();
+        UserDTO userDTO = iUserService.getCurrentUser(true);
 
+        ProductEntity productEntity = productRepository.findByCode(commentDTO.getProductCode());
+        commentDTO.setProductId(productEntity.getId());
         // Kiểm tra xem người dùng đã mua sản phẩm này chưa
         OrderDetailEntity orderDetailEntity = orderDetailRepository.findOrderEntitiesBy(
-                commentDTO.getUserId(),
+               userDTO.getId(),
                 commentDTO.getProductId()
         );
 
@@ -102,9 +111,10 @@ public class CommentServiceImpl implements CommentService {
         commentEntity.setContent(commentDTO.getContent());
 
         // Thiết lập người dùng và sản phẩm cho comment
-        commentEntity.setUserEntity(userRepository.findById(commentDTO.getUserId()).orElse(null));
+        commentEntity.setUserEntity(userRepository.findById(userDTO.getId()).get());
         commentEntity.setProductEntity(productRepository.findById(commentDTO.getProductId()).orElse(null));
-
+        LocalDateTime now = LocalDateTime.now();
+        commentEntity.setCreatedDate(now);
         // Lưu comment vào cơ sở dữ liệu
         try {
             commentEntity = commentRepository.save(commentEntity);
