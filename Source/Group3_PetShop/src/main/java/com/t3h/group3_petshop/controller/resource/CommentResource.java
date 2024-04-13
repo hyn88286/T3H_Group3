@@ -28,7 +28,7 @@ public class CommentResource {
 
     @PostMapping("/create")
     public ResponseEntity<BaseResponse<CommentDTO>> addComment(@RequestBody CommentDTO commentDTO) {
-        if (commentDTO == null || commentDTO.getContent() == null || commentDTO.getUserId() == null || commentDTO.getProductId() == null) {
+        if (commentDTO == null || commentDTO.getContent() == null || commentDTO.getProductCode() == null) {
             // Trả về lỗi nếu thông tin comment không hợp lệ
             BaseResponse<CommentDTO> response = new BaseResponse<>();
             response.setCode(HttpStatus.BAD_REQUEST.value());

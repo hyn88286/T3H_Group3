@@ -97,6 +97,27 @@ public class ProductServiceImpl implements IProductService {
         baseResponse.setData(productDTO);
         return baseResponse;
     }
+    @Override
+    public BaseResponse<?> deleteProduct(Long productId) {
+        BaseResponse<?> response = new BaseResponse<>();
+        Optional<ProductEntity> optionalProduct = productRepository.findById(productId);
+
+        if (optionalProduct.isPresent()) {
+            ProductEntity productEntity = optionalProduct.get();
+            productEntity.setDeleted(true); // Đánh dấu sản phẩm đã bị xóa
+
+            productRepository.save(productEntity); // Lưu thay đổi vào cơ sở dữ liệu
+
+            response.setCode(HttpStatus.OK.value());
+            response.setMessage("Product deleted successfully");
+        } else {
+            response.setCode(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Product not found");
+        }
+
+        return response;
+    }
+
 
     @Override
     public BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest) {
