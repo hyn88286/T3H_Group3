@@ -2,6 +2,7 @@ package com.t3h.group3_petshop.repository;
 
 import com.t3h.group3_petshop.entity.ProductEntity;
 import com.t3h.group3_petshop.entity.SizeEntity;
+import com.t3h.group3_petshop.model.dto.ProductDTO;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,4 +46,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "select p from ProductEntity p where p.id in :ids and p.deleted=false")
     Set<ProductEntity> findByIds(List<Long> ids);
+
+    @Query(value = "select p from ProductEntity p where lower(p.code) = :#{#code}  and p.deleted=false ORDER BY p.createdDate desc LIMIT 1")
+    ProductEntity findByCode(String code );
 }

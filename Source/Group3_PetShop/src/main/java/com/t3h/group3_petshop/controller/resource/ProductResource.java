@@ -34,4 +34,11 @@ public class ProductResource {
     public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
         return ResponseEntity.ok(service.getProductBy(filterRequest));
     }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<BaseResponse<?>> deleteProduct(@PathVariable Long productId) {
+        BaseResponse<?> response = service.deleteProduct(productId);
+
+        return ResponseEntity.status(response.getCode()).body(response);
+    }
 }
