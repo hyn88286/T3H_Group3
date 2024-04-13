@@ -25,4 +25,8 @@ public class AdminHomeController {
     public String adminComment() {
         return "admin/comment";
     }
+    @GetMapping("/Oder")
+    public String adminOder() {
+        return "admin/Oder";
+    }
 }
