@@ -24,11 +24,11 @@ public class UserResource {
     }
 
     @PostMapping("/ListUser")
-    public ResponseEntity<BaseResponse<Page<UserDTO>>> ListUser(@RequestBody UserRequest UserResource,
+    public ResponseEntity<BaseResponse<Page<UserDTO>>> ListUser(@RequestBody UserRequest userRequest,
                                                                 @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                                 @RequestParam(name = "size", required = false, defaultValue = "10") int size
                                                                 ){
-        return ResponseEntity.ok(iUserService.getAllUsers(UserResource,page,size));
+        return ResponseEntity.ok(iUserService.getAllUsers(userRequest,page,size));
 
     }
 
