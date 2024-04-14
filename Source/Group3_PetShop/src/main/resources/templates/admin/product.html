@@ -14,7 +14,7 @@
         <h1>Data Product</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
                 <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active">Data</li>
             </ol>
@@ -151,13 +151,16 @@
                         '<td data-code="' + productData[p].code + '">' + productData[p].code + '</td>' +
                         '<td data-name="' + productData[p].name + '">' + productData[p].name + '</td>' +
                             '<td style="width: 12%">';
-                        for (let i = 0; i < productData[p].sizes.length ; i++) {
-                            producT +=  productData[p].sizes[i].name;
+                        for (let i = 0; i < productData[p].sizes.length; i++) {
+                            producT += productData[p].sizes[i].name;
+                            if (i < productData[p].sizes.length - 1) {
+                                producT += ',  ';
+                            }
                             console.log(productData[p].sizes[i]);
                         }
                         producT +=
                             '</td>' +
-                        '<td data-price="' + productData[p].minPrice + '">' + productData[p].minPrice + '</td>' +
+                        '<td data-price="' + productData[p].minPrice + '">' + productData[p].minPrice + ' vnđ' +  '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
                         '<td style="width: 13%" > <img src="'+ productData[p].urlImage +'" style="width: 58%; margin-left: 21%">  </td>' +
                         '<td style="text-align: center"  id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
