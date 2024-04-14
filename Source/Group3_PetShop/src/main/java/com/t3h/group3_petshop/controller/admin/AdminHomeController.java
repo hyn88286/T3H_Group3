@@ -30,4 +30,8 @@ public class AdminHomeController {
     public String product(){
         return "admin/product";
     }
+    @GetMapping("/Oder")
+    public String adminOder() {
+        return "admin/Oder";
+    }
 }
