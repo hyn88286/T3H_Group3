@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Product <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
+                        <h5 class="card-title">Danh Sách Sản Phẩm <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
 
                         <!-- Table thông tin muốn hiển thị -->
                         <div class="bd-example">
@@ -34,27 +34,22 @@
                                 <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Mã Sản Phẩm</th>
+                                    <th style="width: 12%">Mã Sản Phẩm</th>
                                     <th>Tên Sản Phẩm</th>
                                     <th>Loại Size</th>
                                     <th>Đơn Giá</th>
-                                    <th>Danh Mục</th>
+                                    <th style="width: 12%">Danh Mục</th>
                                     <th>Hình Sản Phẩm</th>
-                                    <th>Cập Nhật</th>
-                                    <th>Xóa</th>
+                                    <th style="width:9%; text-align: center">Cập Nhật</th>
+                                    <th style="text-align: center">Xóa</th>
                                 </tr>
                                 </thead>
                                 <tbody id="body-Produc"> </tbody>
                             </table>
                         </div>
-                        <!--    thưu mục 1 2 3-->
+                        <!--    thư mục 1 2 3 phân trang-->
                         <div class="container mt-3" style="display: ruby-text;">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#"><</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            <ul id="pageCD" class="pagination">
                             </ul>
                         </div>
                     </div>
@@ -81,20 +76,24 @@
                             <thead>
                             <tr>
                                 <th scope="col">STT</th>
-                                <th scope="col">Họ và Tên</th>
-                                <th scope="col">Tên Đăng Nhập</th>
-                                <th scope="col">Gmail</th>
-                                <th scope="col">Số Điện Thoại</th>
+                                <th scope="col">Mã Sản Phẩm</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Loại Size</th>
+                                <th scope="col">Đơn Giá</th>
+                                <th scope="col">Danh Mục</th>
+                                <th scope="col">Hình Sản Phẩm</th>
                             </tr>
                             </thead>
 
                             <tbody>
                             <tr>
-                                <td id="userId"></td>
-                                <td id="fullName"><input type="text" id="name"></td>
-                                <td id="userName"><input type="text" id="account"></td>
-                                <td id="emailUser"><input type="email" id="email"></td>
-                                <td Id="phoneUser"><input type="tel" id="phone"></td>
+                                <td id="id"></td>
+                                <td id="codeProduct"><input type="text" id="code"></td>
+                                <td id="nameProduct"><input type="text" id="name"></td>
+                                <td id="sizeProduct"><input type="text" id="size"></td>
+                                <td id="priceProduc"><input type="text" id="price"></td>
+                                <td id="categoryProduc"><input type="text" id="category"></td>
+                                <td id="imgProducy"><input type="file" id="img" style="background: blanchedalmond"></td>
                             </tr>
                             <!-- Add more rows as needed -->
                             </tbody>
@@ -123,40 +122,104 @@
 </body>
 
 <script>
-    getProductAdmin()
-        function getProductAdmin(){
+    $(document).ready(function (){
+        producData();
+    });
+
+    function producData(){
+        let page = 0;
+        let size = 5;
+        let objFilter = {name : null}
+        getProductAdmin(page, size, objFilter)
+    }
+        function getProductAdmin(page, size, objFilter){
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/api/product",
+                url: "http://localhost:8080/api/product?page=" + page + "&size=" + size,
                 contentType: "application/json",
-                data: JSON.stringify({
+                data: JSON.stringify(objFilter),
                     dataType: "json",
-                }),
                success: function(response) {
+                    console.log(response)
                     let productData = response?.data?.content;
-                    let producT = "";
+                    let producT = '';
+                    console.log(productData)
                     for (let p = 0; p < productData.length; p++){
                         console.log(productData[p]);
                         producT += '<tr>' +
                             '<td data-id="' + productData[p].id + '">' + (p + 1) + '</td>' +
                         '<td data-code="' + productData[p].code + '">' + productData[p].code + '</td>' +
                         '<td data-name="' + productData[p].name + '">' + productData[p].name + '</td>' +
-                        '<td data-sizes="' + productData[p].sizes + '">' + productData[p].sizes + '</td>' +
-                        '<td data-price="' + productData[p].price + '">' + productData[p].price + '</td>' +
+                            '<td style="width: 12%">';
+                        for (let i = 0; i < productData[p].sizes.length ; i++) {
+                            producT +=  productData[p].sizes[i].name;
+                            console.log(productData[p].sizes[i]);
+                        }
+                        producT +=
+                            '</td>' +
+                        '<td data-price="' + productData[p].minPrice + '">' + productData[p].minPrice + '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
-                        '<td data-images="' + productData[p].images + '"> ' + productData[p].images + '</td>' +
-                        '<td id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
-                        '<td><i data-delete = " '+ productData[p].id +' " id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>'
+                        '<td style="width: 13%" > <img src="'+ productData[p].urlImage +'" style="width: 58%; margin-left: 21%">  </td>' +
+                        '<td style="text-align: center"  id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
+                        '<td style="text-align: center"><i data-product = " '+ productData[p].id +' " id="iconDelete" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>'
                         +'</tr>';
                     }
                    $('#body-Produc').html(producT);
-                    console.log("không vào")
+
+                   let productNumber = response.data.totalPages;
+                   let productPresent = response.data.pageable.pageNumber;
+                   if(productNumber > 0){
+                       $('#pageCD').empty();
+                       let pageproduct = '<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent - 1)+ ',5,event)" href="#"><</a></li>';
+                       for (let i = 0; i < productNumber; i++) {
+                           if (productPresent === i){
+                               pageproduct += '            <li class="page-item active">\n' +
+                                   '                <a class="page-link " onclick="loadPage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
+                                   '            <li class="page-item">'
+                           }else {
+                               pageproduct += '            <li class="page-item">\n' +
+                                   '                <a class="page-link" onclick="loadPage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
+                                   '            <li class="page-item">'
+                           }
+
+                       }
+                       pageproduct +='<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent + 1) + ',5,event)" href="#">Next</a></li>';
+                       $("#pageCD").append(pageproduct);
+                   }
+
+
                },
                 error: function (error) {
                     console.log(error);
                 }
             });
         };
+
+    function loadPage(page, size, event){
+        event.preventDefault();
+        getProductAdmin(page, size, {});
+    }
+
+    $(document).on('click', '#iconDelete', function(){
+        let id = $(this).data('product');
+        let $tr = $(this).closest('tr');
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/api/product/" + id,
+            contentType: "application/json",
+            data:JSON.stringify({
+                id: id
+            }),
+            dataType: "json",
+            success:function (response){
+                console.log("xóa thành công") ;
+                $tr.hide();
+            },
+            error:function (error){
+              console.log("xóa không thành công") ;
+            }
+        })
+    });
 
 </script>
 

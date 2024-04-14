@@ -4,6 +4,7 @@ import com.t3h.group3_petshop.entity.*;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.request.ProductImageRequest;
+import com.t3h.group3_petshop.model.request.UserRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,15 +18,14 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUsername(String username);
-    @Query(value = "select u from UserEntity u where u.deleted=false")
-    List<UserEntity> userId();
+//    @Query(value = "select u from UserEntity u where u.deleted=false")
+//    List<UserEntity> userId();
 
-//    @Query(value = "SELECT u FROM UserEntity u " +
-//            "LEFT JOIN u.roles r " +
-//            " WHERE " +
-//            " (:#{#condition.} is null or lower(u.) = :#{#condition.code}) " +
-//            "AND (:#{#condition.sizeId} is null or u.id = :#{#condition.sizeId} ) " +
-//            "AND p.deleted=false"
-//    )
-//    Page<UserEntity> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
+    @Query(value = "SELECT e FROM UserEntity e " +
+            "LEFT JOIN e.roles c " +
+            " WHERE " +
+            " (:#{#condition.userAId}  is null or c.id = :#{#condition.userAId}) " +
+            "AND e.deleted=false  ORDER BY e.createdDate limit 1"
+    )
+   Page<UserEntity >findFirstByUserId(@Param("condition") UserRequest filterRequest, Pageable pageable);
 }

@@ -26,12 +26,7 @@ public class AdminHomeController {
         return "admin/comment";
     }
 
-    @GetMapping("/help")
-    public String profile(){
-        return "admin/help";
-    }
-
-    @GetMapping("product")
+    @GetMapping("/product")
     public String product(){
         return "admin/product";
     }

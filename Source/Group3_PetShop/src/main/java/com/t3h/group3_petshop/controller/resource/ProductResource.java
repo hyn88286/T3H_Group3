@@ -4,7 +4,9 @@ import com.t3h.group3_petshop.model.dto.ProductDTO;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IProductService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +35,11 @@ public class ProductResource {
     @PostMapping("/d")
     public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
         return ResponseEntity.ok(service.getProductBy(filterRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<?>> deleteProduct(@PathVariable("id") Long id){
+        BaseResponse<?> response = service.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
