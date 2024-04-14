@@ -1,5 +1,4 @@
 package com.t3h.group3_petshop.controller.resource;
-
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.model.request.UserRequest;

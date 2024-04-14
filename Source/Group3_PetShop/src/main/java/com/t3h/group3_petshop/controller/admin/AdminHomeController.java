@@ -21,6 +21,7 @@ public class AdminHomeController {
     public String adminCategory() {
         return "admin/category";
     }
+
     @GetMapping("/comment")
     public String adminComment() {
         return "admin/comment";
@@ -30,6 +31,7 @@ public class AdminHomeController {
     public String product(){
         return "admin/product";
     }
+
     @GetMapping("/Oder")
     public String adminOder() {
         return "admin/Oder";
