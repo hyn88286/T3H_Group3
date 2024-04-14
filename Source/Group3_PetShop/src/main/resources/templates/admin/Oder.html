@@ -31,11 +31,7 @@
                     <div class="card-body">
 
                         <div class="search">
-                            <h5 class="card-title">Danh Sách Tài Khoản <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
-<!--                            <div class="timkiem" >-->
-<!--                                <input id="code" type="text" placeholder="Nhập mã đơn" >-->
-<!--                                <button id="btnSearch" onclick="searchCondition(0,5)"  ><i class="bi bi-search"></i></button>-->
-<!--                            </div>-->
+                            <h5 class="card-title">Danh Sách đơn hàng <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
 
                         </div>
 
@@ -49,8 +45,7 @@
                                 <th scope="col">Địa chỉ</th>
                                 <th scope="col">Số điện thoại</th>
                                 <th scope="col">Ngày Thanh toán</th>
-<!--                                <th scope="col">Cập Nhật</th>-->
-<!--                                <th scope="col">Xóa</th>-->
+
                             </tr>
                             </thead>
                             <tbody >
@@ -114,8 +109,7 @@
                          '<td data-addressShipping="' + dataOder[i].addressShipping + '">' + dataOder[i].addressShipping + '</td>' +
                          '<td data-phoneShipping="' + dataOder[i].phoneShipping + '">' + dataOder[i].phoneShipping + '</td>' +
                          '<td data-createDate="' + dataOder[i].createDate + '">' + dataOder[i].createDate + '</td>' +
-                         // '<td data-bs-toggle="modal" data-bs-target="#myModal"><i id="iconUpdate" class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
-                         // '<td><i data-dle="'+dataOder[i].id+'" id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
+
                          '</tr>';
                  }
                  $('#tableDate tbody').empty(); //  jQuery được sử dụng để xóa tất cả các phần tử có id là tableDate để ko lặp trang.
@@ -153,24 +147,12 @@
      // hàm xuwr lý sự kiện
      function changePage(page,size,event){
          event.preventDefault();
-         // searchCondition(page,size);
+
          getOderAdmin(page, size, {}); // lấy dữ liệu trang mới
      }
 
 
-     // function searchCondition(page,size){
-     //     let filter = {};
-     //
-     //
-     //     filter.code = $("#code").val() === '' ? null : $("#code").val();
-     //
-     //     getOderAdmin(page,size,filter);
-     // }
-     //
-     // function changePage(page,size,event){
-     //     event.preventDefault();
-     //     searchCondition(page,size);
-     // }
+
  </script>
 </body>
 
