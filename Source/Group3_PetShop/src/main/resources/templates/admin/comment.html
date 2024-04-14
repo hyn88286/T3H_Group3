@@ -46,16 +46,10 @@
 
                             </tbody>
                         </table>
-                        <nav aria-label="...">
-                            <ul class="pagination" id="pageId" style="float: right;">
-                                <!--            <li class="page-item">-->
-                                <!--                <a class="page-link" href="#">1</a></li>-->
-                                <!--            <li class="page-item active">-->
-                                <!--                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-                                <!--            </li>-->
-                                <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                        <div class="container mt-3" style="display: ruby-text;">
+                            <ul id="pageId" class="pagination">
                             </ul>
-                        </nav>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,7 +195,7 @@
                  let currentPage = response.data.pageable.pageNumber;
                  if (totalPage > 0){
                      $("#pageId").empty();
-                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#">Previous</a></li>';
+                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#"> < </a></li>';
                      for (let i = 0; i < totalPage; i++) {
                          if (currentPage === i){
                              pages += '            <li class="page-item active">\n' +

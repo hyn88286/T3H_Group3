@@ -12,7 +12,7 @@
 <main id="main" class="main">
 <!--Chứa table -->
     <div class="pagetitle">
-        <h1>Data Tables</h1>
+        <h1>Data Order</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
@@ -30,43 +30,33 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <div class="search" style="display:ruby-text;">
-                            <h5 class="card-title">Danh sách thanh toán đơn hàng </h5>
-                            <div class="timkiem" >
-                                <input id="code" type="text" placeholder="Nhập mã đơn" >
-                                <button id="btnSearch" onclick="searchCondition(0,5)"  ><i class="bi bi-search"></i></button>
-                            </div>
+                        <div class="search">
+                            <h5 class="card-title">Danh Sách đơn hàng <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
 
                         </div>
 
 <!--                         Table thông tin muốn hiển thị -->
-                        <table class="table" id="tableDate">
+                        <table class="table table-bordered" id="tableDate">
                             <thead>
-                            <tr>
+                            <tr >
                                 <th scope="col">STT</th>
                                 <th scope="col">Mã đơn hàng</th>
                                 <th scope="col">Tổng giá</th>
                                 <th scope="col">Địa chỉ</th>
                                 <th scope="col">Số điện thoại</th>
-                                <th scope="col">Ngày Thanh toán</th>
-<!--                                <th scope="col">Cập Nhật</th>-->
-<!--                                <th scope="col">Xóa</th>-->
+                                <th  scope="col">Ngày Thanh toán</th>
+
                             </tr>
                             </thead>
                             <tbody >
 
                             </tbody>
                         </table>
-                        <nav aria-label="...">
-                            <ul class="pagination" id="pageId" style="float: right;">
-                                <!--            <li class="page-item">-->
-                                <!--                <a class="page-link" href="#">1</a></li>-->
-                                <!--            <li class="page-item active">-->
-                                <!--                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-                                <!--            </li>-->
-                                <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                        <div class="container mt-3" style="display: ruby-text;">
+                            <ul id="pageId" class="pagination">
                             </ul>
-                        </nav>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -119,8 +109,7 @@
                          '<td data-addressShipping="' + dataOder[i].addressShipping + '">' + dataOder[i].addressShipping + '</td>' +
                          '<td data-phoneShipping="' + dataOder[i].phoneShipping + '">' + dataOder[i].phoneShipping + '</td>' +
                          '<td data-createDate="' + dataOder[i].createDate + '">' + dataOder[i].createDate + '</td>' +
-                         // '<td data-bs-toggle="modal" data-bs-target="#myModal"><i id="iconUpdate" class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
-                         // '<td><i data-dle="'+dataOder[i].id+'" id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
+
                          '</tr>';
                  }
                  $('#tableDate tbody').empty(); //  jQuery được sử dụng để xóa tất cả các phần tử có id là tableDate để ko lặp trang.
@@ -131,7 +120,7 @@
                  let currentPage = response.data.pageable.pageNumber;
                  if (totalPage > 0){
                      $("#pageId").empty();
-                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#">Previous</a></li>';
+                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#"> < </a></li>';
                      for (let i = 0; i < totalPage; i++) {
                          if (currentPage === i){
                              pages += '            <li class="page-item active">\n' +
@@ -158,24 +147,12 @@
      // hàm xuwr lý sự kiện
      function changePage(page,size,event){
          event.preventDefault();
-         // searchCondition(page,size);
+
          getOderAdmin(page, size, {}); // lấy dữ liệu trang mới
      }
 
 
-     function searchCondition(page,size){
-         let filter = {};
 
-
-         filter.code = $("#code").val() === '' ? null : $("#code").val();
-
-         getOderAdmin(page,size,filter);
-     }
-
-     function changePage(page,size,event){
-         event.preventDefault();
-         searchCondition(page,size);
-     }
  </script>
 </body>
 
