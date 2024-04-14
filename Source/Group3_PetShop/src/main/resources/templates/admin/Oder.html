@@ -30,12 +30,12 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <div class="search" style="display:ruby-text;">
-                            <h5 class="card-title">Danh sách thanh toán đơn hàng </h5>
-                            <div class="timkiem" >
-                                <input id="code" type="text" placeholder="Nhập mã đơn" >
-                                <button id="btnSearch" onclick="searchCondition(0,5)"  ><i class="bi bi-search"></i></button>
-                            </div>
+                        <div class="search">
+                            <h5 class="card-title">Danh Sách Tài Khoản <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
+<!--                            <div class="timkiem" >-->
+<!--                                <input id="code" type="text" placeholder="Nhập mã đơn" >-->
+<!--                                <button id="btnSearch" onclick="searchCondition(0,5)"  ><i class="bi bi-search"></i></button>-->
+<!--                            </div>-->
 
                         </div>
 
@@ -57,16 +57,11 @@
 
                             </tbody>
                         </table>
-                        <nav aria-label="...">
-                            <ul class="pagination" id="pageId" style="float: right;">
-                                <!--            <li class="page-item">-->
-                                <!--                <a class="page-link" href="#">1</a></li>-->
-                                <!--            <li class="page-item active">-->
-                                <!--                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-                                <!--            </li>-->
-                                <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                        <div class="container mt-3" style="display: ruby-text;">
+                            <ul id="pageId" class="pagination">
                             </ul>
-                        </nav>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -115,7 +110,7 @@
                          '<td data-id="' + dataOder[i].id + '">' + (i + 1) + '</td>' +
 
                          '<td data-code="' + dataOder[i].code + '">' + dataOder[i].code + '</td>' +
-                         '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ dataOder[i].totalAmount + ' vnd'+ '</td>' +
+                         '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ dataOder[i].totalAmount + ' vnđ'+ '</td>' +
                          '<td data-addressShipping="' + dataOder[i].addressShipping + '">' + dataOder[i].addressShipping + '</td>' +
                          '<td data-phoneShipping="' + dataOder[i].phoneShipping + '">' + dataOder[i].phoneShipping + '</td>' +
                          '<td data-createDate="' + dataOder[i].createDate + '">' + dataOder[i].createDate + '</td>' +
@@ -131,7 +126,7 @@
                  let currentPage = response.data.pageable.pageNumber;
                  if (totalPage > 0){
                      $("#pageId").empty();
-                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#">Previous</a></li>';
+                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#"> < </a></li>';
                      for (let i = 0; i < totalPage; i++) {
                          if (currentPage === i){
                              pages += '            <li class="page-item active">\n' +
@@ -163,19 +158,19 @@
      }
 
 
-     function searchCondition(page,size){
-         let filter = {};
-
-
-         filter.code = $("#code").val() === '' ? null : $("#code").val();
-
-         getOderAdmin(page,size,filter);
-     }
-
-     function changePage(page,size,event){
-         event.preventDefault();
-         searchCondition(page,size);
-     }
+     // function searchCondition(page,size){
+     //     let filter = {};
+     //
+     //
+     //     filter.code = $("#code").val() === '' ? null : $("#code").val();
+     //
+     //     getOderAdmin(page,size,filter);
+     // }
+     //
+     // function changePage(page,size,event){
+     //     event.preventDefault();
+     //     searchCondition(page,size);
+     // }
  </script>
 </body>
 
