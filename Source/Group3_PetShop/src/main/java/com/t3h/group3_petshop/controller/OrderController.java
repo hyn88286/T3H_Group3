@@ -1,7 +1,4 @@
 package com.t3h.group3_petshop.controller;
-
-import com.t3h.group3_petshop.service.IPaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
