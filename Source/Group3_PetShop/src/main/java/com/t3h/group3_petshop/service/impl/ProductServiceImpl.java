@@ -97,27 +97,6 @@ public class ProductServiceImpl implements IProductService {
         baseResponse.setData(productDTO);
         return baseResponse;
     }
-    @Override
-    public BaseResponse<?> deleteProduct(Long productId) {
-        BaseResponse<?> response = new BaseResponse<>();
-        Optional<ProductEntity> optionalProduct = productRepository.findById(productId);
-
-        if (optionalProduct.isPresent()) {
-            ProductEntity productEntity = optionalProduct.get();
-            productEntity.setDeleted(true); // Đánh dấu sản phẩm đã bị xóa
-
-            productRepository.save(productEntity); // Lưu thay đổi vào cơ sở dữ liệu
-
-            response.setCode(HttpStatus.OK.value());
-            response.setMessage("Product deleted successfully");
-        } else {
-            response.setCode(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Product not found");
-        }
-
-        return response;
-    }
-
 
     @Override
     public BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest) {
@@ -192,4 +171,24 @@ public class ProductServiceImpl implements IProductService {
         // Size id đang đc chọn
         productDTO.setSizeId(filterRequest.getSizeId());
     }
+
+    @Override
+    public BaseResponse<?> deleteProduct(Long id) {
+        BaseResponse<String> baseResponse = new BaseResponse<>();
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
+        if (optionalProductEntity.isEmpty()){
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("error not found");
+            return baseResponse;
+        }
+        ProductEntity product = optionalProductEntity.get();
+        product.setDeleted(true);
+        productRepository.save(product);
+
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage("deleted successfully");
+        return baseResponse;
+    }
+
+
 }

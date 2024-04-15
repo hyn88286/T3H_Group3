@@ -1,16 +1,12 @@
 package com.t3h.group3_petshop.controller.resource;
 import com.t3h.group3_petshop.entity.CategoryEntity;
-import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.CategoryDTO;
-import com.t3h.group3_petshop.model.dto.OrderDTO;
 import com.t3h.group3_petshop.model.request.CategoryFilterRequest;
-import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

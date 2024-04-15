@@ -69,19 +69,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
-
-//    @Override
-//    public BaseResponse<?> update(Long id ,UserEntity user) {
-//        BaseResponse<?> baseResponse = new BaseResponse<>();
-//        Optional<UserEntity> userEntity = userRepository.findById(id);
-//        userEntity.get().setUsername(user.getUsername());
-//        userEntity.get().setFullName(user.getFullName());
-//        userEntity.get().setEmail(user.getEmail());
-//        userEntity.get().setPhone(user.getPhone());
-//        userRepository.save(userEntity.get());
-//        return baseResponse;
-//    }
-
     @Override
     public BaseResponse<?> update(Long id ,CategoryEntity category) {
         BaseResponse<?> baseResponse = new BaseResponse<>();

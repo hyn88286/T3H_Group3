@@ -1,8 +1,6 @@
 package com.t3h.group3_petshop.controller.resource;
-
 import com.t3h.group3_petshop.model.dto.OrderDTO;
 import com.t3h.group3_petshop.model.dto.OrderDetailDTO;
-import com.t3h.group3_petshop.model.dto.ProductDTO;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IOrderService;

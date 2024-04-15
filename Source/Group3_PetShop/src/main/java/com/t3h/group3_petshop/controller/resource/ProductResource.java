@@ -5,6 +5,7 @@ import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IProductService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +36,9 @@ public class ProductResource {
         return ResponseEntity.ok(service.getProductBy(filterRequest));
     }
 
-    @DeleteMapping("/{productId}")
-    public ResponseEntity<BaseResponse<?>> deleteProduct(@PathVariable Long productId) {
-        BaseResponse<?> response = service.deleteProduct(productId);
-
-        return ResponseEntity.status(response.getCode()).body(response);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<?>> deleteProduct(@PathVariable("id") Long id){
+        BaseResponse<?> response = service.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

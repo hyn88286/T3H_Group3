@@ -1,10 +1,12 @@
 package com.t3h.group3_petshop.controller.resource;
-
 import com.t3h.group3_petshop.entity.UserEntity;
+import com.t3h.group3_petshop.model.dto.UserDTO;
+import com.t3h.group3_petshop.model.request.UserRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IUserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,13 @@ public class UserResource {
         return ResponseEntity.status(HttpStatus.CREATED).body("account");
     }
 
-    @PostMapping("/listUser")
-    public ResponseEntity<?> listUser() {
-        return ResponseEntity.ok(iUserService.getAllUsers());
+    @PostMapping("/ListUser")
+    public ResponseEntity<BaseResponse<Page<UserDTO>>> ListUser(@RequestBody UserRequest userRequest,
+                                                                @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                                @RequestParam(name = "size", required = false, defaultValue = "10") int size
+                                                                ){
+        return ResponseEntity.ok(iUserService.getAllUsers(userRequest,page,size));
+
     }
 
     @PutMapping("update/{id}")
