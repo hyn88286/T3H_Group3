@@ -41,11 +41,7 @@ public class UserResource {
         }
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<BaseResponse<?>> deleteUser(@PathVariable("userId") Long userId) {
-        BaseResponse<?> response = iUserService.deleteUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
+
 
     @GetMapping("/current-user")
     public ResponseEntity<?> currentUser() {
