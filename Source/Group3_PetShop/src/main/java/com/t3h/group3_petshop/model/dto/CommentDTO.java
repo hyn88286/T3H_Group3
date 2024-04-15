@@ -20,4 +20,5 @@ public class CommentDTO {
     private Long userId;
     private String username;
     private String name;
+    private String productCode;
 }

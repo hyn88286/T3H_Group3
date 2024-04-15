@@ -6,6 +6,7 @@ import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
+import com.t3h.group3_petshop.model.request.UserRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
@@ -15,15 +16,19 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -52,7 +57,17 @@ public class UserServiceImpl implements IUserService {
         return userDto;
     }
     @Override
-    public void addUser(UserEntity user) {
+    public BaseResponse<?> addUser(UserEntity user) {
+        BaseResponse <?> baseResponse = new BaseResponse<>();
+        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            // Thông báo rằng tên người dùng đã tồn tại trong hệ thống
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("tài khoản đã tồn tại");
+            return baseResponse;
+        }
+
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
@@ -61,14 +76,34 @@ public class UserServiceImpl implements IUserService {
         userRole.setName("ROLE_USER");
         user.setRoles(Collections.singleton(userRole));
 
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage(" Đăng kí thành công");
         userRepository.save(user);
-    }
-
-    @Override
-    public BaseResponse<?> getAllUsers() {
-        BaseResponse<List<UserEntity>> baseResponse = new BaseResponse<>();
-        baseResponse.setData(userRepository.userId());
         return baseResponse;
+
+    }
+/// hiển thị thông tin admin
+    @Override
+    public BaseResponse<Page<UserDTO>> getAllUsers(UserRequest userRequest, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<UserEntity> userEntities = userRepository.findFirstByUserId(userRequest, pageable);
+
+    List<UserDTO> userEntityList = userEntities.getContent().stream().map(userEntity -> {
+        UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
+        userDTO.setId(userEntity.getId());
+        userDTO.setFullName(userEntity.getFullName());
+        userDTO.setUsername(userEntity.getUsername());
+        userDTO.setEmail(userEntity.getEmail());
+        userDTO.setPhone(userEntity.getPhone());
+        return userDTO;
+    }).collect(Collectors.toList());
+
+    Page<UserDTO> pageData = new PageImpl<>(userEntityList, pageable, userEntities.getTotalElements());
+    BaseResponse<Page<UserDTO>> baseResponseresponse = new BaseResponse<>();
+    baseResponseresponse.setCode(HttpStatus.OK.value());
+    baseResponseresponse.setMessage("Thành Công");
+    baseResponseresponse.setData(pageData);
+    return baseResponseresponse;
     }
 
     @Override
@@ -97,7 +132,7 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
 
         baseResponse.setCode(HttpStatus.OK.value());
-        baseResponse.setMessage("user delete succerfull");
+        baseResponse.setMessage("user delete successfully");
         return baseResponse;
     }
 
@@ -127,4 +162,6 @@ public class UserServiceImpl implements IUserService {
 
         return userDTO;
     }
+
+
 }

@@ -48,6 +48,7 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderDTO> orderDTOS = orderEntities.getContent().stream().map(orderEntity -> {
             OrderDTO orderDTO = modelMapper.map(orderEntity, OrderDTO.class);
             orderDTO.setTotalAmount(orderEntity.getTotalAmount());
+            orderDTO.setCreateDate(orderEntity.getCreatedDate());
             return orderDTO;
         }).collect(Collectors.toList());
 

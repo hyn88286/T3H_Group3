@@ -15,4 +15,6 @@ public interface IProductService {
     BaseResponse<?> updateProduct(ProductDTO productDTO, MultipartFile file) throws IOException;
 
     BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest);
+
+    BaseResponse<?> deleteProduct(Long id);
 }
