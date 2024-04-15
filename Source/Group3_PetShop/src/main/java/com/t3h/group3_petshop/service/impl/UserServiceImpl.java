@@ -1,6 +1,8 @@
 package com.t3h.group3_petshop.service.impl;
-import com.t3h.group3_petshop.entity.CommentEntity;
+
+
 import com.t3h.group3_petshop.entity.RoleEntity;
+import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.RoleDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
@@ -9,6 +11,7 @@ import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.IUserService;
+import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,12 +57,30 @@ public class UserServiceImpl implements IUserService {
         return userDto;
     }
     @Override
-    public void addUser(UserEntity user) {
+    public BaseResponse<?> addUser(UserEntity user) {
+        BaseResponse <?> baseResponse = new BaseResponse<>();
+        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            // Thông báo rằng tên người dùng đã tồn tại trong hệ thống
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("tài khoản đã tồn tại");
+            return baseResponse;
+        }
+
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Gán mặc định vai trò cho người dùng (ví dụ: ROLE_USER)
+        // Bạn có thể tùy chỉnh logic gán vai trò ở đây
         RoleEntity userRole = new RoleEntity();
         userRole.setName("ROLE_USER");
         user.setRoles(Collections.singleton(userRole));
+
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage(" Đăng kí thành công");
         userRepository.save(user);
+        return baseResponse;
+
     }
 /// hiển thị thông tin admin
     @Override
@@ -115,7 +136,6 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
-    /// hiển thị thông tin người dùng đăng nhập tài khoản
     @Override
     public UserDTO getCurrentUser(Boolean showId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
