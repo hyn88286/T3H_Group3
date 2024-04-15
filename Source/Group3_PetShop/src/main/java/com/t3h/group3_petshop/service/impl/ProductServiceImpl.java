@@ -2,10 +2,8 @@ package com.t3h.group3_petshop.service.impl;
 
 import com.t3h.group3_petshop.entity.CategoryEntity;
 import com.t3h.group3_petshop.entity.ProductEntity;
-import com.t3h.group3_petshop.entity.ProductImageEntity;
 import com.t3h.group3_petshop.entity.SizeEntity;
 import com.t3h.group3_petshop.model.dto.ProductDTO;
-import com.t3h.group3_petshop.model.dto.ProductImageDTO;
 import com.t3h.group3_petshop.model.dto.SizeDTO;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
@@ -15,7 +13,6 @@ import com.t3h.group3_petshop.repository.SizeRepository;
 import com.t3h.group3_petshop.service.IProductService;
 import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,16 +21,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProductServiceImpl implements IProductService {
-    private Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -64,37 +65,61 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public BaseResponse<?> createProduct(ProductDTO productDTO) {
-        logger.info("Start create product: {}", productDTO.toString());
+    public BaseResponse<?> updateProduct(ProductDTO productDTO, MultipartFile file) throws IOException {
+
         BaseResponse<ProductDTO> baseResponse = new BaseResponse<>();
+
         Optional<CategoryEntity> category = categoryRepository.findById(productDTO.getCategoryId());
 
         if (category.isEmpty()) {
             baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Category not exits in system");
+            baseResponse.setMessage("Category is not exist in system");
             return baseResponse;
         }
-        logger.info("create product");
+
         Set<SizeEntity> sizeEntities = sizeRepository.findByIds(productDTO.getSizeIds());
         if (CollectionUtils.isEmpty(sizeEntities)) {
             baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Size not exits in system");
+            baseResponse.setMessage("Size is not exist in system");
+            return baseResponse;
+        }
+
+        ProductFilterRequest productFilterRequest = new ProductFilterRequest();
+        productFilterRequest.setCode(productDTO.getCode());
+        ProductEntity productExist = productRepository.findByFilter(productFilterRequest);
+        if (productExist != null) {
+            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Product with code is exist in system");
             return baseResponse;
         }
         ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
         productEntity.setCategoryEntity(category.get());
         productEntity.setSizeEntities(sizeEntities);
+        File directory = new File(Constant.IMAGE_PATH_LOCAL);
+        if (!directory.exists()) { //Kiểm tra thư mục đã tồn tại chưa
+            directory.mkdirs();//Tạo các thư mục theo path cần thiết
+        }
+        long timestamp = Instant.now().getEpochSecond(); //Lấy thời gian hiện tại trả về timestamp
+
+        int lastIndex = Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.');
+        String extension = file.getOriginalFilename().substring(lastIndex + 1);
+        String fileName = timestamp + "." + extension;
+
+        String filePathSave = Constant.IMAGE_PATH_LOCAL + fileName; //Đường dẫn lưu ảnh
+        String filePathDeploy = Constant.IMAGE_PATH_DEPLOY + fileName;
+
+        file.transferTo(new File(filePathSave)); //Lưu trữ ảnh vào trong folder
+
+        productEntity.setImage(filePathDeploy);
+
         LocalDateTime now = LocalDateTime.now();
         productEntity.setCreatedDate(now);
+        productEntity.setLastModifiedDate(now);
         productEntity.setDeleted(false);
+        productRepository.save(productEntity);
 
-        ProductEntity productSave = productRepository.save(productEntity);
-
-        Long id = productSave.getId();
-        logger.info("Save product successfully");
         baseResponse.setMessage("Save product successfully");
         baseResponse.setCode(HttpStatus.OK.value());
-        baseResponse.setData(productDTO);
         return baseResponse;
     }
 
@@ -134,22 +159,7 @@ public class ProductServiceImpl implements IProductService {
             return sizeDTO;
         }).collect(Collectors.toSet());
         productDTO.setSizes(sizeDTOS);
-        // Set danh sách ảnh
-        Set<ProductImageDTO> productImageDTOS = productEntity.getProductImageEntities().stream().map(productImageEntity -> {
-            ProductImageDTO productImageDTO = new ProductImageDTO();
-            productImageDTO.setId(productImageEntity.getId());
-            productImageDTO.setType(productImageEntity.getType());
-            productImageDTO.setName(productImageEntity.getName());
-            productImageDTO.setUrlImage(Constant.IMAGE_PATH_DEPLOY + productImageEntity.getName());
-            return productImageDTO;
-        }).collect(Collectors.toSet());
-        productDTO.setImages(productImageDTOS);
-        // Set Url ảnh ( Lấy ảnh đầu tiên trong list ảnh sản phẩm )
-        Optional<String> imageName = productEntity.getProductImageEntities().stream()
-                .map(ProductImageEntity::getName)
-                .findFirst();
-        String urlImage = Constant.IMAGE_PATH_DEPLOY + imageName.filter(s -> !s.isEmpty()).orElse(Constant.IMAGE_FILE_TEST);
-        productDTO.setUrlImage(urlImage);
+
         // Set giá sản phẩm trong khoảng min - max
         OptionalDouble minPrice = productEntity.getSizeEntities().stream()
                 .mapToDouble(sizeEntity -> productEntity.getPrice() * sizeEntity.getWeight())
