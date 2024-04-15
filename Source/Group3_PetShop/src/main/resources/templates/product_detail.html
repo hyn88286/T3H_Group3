@@ -120,23 +120,51 @@
                             <p></p>
                         </div>
                     </div>
+                </div>
 
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cập Nhật Comment</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form id="updateForm">
+
+                                    <div class="mb-3">
+                                        <label for="conten" class="form-label">Comment Content</label>
+                                        <textarea class="form-control" id="conten" rows="4"></textarea>
+                                    </div>
+                                    <input type="hidden" id="id">
+                                </form>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success" id="buttonApply">Apply</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
-
                 <div class="comment-reply-form">
-                    <h3 class="txt-white fw-7 mb-3">Leave a Comment</h3>
+                    <h3 class="txt-white fw-7 mb-3"> THÊM BÌNH LUẬN</h3>
                     <form  novalidate="novalidate" class="rounded-field">
                         <div class="form-row mb-4">
                             <div class="col">
-                                <textarea rows="7"  id="content" placeholder="Message" class="form-control form-light"></textarea>
+                                <textarea rows="7"  id="content" placeholder="Nội dung......" class="form-control form-light"></textarea>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3">Post Comment</button>
+                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Bình luận</button>
                         </div>
                     </form>
                 </div>
@@ -367,8 +395,11 @@
         comments.forEach(function(comment) {
             commentsHTML += '<div class="card mb-3">' +
                 '<div class="card-body">' +
-                '<h5 class="card-title" style="font-size: 35px; color: black;">' + comment.username + ' <i style="line-height: 1.3; color: #f14b4b; font-size: 71%; float:right; " class="fas fa-trash-alt"></i>  <i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right; padding-right: 2%;" class="fas fa-plus-circle"></i> </h5>' +
-                '<p class="card-text" >' + comment.content + '</p>' +
+                '<h5 class="card-title" style="font-size: 35px; color: black;">' + comment.username +
+                '<i style="line-height: 1.3; color: #f14b4b; font-size: 71%; float:right; margin-left: 10px;" class="fas fa-trash-alt delete-icon" data-id="' + comment.id + '"></i>' +
+                '<i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right;" class="fas fa-plus-circle update-icon" data-id="' + comment.id + '"></i>' +
+                '</h5>' +
+                '<p class="card-text">' + comment.content + '</p>' +
                 '<p class="card-text"><small class="text-muted">' + comment.createdDate + '</small></p>' +
                 '</div>' +
                 '</div>';
@@ -403,6 +434,83 @@
             }
         });
     });
+    // sưửa
+    // Update icon click event
+    $(document).ready(function() {
+        // Edit icon click event
+        $(document).on('click', '.update-icon', function() {
+            console.log("Edit button clicked");
+
+            var id = $(this).data('id'); // Retrieve data-id from the clicked icon
+            var CommentUserName = $(this).closest('.card-body').find('.card-title').text().trim();
+            var CommentContent = $(this).closest('.card-body').find('.card-text').first().text().trim();
+
+            // Update modal with comment details
+            $('#myModal').attr('data-id', id);
+            $('#id').val(id);
+            $('#username').val(CommentUserName);
+            $('#conten').val(CommentContent);
+
+            // Show the modal
+            $('#myModal').modal('show');
+        });
+    });
+
+    // Apply button click event
+    $(document).on('click', '#buttonApply', function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        var id = $('#myModal').data('id');
+
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:8080/api/comments/" + id,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                id: id,
+                username: $('#username').val(),
+                name: $('#name').val(),
+                content: $('#conten').val()
+            }),
+            success: function(response) {
+                console.log(response);
+                location.reload(); // Reload the page after successful update
+            },
+            error: function(error) {
+                console.log("Error:", error);
+            }
+        });
+    });
+    // xoóa
+    $(document).on('click', '.delete-icon', function() {
+        var id = $(this).data('id'); // Lấy ID từ thuộc tính data-id của biểu tượng
+        console.log("Nút Xóa được nhấn cho ID:", id);
+
+        // Kiểm tra nếu id không tồn tại hoặc không hợp lệ
+        if (!id) {
+            console.log("ID không tồn tại hoặc không hợp lệ");
+            return;
+        }
+
+        var $tr = $(this).closest('tr'); // Lấy thẻ <tr> chứa biểu tượng
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/api/comments/" + id,
+            contentType: "application/json",
+            dataType: "json",
+            success: function(response) {
+                console.log("Xóa bình luận thành công");
+                $tr.hide(); // Ẩn thẻ <tr> chứa bình luận đã xóa
+                location.reload(); // Tải lại trang để bình luận đã xóa không còn xuất hiện
+            },
+            error: function(error) {
+                console.log("Lỗi khi xóa bình luận:", error);
+            }
+        });
+    });
+
+
     function addToCart(objCart) {
         $.ajax({
             type: "POST",
