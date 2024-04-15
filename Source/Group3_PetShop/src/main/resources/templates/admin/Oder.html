@@ -98,14 +98,15 @@
              dataType: "json",
              success: function (response) {
                  let dataOder = response?.data?.content;
-                let OderO = '';
+                let OderO = ''
                  for (let i = 0; i < dataOder.length; i++) {
                      console.log(dataOder[i]);
                      OderO += '<tr>' +
                          '<td data-id="' + dataOder[i].id + '">' + (i + 1) + '</td>' +
-
-                         '<td data-code="' + dataOder[i].code + '">' + dataOder[i].code + '</td>' +
-                         '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ dataOder[i].totalAmount + ' vnđ'+ '</td>' +
+                         '<td data-code="' + dataOder[i].code + '">' + dataOder[i].code + '</td>'
+                     let formattedOrder = dataOder[i].totalAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                     OderO +=
+                         '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ formattedOrder + '</td>' +
                          '<td data-addressShipping="' + dataOder[i].addressShipping + '">' + dataOder[i].addressShipping + '</td>' +
                          '<td data-phoneShipping="' + dataOder[i].phoneShipping + '">' + dataOder[i].phoneShipping + '</td>' +
                          '<td data-createDate="' + dataOder[i].createDate + '">' + dataOder[i].createDate + '</td>' +
