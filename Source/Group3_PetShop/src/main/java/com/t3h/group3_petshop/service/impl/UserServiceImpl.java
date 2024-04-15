@@ -97,23 +97,7 @@ public class UserServiceImpl implements IUserService {
         return baseResponse;
     }
 
-    @Override
-    public BaseResponse<?> deleteUser(Long userId) {
-        BaseResponse<String> baseResponse = new BaseResponse<>();
-        Optional<UserEntity> optionalUserEntity = userRepository.findById(userId);
-        if (optionalUserEntity.isEmpty()) {
-            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
-            baseResponse.setMessage("not user");
-            return baseResponse;
-        }
-        UserEntity user = optionalUserEntity.get();
-        user.setDeleted(true);
-        userRepository.save(user);
 
-        baseResponse.setCode(HttpStatus.OK.value());
-        baseResponse.setMessage("user delete succerfull");
-        return baseResponse;
-    }
 
     @Override
     public UserDTO getCurrentUser(Boolean showId) {

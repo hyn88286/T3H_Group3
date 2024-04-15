@@ -10,7 +10,7 @@ public interface IUserService {
     BaseResponse<?> addUser(UserEntity user);
     BaseResponse<?>getAllUsers();
     BaseResponse update(Long id ,UserEntity user);
-    BaseResponse<?> deleteUser(Long userId);
+
     UserDTO getCurrentUser(Boolean showId);
 
 }
