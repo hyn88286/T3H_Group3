@@ -171,4 +171,24 @@ public class ProductServiceImpl implements IProductService {
         // Size id đang đc chọn
         productDTO.setSizeId(filterRequest.getSizeId());
     }
+
+    @Override
+    public BaseResponse<?> deleteProduct(Long id) {
+        BaseResponse<String> baseResponse = new BaseResponse<>();
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
+        if (optionalProductEntity.isEmpty()){
+            baseResponse.setCode(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("error not found");
+            return baseResponse;
+        }
+        ProductEntity product = optionalProductEntity.get();
+        product.setDeleted(true);
+        productRepository.save(product);
+
+        baseResponse.setCode(HttpStatus.OK.value());
+        baseResponse.setMessage("deleted successfully");
+        return baseResponse;
+    }
+
+
 }

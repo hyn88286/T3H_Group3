@@ -12,10 +12,10 @@
 <main id="main" class="main">
 <!--Chứa table -->
     <div class="pagetitle">
-        <h1>Data Tables</h1>
+        <h1>Data Category</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
                 <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active">Data</li>
             </ol>
@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Danh sách danh mục <span data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm</span ></h5>
+                        <h5 class="card-title">Danh Sách Danh Mục <span data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm</span ></h5>
 
                         <!-- Table thông tin muốn hiển thị -->
                         <table class="table" id="tableDate">
@@ -45,14 +45,9 @@
 
                             </tbody>
                         </table>
-                        <nav aria-label="...">
-                            <ul class="pagination" id="pageId" style="float: right;">
-                                <!--            <li class="page-item">-->
-                                <!--                <a class="page-link" href="#">1</a></li>-->
-                                <!--            <li class="page-item active">-->
-                                <!--                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-                                <!--            </li>-->
-                                <!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                        <nav style="display: ruby-text;" aria-label="...">
+                            <ul class="pagination" id="pageId">
+
                             </ul>
                         </nav>
                     </div>
@@ -95,16 +90,6 @@
                             <!-- Add more rows as needed -->
                             </tbody>
                         </table>
-<!--                        <nav aria-label="...">-->
-<!--                            <ul class="pagination" id="pageId" style="float: right;">-->
-<!--                                            <li class="page-item">-->
-<!--                                                <a class="page-link" href="#">1</a></li>-->
-<!--                                            <li class="page-item active">-->
-<!--                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-<!--                                            </li>-->
-<!--                                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--                            </ul>-->
-<!--                        </nav>-->
                     </div>
                 </div>
 
@@ -125,7 +110,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-
+                    <span class="badge bg-warning">Thêm</span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -221,7 +206,7 @@
                  let currentPage = response.data.pageable.pageNumber;
                  if (totalPage > 0){
                      $("#pageId").empty();
-                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#">Previous</a></li>';
+                     let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1)+ ',5,event)" href="#"><</a></li>';
                      for (let i = 0; i < totalPage; i++) {
                          if (currentPage === i){
                              pages += '            <li class="page-item active">\n' +
@@ -245,7 +230,7 @@
              }
          });
      };
-     // hàm xuwr lý sự kiện
+     // hàm x lý sự kiện
      function changePage(page,size,event){
          event.preventDefault();
          // searchCondition(page,size);
@@ -342,10 +327,6 @@
              }
          });
      });
-
-
-
-
  </script>
 </body>
 

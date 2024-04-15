@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="admin/fragments/head :: head"></div>
+<body>
+<!-- ======= Header ======= -->
+<div th:replace="admin/fragments/header :: header"></div>
+
+<!-- ======= Sidebar ======= -->
+<div th:replace="admin/fragments/aside :: aside"></div>
+
+<main id="main" class="main">
+    <!--Chứa table -->
+    <div class="pagetitle">
+        <h1>Data Product</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Danh Sách Sản Phẩm <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
+
+                        <!-- Table thông tin muốn hiển thị -->
+                        <div class="bd-example">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th style="width: 12%">Mã Sản Phẩm</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Loại Size</th>
+                                    <th>Đơn Giá</th>
+                                    <th style="width: 12%">Danh Mục</th>
+                                    <th>Hình Sản Phẩm</th>
+                                    <th style="width:9%; text-align: center">Cập Nhật</th>
+                                    <th style="text-align: center">Xóa</th>
+                                </tr>
+                                </thead>
+                                <tbody id="body-Produc"> </tbody>
+                            </table>
+                        </div>
+                        <!--    thư mục 1 2 3 phân trang-->
+                        <div class="container mt-3" style="display: ruby-text;">
+                            <ul id="pageCD" class="pagination">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--chứa modal uodate -->
+    <div class="modal" id="myModal" >
+        <div class="modal-dialog" style="display: table;">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <span  class="badge bg-danger" >Cập Nhật</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" >
+                    <div class="your-new-wrapper">
+                        <table class="table table-separate table-head-custom table-checkable" >
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã Sản Phẩm</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Loại Size</th>
+                                <th scope="col">Đơn Giá</th>
+                                <th scope="col">Danh Mục</th>
+                                <th scope="col">Hình Sản Phẩm</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td id="id"></td>
+                                <td id="codeProduct"><input type="text" id="code"></td>
+                                <td id="nameProduct"><input type="text" id="name"></td>
+                                <td id="sizeProduct"><input type="text" id="size"></td>
+                                <td id="priceProduc"><input type="text" id="price"></td>
+                                <td id="categoryProduc"><input type="text" id="category"></td>
+                                <td id="imgProducy"><input type="file" id="img" style="background: blanchedalmond"></td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="buttonApply" >Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</main><!-- End #main -->
+
+<div th:replace="admin/fragments/footer :: footer"></div>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<div th:replace="admin/fragments/script :: script"></div>
+</body>
+
+<script>
+    $(document).ready(function (){
+        producData();
+    });
+
+    function producData(){
+        let page = 0;
+        let size = 5;
+        let objFilter = {name : null}
+        getProductAdmin(page, size, objFilter)
+    }
+        function getProductAdmin(page, size, objFilter){
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/product?page=" + page + "&size=" + size,
+                contentType: "application/json",
+                data: JSON.stringify(objFilter),
+                    dataType: "json",
+               success: function(response) {
+                    console.log(response)
+                    let productData = response?.data?.content;
+                    let producT = '';
+                    console.log(productData)
+                    for (let p = 0; p < productData.length; p++){
+                        console.log(productData[p]);
+                        producT += '<tr>' +
+                            '<td data-id="' + productData[p].id + '">' + (p + 1) + '</td>' +
+                        '<td data-code="' + productData[p].code + '">' + productData[p].code + '</td>' +
+                        '<td data-name="' + productData[p].name + '">' + productData[p].name + '</td>' +
+                            '<td style="width: 12%">';
+                        for (let i = 0; i < productData[p].sizes.length; i++) {
+                            producT += productData[p].sizes[i].name;
+                            if (i < productData[p].sizes.length - 1) {
+                                producT += ',  ';
+                            }
+                            console.log(productData[p].sizes[i]);
+                        }
+                        producT +=
+                            '</td>' +
+                        '<td data-price="' + productData[p].minPrice + '">' + productData[p].minPrice + ' vnđ' +  '</td>' +
+                        '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
+                        '<td style="width: 13%" > <img src="'+ productData[p].urlImage +'" style="width: 58%; margin-left: 21%">  </td>' +
+                        '<td style="text-align: center"  id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
+                        '<td style="text-align: center"><i data-product = " '+ productData[p].id +' " id="iconDelete" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>'
+                        +'</tr>';
+                    }
+                   $('#body-Produc').html(producT);
+
+                   let productNumber = response.data.totalPages;
+                   let productPresent = response.data.pageable.pageNumber;
+                   if(productNumber > 0){
+                       $('#pageCD').empty();
+                       let pageproduct = '<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent - 1)+ ',5,event)" href="#"><</a></li>';
+                       for (let i = 0; i < productNumber; i++) {
+                           if (productPresent === i){
+                               pageproduct += '            <li class="page-item active">\n' +
+                                   '                <a class="page-link " onclick="loadPage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
+                                   '            <li class="page-item">'
+                           }else {
+                               pageproduct += '            <li class="page-item">\n' +
+                                   '                <a class="page-link" onclick="loadPage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
+                                   '            <li class="page-item">'
+                           }
+
+                       }
+                       pageproduct +='<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent + 1) + ',5,event)" href="#">Next</a></li>';
+                       $("#pageCD").append(pageproduct);
+                   }
+
+
+               },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        };
+
+    function loadPage(page, size, event){
+        event.preventDefault();
+        getProductAdmin(page, size, {});
+    }
+
+    $(document).on('click', '#iconDelete', function(){
+        let id = $(this).data('product');
+        let $tr = $(this).closest('tr');
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/api/product/" + id,
+            contentType: "application/json",
+            data:JSON.stringify({
+                id: id
+            }),
+            dataType: "json",
+            success:function (response){
+                console.log("xóa thành công") ;
+                $tr.hide();
+            },
+            error:function (error){
+              console.log("xóa không thành công") ;
+            }
+        })
+    });
+
+</script>
+
+</html>

@@ -11,4 +11,6 @@ public interface IProductService {
     BaseResponse<?> createProduct(ProductDTO productDTO);
 
     BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest);
+
+    BaseResponse<?> deleteProduct(Long id);
 }
