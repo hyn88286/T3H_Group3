@@ -156,21 +156,24 @@
 
                 <div class="comment-reply-form">
                     <h3 class="txt-white fw-7 mb-3"> THÊM BÌNH LUẬN</h3>
-                    <form  novalidate="novalidate" class="rounded-field">
+                    <form novalidate="novalidate" class="rounded-field">
                         <div class="form-row mb-4">
                             <div class="col">
-                                <textarea rows="7"  id="content" placeholder="Nội dung......" class="form-control form-light"></textarea>
+                                <textarea rows="7" id="content" placeholder="Nội dung......" class="form-control form-light"></textarea>
                             </div>
                         </div>
+
+                        <!-- Thêm hidden input để lưu username -->
+                        <input type="hidden" id="loggedInUsername" value="admin"> <!-- Giả sử username của admin là "admin" -->
 
                         <div class="form-row">
                             <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Bình luận</button>
                         </div>
                     </form>
                 </div>
-            </div>
 
-        </div>
+
+            </div>
     </section>
 
 </main>
@@ -408,8 +411,9 @@
     }
     $(document).on('click', '#post', function() {
         var content1 = $('#content').val();
-        var productID =
 
+        // Lấy username từ hidden input
+        var loggedInUsername = $('#loggedInUsername').val(); // Đọc giá trị từ hidden input
 
         $.ajax({
             type: "POST",
@@ -418,8 +422,8 @@
             dataType: "json",
             data: JSON.stringify({
                 productCode: getCode(),
-                content: content1
-
+                content: content1,
+                // Thêm username vào đây
             }),
             success: function(response) {
                 console.log(" đã được thêm thành công");
@@ -434,6 +438,7 @@
             }
         });
     });
+
     // sưửa
     // Update icon click event
     $(document).ready(function() {

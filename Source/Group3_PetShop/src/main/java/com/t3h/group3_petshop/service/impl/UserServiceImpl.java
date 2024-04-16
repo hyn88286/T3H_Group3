@@ -58,12 +58,13 @@ public class UserServiceImpl implements IUserService {
     }
     @Override
     public BaseResponse<?> addUser(UserEntity user) {
-        BaseResponse <?> baseResponse = new BaseResponse<>();
+        BaseResponse<?> baseResponse = new BaseResponse<>();
+
         // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
         if (userRepository.findByUsername(user.getUsername()) != null) {
             // Thông báo rằng tên người dùng đã tồn tại trong hệ thống
             baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("tài khoản đã tồn tại");
+            baseResponse.setMessage("Tài khoản đã tồn tại trong hệ thống");
             return baseResponse;
         }
 
@@ -77,12 +78,12 @@ public class UserServiceImpl implements IUserService {
         user.setRoles(Collections.singleton(userRole));
 
         baseResponse.setCode(HttpStatus.OK.value());
-        baseResponse.setMessage(" Đăng kí thành công");
+        baseResponse.setMessage("Đăng ký thành công");
         userRepository.save(user);
         return baseResponse;
-
     }
-/// hiển thị thông tin admin
+
+    /// hiển thị thông tin admin
     @Override
     public BaseResponse<Page<UserDTO>> getAllUsers(UserRequest userRequest, int page, int size) {
     Pageable pageable = PageRequest.of(page, size);

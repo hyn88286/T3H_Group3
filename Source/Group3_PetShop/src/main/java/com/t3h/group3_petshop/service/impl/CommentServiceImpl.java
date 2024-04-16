@@ -116,14 +116,17 @@ public class CommentServiceImpl implements CommentService {
         LocalDateTime now = LocalDateTime.now();
         commentEntity.setCreatedDate(now);
         // Lưu comment vào cơ sở dữ liệu
+        commentRepository.save(commentEntity);
         try {
-            commentEntity = commentRepository.save(commentEntity);
+
 
             // Chuyển đổi CommentEntity thành CommentDTO để trả về
             CommentDTO savedCommentDTO = modelMapper.map(commentEntity, CommentDTO.class);
+
             response.setCode(HttpStatus.OK.value());
             response.setMessage("Comment added successfully");
             response.setData(savedCommentDTO);
+
         } catch (Exception e) {
             response.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage("Failed to add comment: " + e.getMessage());
