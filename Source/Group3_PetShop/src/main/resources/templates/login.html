@@ -14,50 +14,50 @@
 <div class="container" id="container">
     <div  class="form-container sign-up">
         <form id="myForm"   method="post">
-            <h1>Create Account</h1>
+            <h1>Tạo Tài Khoản</h1>
             <div class="social-icons">
                 <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>or use your email for registeration</span>
-            <input id="userName" type="text" placeholder="Account" name="account" >
-            <input id="fullname" type="text" placeholder="Name" name="account name">
+            <span>chào mừng bạn đăng ký tài khoản</span>
+            <input id="userName" type="text" placeholder="Tài Khoản" name="account" >
+            <input id="fullname" type="text" placeholder="Họ và Tên" name="account name">
             <input id="email" type="email" placeholder="Email" name="email">
-            <input id="password" type="password"  placeholder="Password" name="password">
+            <input id="password" type="password"  placeholder="Mật Khẩu" name="password">
             <span id="errorMessage" style="display:none;color:red;"></span>
-            <input id="submit" class="knot" type="button" value="Sign Up" style="cursor: pointer;color: white; background-color: #512da8">
+            <input id="submit" class="knot" type="button" value="Đăng Ký" style="cursor: pointer;color: white; background-color: #512da8; border-radius: 22px;">
         </form>
     </div>
     <div class="form-container sign-in">
         <form th:action="@{/authentication}" method="post">
-            <h1>Sign In</h1>
+            <h1>Đăng Nhập</h1>
             <div class="social-icons">
                 <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>or use your email password</span>
-            <input type="text" placeholder="Email" name="username">
-            <input type="password"  placeholder="Password" name="password">
+            <span>chào mừng bạn đăng nhập tài khoản</span>
+            <input type="text" placeholder="Tài Khoản" name="username">
+            <input type="password"  placeholder="Mật Khẩu" name="password">
             <span style="color:red" id="message"></span>
-            <a href="#">Forget Your Password?</a>
-            <input  type="submit" value="Sign In" style="cursor: pointer;color: white; background-color: #512da8">
+            <a href="#">Quên mật khẩu?</a>
+            <input  type="submit" value="Đăng Nhập" style="cursor: pointer;color: white; background-color: #512da8; border-radius: 22px;">
         </form>
     </div>
     <div class="toggle-container">
         <div class="toggle">
             <div class="toggle-panel toggle-left">
-                <h1>Welcome Back!</h1>
-                <p>Enter your personal details to use all of site features</p>
-                <button class="hidden" id="login">Sign In</button>
+                <h1>Chào Mừng Trở Lại!</h1>
+                <p>Nhập thông tin Cá nhân của bạn để sử dụng tất cả các tính năng của trang PestHund</p>
+                <button class="hidden" id="login">Đăng Nhập</button>
             </div>
             <div class="toggle-panel toggle-right">
-                <h1>Hello, Friend!</h1>
-                <p>Register with your personal details to use all of site features</p>
-                <button class="hidden" id="register">Sign Up</button>
+                <h1>Chào Bạn!</h1>
+                <p>Đăng ký với thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang PestHund</p>
+                <button class="hidden" id="register">Đăng Ký</button>
             </div>
         </div>
     </div>
