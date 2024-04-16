@@ -10,37 +10,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminHomeController {
     @GetMapping()
     public String admin(Model model) {
-        model.addAttribute("adminTitle", "Trang chủ");
+        model.addAttribute("adminTitle", "Trang Chủ Admin PetHund");
         return "admin/index";
     }
 
     @GetMapping("/user")
     public String adminUser(Model model) {
-        model.addAttribute("adminTitle", "Quản lý tài khoản");
+        model.addAttribute("adminTitle", "Quản Lý Tài Khoản");
         return "admin/user";
     }
 
     @GetMapping("/category")
     public String adminCategory(Model model) {
-        model.addAttribute("adminTitle", "Quản lý danh mục");
+        model.addAttribute("adminTitle", "Quản Lý Danh Mục");
         return "admin/category";
     }
 
     @GetMapping("/comment")
     public String adminComment(Model model) {
-        model.addAttribute("adminTitle", "Quản lý bình luận");
+        model.addAttribute("adminTitle", "Quản lý Bình Luận Người Dùng");
         return "admin/comment";
     }
 
     @GetMapping("/product")
     public String product(Model model) {
-        model.addAttribute("adminTitle", "Quản lý sản phẩm");
+        model.addAttribute("adminTitle", "Quản Lý Sản Phẩm");
         return "admin/product";
     }
 
     @GetMapping("/Oder")
     public String adminOder(Model model) {
-        model.addAttribute("adminTitle", "Quản lý đơn hàng");
+        model.addAttribute("adminTitle", "Quản Lý Đơn Hàng");
         return "admin/Oder";
     }
 }
