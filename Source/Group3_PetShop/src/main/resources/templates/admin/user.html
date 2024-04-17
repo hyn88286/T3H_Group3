@@ -180,7 +180,6 @@
        event.preventDefault();
        getUserAdmin(page, size, {});
    }
-
      // hàm cập nhật /update
      $(document).on('click', '#iconUpdate', function() {
          var userId = $(this).closest('tr').find('td:eq(0)').data('id');
@@ -188,7 +187,6 @@
          var userName = $(this).closest('tr').find('td:eq(2)').text();
          var email = $(this).closest('tr').find('td:eq(3)').text();
          var phone = $(this).closest('tr').find('td:eq(4)').text();
-
          var $tr = $(this).closest('tr');
          var  myModal = $('#myModal').attr('data-id',userId);
          myModal.find('#userId').text(userId);

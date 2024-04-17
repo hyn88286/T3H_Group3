@@ -187,8 +187,8 @@
                          '<td><i data-dle="'+dataComment[i].id+'" id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
                          '</tr>';
                  }
-                 $('#tableDate tbody').empty(); //  jQuery được sử dụng để xóa tất cả các phần tử có id là tableDate để ko lặp trang.
-                 $('#tableDate').append(commentC);// lấy danh sách gán vào view
+                 $('#tableDate tbody').empty();
+                 $('#tableDate').append(commentC);
 
                  // Phân trang
                  let totalPage = response.data.totalPages;
@@ -206,7 +206,6 @@
                                  '                <a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
                                  '            <li class="page-item">'
                          }
-
                      }
                      pages +='<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage + 1) + ',5,event)" href="#">Next</a></li>';
                      $("#pageId").append(pages);

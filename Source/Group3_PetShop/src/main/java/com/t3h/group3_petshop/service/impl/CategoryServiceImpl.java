@@ -2,9 +2,7 @@ package com.t3h.group3_petshop.service.impl;
 
 
 import com.t3h.group3_petshop.entity.CategoryEntity;
-import com.t3h.group3_petshop.entity.UserEntity;
 import com.t3h.group3_petshop.model.dto.CategoryDTO;
-import com.t3h.group3_petshop.model.dto.OrderDTO;
 import com.t3h.group3_petshop.model.request.CategoryFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.CategoryRepository;
