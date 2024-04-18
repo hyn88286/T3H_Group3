@@ -107,18 +107,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public BaseResponse<?> update(Long id ,UserEntity user) {
-        BaseResponse<?> baseResponse = new BaseResponse<>();
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        userEntity.get().setUsername(user.getUsername());
-        userEntity.get().setFullName(user.getFullName());
-        userEntity.get().setEmail(user.getEmail());
-        userEntity.get().setPhone(user.getPhone());
-        userRepository.save(userEntity.get());
-        return baseResponse;
-    }
-
-    @Override
     public BaseResponse<?> deleteUser(Long userId) {
         BaseResponse<String> baseResponse = new BaseResponse<>();
         Optional<UserEntity> optionalUserEntity = userRepository.findById(userId);
@@ -133,6 +121,19 @@ public class UserServiceImpl implements IUserService {
 
         baseResponse.setCode(HttpStatus.OK.value());
         baseResponse.setMessage("user delete successfully");
+        return baseResponse;
+    }
+
+
+    @Override
+    public BaseResponse<?> update(Long id ,UserEntity user) {
+        BaseResponse<?> baseResponse = new BaseResponse<>();
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        userEntity.get().setUsername(user.getUsername());
+        userEntity.get().setFullName(user.getFullName());
+        userEntity.get().setEmail(user.getEmail());
+        userEntity.get().setPhone(user.getPhone());
+        userRepository.save(userEntity.get());
         return baseResponse;
     }
 

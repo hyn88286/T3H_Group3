@@ -20,14 +20,12 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Danh Sách Sản Phẩm <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
-
+                        <h5 class="card-title">Danh Sách Sản Phẩm <span data-bs-toggle="modal" data-bs-target="#myModal"  type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
                         <!-- Table thông tin muốn hiển thị -->
                         <div class="bd-example">
                             <table class="table table-bordered">
@@ -62,13 +60,11 @@
     <div class="modal" id="myModal" >
         <div class="modal-dialog" style="display: table;">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <span  class="badge bg-danger" >Cập Nhật</span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
                 <!-- Modal body -->
                 <div class="modal-body" >
                     <div class="your-new-wrapper">
@@ -115,23 +111,22 @@
 </main><!-- End #main -->
 
 <div th:replace="admin/fragments/footer :: footer"></div>
-
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
 <div th:replace="admin/fragments/script :: script"></div>
 </body>
+
 
 <script>
     $(document).ready(function (){
         producData();
     });
-
     function producData(){
         let page = 0;
         let size = 5;
         let objFilter = {name : null}
         getProductAdmin(page, size, objFilter)
     }
+
         function getProductAdmin(page, size, objFilter){
             $.ajax({
                 type: "POST",
@@ -158,9 +153,10 @@
                             }
                             console.log(productData[p].sizes[i]);
                         }
+                        let formattedPrice = productData[p].minPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                         producT +=
                             '</td>' +
-                        '<td data-price="' + productData[p].minPrice + '">' + productData[p].minPrice + ' vnđ' +  '</td>' +
+                        '<td data-price="' + productData[p].minPrice + '">' + formattedPrice + '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
                         '<td style="width: 13%" > <img src="'+ productData[p].urlImage +'" style="width: 58%; margin-left: 21%">  </td>' +
                         '<td style="text-align: center"  id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
@@ -168,7 +164,6 @@
                         +'</tr>';
                     }
                    $('#body-Produc').html(producT);
-
                    let productNumber = response.data.totalPages;
                    let productPresent = response.data.pageable.pageNumber;
                    if(productNumber > 0){
@@ -184,13 +179,10 @@
                                    '                <a class="page-link" onclick="loadPage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
                                    '            <li class="page-item">'
                            }
-
                        }
                        pageproduct +='<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent + 1) + ',5,event)" href="#">Next</a></li>';
                        $("#pageCD").append(pageproduct);
                    }
-
-
                },
                 error: function (error) {
                     console.log(error);
@@ -223,7 +215,5 @@
             }
         })
     });
-
 </script>
-
 </html>
