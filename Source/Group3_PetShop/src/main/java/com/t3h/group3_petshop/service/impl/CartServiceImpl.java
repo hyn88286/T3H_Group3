@@ -107,16 +107,6 @@ public class CartServiceImpl implements ICartService {
 
             Optional<ProductEntity> productEntity = productRepository.findById(cartEntity.getProductEntity().getId());
 
-            if (productEntity.isEmpty()) {
-                cartDTO.setImgProduct(Constant.IMAGE_PATH_DEPLOY + Constant.IMAGE_FILE_TEST);
-            } else {
-                Optional<String> imageName = productEntity.get().getProductImageEntities().stream()
-                        .map(ProductImageEntity::getName)
-                        .findFirst();
-                String urlImage = Constant.IMAGE_PATH_DEPLOY + imageName.filter(s -> !s.isEmpty()).orElse(Constant.IMAGE_FILE_TEST);
-                cartDTO.setImgProduct(urlImage);
-            }
-            // Set Url ảnh ( Lấy ảnh đầu tiên trong list ảnh sản phẩm )
             return cartDTO;
         }).collect(Collectors.toList());
 

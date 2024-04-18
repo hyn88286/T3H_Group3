@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,5 +24,5 @@ public class SizeEntity extends AbstractEntity{
             joinColumns = @JoinColumn(name = "size_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<ProductEntity> productEntities;
+    private List<ProductEntity> productEntities;
 }
