@@ -28,7 +28,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "AND (:#{#condition.price} is null or p.price = :#{#condition.price} )" +
             "AND (:#{#condition.sizeId} is null or s.id = :#{#condition.sizeId} ) " +
             "AND (:#{#condition.categoryId} is null or c.id = :#{#condition.categoryId} )" +
-            "AND p.deleted=false"
+            "AND p.deleted=false ORDER BY "+
+            "CASE WHEN :#{#condition.created} = 'asc' THEN p.createdDate END ASC, " +
+            "CASE WHEN :#{#condition.created} = 'desc' THEN p.createdDate END DESC"
     )
     Page<ProductEntity> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
 

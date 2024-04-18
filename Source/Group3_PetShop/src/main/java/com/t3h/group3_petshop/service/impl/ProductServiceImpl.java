@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,7 +58,7 @@ public class ProductServiceImpl implements IProductService {
         Page<ProductDTO> pageData = new PageImpl<>(productDTOS, pageable, productEntities.getTotalElements());
         BaseResponse<Page<ProductDTO>> response = new BaseResponse<>();
         response.setCode(200);
-        response.setMessage("success");
+        response.setMessage("Get all product successfully");
         response.setData(pageData);
         return response;
     }
@@ -95,22 +94,9 @@ public class ProductServiceImpl implements IProductService {
         ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
         productEntity.setCategoryEntity(category.get());
         productEntity.setSizeEntities(sizeEntities);
-        File directory = new File(Constant.IMAGE_PATH_LOCAL);
-        if (!directory.exists()) { //Kiểm tra thư mục đã tồn tại chưa
-            directory.mkdirs();//Tạo các thư mục theo path cần thiết
-        }
-        long timestamp = Instant.now().getEpochSecond(); //Lấy thời gian hiện tại trả về timestamp
 
-        int lastIndex = Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.');
-        String extension = file.getOriginalFilename().substring(lastIndex + 1);
-        String fileName = timestamp + "." + extension;
-
-        String filePathSave = Constant.IMAGE_PATH_LOCAL + fileName; //Đường dẫn lưu ảnh
-        String filePathDeploy = Constant.IMAGE_PATH_DEPLOY + fileName;
-
-        file.transferTo(new File(filePathSave)); //Lưu trữ ảnh vào trong folder
-
-        productEntity.setImage(filePathDeploy);
+        String imagePath = saveFileAndReturnPath(file);
+        productEntity.setImage(imagePath);
 
         LocalDateTime now = LocalDateTime.now();
         productEntity.setCreatedDate(now);
@@ -142,6 +128,11 @@ public class ProductServiceImpl implements IProductService {
         productDTO.setId(productEntity.getId());
         // Set tên
         productDTO.setName(productEntity.getName());
+        // Set ảnh
+        if(productEntity.getImage() != null){
+            productDTO.setImage(productEntity.getImage());
+        }else productDTO.setImage(Constant.IMAGE_PATH_DEPLOY + "file_test/test.jpg");
+
         // Set mô tả ngắn
         productDTO.setShortDescription(productEntity.getShortDescription());
         // Set mô tả chi tiết
@@ -186,7 +177,7 @@ public class ProductServiceImpl implements IProductService {
     public BaseResponse<?> deleteProduct(Long id) {
         BaseResponse<String> baseResponse = new BaseResponse<>();
         Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
-        if (optionalProductEntity.isEmpty()){
+        if (optionalProductEntity.isEmpty()) {
             baseResponse.setCode(HttpStatus.NOT_FOUND.value());
             baseResponse.setMessage("error not found");
             return baseResponse;
@@ -200,5 +191,23 @@ public class ProductServiceImpl implements IProductService {
         return baseResponse;
     }
 
+    private String saveFileAndReturnPath(MultipartFile file) throws IOException {
+        File directory = new File(Constant.IMAGE_PATH_LOCAL);
+        if (!directory.exists()) { //Kiểm tra thư mục đã tồn tại chưa
+            directory.mkdirs();//Tạo các thư mục theo path cần thiết
+        }
+        long timestamp = Instant.now().getEpochSecond(); //Lấy thời gian hiện tại trả về timestamp
 
+        int lastIndex = Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.');
+        String extension = file.getOriginalFilename().substring(lastIndex + 1);
+        String fileName = timestamp + "." + extension;
+
+        String filePathSave = Constant.IMAGE_PATH_LOCAL + fileName; //Đường dẫn lưu ảnh
+
+        String filePathDeploy = Constant.IMAGE_PATH_DEPLOY + fileName;
+
+        file.transferTo(new File(filePathSave)); //Lưu trữ ảnh vào trong folder
+
+        return filePathDeploy;
+    }
 }

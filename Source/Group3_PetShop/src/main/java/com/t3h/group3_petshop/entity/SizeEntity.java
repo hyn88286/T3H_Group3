@@ -24,5 +24,5 @@ public class SizeEntity extends AbstractEntity{
             joinColumns = @JoinColumn(name = "size_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<ProductEntity> productEntities;
+    private Set<ProductEntity> productEntities;
 }
