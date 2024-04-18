@@ -24,10 +24,8 @@ public class ProductDTO {
     private String description;
     // Mô tả ngắn
     private String shortDescription;
-    // Danh sách ảnh
-    private Set<ProductImageDTO> images;
     // Url ảnh
-    private String urlImage;
+    private String image;
     // Số lượng
     private int quantity;
     // Danh mục
@@ -37,7 +35,7 @@ public class ProductDTO {
     // Danh sách size
     private Set<SizeDTO> sizes;
     // Danh sách id size
-    private List<Long> sizeIds;
+    private Set<Long> sizeIds;
     // Id size active
     private Long sizeId;
     // Deleted
