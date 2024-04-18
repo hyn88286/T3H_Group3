@@ -22,7 +22,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query(value = "SELECT DISTINCT p FROM ProductEntity p " +
             "LEFT JOIN p.categoryEntity c " +
             "LEFT JOIN p.sizeEntities s " +
-            "LEFT JOIN p.productImageEntities pi " +
             " WHERE " +
             " (:#{#condition.name} is null or lower(p.name) = :#{#condition.name}) " +
             "AND (:#{#condition.code} is null or p.code = :#{#condition.code} )" +
@@ -36,7 +35,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query(value = "SELECT p FROM ProductEntity p " +
             "LEFT JOIN p.categoryEntity c " +
             "LEFT JOIN p.sizeEntities s " +
-            "LEFT JOIN p.productImageEntities pi " +
             " WHERE " +
             " (:#{#condition.code} is null or lower(p.code) = :#{#condition.code}) " +
             "AND (:#{#condition.sizeId} is null or s.id = :#{#condition.sizeId} ) " +

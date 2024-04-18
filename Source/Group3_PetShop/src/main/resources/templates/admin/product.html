@@ -153,12 +153,12 @@
                             }
                             console.log(productData[p].sizes[i]);
                         }
-                        let formattedPrice = productData[p].minPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                        let formattedPrice = productData[p].minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                         producT +=
                             '</td>' +
                         '<td data-price="' + productData[p].minPrice + '">' + formattedPrice + '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
-                        '<td style="width: 13%" > <img src="'+ productData[p].urlImage +'" style="width: 58%; margin-left: 21%">  </td>' +
+                        '<td style="width: 13%" > <img src="'+ productData[p].image +'" style="width: 58%; margin-left: 21%">  </td>' +
                         '<td style="text-align: center"  id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
                         '<td style="text-align: center"><i data-product = " '+ productData[p].id +' " id="iconDelete" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>'
                         +'</tr>';
