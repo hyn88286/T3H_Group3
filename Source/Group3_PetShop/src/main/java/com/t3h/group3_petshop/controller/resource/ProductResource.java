@@ -68,7 +68,7 @@ public class ProductResource {
         return ResponseEntity.ok(service.updateProduct(productDTO, image));
     }
 
-    @PostMapping("/d")
+    @PostMapping("/detail")
     public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
         return ResponseEntity.ok(service.getProductBy(filterRequest));
     }

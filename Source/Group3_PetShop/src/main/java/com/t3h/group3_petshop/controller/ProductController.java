@@ -14,7 +14,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/d/{code}")// link này chuyển trang trong layout dùng chung
+    @GetMapping("/detail/{code}")// link này chuyển trang trong layout dùng chung
     public String productDetail(Model model) {
         model.addAttribute("pageTitle", "Chi tiết sản phẩm");
 
