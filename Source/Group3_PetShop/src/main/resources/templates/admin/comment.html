@@ -15,7 +15,7 @@
         <h1>Data Comment</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
                 <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active">Data</li>
             </ol>
@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Danh sách Comment <span data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm</span > </h5>
+                        <h5 class="card-title">Danh Sách Bình Luận <span data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm</span > </h5>
 
                         <!-- Table thông tin muốn hiển thị -->
                         <table class="table" id="tableDate">
@@ -187,8 +187,8 @@
                          '<td><i data-dle="'+dataComment[i].id+'" id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
                          '</tr>';
                  }
-                 $('#tableDate tbody').empty(); //  jQuery được sử dụng để xóa tất cả các phần tử có id là tableDate để ko lặp trang.
-                 $('#tableDate').append(commentC);// lấy danh sách gán vào view
+                 $('#tableDate tbody').empty();
+                 $('#tableDate').append(commentC);
 
                  // Phân trang
                  let totalPage = response.data.totalPages;
@@ -206,7 +206,6 @@
                                  '                <a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>\n' +
                                  '            <li class="page-item">'
                          }
-
                      }
                      pages +='<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage + 1) + ',5,event)" href="#">Next</a></li>';
                      $("#pageId").append(pages);

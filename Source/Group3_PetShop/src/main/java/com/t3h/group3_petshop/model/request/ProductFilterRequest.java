@@ -8,5 +8,6 @@ public class ProductFilterRequest {
     private String code;
     private Float price;
     private Long sizeId;
-    private Integer categoryId ;
+    private Integer categoryId;
+    private String created;
 }

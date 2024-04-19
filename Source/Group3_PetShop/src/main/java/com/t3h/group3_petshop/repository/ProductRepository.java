@@ -22,21 +22,21 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query(value = "SELECT DISTINCT p FROM ProductEntity p " +
             "LEFT JOIN p.categoryEntity c " +
             "LEFT JOIN p.sizeEntities s " +
-            "LEFT JOIN p.productImageEntities pi " +
             " WHERE " +
             " (:#{#condition.name} is null or lower(p.name) = :#{#condition.name}) " +
             "AND (:#{#condition.code} is null or p.code = :#{#condition.code} )" +
             "AND (:#{#condition.price} is null or p.price = :#{#condition.price} )" +
             "AND (:#{#condition.sizeId} is null or s.id = :#{#condition.sizeId} ) " +
             "AND (:#{#condition.categoryId} is null or c.id = :#{#condition.categoryId} )" +
-            "AND p.deleted=false"
+            "AND p.deleted=false ORDER BY "+
+            "CASE WHEN :#{#condition.created} = 'asc' THEN p.createdDate END ASC, " +
+            "CASE WHEN :#{#condition.created} = 'desc' THEN p.createdDate END DESC"
     )
     Page<ProductEntity> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
 
     @Query(value = "SELECT p FROM ProductEntity p " +
             "LEFT JOIN p.categoryEntity c " +
             "LEFT JOIN p.sizeEntities s " +
-            "LEFT JOIN p.productImageEntities pi " +
             " WHERE " +
             " (:#{#condition.code} is null or lower(p.code) = :#{#condition.code}) " +
             "AND (:#{#condition.sizeId} is null or s.id = :#{#condition.sizeId} ) " +
