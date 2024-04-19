@@ -92,20 +92,18 @@
              type: "POST",
              url: "http://localhost:8080/api/order?page=" + page + "&size=" + size,
              contentType: "application/json",
-             // data: JSON.stringify({
-             // }),
              data: JSON.stringify(objectFilter),
              dataType: "json",
              success: function (response) {
                  let dataOder = response?.data?.content;
-                let OderO = '';
+                let OderO = ''
                  for (let i = 0; i < dataOder.length; i++) {
+                     let formattedOrder = dataOder[i].totalAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                      console.log(dataOder[i]);
                      OderO += '<tr>' +
                          '<td data-id="' + dataOder[i].id + '">' + (i + 1) + '</td>' +
-
-                         '<td data-code="' + dataOder[i].code + '">' + dataOder[i].code + '</td>' +
-                         '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ dataOder[i].totalAmount + ' vnđ'+ '</td>' +
+                         '<td data-code="' + dataOder[i].code + '">' + dataOder[i].code + '</td>'+
+                         '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ formattedOrder + '</td>' +
                          '<td data-addressShipping="' + dataOder[i].addressShipping + '">' + dataOder[i].addressShipping + '</td>' +
                          '<td data-phoneShipping="' + dataOder[i].phoneShipping + '">' + dataOder[i].phoneShipping + '</td>' +
                          '<td data-createDate="' + dataOder[i].createDate + '">' + dataOder[i].createDate + '</td>' +
@@ -144,7 +142,7 @@
              }
          });
      };
-     // hàm xuwr lý sự kiện
+     // hàm xử lý sự kiện
      function changePage(page,size,event){
          event.preventDefault();
 

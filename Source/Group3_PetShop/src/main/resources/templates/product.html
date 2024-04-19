@@ -19,23 +19,15 @@
         <div class="container">
             <div class="product-count">
                 <div class="row align-items-center">
-                    <div class="col-xl-6 col-lg-8 col-md-6 mb-2 mb-md-0">
+                    <div class="col-xl-3 col-lg-8 col-md-6 mb-2 mb-md-0">
                         <strong id="showing"></strong>
                     </div>
 
-                    <div class="col-xl-6 col-lg-4 col-md-6" style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 12%">
-                        <select name="orderby" class="form-control wide form-light">
-                            <option selected value="1"> Sắp xếp theo thời gian</option>
-                            <option value="2">Sắp xếp theo bảng chữ cái</option>
-                            <option value="3">Sắp xếp theo giá sản phẩm tăng dần</option>
-                            <option value="4">Sắp xếp theo giá sản phẩm giảm dần</option>
-                        </select>
-                        <select name="orderby" class="form-control wide form-light">
-                            <option selected value="1"> Sắp xếp theo thời gian</option>
-                            <option value="2">Sắp xếp theo bảng chữ cái</option>
-                            <option value="3">Sắp xếp theo giá sản phẩm tăng dần</option>
-                            <option value="4">Sắp xếp theo giá sản phẩm giảm dần</option>
-                        </select>
+                    <div class="col-xl-9 col-lg-4 col-md-6"
+                         style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 2%">
+                        <div id="categories"></div>
+                        <div id="byPrice"></div>
+                        <div id="byCreated"></div>
                     </div>
                 </div>
             </div>
@@ -95,17 +87,18 @@
             name: null
         };
         getProducts(page, size, objFilter);
+        getCategories(page, size);
     }
 
     function getProducts(page, size, objectFilter) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/api/product?page=" + page + "&size=" + size,
+            url: HOST + "/api/product?page=" + page + "&size=" + size,
             contentType: "application/json",
             data: JSON.stringify(objectFilter),
             dataType: "json",
             success: function (response) {
-                $('#showing').html('Hiển thị '+size+' trên tổng số '+response.data.totalElements +' kết quả')
+                $('#showing').html('Hiển thị ' + size + ' trên tổng số ' + response.data.totalElements + ' kết quả')
                 console.log(response);
                 let products = response.data.content;
                 // hiển thị dữ liệu trên bảng
@@ -117,13 +110,13 @@
                         price = formatPrice(dataProduct.minPrice) + ' - ' + formatPrice(dataProduct.maxPrice);
                     } else price = formatPrice(dataProduct.minPrice);
 
-                    let urlDetail = "http://localhost:8080/views/product/d/" + dataProduct.code;
+                    let urlDetail = HOST + "/views/product/detail/" + dataProduct.code;
                     row
                         += '<div class="col mb-5">' +
                         '<div class="product-grid">' +
                         '<div class="product-image">' +
                         ' <a href="' + urlDetail + '" class="image">' +
-                        '<img class="pic-1" src="' + dataProduct.urlImage + '">' +
+                        '<img class="pic-1" src="' + dataProduct.image + '">' +
                         '</a>' +
                         '</div>' +
                         '<div class="product-content">' +
@@ -175,18 +168,83 @@
         })
     }
 
+    function getCategories(page, size) {
+        $.ajax({
+            type: "POST",
+            url: HOST + "/api/category",
+            contentType: "application/json",
+            data: JSON.stringify({}),
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                let categories = response.data.content;
+                let categoryHtml =
+                    ' <select  style="text-align: center;cursor: pointer" id="category" class="form-control form-light">' +
+                    '<option selected disabled>Danh mục</option>';
+                console.log(categories.length, categories);
+
+                if (categories.length > 0) {
+                    for (let i = 0; i < categories.length; i++) {
+                        categoryHtml += '<option value="' + categories[i].id + '">' + categories[i].name + '</option>'
+                    }
+                }
+                categoryHtml += '</select>';
+                console.log(categoryHtml);
+                $('#categories').html(categoryHtml);
+
+                let byCreatedHtml =
+                    '<select style="text-align: center;cursor: pointer" id="created" class="form-control wide form-light">' +
+                    '<option selected disabled>Sắp xếp theo thời gian</option>' +
+                    '<option value="asc">Mới nhất</option>' +
+                    '<option value="desc">Cũ nhất</option>' +
+                    '</select>'
+                $('#byCreated').html(byCreatedHtml);
+
+                let byPriceHtml =
+                    '<select style="text-align: center;cursor: pointer" name="price" class="form-control wide form-light">' +
+                    '<option selected disabled>Sắp xếp theo giá sản phẩm</option>' +
+                    '<option data-min="100" data-max="200" value="1">100.000 - 200.000</option data-min>' +
+                    '<option data-min="200" data-max="500" value="2">200.000 - 500.000</option>' +
+                    '<option data-min="500" data-max="1000" value="3">500.000 - 1.000.000</option>' +
+                    '<option data-min="1000" value="4">Trên 1.000.000</option>' +
+                    '</select>'
+                $('#byPrice').html(byPriceHtml);
+
+                searchCondition(page, size);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+
     function searchCondition(page, size) {
+        console.log(1);
         let filter = {};
-        filter.name = $("#name").val() === '' ? null : $("#name").val();
-        filter.price = $("#price").val() === '' ? null : $("#price").val();
-        filter.categoryId = $("#category").val() === '' ? null : $("#category").val();
-        filter.code = $("#code").val() === '' ? null : $("#code").val();
-        filter.sizeId = $("#size").val() === '' ? null : $("#size").val();
-        getProducts(page, size, filter);
+        let category, created, minPrice, maxPrice;
+        $('#category').change(function () {
+            category = $(this).val();
+            filter.categoryId = category;
+            getProducts(page, size, filter);
+        });
+
+        $('#created').change(function () {
+            created = $(this).val();
+            filter.created = created;
+            getProducts(page, size, filter);
+        });
+
+        $('#byPrice').change(function () {
+            minPrice = $(this).data("minPrice");
+            maxPrice = $(this).data("maxPrice");
+            filter.created = created;
+            getProducts(page, size, filter);
+        });
     }
 
     function changePage(page, size) {
-        searchCondition(page, size);
+        let filter = {};
+        getProducts(page, size, filter);
     }
 </script>
 </body>
