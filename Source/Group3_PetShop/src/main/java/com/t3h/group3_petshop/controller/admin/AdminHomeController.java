@@ -43,4 +43,11 @@ public class AdminHomeController {
         model.addAttribute("adminTitle", "Quản Lý Đơn Hàng");
         return "admin/Oder";
     }
+
+    @GetMapping("/addProduct")
+
+    public String addProduct(Model model){
+        model.addAttribute("adminTitle", "Thêm Mới Sản Phẩm");
+        return "admin/addProduct";
+    }
 }

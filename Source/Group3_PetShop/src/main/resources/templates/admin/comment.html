@@ -92,16 +92,6 @@
                             <!-- Add more rows as needed -->
                             </tbody>
                         </table>
-<!--                        <nav aria-label="...">-->
-<!--                            <ul class="pagination" id="pageId" style="float: right;">-->
-<!--                                            <li class="page-item">-->
-<!--                                                <a class="page-link" href="#">1</a></li>-->
-<!--                                            <li class="page-item active">-->
-<!--                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-<!--                                            </li>-->
-<!--                                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--                            </ul>-->
-<!--                        </nav>-->
                     </div>
                 </div>
 
@@ -241,7 +231,7 @@
                  dataType: "json",
                  success: function(response) {
                      console.log("tài khoản được xóa thành công");
-                        $tr.hide();
+                        getCommentAdmin(0, 5, {});
                  },
                  error: function(error) {
                      console.log("tài khoản xóa không thành công");
