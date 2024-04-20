@@ -28,7 +28,7 @@ public class PaymentServiceImpl implements IPaymentService {
     public BaseResponse<String> createVnPay(OrderFilterRequest request) {
         String orderCode = request.getCode();
         UserDTO userDTO = userService.getCurrentUser(true);
-        Optional<OrderEntity> orderEntity = orderRepository.getByCode(userDTO.getId(), orderCode, Constant.ORDER_STATUS_UNPAID);
+        Optional<OrderEntity> orderEntity = orderRepository.getByCode(userDTO.getId(), orderCode);
 
         // Timestamp ngày giờ hiện tại
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));

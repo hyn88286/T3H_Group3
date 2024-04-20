@@ -201,7 +201,7 @@
         console.log(orderCode);
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/api/order/d",
+            url: "http://localhost:8080/api/order/detail",
             contentType: "application/json",
             data: JSON.stringify(objData),
             dataType: "json",
@@ -224,7 +224,6 @@
                 console.log(error);
             }
         })
-
     }
 </script>
 </body>

@@ -412,7 +412,11 @@
                 }),
                 success: function (response) {
                     console.log(" đã được thêm thành công");
-                    getCommentsAndDisplay({});
+                    let object = {
+                        productCode: getCode(),
+
+                    };
+                    getCommentsAndDisplay(object);
                 },
                 error: function (error) {
                     console.log("Lỗi khi thêm danh mục");
@@ -460,7 +464,11 @@
             }),
             success: function (response) {
                 console.log(response);
-                getCommentsAndDisplay({});
+                let object = {
+                    productCode: getCode(),
+
+                };
+                getCommentsAndDisplay(object);
                 $('#myModal').modal('hide');
             },
             error: function (error) {
@@ -487,7 +495,11 @@
             dataType: "json",
             success: function (response) {
                 console.log("Xóa bình luận thành công");
-                getCommentsAndDisplay({});
+                let object = {
+                    productCode: getCode(),
+
+                };
+                getCommentsAndDisplay(object);
 
             },
             error: function (error) {

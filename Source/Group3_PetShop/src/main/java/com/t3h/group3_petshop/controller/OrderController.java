@@ -1,4 +1,5 @@
 package com.t3h.group3_petshop.controller;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ public class OrderController {
 
 
     @GetMapping("/place-order/{code}")// link này chuyển trang trong layout dùng chung
-    public String shop(@PathVariable("code") String code, Model model){
+    public String shop(@PathVariable("code") String code, Model model) {
         model.addAttribute("pageTitle", "Thanh toán đơn hàng");
 
         return "place_order"; //  này là chỉ tới trang giao diên html
@@ -25,6 +26,11 @@ public class OrderController {
     @GetMapping("/payment/result/{code}")
     public String resultPayment(@PathVariable String code) {
         return "result_payment";
+    }
+
+    @GetMapping("/detail/{code}")
+    public String detailOredr(@PathVariable String code) {
+        return "order_detail";
     }
 
 }

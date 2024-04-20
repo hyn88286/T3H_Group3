@@ -66,7 +66,7 @@ public class OrderServiceImpl implements IOrderService {
         String code = request.getCode();
         UserDTO userDTO = userService.getCurrentUser(true);
         // Lấy bản ghi đơn hàng theo mã đơn hàng
-        Optional<OrderEntity> orderEntity = orderRepository.getByCode(userDTO.getId(), code, Constant.ORDER_STATUS_UNPAID);
+        Optional<OrderEntity> orderEntity = orderRepository.getByCode(userDTO.getId(), code);
 
         BaseResponse<OrderDTO> response = new BaseResponse<>();
         if (orderEntity.isEmpty()) {
@@ -143,7 +143,7 @@ public class OrderServiceImpl implements IOrderService {
     public BaseResponse<?> updateOrder(OrderDTO orderDTO) {
         BaseResponse<?> response = new BaseResponse<>();
         UserDTO userDTO = userService.getCurrentUser(true);
-        Optional<OrderEntity> order = orderRepository.getByCode(userDTO.getId(), orderDTO.getCode(), Constant.ORDER_STATUS_UNPAID);
+        Optional<OrderEntity> order = orderRepository.getByCode(userDTO.getId(), orderDTO.getCode());
 
         if (order.isEmpty()) {
             response.setCode(HttpStatus.BAD_REQUEST.value());
