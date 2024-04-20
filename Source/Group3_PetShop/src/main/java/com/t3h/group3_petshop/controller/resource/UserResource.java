@@ -18,8 +18,8 @@ public class UserResource {
     private IUserService iUserService;
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@RequestBody UserEntity userEntity) {
-        iUserService.addUser(userEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body("account");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(iUserService.addUser(userEntity));
     }
 
     @PostMapping("/ListUser")
