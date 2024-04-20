@@ -98,7 +98,7 @@
                  let dataOder = response?.data?.content;
                 let OderO = ''
                  for (let i = 0; i < dataOder.length; i++) {
-                     let formattedOrder = dataOder[i].totalAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                     let formattedOrder = dataOder[i].totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                      console.log(dataOder[i]);
                      OderO += '<tr>' +
                          '<td data-id="' + dataOder[i].id + '">' + (i + 1) + '</td>' +
