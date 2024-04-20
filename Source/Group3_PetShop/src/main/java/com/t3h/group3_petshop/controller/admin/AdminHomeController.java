@@ -50,4 +50,10 @@ public class AdminHomeController {
         model.addAttribute("adminTitle", "Thêm Mới Sản Phẩm");
         return "admin/addProduct";
     }
+
+    @GetMapping("/updateProduct")
+    public String updateProduct(Model model){
+        model.addAttribute("adminTitle", "Cập Nhật Sản Phẩm");
+        return "admin/updateProduct";
+    }
 }

@@ -57,54 +57,54 @@
     </section>
 
     <!--chứa modal uodate -->
-    <div class="modal" id="myModal" >
-        <div class="modal-dialog" style="display: table;">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <span  class="badge bg-danger" >Cập Nhật</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body" >
-                    <div class="your-new-wrapper">
-                        <table class="table table-separate table-head-custom table-checkable" >
-                            <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Mã Sản Phẩm</th>
-                                <th scope="col">Tên Sản Phẩm</th>
-                                <th scope="col">Loại Size</th>
-                                <th scope="col">Đơn Giá</th>
-                                <th scope="col">Danh Mục</th>
-                                <th scope="col">Hình Sản Phẩm</th>
-                            </tr>
-                            </thead>
+<!--    <div class="modal" id="myModal" >-->
+<!--        <div class="modal-dialog" style="display: table;">-->
+<!--            <div class="modal-content">-->
+<!--                &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--                <div class="modal-header">-->
+<!--                    <span  class="badge bg-danger" >Cập Nhật</span>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--                <div class="modal-body" >-->
+<!--                    <div class="your-new-wrapper">-->
+<!--                        <table class="table table-separate table-head-custom table-checkable" >-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th scope="col">STT</th>-->
+<!--                                <th scope="col">Mã Sản Phẩm</th>-->
+<!--                                <th scope="col">Tên Sản Phẩm</th>-->
+<!--                                <th scope="col">Loại Size</th>-->
+<!--                                <th scope="col">Đơn Giá</th>-->
+<!--                                <th scope="col">Danh Mục</th>-->
+<!--                                <th scope="col">Hình Sản Phẩm</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
 
-                            <tbody>
-                            <tr>
-                                <td id="id"></td>
-                                <td id="codeProduct"><input type="text" id="code"></td>
-                                <td id="nameProduct"><input type="text" id="name"></td>
-                                <td id="sizeProduct"><input type="text" id="size"></td>
-                                <td id="priceProduc"><input type="text" id="price"></td>
-                                <td id="categoryProduc"><input type="text" id="category"></td>
-                                <td id="imgProducy"><input type="file" id="img" style="background: blanchedalmond"></td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td id="id"></td>-->
+<!--                                <td id="codeProduct"><input type="text" id="code"></td>-->
+<!--                                <td id="nameProduct"><input type="text" id="name"></td>-->
+<!--                                <td id="sizeProduct"><input type="text" id="size"></td>-->
+<!--                                <td id="priceProduc"><input type="text" id="price"></td>-->
+<!--                                <td id="categoryProduc"><input type="text" id="category"></td>-->
+<!--                                <td id="imgProducy"><input type="file" id="img" style="background: blanchedalmond"></td>-->
+<!--                            </tr>-->
+<!--                            &lt;!&ndash; Add more rows as needed &ndash;&gt;-->
+<!--                            </tbody>-->
+<!--                        </table>-->
 
-                    </div>
-                </div>
+<!--                    </div>-->
+<!--                </div>-->
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="buttonApply" >Apply</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                &lt;!&ndash; Modal footer &ndash;&gt;-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="buttonApply" >Apply</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
 
 
@@ -159,7 +159,7 @@
                         '<td data-price="' + productData[p].minPrice + '">' + formattedPrice + '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
                         '<td style="width: 13%" > <img src="'+ productData[p].image +'" style="width: 58%; margin-left: 21%">  </td>' +
-                        '<td style="text-align: center"  id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
+                        '<td  style="text-align: center"  id="iconUpdate"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
                         '<td style="text-align: center"><i data-product = " '+ productData[p].id +' " id="iconDelete" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>'
                         +'</tr>';
                     }
