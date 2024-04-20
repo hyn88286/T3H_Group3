@@ -83,43 +83,55 @@
         });
 
    // đăng ký tài khoản !
-    $("#submit").click(function (event){
-        let fullName = $("#fullname").val();
-        let username = $("#userName").val();
-        let password = $("#password").val();
-        let email = $("#email").val();
-        if (fullName.trim() === '' || username.trim() === '' || password.trim() === '' || email.trim() === '') {
-            $("#errorMessage").text("Đăng ký không thành công. Vui lòng thử lại sau."); // Đặt thông báo lỗi
-            $("#errorMessage").show(); // Hiển thị thông báo lỗi
+    $("#submit").click(function (event) {
+        // Lấy thông tin từ các input
+        let fullName = $("#fullname").val().trim();
+        let username = $("#userName").val().trim();
+        let password = $("#password").val().trim();
+        let email = $("#email").val().trim();
+
+        // Kiểm tra thông tin đã được điền đầy đủ chưa
+        if (fullName === '' || username === '' || password === '' || email === '') {
+            $("#errorMessage").text("Đăng ký không thành công. Vui lòng điền đầy đủ thông tin.");
+            $("#errorMessage").show();
             return false;
         } else {
-            $("#errorMessage").hide(); // Ẩn thông báo lỗi nếu mọi thứ đều hợp lệ
+            $("#errorMessage").hide();
         }
+
+        // Gửi request POST đến server
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/api/account/addUser",
             contentType: "application/json",
             data: JSON.stringify({
-                "fullName": $("#fullname").val(),
-                "username": $("#userName").val(),
-                "password": $("#password").val(),
-                "email": $("#email").val()
+                "fullName": fullName,
+                "username": username,
+                "password": password,
+                "email": email
             }),
-
             dataType: "json",
             success: function (response) {
-                console.log(response)
-                console.log(1);
+                console.log(response);
+                if (response.code === 200) {
+                    $("#errorMessage").text("Đăng ký thành công.");
+                    $("#errorMessage").removeClass("alert-danger").addClass("alert-success");
 
+                    $("#errorMessage").show();
+
+                }
+                if (response.code === 400){
+                    $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
+                    $("#errorMessage").show();
+                }
             },
             error: function (error) {
                 console.log(error);
-                $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
+                // Kiểm tra thông báo lỗi từ server
+                    $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
                 $("#errorMessage").show();
-
-
             }
-        })
+        });
     });
 
     // thông báo đăng nhập sai
