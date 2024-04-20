@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Table(name = "product")
@@ -27,6 +28,5 @@ public class ProductEntity extends AbstractEntity{
 
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productEntities",fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
-    private Set<SizeEntity> sizeEntities;
-
+    private Set<SizeEntity> sizeEntities = new HashSet<>();
 }
