@@ -63,8 +63,37 @@
 
 
 <div th:replace="layout/script :: script"></div>
+<script>
+    showOrder();
+    function showOrder() {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/order",
+            contentType: "application/json",
+            data: JSON.stringify(objData),
+            dataType: "json",
+            success: function (response) {
+                let productItemHtml = '';
+                let detail = response.data.orderDetails;
+                for (let i = 0; i < detail.length; i++) {
+                    productItemHtml += '<li>' +
+                        '<span>' + detail[i].productName + '( ' + detail[i].sizeName + ' ) x ' + detail[i].quantity + '</span>' +
+                        '<span class="">' + formatPrice(detail[i].total) + '</span>' +
+                        '</li>';
+                }
+                $('#productItem').html(productItemHtml);
+                $('.totalAmount').html(formatPrice(response.data.totalAmount))
 
+                $('#payment').data("code", response.data.code);
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+
+    }
+</script>
 </body>
 
-<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:23 GMT -->
 </html>

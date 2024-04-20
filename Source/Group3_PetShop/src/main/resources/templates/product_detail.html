@@ -63,17 +63,28 @@
             <div class="row mt-4">
                 <div class="col-md-12 col-lg-10 mx-auto">
                     <div class="review-tabbing">
-                        <ul class="nav nav-pills theme-tabbing mb-3 justify-content-center" id="pills-tab" role="tablist">
+                        <ul class="nav nav-pills theme-tabbing mb-3 justify-content-center" id="pills-tab"
+                            role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
+                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home"
+                                   role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" tabindex="-1">Thông tin chi tiêt</a>
+                                <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile"
+                                   role="tab" aria-controls="pills-profile" aria-selected="false" tabindex="-1">Thông
+                                    tin chi tiêt</a>
                             </li>
                         </ul>
                         <div class="tab-content theme-tabbing" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><p>Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua, sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen), vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất chống oxy hóa, màu thực phẩm.</p></div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                 aria-labelledby="pills-home-tab"><p>Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ
+                                gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua,
+                                sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen),
+                                vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít
+                                panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất
+                                chống oxy hóa, màu thực phẩm.</p></div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                 aria-labelledby="pills-profile-tab">
                                 <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
                                         <tbody>
@@ -113,7 +124,7 @@
                         <div class="media-body">
                             <div class="name">
                                 <small></small>
-                                <h5 style="font-size: 35px; color: black;" ></h5>
+                                <h5 style="font-size: 35px; color: black;"></h5>
                                 <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
                             </div>
                             <p></p>
@@ -159,21 +170,20 @@
                     <form novalidate="novalidate" class="rounded-field">
                         <div class="form-row mb-4">
                             <div class="col">
-                                <textarea rows="7" id="content" placeholder="Nội dung......" class="form-control form-light"></textarea>
+                                <textarea rows="7" id="content" placeholder="Nội dung......"
+                                          class="form-control form-light"></textarea>
                             </div>
                         </div>
 
-                        <!-- Thêm hidden input để lưu username -->
-                        <input type="hidden" id="loggedInUsername" value="admin"> <!-- Giả sử username của admin là "admin" -->
-
                         <div class="form-row">
-                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Bình luận</button>
+                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Bình luận
+                            </button>
                         </div>
                     </form>
                 </div>
-
-
             </div>
+
+        </div>
     </section>
 
 </main>
@@ -242,7 +252,7 @@
         // Call ajax lấy ra chi tiết sản phẩm
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/api/product/d",
+            url: HOST + "/api/product/detail",
             contentType: "application/json",
             data: JSON.stringify(objectFilter),
             dataType: "json",
@@ -263,38 +273,12 @@
                 if (productData.price !== 0) {
                     price = formatPrice(productData.price);
                 }
+                let img =
+                    '<div class="item">' +
+                    '<img width="50%" src="' + productData.image + '" alt>' +
+                    '</div>';
 
-                let countImage = 1;
-                let imageData;
-                let img = '';
-                // Nếu sản phẩm có ảnh thì lấy ra count ảnh sản phẩm ko thì count = 1
-                if (productData.images.length > 0) {
-                    countImage = productData.images.length;
-                }
-
-                for (let i = 0; i < 1; i++) {
-                    // Check xem sản phẩm có dữ liệu ảnh thì lấy ra dữ liệu
-                    if (productData.images.length > 0) {
-                        // Lấy ra dữ liệu ảnh
-                        imageData = productData.images[i];
-                        img +=
-                            '<div class="item">' +
-                            '<img width="50%" src="' + productData.urlImage + '" alt>' +
-                            '</div>';
-                    } else {
-                        // Nếu ko có dữ liệu ảnh thì trả về ảnh mặc định của sản phẩm ( sản phẩm ko có ảnh thì lấy ảnh mặc định )
-                        img +=
-                            '<div class="item">' +
-                            '<img width="50%" src="' + productData.urlImage + '" alt>' +
-                            '</div>';
-                        ;
-                    }
-                }
-                // Load dữ liệu ảnh
-                if (loadImg) {
-                    $('#big').html(img);
-                    $('#thumbs').html(img);
-                }
+                $('#big').html(img);
 
                 // Load tên sản phẩm
                 let nameProductHtml = '<span name="nameProduct" data-value="' + productData.id + '">' + productData.name + '</span>'
@@ -370,6 +354,7 @@
             $(this).prop('checked', true);
         })
     }
+
     // hiển thị comment
 
 
@@ -380,14 +365,14 @@
             contentType: "application/json",
             data: JSON.stringify(object),
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 // Xử lý dữ liệu nhận được từ API
                 let comments = response.data.content;
 
                 // Hiển thị dữ liệu comment trên trang web
                 displayComments(comments);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
         });
@@ -395,12 +380,12 @@
 
     function displayComments(comments) {
         let commentsHTML = '';
-        comments.forEach(function(comment) {
+        comments.forEach(function (comment) {
             commentsHTML += '<div class="card mb-3">' +
                 '<div class="card-body">' +
                 '<h5 class="card-title" style="font-size: 35px; color: black;">' + comment.username +
                 '<i style="line-height: 1.3; color: #f14b4b; font-size: 71%; float:right; margin-left: 10px;" class="fas fa-trash-alt delete-icon" data-id="' + comment.id + '"></i>' +
-                '<i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right;" class="fas fas fa-pen update-icon"  data-id="' + comment.id + '"></i>' +
+                '<i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right;" class="fas fa-plus-circle update-icon" data-id="' + comment.id + '"></i>' +
                 '</h5>' +
                 '<p class="card-text">' + comment.content + '</p>' +
                 '<p class="card-text"><small class="text-muted">' + comment.createdDate + '</small></p>' +
@@ -409,37 +394,40 @@
         });
         $('.media').html(commentsHTML);
     }
-    $(document).on('click', '#post', function() {
+
+    $(document).on('click', '#post', function () {
         var content1 = $('#content').val();
+        var productID =
 
-        // Lấy username từ hidden input
-        var loggedInUsername = $('#loggedInUsername').val(); // Đọc giá trị từ hidden input
 
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/api/comments/create",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify({
-                productCode: getCode(),
-                content: content1,
-                // Thêm username vào đây
-            }),
-            success: function(response) {
-                console.log(" đã được thêm thành công");
-                getCommentsAndDisplay({});
-            },
-            error: function(error) {
-                console.log("Lỗi khi thêm danh mục");
-            }
-        });
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/comments/create",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    productCode: getCode(),
+                    content: content1
+
+                }),
+                success: function (response) {
+                    console.log(" đã được thêm thành công");
+                    window.location.reload();
+                    // Xóa nội dung cũ của tbody trong bảng
+                    $('#tableDate tbody').empty();
+                    // Tải lại danh sách danh mục sau khi thêm
+                    getCategoryAdmin();
+                },
+                error: function (error) {
+                    console.log("Lỗi khi thêm danh mục");
+                }
+            });
     });
-
-
+    // sưửa
     // Update icon click event
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Edit icon click event
-        $(document).on('click', '.update-icon', function() {
+        $(document).on('click', '.update-icon', function () {
             console.log("Edit button clicked");
 
             var id = $(this).data('id'); // Retrieve data-id from the clicked icon
@@ -458,7 +446,7 @@
     });
 
     // Apply button click event
-    $(document).on('click', '#buttonApply', function(e) {
+    $(document).on('click', '#buttonApply', function (e) {
         e.preventDefault(); // Prevent default form submission
 
         var id = $('#myModal').data('id');
@@ -474,19 +462,17 @@
                 name: $('#name').val(),
                 content: $('#conten').val()
             }),
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
-                getCommentsAndDisplay({})
-                $('#myModal').modal('hide');
-                 // Reload the page after successful update
+                location.reload(); // Reload the page after successful update
             },
-            error: function(error) {
+            error: function (error) {
                 console.log("Error:", error);
             }
         });
     });
     // xoóa
-    $(document).on('click', '.delete-icon', function() {
+    $(document).on('click', '.delete-icon', function () {
         var id = $(this).data('id'); // Lấy ID từ thuộc tính data-id của biểu tượng
         console.log("Nút Xóa được nhấn cho ID:", id);
 
@@ -502,13 +488,12 @@
             url: "http://localhost:8080/api/comments/" + id,
             contentType: "application/json",
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 console.log("Xóa bình luận thành công");
                 $tr.hide(); // Ẩn thẻ <tr> chứa bình luận đã xóa
-                getCommentsAndDisplay({})
-
+                location.reload(); // Tải lại trang để bình luận đã xóa không còn xuất hiện
             },
-            error: function(error) {
+            error: function (error) {
                 console.log("Lỗi khi xóa bình luận:", error);
             }
         });

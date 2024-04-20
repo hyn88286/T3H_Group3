@@ -130,6 +130,9 @@
             countCart();
             showUserName();
         });
+
+        const HOST = "http://localhost:8080";
+
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
@@ -139,10 +142,11 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
+
         function showUserName() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/api/account/current-user",
+                url: HOST + "/api/account/current-user",
                 contentType: "application/json",
                 dataType: "json",
                 success: function (response) {
@@ -155,7 +159,7 @@
                         logHtml = '<a href="http://localhost:8080/login" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>'
                         $('#logCheck').html(logHtml);
                     }
-                    console.log(logHtml+"kkfjngj");
+                    console.log(logHtml + "kkfjngj");
                 },
                 error: function (error) {
                     console.log(error);
@@ -166,7 +170,7 @@
         function countCart() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/api/cart/count",
+                url: HOST + "/api/cart/count",
                 contentType: "application/json",
                 dataType: "json",
                 success: function (response) {

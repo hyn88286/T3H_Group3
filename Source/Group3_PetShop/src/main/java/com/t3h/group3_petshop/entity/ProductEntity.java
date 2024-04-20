@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.List;
 import java.util.Set;
-
 
 @Table(name = "product")
 @Entity
@@ -20,12 +18,7 @@ public class ProductEntity extends AbstractEntity{
     private String shortDescription;
     private Double price;
     private int quantity;
-
-
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<ProductImageEntity> productImageEntities;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

@@ -60,6 +60,7 @@ public class OrderServiceImpl implements IOrderService {
         return response;
     }
 
+
     @Override
     public BaseResponse<OrderDTO> getDetailByCode(OrderFilterRequest request) {
         String code = request.getCode();
@@ -164,6 +165,11 @@ public class OrderServiceImpl implements IOrderService {
         response.setMessage("Update order successfully");
         response.setCode(HttpStatus.OK.value());
         return response;
+    }
+
+    @Override
+    public BaseResponse<List<OrderDTO>> getOrderByUser() {
+        return null;
     }
 
     @Override

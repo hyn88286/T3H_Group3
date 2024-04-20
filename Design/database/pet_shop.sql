@@ -60,6 +60,7 @@ CREATE TABLE product
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
     name              NVARCHAR(100),
     description       NVARCHAR(1000),
+    image             VARCHAR(100),
     code              VARCHAR(50),
     quantity          INT,
     price             FLOAT,
@@ -102,21 +103,6 @@ CREATE TABLE cart
     FOREIGN KEY (user_id) REFERENCES user (id),
     FOREIGN KEY (product_id) REFERENCES product (id),
     FOREIGN KEY (size_id) REFERENCES size (id)
-);
-
-create table product_image
-(
-    id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-    product_id    BIGINT NOT NULL,
-    type          VARCHAR(50),
-    name          VARCHAR(100),
-    file_path     VARCHAR(255),
-    deleted       BOOLEAN  DEFAULT false,
-    created_by    VARCHAR(50),
-    created_date  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    modified_by   VARCHAR(50),
-    modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES product (id)
 );
 
 CREATE TABLE order_master
