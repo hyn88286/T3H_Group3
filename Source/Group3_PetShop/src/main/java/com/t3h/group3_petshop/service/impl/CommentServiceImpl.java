@@ -118,11 +118,8 @@ public class CommentServiceImpl implements CommentService {
         // Lưu comment vào cơ sở dữ liệu
         commentRepository.save(commentEntity);
         try {
-
-
             // Chuyển đổi CommentEntity thành CommentDTO để trả về
             CommentDTO savedCommentDTO = modelMapper.map(commentEntity, CommentDTO.class);
-
             response.setCode(HttpStatus.OK.value());
             response.setMessage("Comment added successfully");
             response.setData(savedCommentDTO);
