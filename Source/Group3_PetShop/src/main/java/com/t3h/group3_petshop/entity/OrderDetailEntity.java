@@ -8,23 +8,23 @@ import lombok.ToString;
 @Entity
 @Table(name = "order_detail")
 @Data
-public class OrderDetailEntity extends AbstractEntity{
+public class OrderDetailEntity extends AbstractEntity {
     // ID đơn hàng
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "order_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private OrderEntity orderEntity;
 
     // ID sản phẩm
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductEntity productEntity;
 
     // ID size
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "size_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

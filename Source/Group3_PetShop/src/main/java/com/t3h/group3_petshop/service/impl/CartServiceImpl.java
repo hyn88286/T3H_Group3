@@ -105,8 +105,9 @@ public class CartServiceImpl implements ICartService {
             Double totalOneP = productPrice * weightSize * quantity;
             cartDTO.setTotalOneP(totalOneP);
 
-            Optional<ProductEntity> productEntity = productRepository.findById(cartEntity.getProductEntity().getId());
-
+            if (cartEntity.getProductEntity().getImage() != null) {
+                cartDTO.setImgProduct(cartEntity.getProductEntity().getImage());
+            } else cartDTO.setImgProduct(Constant.IMAGE_PATH_DEPLOY + "file_test/test.jpg");
             return cartDTO;
         }).collect(Collectors.toList());
 
