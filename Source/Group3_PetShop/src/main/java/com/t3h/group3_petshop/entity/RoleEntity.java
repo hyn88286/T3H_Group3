@@ -17,5 +17,4 @@ public class RoleEntity extends AbstractEntity {
     private String code;
     @ManyToMany(mappedBy = "roles")
     private Set<UserEntity> users = new HashSet<>();
-
 }

@@ -38,6 +38,8 @@ public class ProductResource {
     public ResponseEntity<?> updateProduction(@RequestParam("id") String id,
                                               @RequestParam("name") String name,
                                               @RequestParam("code") String code,
+                                              @RequestParam("quantity") String quantity,
+                                              @RequestParam("price") String price,
                                               @RequestParam("short_description") String shortDescription,
                                               @RequestParam("description") String description,
                                               @RequestParam("category_id") String categoryId,
@@ -51,6 +53,12 @@ public class ProductResource {
         productDTO.setCode(code);
 
         productDTO.setName(name);
+
+        productDTO.setQuantity(Integer.parseInt(quantity));
+
+        productDTO.setPrice(Double.valueOf(price));
+
+        productDTO.setShortDescription(shortDescription);
 
         productDTO.setDescription(description);
 
@@ -74,7 +82,7 @@ public class ProductResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BaseResponse<?>> deleteProduct(@PathVariable("id") Long id){
+    public ResponseEntity<BaseResponse<?>> deleteProduct(@PathVariable("id") Long id) {
         BaseResponse<?> response = service.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

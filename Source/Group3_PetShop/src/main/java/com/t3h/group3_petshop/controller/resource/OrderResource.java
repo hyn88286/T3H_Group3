@@ -37,7 +37,7 @@ public class OrderResource {
     public ResponseEntity<?> createOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         return ResponseEntity.ok(service.createOrderDetail(orderDetailDTO));
     }
-    @PostMapping("/d")
+    @PostMapping("/detail")
     public ResponseEntity<?> getByCode(@RequestBody OrderFilterRequest request) {
         return ResponseEntity.ok(service.getDetailByCode(request));
     }

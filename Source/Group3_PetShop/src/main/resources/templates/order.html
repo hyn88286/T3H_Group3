@@ -27,9 +27,10 @@
                         <th scope="col"><span style="color: white">Số điện thoại đặt hàng</span></th>
                         <th scope="col"><span style="color: white">Tổng tiền thanh toán</span></th>
                         <th scope="col"><span style="color: white">Trạng thái</span></th>
+                        <th scope="col"><span style="color: white">#</span></th>
                     </tr>
                     </thead>
-                    <tbody class="theme-body">
+                    <tbody class="theme-body" id="bodyOrder">
                     </tbody>
                 </table>
             </div>
@@ -64,8 +65,14 @@
 
 <div th:replace="layout/script :: script"></div>
 <script>
-    showOrder();
-    function showOrder() {
+    initOrderCustom();
+
+    function initOrderCustom() {
+        let objData = {};
+        showOrderCustom(objData);
+    }
+
+    function showOrderCustom(objData) {
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/api/order",
@@ -73,19 +80,22 @@
             data: JSON.stringify(objData),
             dataType: "json",
             success: function (response) {
-                let productItemHtml = '';
-                let detail = response.data.orderDetails;
-                for (let i = 0; i < detail.length; i++) {
-                    productItemHtml += '<li>' +
-                        '<span>' + detail[i].productName + '( ' + detail[i].sizeName + ' ) x ' + detail[i].quantity + '</span>' +
-                        '<span class="">' + formatPrice(detail[i].total) + '</span>' +
-                        '</li>';
+                let orderHtml = '';
+                let orderData = response.data.content;
+                for (let i = 0; i < orderData.length; i++) {
+                    let statusOrder = orderData[i].status === 1 ? "Chưa thanh toán" : "Đã thanh toán";
+                    let classStatus = orderData[i].status === 1 ? "danger" : "success";
+                    orderHtml += '<tr>' +
+                        '<td><strong class="text-info">' + orderData[i].code + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + orderData[i].addressShipping + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + orderData[i].phoneShipping + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + formatPrice(orderData[i].totalAmount) + '</strong></td>' +
+                        '<td><strong class="text-' + classStatus + '">' + statusOrder + '</strong></td>' +
+                        '<td><a href="' + HOST + "/views/order/detail/" + orderData[i].code + '">Chi tiết</a></td>' +
+                        '</tr>';
                 }
-                $('#productItem').html(productItemHtml);
-                $('.totalAmount').html(formatPrice(response.data.totalAmount))
-
-                $('#payment').data("code", response.data.code);
-                console.log(response);
+                $('#bodyOrder').html(orderHtml);
+                console.log(response, orderHtml);
             },
             error: function (error) {
                 console.log(error);
