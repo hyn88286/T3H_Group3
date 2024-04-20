@@ -98,7 +98,7 @@
             data: JSON.stringify(objectFilter),
             dataType: "json",
             success: function (response) {
-                $('#showing').html('Hiển thị ' + size + ' trên tổng số ' + response.data.totalElements + ' kết quả')
+                $('#showing').html('Tìm thấy ' + response.data.totalElements + ' kết quả')
                 console.log(response);
                 let products = response.data.content;
                 // hiển thị dữ liệu trên bảng
