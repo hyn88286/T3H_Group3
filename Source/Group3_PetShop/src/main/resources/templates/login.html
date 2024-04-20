@@ -116,17 +116,19 @@
                 if (response.code === 200) {
                     $("#errorMessage").text("Đăng ký thành công.");
                     $("#errorMessage").removeClass("alert-danger").addClass("alert-success");
+
+                    $("#errorMessage").show();
+
+                }
+                if (response.code === 400){
+                    $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
                     $("#errorMessage").show();
                 }
             },
             error: function (error) {
                 console.log(error);
                 // Kiểm tra thông báo lỗi từ server
-                if (error.responseText.includes("Tài khoản đã tồn tại")) {
                     $("#errorMessage").text("Tên người dùng đã tồn tại trong hệ thống.");
-                } else {
-                    $("#errorMessage").text("Có lỗi xảy ra khi đăng ký: " + error.responseText);
-                }
                 $("#errorMessage").show();
             }
         });

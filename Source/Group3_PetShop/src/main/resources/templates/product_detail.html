@@ -400,7 +400,7 @@
                 '<div class="card-body">' +
                 '<h5 class="card-title" style="font-size: 35px; color: black;">' + comment.username +
                 '<i style="line-height: 1.3; color: #f14b4b; font-size: 71%; float:right; margin-left: 10px;" class="fas fa-trash-alt delete-icon" data-id="' + comment.id + '"></i>' +
-                '<i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right;" class="fas fa-plus-circle update-icon" data-id="' + comment.id + '"></i>' +
+                '<i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right;" class="fas fas fa-pen update-icon"  data-id="' + comment.id + '"></i>' +
                 '</h5>' +
                 '<p class="card-text">' + comment.content + '</p>' +
                 '<p class="card-text"><small class="text-muted">' + comment.createdDate + '</small></p>' +
@@ -427,11 +427,7 @@
             }),
             success: function(response) {
                 console.log(" đã được thêm thành công");
-                window.location.reload();
-                // Xóa nội dung cũ của tbody trong bảng
-                $('#tableDate tbody').empty();
-                // Tải lại danh sách danh mục sau khi thêm
-                getCategoryAdmin();
+                getCommentsAndDisplay({});
             },
             error: function(error) {
                 console.log("Lỗi khi thêm danh mục");
@@ -439,7 +435,7 @@
         });
     });
 
-    // sưửa
+
     // Update icon click event
     $(document).ready(function() {
         // Edit icon click event
@@ -480,7 +476,9 @@
             }),
             success: function(response) {
                 console.log(response);
-                location.reload(); // Reload the page after successful update
+                getCommentsAndDisplay({})
+                $('#myModal').modal('hide');
+                 // Reload the page after successful update
             },
             error: function(error) {
                 console.log("Error:", error);
@@ -507,7 +505,8 @@
             success: function(response) {
                 console.log("Xóa bình luận thành công");
                 $tr.hide(); // Ẩn thẻ <tr> chứa bình luận đã xóa
-                location.reload(); // Tải lại trang để bình luận đã xóa không còn xuất hiện
+                getCommentsAndDisplay({})
+
             },
             error: function(error) {
                 console.log("Lỗi khi xóa bình luận:", error);
