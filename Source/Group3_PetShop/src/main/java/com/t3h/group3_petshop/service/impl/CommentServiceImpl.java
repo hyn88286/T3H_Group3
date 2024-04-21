@@ -86,23 +86,31 @@ public class CommentServiceImpl implements CommentService {
 
 
     // Phương thức thêm mới comment
-    @Override
-    @Transactional
     public BaseResponse<CommentDTO> addComment(CommentDTO commentDTO) {
         BaseResponse<CommentDTO> response = new BaseResponse<>();
         UserDTO userDTO = iUserService.getCurrentUser(true);
 
         ProductEntity productEntity = productRepository.findByCode(commentDTO.getProductCode());
         commentDTO.setProductId(productEntity.getId());
+
         // Kiểm tra xem người dùng đã mua sản phẩm này chưa
         OrderDetailEntity orderDetailEntity = orderDetailRepository.findOrderEntitiesBy(
-               userDTO.getId(),
+                userDTO.getId(),
                 commentDTO.getProductId()
         );
 
         if (orderDetailEntity == null) {
             response.setCode(HttpStatus.BAD_REQUEST.value());
             response.setMessage("User has not purchased this product yet");
+            return response;
+        }
+
+        // Kiểm tra xem người dùng đã comment cho sản phẩm này chưa
+        CommentEntity existingComment = commentRepository.findByUserAndProduct(userDTO.getId(), commentDTO.getProductId());
+
+        if (existingComment != null) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("User has already commented on this product");
             return response;
         }
 
@@ -115,8 +123,10 @@ public class CommentServiceImpl implements CommentService {
         commentEntity.setProductEntity(productRepository.findById(commentDTO.getProductId()).orElse(null));
         LocalDateTime now = LocalDateTime.now();
         commentEntity.setCreatedDate(now);
+
         // Lưu comment vào cơ sở dữ liệu
         commentRepository.save(commentEntity);
+
         try {
             // Chuyển đổi CommentEntity thành CommentDTO để trả về
             CommentDTO savedCommentDTO = modelMapper.map(commentEntity, CommentDTO.class);

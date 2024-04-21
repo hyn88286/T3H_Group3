@@ -23,6 +23,11 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
     Page<CommentEntity> findByFilter(@Param("filter") CommentFilterRequest filter, Pageable pageable);
 
+
+        @Query("SELECT c FROM CommentEntity c WHERE c.userEntity.id = :userId AND c.productEntity.id = :productId")
+        CommentEntity findByUserAndProduct(@Param("userId") Long userId, @Param("productId") Long productId);
+
+
     // Thêm một phương thức tìm kiếm sử dụng userId và productId
     @Query(value = "SELECT c FROM CommentEntity c " +
             "JOIN c.userEntity userEntity " + // Sử dụng tên biến trong entity
