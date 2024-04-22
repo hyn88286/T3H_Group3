@@ -10,9 +10,8 @@ import lombok.ToString;
 @Data
 public class OrderDetailEntity extends AbstractEntity {
     // ID đơn hàng
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "order_id")
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private OrderEntity orderEntity;
 

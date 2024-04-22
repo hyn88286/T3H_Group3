@@ -21,7 +21,6 @@
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>chào mừng bạn đăng ký tài khoản</span>
             <input id="userName" type="text" placeholder="Tài Khoản" name="account" >
             <input id="fullname" type="text" placeholder="Họ và Tên" name="account name">
             <input id="email" type="email" placeholder="Email" name="email">
@@ -39,7 +38,6 @@
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>chào mừng bạn đăng nhập tài khoản</span>
             <input type="text" placeholder="Tài Khoản" name="username">
             <input type="password"  placeholder="Mật Khẩu" name="password">
             <span style="color:red" id="message"></span>
@@ -81,6 +79,16 @@
                 $("#errorMessage").hide(); // Ẩn thông báo lỗi nếu mọi thứ đều hợp lệ
             }
         });
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
    // đăng ký tài khoản !
     $("#submit").click(function (event) {
@@ -137,10 +145,11 @@
     // thông báo đăng nhập sai
     $(document).ready(function() {
         // Lấy giá trị của biến login_status từ URL
-        var loginStatus = getParameterByName('login_status');
+        let loginStatus = getParameterByName("login_status");
             console.log(loginStatus);
         // Kiểm tra nếu biến login_status có giá trị là 1
-        if (loginStatus === 1) {
+        if (parseInt(loginStatus) === 1) {
+            console.log(loginStatus);
             $('#message').text("Thông tin đăng nhập không chính xác");
         }
     });

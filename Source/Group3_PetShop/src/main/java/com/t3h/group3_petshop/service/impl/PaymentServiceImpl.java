@@ -35,7 +35,7 @@ public class PaymentServiceImpl implements IPaymentService {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 
         // Phiên bản VnPay
-        String vnp_Version = "2.1.0";
+        String vnp_Version = Constant.VNP_PAY_VERSION;
 
         // Mã API sử dụng
         String vnp_Command = "pay";
