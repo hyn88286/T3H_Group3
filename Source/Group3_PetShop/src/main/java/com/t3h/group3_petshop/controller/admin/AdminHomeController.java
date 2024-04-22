@@ -38,7 +38,7 @@ public class AdminHomeController {
         return "admin/product";
     }
 
-    @GetMapping("/Oder")
+    @GetMapping("/Order")
     public String adminOder(Model model) {
         model.addAttribute("adminTitle", "Quản Lý Đơn Hàng");
         return "admin/Oder";
