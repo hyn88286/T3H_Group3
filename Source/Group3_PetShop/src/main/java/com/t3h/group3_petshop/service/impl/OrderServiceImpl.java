@@ -1,8 +1,21 @@
 package com.t3h.group3_petshop.service.impl;
 
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.DashedBorder;
+import com.itextpdf.layout.border.SolidBorder;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 import com.t3h.group3_petshop.entity.*;
 import com.t3h.group3_petshop.model.dto.OrderDTO;
 import com.t3h.group3_petshop.model.dto.OrderDetailDTO;
+import com.t3h.group3_petshop.model.dto.ProductDTO;
 import com.t3h.group3_petshop.model.dto.UserDTO;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
@@ -19,6 +32,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -207,5 +222,135 @@ public class OrderServiceImpl implements IOrderService {
         response.setMessage("Save order detail successfully");
         response.setCode(HttpStatus.OK.value());
         return response;
+    }
+
+    public BaseResponse<?> getInvoicePdf() throws FileNotFoundException {
+        File directory = new File(Constant.INVOICE_PDF_PATH);
+        if (!directory.exists()) { //Kiểm tra thư mục đã tồn tại chưa
+            directory.mkdirs();//Tạo các thư mục theo path cần thiết
+        }
+        PdfWriter pdfWriter = new PdfWriter(Constant.INVOICE_PDF_PATH + "invoice.pdf");
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+        Document document = new Document(pdfDocument);
+        // Column mã đơn hàng và ngày mua
+        float[] codeAndCreatedAtColumnWidth = {Constant.WIDTH_PDF / 2 + 150f, Constant.WIDTH_PDF / 2};
+        // Tạo table chứa column
+        Table table = new Table(codeAndCreatedAtColumnWidth);
+        table.addCell(new Cell().add("0234564575658678").setFontSize(20f).setBorder(Border.NO_BORDER).setBold());
+        Table nestedTable = new Table(new float[]{Constant.WIDTH_PDF / 2, Constant.WIDTH_PDF / 2});
+        nestedTable.addCell(getHeaderTextCell("Ngay mua"));
+        nestedTable.addCell(getHeaderTextCellValue("31/12/2022"));
+
+        table.addCell(new Cell().add(nestedTable).setBorder(Border.NO_BORDER));
+
+        Border gb = new SolidBorder(Color.GRAY, 2f);
+        float[] fullWidth = {Constant.WIDTH_PDF};
+        Table divider = new Table(fullWidth);
+        divider.setBorder(gb);
+        document.add(table);
+
+        document.add(divider);
+
+        float[] twoColumnWidth = {Constant.WIDTH_PDF / 2, Constant.WIDTH_PDF / 2};
+        Table twoColumnTable = new Table(twoColumnWidth);
+        twoColumnTable.addCell(getBillingAndShippingCell("Billing information"));
+        twoColumnTable.addCell(getBillingAndShippingCell("Shipping information"));
+        document.add(twoColumnTable.setMarginBottom(12f));
+
+        Table twoColumnTableO = new Table(twoColumnWidth);
+        twoColumnTableO.addCell(getCellLeft("Company", true));
+        twoColumnTableO.addCell(getCellLeft("Name", true));
+        twoColumnTableO.addCell(getCellLeft("Coding error", false));
+        twoColumnTableO.addCell(getCellLeft("Coding", false));
+        document.add(twoColumnTableO);
+
+        Table twoColumnTableT = new Table(twoColumnWidth);
+        twoColumnTableT.addCell(getCellLeft("Name", true));
+        twoColumnTableT.addCell(getCellLeft("Address", true));
+        twoColumnTableT.addCell(getCellLeft("Abcdef", false));
+        twoColumnTableT.addCell(getCellLeft("Ho Tung Mau\nHa Noi", false));
+        document.add(twoColumnTableT);
+
+        float[] oneColumnWidth = {Constant.WIDTH_PDF/2+150f};
+
+        Table oneColumnTable = new Table(oneColumnWidth);
+        oneColumnTable.addCell(getCellLeft("Phone", true));
+        oneColumnTable.addCell(getCellLeft("099999999999", false));
+        oneColumnTable.addCell(getCellLeft("Email", true));
+        oneColumnTable.addCell(getCellLeft("9999@gamil.com", false));
+        document.add(oneColumnTable);
+
+        Table dividerO = new Table(fullWidth);
+
+        Border dgb = new DashedBorder(Color.GRAY, 0.5f);
+        document.add(dividerO.setBorder(dgb));
+
+        Paragraph productParagraph = new Paragraph("Products");
+        document.add(productParagraph.setBold());
+
+        float[] fiveColumnWidth = {Constant.WIDTH_PDF/5+24f, Constant.WIDTH_PDF/5-8f,Constant.WIDTH_PDF/5-8f,Constant.WIDTH_PDF/5-8f,Constant.WIDTH_PDF/5};
+        Table fiveColumnTable = new Table(fiveColumnWidth);
+        fiveColumnTable.setBackgroundColor(Color.BLACK, 0.7f);
+        fiveColumnTable.addCell(new Cell().add("Description").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT));
+        fiveColumnTable.addCell(new Cell().add("Price").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.JUSTIFIED));
+        fiveColumnTable.addCell(new Cell().add("Size").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.JUSTIFIED));
+        fiveColumnTable.addCell(new Cell().add("Quantity").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.JUSTIFIED));
+        fiveColumnTable.addCell(new Cell().add("Total").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
+
+        document.add(fiveColumnTable);
+        ProductDTO productDTOO = new ProductDTO();
+        productDTOO.setName("Test Product PDF 1");
+        ProductDTO productDTOT = new ProductDTO();
+        productDTOT.setName("Test Product PDF 2");
+        ProductDTO productDTOTH = new ProductDTO();
+        productDTOTH.setName("Test Product PDF 3");
+        ProductDTO productDTOF = new ProductDTO();
+        productDTOF.setName("Test Product PDF 4");
+        ProductDTO productDTOFI = new ProductDTO();
+        productDTOFI.setName("Test Product PDF 5");
+
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        productDTOS.add(productDTOO);
+        productDTOS.add(productDTOT);
+        productDTOS.add(productDTOTH);
+        productDTOS.add(productDTOF);
+        productDTOS.add(productDTOFI);
+
+        Table fiveColumnTableT = new Table(fiveColumnWidth);
+        for (ProductDTO product : productDTOS) {
+            fiveColumnTableT.addCell(new Cell().add(product.getName()).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT));
+            fiveColumnTableT.addCell(new Cell().add(product.getName()).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.JUSTIFIED));
+            fiveColumnTableT.addCell(new Cell().add(product.getName()).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.JUSTIFIED));
+            fiveColumnTableT.addCell(new Cell().add(product.getName()).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.JUSTIFIED));
+            fiveColumnTableT.addCell(new Cell().add(product.getName()).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
+        }
+
+        document.add(fiveColumnTableT.setMarginBottom(20f).setBorder(Border.NO_BORDER));
+
+        document.close();
+
+
+        BaseResponse<?> response = new BaseResponse<>();
+        response.setCode(HttpStatus.OK.value());
+        response.setMessage("Get invoice pdf successfully");
+        return response;
+    }
+
+    private static Cell getHeaderTextCell(String textValue) {
+        return new Cell().add(textValue).setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT);
+    }
+
+    private static Cell getHeaderTextCellValue(String textValue) {
+        return new Cell().add(textValue).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+    }
+
+    private static Cell getBillingAndShippingCell(String textValue) {
+        return new Cell().add(textValue).setFontSize(12f).setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+    }
+
+    private static Cell getCellLeft(String textValue, boolean isBold) {
+        Cell cell = new Cell().add(textValue).setFontSize(10f).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+        return isBold ? cell.setBold() : cell;
     }
 }

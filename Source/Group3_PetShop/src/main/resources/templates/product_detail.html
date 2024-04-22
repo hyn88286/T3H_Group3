@@ -234,7 +234,7 @@
                     totalOneP: totalOneP
                 };
                 addToCart(objCart);
-            } else alert('Bạn cần chọn size để tiếp tục');
+            } else alertInfo("", "Bạn cần chọn size để tiếp tục", "error");
 
         })
     }
@@ -397,9 +397,6 @@
 
     $(document).on('click', '#post', function () {
         var content1 = $('#content').val();
-        var productID =
-
-
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080/api/comments/create",
@@ -518,8 +515,10 @@
             dataType: "json",
             success: function (response) {
                 console.log(response);
-                alert("Bạn đã thêm sản phẩm vào giỏ hàng");
-                countCart();
+                if (response.code === 200) {
+                    alertInfo("", "Bạn đã thêm sản phẩm vào giỏ hàng", "success")
+                    countCart();
+                } else  window.location.href = HOST + "/login";
             },
             error: function (error) {
                 console.log(error);

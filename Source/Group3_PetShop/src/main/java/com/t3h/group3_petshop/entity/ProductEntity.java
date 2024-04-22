@@ -28,5 +28,5 @@ public class ProductEntity extends AbstractEntity{
 
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productEntities",fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
-    private Set<SizeEntity> sizeEntities = new HashSet<>();
+    private Set<SizeEntity> sizeEntities;
 }
