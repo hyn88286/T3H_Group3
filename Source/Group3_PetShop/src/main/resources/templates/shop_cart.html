@@ -16,7 +16,7 @@
 <div th:replace="layout/banner :: banner"></div>
 
 <main id="body-content">
-    <section class="wide-tb-100 pb-0">
+    <section class="wide-tb-100 pb-0 userCart">
         <div class="container">
             <div class="table-responsive">
                 <table class="table">
@@ -118,7 +118,7 @@
             data: JSON.stringify(objectFilter),
             dataType: "json",
             success: function (response) {
-                if (response.data != null) {
+                if (response.code === 200) {
                     let cartData = response.data.content;
                     let cartHtml = '';
                     let subTotal = 0;
@@ -154,7 +154,13 @@
                     $('.subtotal').html(formatPrice(subTotal)).attr("data-value", subTotal);
                     $('#bodyCart').html(cartHtml);
                     checkboxCart();
-                } else window.location.href = "http://localhost:8080/login"
+                } else {
+                    let emptyCartHtml = '<div class="container" style="text-align: center">'+
+                        '<img src="/frontend/images/shop/empty.gif"><br><br>'+
+                        '<h4><a style="text-decoration: underline" href="' + HOST + "/login" + '">Đăng nhập để xem giỏ hàng</a></h4>'+
+                        '</div>'
+                    $('.userCart').html(emptyCartHtml)
+                }
                 console.log(response);
             },
             error: function (error) {
@@ -248,7 +254,7 @@
                         console.log(error);
                     }
                 })
-            } else alert("Cần chọn ít nhất 1 sản phẩm để thanh toán")
+            } else alertInfo("", "Cần chọn ít nhất 1 sản phẩm để thanh toán", "error");
         })
 
         function detailOrder(order, data) {
