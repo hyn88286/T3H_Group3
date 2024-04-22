@@ -58,10 +58,32 @@
 
     function resultPayment() {
         let paymentStatus = getParameterByName('vnp_TransactionStatus');
-        let paymentResult = '';
+
+        let currentDateTime = new Date();
+
+        let orderCode = getCode().split('?')[0];
+
+        let options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+            timeZone: 'Asia/Ho_Chi_Minh' // Múi giờ của Việt Nam
+        };
+        let formattedDateTime = currentDateTime.toLocaleString('en-US', options);
+
+        let paymentResult = '<ul class="list-unstyled">' +
+            '<li>Mã đơn hàng : ' + orderCode + '</li>' +
+            '<li>Tổng số tiền : ' + formatPrice(getParameterByName('vnp_Amount') / 100) + ' VNĐ</li>' +
+            '<li>Ngày giao dịch : ' + formattedDateTime + '</li>';
+
+        console.log(paymentStatus);
         if (paymentStatus === "00") {
             let objectData = {
-                code: getCode().split('?')[0],
+                code: orderCode,
                 status: 2
             }
             console.log(objectData, getCode());
@@ -78,13 +100,27 @@
                     console.log(error);
                 }
             })
-            paymentResult += '<h4>Thanh toán thành công</h4>';
-        } else paymentResult += '<h4 class="text-danger">Thanh toán thất bại</h4>';
+            paymentResult += '<li>Ngân hàng : ' + getParameterByName('vnp_BankCode') + '</li>';
+            paymentResult += '<li><b style="color: #98cb46">Thanh toán thành công</b></li>';
+            paymentResult += '<li><b><a class="text-info" style="text-decoration: underline" href="' + HOST + "/views/order/detail/" + orderCode + '">Xem đơn hàng</a></b></li>';
 
-        paymentResult += '<ul className="list-unstyled">' +
-            '<li>Tổng số tiền : ' + formatPrice(getParameterByName('vnp_Amount') / 100) + ' VNĐ</li>' +
-            '<li>Ngân hàng: ' + getParameterByName('vnp_BankCode') + '</li>' +
-            '</ul>';
+        } else if (paymentStatus === "01") {
+            paymentResult += '<li><b class="text-danger">Giao dịch chưa hoàn tất</b></li>';
+        } else if (paymentStatus === "02") {
+            paymentResult += '<li><b class="text-danger">Giao dịch bị lỗi</b></li>';
+        } else if (paymentStatus === "04") {
+            paymentResult += '<li><b class="text-danger">Giao dịch đảo (Khách hàng đã bị trừ tiền tại Ngân hàng nhưng GD chưa thành công ở VNPAY)</b></li>';
+        } else if (paymentStatus === "05") {
+            paymentResult += '<li><b class="text-danger">VNPAY đang xử lý giao dịch này (GD hoàn tiền)</b></li>';
+        } else if (paymentStatus === "06") {
+            paymentResult += '<li><b class="text-danger">VNPAY đã gửi yêu cầu hoàn tiền sang Ngân hàng (GD hoàn tiền)</b></li>';
+        } else if (paymentStatus === "07") {
+            paymentResult += '<li><b class="text-danger">Giao dịch bị nghi ngờ gian lận</b></li>';
+        } else if (paymentStatus === "09") {
+            paymentResult += '<li><b class="text-danger">GD Hoàn trả bị từ chối</b></li>';
+        } else paymentResult += '<li><b class="text-danger">Thanh toán thất bại</b></li>';
+
+        paymentResult += '</ul>';
         $('#paymentResult').html(paymentResult);
     }
 </script>

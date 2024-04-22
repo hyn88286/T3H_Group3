@@ -26,6 +26,7 @@
             th:src="@{/frontend/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
     <script type="text/javascript"
             th:src="@{/frontend/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         var tpj = jQuery;
         var revapi26;
@@ -155,11 +156,12 @@
                     if (response.username != null) {
                         logHtml = '<a href="#" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">' + response.username + '</a>'
                         $('#logCheck').html(logHtml);
+                        $('.social-icons').append('<a style="text-decoration: underline" href="' + HOST + "/logout" + '">Đăng xuất</a>');
+
                     } else {
                         logHtml = '<a href="http://localhost:8080/login" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>'
                         $('#logCheck').html(logHtml);
                     }
-                    console.log(logHtml + "kkfjngj");
                 },
                 error: function (error) {
                     console.log(error);
@@ -227,6 +229,14 @@
         function getCode() {
             let url = window.location.href;
             return url.split('/').pop();
+        }
+
+        function alertInfo(title, text, icon) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+            });
         }
     </script>
 </div>
