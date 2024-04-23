@@ -20,16 +20,15 @@
     <section class="wide-tb-100 pb-0">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="product-gallery">
+                <div style="width: 37%;border-radius: 9px;border: 4px solid #cfbdbd;" class="col-md-6">
+                    <div  style="box-shadow: 0 0 68px rgba(0, 0, 0, 0.1); padding: 0" class="product-gallery" s>
                         <div class="outer">
-                            <div id="big" style="text-align: center">
-
+                            <div id="big" style="text-align: center; border-radius: 5px;">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div  class="col-md-6">
                     <div class="product-description">
                         <h2 class="title"></h2>
                         <div class="price"></div>
@@ -271,8 +270,8 @@
                     price = formatPrice(productData.priceActive);
                 }
                 let img =
-                    '<div style="width: 100%;" class="item">' +
-                    '<img    src="' + productData.image + '" alt>' +
+                    '<div class="item">' +
+                    '<img style="width=auto; padding-top: 3%; margin-bottom: -2%"   src="' + productData.image + '" alt>' +
                     '</div>';
 
                 $('#big').html(img);
@@ -393,28 +392,28 @@
 
     $(document).on('click', '#post', function () {
         var content1 = $('#content').val();
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/comments/create",
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify({
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/comments/create",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                productCode: getCode(),
+                content: content1
+
+            }),
+            success: function (response) {
+                console.log(" đã được thêm thành công");
+                let object = {
                     productCode: getCode(),
-                    content: content1
 
-                }),
-                success: function (response) {
-                    console.log(" đã được thêm thành công");
-                    let object = {
-                        productCode: getCode(),
-
-                    };
-                    getCommentsAndDisplay(object);
-                },
-                error: function (error) {
-                    console.log("Lỗi khi thêm danh mục");
-                }
-            });
+                };
+                getCommentsAndDisplay(object);
+            },
+            error: function (error) {
+                console.log("Lỗi khi thêm danh mục");
+            }
+        });
     });
     // sưửa
     // Update icon click event

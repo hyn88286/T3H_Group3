@@ -41,7 +41,8 @@
                             <tr >
                                 <th scope="col">STT</th>
                                 <th scope="col">Mã đơn hàng</th>
-                                <th scope="col">Tên đơn hàng</th>
+                                <th scope="col">Khách hàng </th>
+                                <th scope="col">Tên sản phẩm  </th>
                                 <th scope="col">Tổng giá</th>
                                 <th scope="col">Địa chỉ</th>
                                 <th scope="col">Số điện thoại</th>
@@ -104,6 +105,8 @@
                      OderO += '<tr>' +
                          '<td data-id="' + dataOder[i].id + '">' + (i + 1) + '</td>' +
                          '<td data-code="' + dataOder[i].code + '">' + dataOder[i].code + '</td>'+
+                         '<td data-code="' + dataOder[i].username + '">' + dataOder[i].username + '</td>'+
+                         '<td data-code="' + dataOder[i].productname + '">' + dataOder[i].productname + '</td>'+
                          '<td data-totalAmount="' + dataOder[i].totalAmount + '">'+ formattedOrder + '</td>' +
                          '<td data-addressShipping="' + dataOder[i].addressShipping + '">' + dataOder[i].addressShipping + '</td>' +
                          '<td data-phoneShipping="' + dataOder[i].phoneShipping + '">' + dataOder[i].phoneShipping + '</td>' +
