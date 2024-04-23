@@ -108,7 +108,7 @@
                     let price;
                     if (dataProduct.minPrice !== dataProduct.maxPrice) {
                         price = formatPrice(dataProduct.minPrice) + ' - ' + formatPrice(dataProduct.maxPrice);
-                    } else price = formatPrice(dataProduct.minPrice);
+                    } else price = formatPrice(dataProduct.price);
 
                     let urlDetail = HOST + "/views/product/detail/" + dataProduct.code;
                     row

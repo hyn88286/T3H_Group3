@@ -26,6 +26,8 @@
             th:src="@{/frontend/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
     <script type="text/javascript"
             th:src="@{/frontend/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+    <script type="text/javascript" th:src="@{/common/constant.js}"></script>
+    <script type="text/javascript" th:src="@{/common/func.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         var tpj = jQuery;
@@ -132,8 +134,6 @@
             showUserName();
         });
 
-        const HOST = "http://localhost:8080";
-
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
@@ -144,6 +144,16 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
+        $(document).on('click', '#logout',function (e) {
+            console.log(200);
+            $.ajax({
+                type: "POST",
+                url: HOST + "/logout",
+                success: function (response) {
+                    $('body').html(response);
+                },
+            })
+        });
         function showUserName() {
             $.ajax({
                 type: "GET",
@@ -156,7 +166,13 @@
                     if (response.username != null) {
                         logHtml = '<a href="#" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">' + response.username + '</a>'
                         $('#logCheck').html(logHtml);
-                        $('.social-icons').append('<a style="text-decoration: underline" href="' + HOST + "/logout" + '">Đăng xuất</a>');
+                        $('.loading').append('<div id="logout" class="col-md-auto">\n' +
+                            '                            <div class="user">\n' +
+                            '                                <div class="bg-img" style="background-image: url(/frontend/images/vn_logo.png)"></div>\n' +
+                            '                                <span class="fas fa-sign-out-alt"></span>\n' + // fas fa-power-off
+                            '                                <span >Đăng Xuất</span>\n' +
+                            '                            </div>\n' +
+                            '                        </div>');
 
                     } else {
                         logHtml = '<a href="http://localhost:8080/login" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>'

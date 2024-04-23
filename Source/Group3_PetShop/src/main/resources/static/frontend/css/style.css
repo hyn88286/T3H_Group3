@@ -6738,6 +6738,35 @@ label.error {
     padding-left: 8rem;
     padding-right: 8rem;
 }
+/*----------------*/
+/*css đăng xuất*/
+.user:hover{
+    color: #f62b60;
+}
+.user {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.user div, .client-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 1rem;
+}
+
+.user span:last-child {
+    display: inline-block;
+    margin-left: .3rem;
+    font-size: .8rem;
+}
+
+.bg-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    background-size: cover;
+}
 /* Home Classic Page */
 /*------------------------------------------*/
 /*   Pages Styles

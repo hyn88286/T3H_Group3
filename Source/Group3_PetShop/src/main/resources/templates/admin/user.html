@@ -37,7 +37,7 @@
                                 <th scope="col">Họ và Tên</th>
                                 <th scope="col">Tên Đăng Nhập</th>
                                 <th scope="col">Gmail</th>
-                                <th scope="col">Số Điện Thoại</th>
+<!--                                <th scope="col">Số Điện Thoại</th>-->
                                 <th scope="col">Cập Nhật</th>
                                 <th scope="col">Xóa</th>
                             </tr>
@@ -76,7 +76,7 @@
                                 <th scope="col">Họ và Tên</th>
                                 <th scope="col">Tên Đăng Nhập</th>
                                 <th scope="col">Gmail</th>
-                                <th scope="col">Số Điện Thoại</th>
+<!--                                <th scope="col">Số Điện Thoại</th>-->
                             </tr>
                             </thead>
 
@@ -86,7 +86,7 @@
                                 <td id="fullName"><input type="text" id="name"></td>
                                 <td id="userName"><input type="text" id="account"></td>
                                 <td id="emailUser"><input type="email" id="email"></td>
-                                <td Id="phoneUser"><input type="tel" id="phone"></td>
+<!--                                <td Id="phoneUser"><input type="tel" id="phone"></td>-->
                             </tr>
                             <!-- Add more rows as needed -->
                             </tbody>
@@ -142,7 +142,7 @@
                          '<td data-full="' + dataUser[i].fullName + '">' + dataUser[i].fullName + '</td>' +
                          '<td data-user="' + dataUser[i].username + '">' + dataUser[i].username + '</td>' +
                          '<td data-email="' + dataUser[i].email + '">' + dataUser[i].email + '</td>' +
-                         '<td data-phone="' + dataUser[i].phone + '">' + dataUser[i].phone + '</td>' +
+                         // '<td data-phone="' + dataUser[i].phone + '">' + dataUser[i].phone + '</td>' +
                          '<td id="iconUpdate" data-bs-toggle="modal" data-bs-target="#myModal"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></td>' +
                          '<td><i data-delete = " '+ dataUser[i].id +' " id="iconFix" class="fas fa-trash-alt" style="text-align: center; color: #ff5959; cursor: pointer; font-size: 18px;"></i></td>' +
                          '</tr>';
@@ -194,7 +194,7 @@
          $('#name').val(fullName);
          $('#account').val(userName);
          $('#email').val(email);
-         $('#phone').val(phone)
+         // $('#phone').val(phone)
      });
      $(document).on('click','#buttonApply',function (e) {
          console.log("lỗi");
@@ -209,7 +209,7 @@
                  fullName: $('#name').val(),
                  username: $('#account').val(),
                  email: $('#email').val(),
-                 phone: $('#phone').val(),
+                 // phone: $('#phone').val(),
              }),
              success: function(response) {
                  console.log(response);

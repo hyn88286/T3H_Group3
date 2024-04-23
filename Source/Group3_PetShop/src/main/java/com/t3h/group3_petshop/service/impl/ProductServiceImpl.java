@@ -21,6 +21,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.util.Base64;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
@@ -64,38 +68,53 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public BaseResponse<?> updateProduct(ProductDTO productDTO, MultipartFile file) throws IOException {
+    public BaseResponse<?> updateProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
 
         BaseResponse<ProductDTO> baseResponse = new BaseResponse<>();
+        baseResponse.setMessage("Save product successfully");
+        baseResponse.setCode(HttpStatus.OK.value());
+        return baseResponse;
+    }
 
-        Optional<CategoryEntity> category = categoryRepository.findById(productDTO.getCategoryId());
+    private Optional<CategoryEntity> getCategory(Long categoryId) {
+        return categoryRepository.findById(categoryId);
+    }
 
-        if (category.isEmpty()) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Category is not exist in system");
-            return baseResponse;
+    private Set<SizeEntity> getSizes(Set<Long> sizeIds) {
+        return sizeRepository.findByIds(sizeIds);
+    }
+
+    @Override
+    public BaseResponse<?> createProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
+
+        BaseResponse<?> response = new BaseResponse<>();
+
+        if (getCategory(productDTO.getCategoryId()).isEmpty()) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Category is not exist in system");
+            return response;
         }
 
-        Set<SizeEntity> sizeEntities = sizeRepository.findByIds(productDTO.getSizeIds());
-        if (CollectionUtils.isEmpty(sizeEntities)) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Size is not exist in system");
-            return baseResponse;
+        if (CollectionUtils.isEmpty(getSizes(productDTO.getSizeIds()))) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Size is not exist in system");
+            return response;
         }
 
-        ProductFilterRequest productFilterRequest = new ProductFilterRequest();
-        productFilterRequest.setCode(productDTO.getCode());
-        ProductEntity productExist = productRepository.findByFilter(productFilterRequest);
+        ProductEntity productExist = productRepository.findByCode(productDTO.getCode());
         if (productExist != null) {
-            baseResponse.setCode(HttpStatus.BAD_REQUEST.value());
-            baseResponse.setMessage("Product with code is exist in system");
-            return baseResponse;
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Product with code is exist in system");
+            return response;
         }
-        ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
-        productEntity.setCategoryEntity(category.get());
-        productEntity.setSizeEntities(sizeEntities);
 
-        String imagePath = saveFileAndReturnPath(file);
+        String image = saveFileImageReturnPath(file);
+
+        ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
+        productEntity.setCategoryEntity(getCategory(productDTO.getCategoryId()).get());
+        productEntity.setSizeEntities(getSizes(productDTO.getSizeIds()));
+
+        String imagePath = encodeImage(image);
         productEntity.setImage(imagePath);
 
         LocalDateTime now = LocalDateTime.now();
@@ -104,16 +123,21 @@ public class ProductServiceImpl implements IProductService {
         productEntity.setDeleted(false);
         productRepository.save(productEntity);
 
-        baseResponse.setMessage("Save product successfully");
-        baseResponse.setCode(HttpStatus.OK.value());
-        return baseResponse;
+        response.setMessage("Thêm mới sản phẩm thành công");
+        response.setCode(HttpStatus.OK.value());
+        return response;
     }
 
     @Override
     public BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest) {
-        ProductEntity productEntity = productRepository.findByFilter(filterRequest);
-        ProductDTO productDTO = new ProductDTO();
         BaseResponse<ProductDTO> response = new BaseResponse<>();
+        ProductEntity productEntity = productRepository.findByFilter(filterRequest);
+        if (productEntity == null) {
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Product with code not exist in system");
+            return response;
+        }
+        ProductDTO productDTO = new ProductDTO();
         // Set giá trị productDTO
         setCommonValueProductDTO(productDTO, productEntity, filterRequest);
 
@@ -129,18 +153,21 @@ public class ProductServiceImpl implements IProductService {
         // Set tên
         productDTO.setName(productEntity.getName());
         // Set ảnh
-        if(productEntity.getImage() != null){
-            productDTO.setImage(productEntity.getImage());
-        }else productDTO.setImage(Constant.IMAGE_PATH_DEPLOY + "file_test/test.jpg");
-
+        productDTO.setImage("data:image/jpeg;base64," + productEntity.getImage());
         // Set mô tả ngắn
         productDTO.setShortDescription(productEntity.getShortDescription());
         // Set mô tả chi tiết
         productDTO.setDescription(productEntity.getDescription());
         // Set code
         productDTO.setCode(productEntity.getCode());
+        // Set số lượng
+        productDTO.setQuantity(productEntity.getQuantity());
+        // Set giá
+        productDTO.setPrice(productEntity.getPrice());
         // Set tên danh mục
         productDTO.setCategory(productEntity.getCategoryEntity().getName());
+        // Set id danh mục
+        productDTO.setCategoryId(productEntity.getCategoryEntity().getId());
         // Set danh sách size
         Set<SizeDTO> sizeDTOS = productEntity.getSizeEntities().stream().map(sizeEntity -> {
             SizeDTO sizeDTO = new SizeDTO();
@@ -168,9 +195,9 @@ public class ProductServiceImpl implements IProductService {
                     }
                     return val;
                 }).filter(val -> val != 0).findFirst();
-        productDTO.setPrice(price.orElse(0));
+        productDTO.setPriceActive(price.orElse(0));
         // Size id đang đc chọn
-        productDTO.setSizeId(filterRequest.getSizeId());
+        productDTO.setSizeActive(filterRequest.getSizeId());
     }
 
     @Override
@@ -191,8 +218,8 @@ public class ProductServiceImpl implements IProductService {
         return baseResponse;
     }
 
-    private String saveFileAndReturnPath(MultipartFile file) throws IOException {
-        File directory = new File(Constant.IMAGE_PATH_LOCAL);
+    private String saveFileImageReturnPath(MultipartFile file) throws IOException {
+        File directory = new File(Constant.IMAGE_SAVE_PATH);
         if (!directory.exists()) { //Kiểm tra thư mục đã tồn tại chưa
             directory.mkdirs();//Tạo các thư mục theo path cần thiết
         }
@@ -202,12 +229,37 @@ public class ProductServiceImpl implements IProductService {
         String extension = file.getOriginalFilename().substring(lastIndex + 1);
         String fileName = timestamp + "." + extension;
 
-        String filePathSave = Constant.IMAGE_PATH_LOCAL + fileName; //Đường dẫn lưu ảnh
-
-        String filePathDeploy = Constant.IMAGE_PATH_DEPLOY + fileName;
+        String filePathSave = Constant.IMAGE_SAVE_PATH + fileName; //Đường dẫn lưu ảnh
 
         file.transferTo(new File(filePathSave)); //Lưu trữ ảnh vào trong folder
 
-        return filePathDeploy;
+        return filePathSave;
+    }
+
+    private String encodeImage(String imgPath) throws Exception {
+
+        // read image from file
+        FileInputStream stream = new FileInputStream(imgPath);
+
+        // get byte array from image stream
+        int bufLength = 2048;
+        byte[] buffer = new byte[2048];
+
+        byte[] data;
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        int readLength;
+        while ((readLength = stream.read(buffer, 0, bufLength)) != -1) {
+            out.write(buffer, 0, readLength);
+        }
+
+        data = out.toByteArray();
+
+        String imageString = Base64.getEncoder().encodeToString(data);
+
+        out.close();
+        stream.close();
+
+        return imageString;
     }
 }
