@@ -133,6 +133,27 @@
             countCart();
             showUserName();
         });
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        $(document).on('click', '#logout',function (e) {
+            console.log(200);
+            $.ajax({
+                type: "POST",
+                url: HOST + "/logout",
+                success: function (response) {
+                    $('body').html(response);
+                },
+            })
+        });
         function showUserName() {
             $.ajax({
                 type: "GET",
@@ -145,7 +166,13 @@
                     if (response.username != null) {
                         logHtml = '<a href="#" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">' + response.username + '</a>'
                         $('#logCheck').html(logHtml);
-                        $('.social-icons').append('<a style="text-decoration: underline" href="' + HOST + "/logout" + '">Đăng xuất</a>');
+                        $('.loading').append('<div id="logout" class="col-md-auto">\n' +
+                            '                            <div class="user">\n' +
+                            '                                <div class="bg-img" style="background-image: url(/frontend/images/vn_logo.png)"></div>\n' +
+                            '                                <span class="fas fa-sign-out-alt"></span>\n' + // fas fa-power-off
+                            '                                <span >Đăng Xuất</span>\n' +
+                            '                            </div>\n' +
+                            '                        </div>');
 
                     } else {
                         logHtml = '<a href="http://localhost:8080/login" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>'
@@ -213,6 +240,19 @@
             }
             $('input[type="text"][name="' + classItem + '"]').val(value)
             $('button[type="button"][name="' + classItem + '"]').val(value)
+        }
+
+        function getCode() {
+            let url = window.location.href;
+            return url.split('/').pop();
+        }
+
+        function alertInfo(title, text, icon) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+            });
         }
     </script>
 </div>
