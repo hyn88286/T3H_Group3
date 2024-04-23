@@ -208,3 +208,7 @@ body{
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+
+.password-hover:hover{
+    color: #FF0033;
+}

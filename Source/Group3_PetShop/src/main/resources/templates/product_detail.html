@@ -213,9 +213,7 @@
 <div th:replace="layout/script :: script"></div>
 <script>
     initProductDetail();
-
     clickCart();
-
     function clickCart() {
         $('#addToCart').click(function () {
             let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
@@ -240,7 +238,7 @@
     }
 
     function initProductDetail() {
-        let codeProduct = getCode().substring(0, 4);
+        let codeProduct = getCode();
         let objFilter = {
             code: codeProduct,
             sizeId: null
@@ -249,7 +247,6 @@
     }
 
     function getProduct(objectFilter, loadImg) {
-        // Call ajax lấy ra chi tiết sản phẩm
         $.ajax({
             type: "POST",
             url: HOST + "/api/product/detail",
@@ -270,8 +267,8 @@
 
                 // price là giá sản phẩm theo size đang đc chọn
                 // Nếu = 0 thì ko có size đc chọn nếu != 0 thì lấy ra giá sản phẩm theo size đc chọn
-                if (productData.price !== 0) {
-                    price = formatPrice(productData.price);
+                if (productData.priceActive !== 0) {
+                    price = formatPrice(productData.priceActive);
                 }
                 let img =
                     '<div style="width: 100%;" class="item">' +
@@ -302,7 +299,7 @@
                 // Duyệt mảng các size của sản phẩm
                 for (let i = 0; i < arraySize.length; i++) {
                     let sizeData = arraySize[i];
-                    if (sizeData.id === productData.sizeId) {
+                    if (sizeData.id === productData.sizeActive) {
                         chooseSize += '<input checked type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption" data-weight="' + sizeData.weight + '">' +
                             '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
                     } else {
@@ -328,7 +325,6 @@
                 changeSize();
                 let object = {
                     productId: productData.id,
-
                 };
                 getCommentsAndDisplay(object);
 
@@ -341,7 +337,7 @@
 
     function changeSize() {
         let sizeOptionValue;
-        let codeProduct = getCode().substring(0, 4);
+        let codeProduct = getCode();
         $('input[type=radio][name=sizeOption]').change(function () {
             sizeOptionValue = $(this).val();
             $('input[type="radio"][name=sizeOption]').not(this).prop('checked', false);

@@ -12,7 +12,8 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i></i><span>Quản Lý Danh Mục </span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-layout-text-window-reverse"></i></i><span>Quản Lý Danh Mục </span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
@@ -46,32 +47,25 @@
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a th:href="@{/admin/product}">
-                        <i class="bi bi-circle"></i><span>Sản Phẩm</span>
+                        <i class="bi bi-circle"></i><span>Danh sách</span>
                     </a>
                 </li>
 
                 <li>
-                    <a th:href="@{/admin/addProduct}">
-                        <i class="bi bi-circle"></i><span>Thêm Mới</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a th:href="@{/admin/updateProduct}">
-                        <i class="bi bi-circle"></i><span>cập nhật</span>
+                    <a th:href="@{/admin/product/new}">
+                        <i class="bi bi-circle"></i><span>Thêm mới</span>
                     </a>
                 </li>
             </ul>
-        </li><!-- End Tables Nav -->
-
-
+        </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#"
+               aria-expanded="false">
                 <i class="bi bi-basket"></i> </i><span>Quản Lý Đặt Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="">
                 <li>
-                    <a th:href="@{/admin/Order}">
+                    <a th:href="@{/admin/Oder}">
                         <i class="bi bi-circle"></i><span>Đơn Đặt Hàng</span>
                     </a>
                 </li>
@@ -80,8 +74,10 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
-                <i class="bi bi-newspaper"></i></i></i><span>Quản Lý Bình Luận</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"
+               aria-expanded="false">
+                <i class="bi bi-newspaper"></i></i></i><span>Quản Lý Bình Luận</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="">
                 <li>
