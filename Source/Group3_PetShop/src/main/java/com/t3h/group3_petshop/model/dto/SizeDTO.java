@@ -14,6 +14,7 @@ public class SizeDTO {
     private Integer weight;
     // Mã size
     private String code;
+    // Deleted
     private Boolean deleted;
     // Ngày tạo
     private LocalDateTime createDate;

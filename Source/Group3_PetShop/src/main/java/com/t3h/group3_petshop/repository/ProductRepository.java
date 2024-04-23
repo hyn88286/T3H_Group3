@@ -44,9 +44,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     )
     ProductEntity findByFilter(@Param("condition") ProductFilterRequest filterRequest);
 
-    @Query(value = "select p from ProductEntity p where p.id in :ids and p.deleted=false")
-    Set<ProductEntity> findByIds(List<Long> ids);
-
     @Query(value = "select p from ProductEntity p where lower(p.code) = :#{#code}  and p.deleted=false ORDER BY p.createdDate desc LIMIT 1")
     ProductEntity findByCode(String code );
 }

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="admin/fragments/head :: head"></div>
+<body>
+<!-- ======= Header ======= -->
+<div th:replace="admin/fragments/header :: header"></div>
+
+<!-- ======= Sidebar ======= -->
+<div th:replace="admin/fragments/aside :: aside"></div>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Sản phẩm</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin}">Trang Chủ</a></li>
+                <li class="breadcrumb-item">Sản phẩm</li>
+                <li class="breadcrumb-item active">Thêm mới</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="card-body" style="display: grid;grid-template-columns:1fr 1fr;grid-gap:20px">
+        <h5 class="card-title">Thêm mới sản phẩm<a th:href="@{/admin/product}"><span
+                style="margin-left: 1%;color:#ffffff"
+                type="button" class="badge bg-info">Danh sách</span></a></h5>
+        <div class="form-group row"></div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Mã sản phẩm <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <input class="form-control" name="code" type="text" value=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Tên hiển thị <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <input class="form-control" name="name_product" type="text" value=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Hình ảnh <span class="text-danger">*</span></label>
+            <div class="col-9 row">
+                <div class="col-2">
+                    <img id="imageProduct" width="150%" src="/frontend/images/no_img.png">
+                </div>
+                <div class="col-10">
+                    <input class="form-control" name="image" type="file"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Giá niêm yết <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <input class="form-control" name="price" type="text" value=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Số lượng <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <input class="form-control" name="quantity" type="text" value=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Danh mục <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <select class="form-control " name="category" id="categoryAdd">
+                    <option selected disabled value="">Chọn danh mục sản phẩm</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Mô tả ngắn <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <textarea class="form-control" name="short_description"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Kích cỡ <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <select name="size" id="sizeAdd" class="form-select" multiple aria-label="multiple select example">
+                    <option selected disabled>Ctrl + Click để chọn kích cỡ</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">Mô tả chi tiết <span class="text-danger">*</span></label>
+            <div class="col-9">
+                <textarea class="form-control" name="description"></textarea>
+            </div>
+        </div>
+        <div class="form-group row"></div>
+        <div class="form-group row">
+            <div class="col-10">
+                <button id="submitProduct" type="button" class="btn btn-success mr-2">Thêm mới</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="admin/fragments/footer :: footer"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+<div th:replace="admin/fragments/script :: script"></div>
+<script>
+    getCategoryProduct();
+    getSizeProduct();
+    changeImage();
+    submitAddNew();
+    function changeImage() {
+        $('input[type="file"][name="image"]').on('change', function (e) {
+            e.preventDefault();
+            let input = e.target;
+            let reader = new FileReader();
+            reader.onload = function () {
+                let dataURL = reader.result;
+                $('#imageProduct').attr('src', dataURL);
+            }
+            reader.readAsDataURL(input.files[0]);
+        })
+    }
+
+    function submitAddNew() {
+        $('#submitProduct').click(function () {
+            let formData = new FormData();
+            let code = $('input[type="text"][name="code"]').val();
+            let name = $('input[type="text"][name="name_product"]').val();
+            let image = $('input[type="file"][name="image"]')[0].files[0];
+            let price = $('input[type="text"][name="price"]').val();
+            let quantity = $('input[type="text"][name="quantity"]').val();
+            let sizes = $('select[name="size"]').val();
+            let category =  $('select[name="category"]').val();
+            let shortDescription = $('textarea[name="short_description"]').val();
+            let description = $('textarea[name="description"]').val();
+
+            if (code.trim() === "") {
+                alertInfoAdmin("", "Không để trống mã sản phẩm", "error")
+                return;
+            }
+            if (name.trim() === "") {
+                alertInfoAdmin("", "Không để trống tên sản phẩm", "error")
+                return;
+            }
+            if (!image) {
+                alertInfoAdmin("", "Không để trống hình ảnh sản phẩm", "error")
+                return;
+            }
+            if (price.trim() === "") {
+                alertInfoAdmin("", "Không để trống giá sản phẩm", "error")
+                return;
+            }
+            if (quantity.trim() === "") {
+                alertInfoAdmin("", "Không để trống số lượng sản phẩm", "error")
+                return;
+            }
+            if (category === null) {
+                alertInfoAdmin("", "Không để trống danh mục sản phẩm", "error")
+                return;
+            }
+            if (shortDescription.trim() === "") {
+                alertInfoAdmin("", "Không để trống mô tả ngắn sản phẩm", "error")
+                return;
+            }
+            if (sizes.length <1) {
+                alertInfoAdmin("", "Không để trống kích cỡ sản phẩm", "error")
+                return;
+            }
+            if (description.trim() === "") {
+                alertInfoAdmin("", "Không để trống mô tả chi tiết sản phẩm", "error")
+                return;
+            }
+
+            formData.append('code', code);
+            formData.append('name', name);
+            formData.append('image', image);
+            formData.append('price', price);
+            formData.append('quantity', quantity);
+            formData.append('category', category);
+            formData.append('sizes', sizes);
+            formData.append('short_description', shortDescription);
+            formData.append('description', description);
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/product/create",
+                data: formData,
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                success: function (response) {
+                    if (response.code === 200) {
+                        alertInfoAdmin("", response.message, "success")
+                    } else alertInfoAdmin("", response.message, "error")
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+    }
+
+</script>
+</body>
+</html>

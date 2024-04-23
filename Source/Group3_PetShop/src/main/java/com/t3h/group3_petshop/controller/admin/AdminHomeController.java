@@ -32,28 +32,9 @@ public class AdminHomeController {
         return "admin/comment";
     }
 
-    @GetMapping("/product")
-    public String product(Model model) {
-        model.addAttribute("adminTitle", "Quản Lý Sản Phẩm");
-        return "admin/product";
-    }
-
     @GetMapping("/Oder")
     public String adminOder(Model model) {
         model.addAttribute("adminTitle", "Quản Lý Đơn Hàng");
         return "admin/Oder";
-    }
-
-    @GetMapping("/addProduct")
-
-    public String addProduct(Model model){
-        model.addAttribute("adminTitle", "Thêm Mới Sản Phẩm");
-        return "admin/addProduct";
-    }
-
-    @GetMapping("/updateProduct")
-    public String updateProduct(Model model){
-        model.addAttribute("adminTitle", "Cập Nhật Sản Phẩm");
-        return "admin/updateProduct";
     }
 }
