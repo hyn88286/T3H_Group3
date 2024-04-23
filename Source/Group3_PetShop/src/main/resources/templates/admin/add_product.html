@@ -62,7 +62,7 @@
         <div class="form-group row">
             <label class="col-3 col-form-label">Danh mục <span class="text-danger">*</span></label>
             <div class="col-9">
-                <select class="form-control " name="category" id="categoryAdd">
+                <select class="form-control " name="category" id="category">
                     <option selected disabled value="">Chọn danh mục sản phẩm</option>
                 </select>
             </div>
@@ -76,7 +76,7 @@
         <div class="form-group row">
             <label class="col-3 col-form-label">Kích cỡ <span class="text-danger">*</span></label>
             <div class="col-9">
-                <select name="size" id="sizeAdd" class="form-select" multiple aria-label="multiple select example">
+                <select name="size" id="size" class="form-select" multiple aria-label="multiple select example">
                     <option selected disabled>Ctrl + Click để chọn kích cỡ</option>
                 </select>
             </div>
@@ -132,39 +132,39 @@
             let description = $('textarea[name="description"]').val();
 
             if (code.trim() === "") {
-                alertInfoAdmin("", "Không để trống mã sản phẩm", "error")
+                alertInfo("", "Không để trống mã sản phẩm", "error")
                 return;
             }
             if (name.trim() === "") {
-                alertInfoAdmin("", "Không để trống tên sản phẩm", "error")
+                alertInfo("", "Không để trống tên sản phẩm", "error")
                 return;
             }
             if (!image) {
-                alertInfoAdmin("", "Không để trống hình ảnh sản phẩm", "error")
+                alertInfo("", "Không để trống hình ảnh sản phẩm", "error")
                 return;
             }
             if (price.trim() === "") {
-                alertInfoAdmin("", "Không để trống giá sản phẩm", "error")
+                alertInfo("", "Không để trống giá sản phẩm", "error")
                 return;
             }
             if (quantity.trim() === "") {
-                alertInfoAdmin("", "Không để trống số lượng sản phẩm", "error")
+                alertInfo("", "Không để trống số lượng sản phẩm", "error")
                 return;
             }
             if (category === null) {
-                alertInfoAdmin("", "Không để trống danh mục sản phẩm", "error")
+                alertInfo("", "Không để trống danh mục sản phẩm", "error")
                 return;
             }
             if (shortDescription.trim() === "") {
-                alertInfoAdmin("", "Không để trống mô tả ngắn sản phẩm", "error")
+                alertInfo("", "Không để trống mô tả ngắn sản phẩm", "error")
                 return;
             }
             if (sizes.length <1) {
-                alertInfoAdmin("", "Không để trống kích cỡ sản phẩm", "error")
+                alertInfo("", "Không để trống kích cỡ sản phẩm", "error")
                 return;
             }
             if (description.trim() === "") {
-                alertInfoAdmin("", "Không để trống mô tả chi tiết sản phẩm", "error")
+                alertInfo("", "Không để trống mô tả chi tiết sản phẩm", "error")
                 return;
             }
 
@@ -187,8 +187,8 @@
                 enctype: 'multipart/form-data',
                 success: function (response) {
                     if (response.code === 200) {
-                        alertInfoAdmin("", response.message, "success")
-                    } else alertInfoAdmin("", response.message, "error")
+                        alertInfo("", response.message, "success")
+                    } else alertInfo("", response.message, "error")
                 },
                 error: function (error) {
                     console.log(error);

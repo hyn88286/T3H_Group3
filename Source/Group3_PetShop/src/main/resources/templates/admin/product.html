@@ -115,7 +115,7 @@
                 let productPresent = response.data.pageable.pageNumber;
                 if (productNumber > 0) {
                     $('#pageCD').empty();
-                    let pageproduct = '<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent - 1) + ',5,event)" href="#">Prev</a></li>';
+                    let pageproduct = '<li class="page-item"><a class="page-link" onclick="loadPage(' + (productPresent - 1) + ',5,event)" href="#"><</a></li>';
                     for (let i = 0; i < productNumber; i++) {
                         if (productPresent === i) {
                             pageproduct += '            <li class="page-item active">\n' +
