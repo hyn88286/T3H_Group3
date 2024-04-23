@@ -5,9 +5,8 @@ import java.nio.file.Paths;
 public class Constant {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_USER = "ROLE_USER";
-    public static final String IMAGE_PATH_LOCAL = Paths.get("").toAbsolutePath() + "/src/main/resources/static/frontend/images/product/";
+    public static final String IMAGE_SAVE_PATH = "D:\\T3H_Group3\\Source\\Images\\product\\";
     public static final String INVOICE_PDF_PATH = Paths.get("").toAbsolutePath().getParent().toString() + "/Pdf/invoice/";
-    public static final String IMAGE_PATH_DEPLOY = "/frontend/images/product/";
     public static String VNP_TMN_CODE = "YTVDOR0L";
     public static String VNP_HASH_SECRET = "TDPNZSAPJSPCWWAIKNFREUDXUBTRUJFF";
     public static String VNP_PAY_URL = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";

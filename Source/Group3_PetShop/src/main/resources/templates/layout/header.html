@@ -1,35 +1,4 @@
 <div th:fragment="header">
-    <style>
-        .user:hover{
-            color: #f62b60;
-        }
-        .user {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .user div, .client-img {
-            height: 40px;
-            width: 40px;
-            margin-right: 1rem;
-        }
-
-        .user span:last-child {
-            display: inline-block;
-            margin-left: .3rem;
-            font-size: .8rem;
-        }
-
-        .bg-img {
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 50%;
-            background-size: cover;
-        }
-    </style>
-
-
     <header class="wow fadeInDown header-blue header-top header-anim">
         <div class="top-bar-right d-flex align-items-center text-md-left">
             <div class="container">
@@ -42,39 +11,16 @@
                             <i data-feather="smartphone"></i> <a href="tel:(+84) 0989-089-089">(+84) 0989-089-089</a>
                         </div>
                     </div>
-<!--                    từ đây nút đăng xuất nút home -->
-                    <div style="margin-right: -76%;" class="row align-items-center">
-                        <div class="col-md-auto">
-                            <div class="social-icons">
-                                <span>Mạng xã hội</span>
-                                <a href="#"><i data-feather="facebook"></i></a>
-                                <a href="#"><i data-feather="twitter"></i></a>
-                                <a href="#"><i data-feather="instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-auto">
-                            <div class="user">
-                                <div class="bg-img" style="background-image: url(/frontend/images/vn_logo.png)"></div>
-                                <span class="fas fa-power-off"></span>
-                                <span >Đăng Xuất</span>
-                            </div>
+                    <div class="col-md-auto">
+                        <div class="social-icons">
+                            <span>Mạng xã hội</span>
+                            <a href="#"><i data-feather="facebook"></i></a>
+                            <a href="#"><i data-feather="twitter"></i></a>
+                            <a href="#"><i data-feather="instagram"></i></a>
+                            <a href="#"><i class="fa-icon-power-off"></i></a>
                         </div>
                     </div>
-<!--                    <div class="col-md-auto">-->
-<!--                        <div class="social-icons">-->
-<!--                            <span>Mạng xã hội</span>-->
-<!--                            <a href="#"><i data-feather="facebook"></i></a>-->
-<!--                            <a href="#"><i data-feather="twitter"></i></a>-->
-<!--                            <a href="#"><i data-feather="instagram"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="user">-->
-<!--                        <div class="bg-img" style="background-image: url(/frontend/images/vn_logo.png)"></div>-->
-<!--                        <span class="fas fa-power-off"></span>-->
-<!--                        <span>Logout</span>-->
-<!--                    </div>-->
                 </div>
-
             </div>
         </div>
 

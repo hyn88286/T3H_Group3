@@ -34,46 +34,36 @@ public class ProductResource {
         return ResponseEntity.ok(service.getAll(filterRequest, page, size));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?> updateProduction(@RequestParam("id") String id,
-                                              @RequestParam("name") String name,
+    @PostMapping("/create")
+    public ResponseEntity<?> updateProduction(@RequestParam("name") String name,
                                               @RequestParam("code") String code,
-                                              @RequestParam("quantity") String quantity,
-                                              @RequestParam("price") String price,
+                                              @RequestParam("quantity") Integer quantity,
+                                              @RequestParam("price") Double price,
                                               @RequestParam("short_description") String shortDescription,
                                               @RequestParam("description") String description,
-                                              @RequestParam("category_id") String categoryId,
-                                              @RequestParam("size_ids") String sizeIds,
-                                              @RequestParam("image") MultipartFile image) throws IOException {
+                                              @RequestParam("category") Long categoryId,
+                                              @RequestParam("sizes") Set<Long> sizeIds,
+                                              @RequestParam("image") MultipartFile image) throws Exception {
 
         ProductDTO productDTO = new ProductDTO();
-        if (!Objects.equals(id, "")) {
-            productDTO.setId(Long.valueOf(id));
-        }
+
         productDTO.setCode(code);
 
         productDTO.setName(name);
 
-        productDTO.setQuantity(Integer.parseInt(quantity));
+        productDTO.setQuantity(quantity);
 
-        productDTO.setPrice(Double.valueOf(price));
+        productDTO.setPrice(price);
 
         productDTO.setShortDescription(shortDescription);
 
         productDTO.setDescription(description);
 
-        productDTO.setCategoryId(Long.valueOf(categoryId));
+        productDTO.setCategoryId(categoryId);
 
-        Set<Long> setSizeIds = new HashSet<>();
-        String[] arrSizeIds = sizeIds.split("\\s+");
+        productDTO.setSizeIds(sizeIds);
 
-        for (String sizeId : arrSizeIds) {
-            setSizeIds.add(Long.valueOf(sizeId));
-        }
-
-        productDTO.setSizeIds(setSizeIds);
-
-        return ResponseEntity.ok(service.updateProduct(productDTO, image));
+        return ResponseEntity.ok(service.createProduct(productDTO, image));
     }
 
     @PostMapping("/detail")
