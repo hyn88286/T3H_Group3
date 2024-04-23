@@ -60,21 +60,40 @@ public class OrderServiceImpl implements IOrderService {
     public BaseResponse<Page<OrderDTO>> getAll(OrderFilterRequest orderFilterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<OrderEntity> orderEntities = orderRepository.findAllByFilter(orderFilterRequest, pageable);
-        List<OrderDTO> orderDTOS = orderEntities.getContent().stream().map(orderEntity -> {
+
+        List<OrderDTO> orderDTOS = new ArrayList<>();
+
+        for (OrderEntity orderEntity : orderEntities.getContent()) {
             OrderDTO orderDTO = modelMapper.map(orderEntity, OrderDTO.class);
             orderDTO.setTotalAmount(orderEntity.getTotalAmount());
+            orderDTO.setUsername(orderEntity.getUserEntity().getUsername());
             orderDTO.setCreateDate(orderEntity.getCreatedDate());
-            return orderDTO;
-        }).collect(Collectors.toList());
+
+            // Lấy danh sách chi tiết đơn hàng
+            List<OrderDetailEntity> orderDetails = orderDetailRepository.findByCode(orderEntity.getId());
+
+            // Tạo danh sách tên sản phẩm cho mỗi đơn hàng
+            List<String> productNames = new ArrayList<>();
+            for (OrderDetailEntity orderDetail : orderDetails) {
+                ProductEntity productEntity = orderDetail.getProductEntity();
+                productNames.add(productEntity.getName()); // Giả sử tên sản phẩm được lưu trong trường 'name'
+            }
+
+            // Đặt danh sách tên sản phẩm cho đơn hàng
+            orderDTO.setProductname(String.join(", ", productNames));
+
+            orderDTOS.add(orderDTO);
+        }
 
         Page<OrderDTO> pageData = new PageImpl<>(orderDTOS, pageable, orderEntities.getTotalElements());
+
         BaseResponse<Page<OrderDTO>> response = new BaseResponse<>();
         response.setCode(HttpStatus.OK.value());
         response.setMessage("success");
         response.setData(pageData);
+
         return response;
     }
-
 
     @Override
     public BaseResponse<OrderDTO> getDetailByCode(OrderFilterRequest request) {
