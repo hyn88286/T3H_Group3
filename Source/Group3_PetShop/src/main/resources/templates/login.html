@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,12 +25,12 @@
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>chào mừng bạn đăng ký tài khoản</span>
             <input id="userName" type="text" placeholder="Tài Khoản" name="account" >
             <input id="fullname" type="text" placeholder="Họ và Tên" name="account name">
             <input id="email" type="email" placeholder="Email" name="email">
             <input id="password" type="password"  placeholder="Mật Khẩu" name="password">
             <span id="errorMessage" style="display:none;color:red;"></span>
+            <span id="plron" style="display:none;color: #33CC00;"></span>
             <input id="submit" class="knot" type="button" value="Đăng Ký" style="cursor: pointer;color: white; background-color: #512da8; border-radius: 22px;">
         </form>
     </div>
@@ -39,11 +43,10 @@
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>chào mừng bạn đăng nhập tài khoản</span>
             <input type="text" placeholder="Tài Khoản" name="username">
             <input type="password"  placeholder="Mật Khẩu" name="password">
             <span style="color:red" id="message"></span>
-            <a href="#">Quên mật khẩu?</a>
+            <a class="password-hover" href="#">Quên mật khẩu?</a>
             <input  type="submit" value="Đăng Nhập" style="cursor: pointer;color: white; background-color: #512da8; border-radius: 22px;">
         </form>
     </div>
@@ -66,8 +69,7 @@
 <script src="/login/script.js"></script>
 </body>
 <script>
-    ///validate thông báo đăng ký tài khoản
-
+    ///validate thông báo đăng ký tài khoản khi rỗng
         $("#myForm").submit(function(event) {
             let fullName = $("#fullname").val();
             let username = $("#userName").val();
@@ -82,6 +84,16 @@
             }
         });
 
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
    // đăng ký tài khoản !
     $("#submit").click(function (event) {
         // Lấy thông tin từ các input
@@ -89,16 +101,14 @@
         let username = $("#userName").val().trim();
         let password = $("#password").val().trim();
         let email = $("#email").val().trim();
-
-        // Kiểm tra thông tin đã được điền đầy đủ chưa
+        // thông báo rỗng khi đăng nhập
         if (fullName === '' || username === '' || password === '' || email === '') {
-            $("#errorMessage").text("Đăng ký không thành công. Vui lòng điền đầy đủ thông tin.");
+            $("#errorMessage").text("Đăng ký không thành công. Vui lòng thử lại sau.");
             $("#errorMessage").show();
             return false;
         } else {
             $("#errorMessage").hide();
         }
-
         // Gửi request POST đến server
         $.ajax({
             type: "POST",
@@ -114,10 +124,9 @@
             success: function (response) {
                 console.log(response);
                 if (response.code === 200) {
-                    $("#errorMessage").text("Đăng ký thành công.");
-                    $("#errorMessage").removeClass("alert-danger").addClass("alert-success");
-
-                    $("#errorMessage").show();
+                    $("#plron").text("Đăng ký thành công.");
+                    $("#plron").removeClass("alert-danger").addClass("alert-success");
+                    $("#plron").show();
 
                 }
                 if (response.code === 400){
@@ -137,10 +146,11 @@
     // thông báo đăng nhập sai
     $(document).ready(function() {
         // Lấy giá trị của biến login_status từ URL
-        var loginStatus = getParameterByName('login_status');
+        let loginStatus = getParameterByName("login_status");
             console.log(loginStatus);
         // Kiểm tra nếu biến login_status có giá trị là 1
-        if (loginStatus === 1) {
+        if (parseInt(loginStatus) === 1) {
+            console.log(loginStatus);
             $('#message').text("Thông tin đăng nhập không chính xác");
         }
     });

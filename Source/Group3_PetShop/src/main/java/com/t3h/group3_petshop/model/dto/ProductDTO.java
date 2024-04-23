@@ -14,12 +14,14 @@ public class ProductDTO {
     private String code;
     // Tên
     private String name;
-    // Giá
+    // Giá Giá niêm yết
     private Double price;
     // Giá min
     private Double minPrice;
     // Giá max
     private Double maxPrice;
+    // Giá theo size đang active
+    private Double priceActive;
     // Mô tả
     private String description;
     // Mô tả ngắn
@@ -37,7 +39,7 @@ public class ProductDTO {
     // Danh sách id size
     private Set<Long> sizeIds;
     // Id size active
-    private Long sizeId;
+    private Long sizeActive;
     // Deleted
     private Boolean deleted;
     // Ngày tạo

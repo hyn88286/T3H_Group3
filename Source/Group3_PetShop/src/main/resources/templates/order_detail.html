@@ -16,17 +16,16 @@
 <div th:replace="layout/banner :: banner"></div>
 
 <main id="body-content">
-    <section class="wide-tb-100 pb-0">
+    <section style="margin-top: 1%" class="pb-0">
         <div class="container">
             <div class="table-responsive">
-
                 <table class="table">
                     <div id="infoOrder" style="margin-bottom: 1%"></div>
                     <thead class="thead-dark theme-head">
                     <tr>
                         <th scope="col"><span style="color: white">Sản phẩm</span></th>
                         <th scope="col"><span style="color: white">Đơn giá / Kg</span></th>
-                        <th scope="col"><span style="color: white">Size</span></th>
+                        <th scope="col"><span style="color: white">Kích thước</span></th>
                         <th scope="col"><span style="color: white">Số lượng</span></th>
                         <th scope="col"><span style="color: white">Tổng</span></th>
                     </tr>
@@ -117,8 +116,12 @@
                 let detailHtml = '';
                 let infoHtml = '';
                 let statusOrder = response.data.status === 1 ? "Chưa thanh toán" : "Đã thanh toán";
+                let address = response.data.addressShipping === null ? "..." : response.data.addressShipping;
+                let phone = response.data.phoneShipping === null ? "..." : response.data.phoneShipping;
                 let classStatus = response.data.status === 1 ? "danger" : "success";
                 infoHtml += '<strong >Mã đơn hàng : </strong>' + '<span> ' + response.data.code + '</span><br>'
+                infoHtml += '<strong >Số điện thoại : </strong>' + '<span> ' + phone + '</span><br>'
+                infoHtml += '<strong >Địa chỉ : </strong>' + '<span> ' + address + '</span><br>'
                 infoHtml += '<strong>Trạng thái : </strong>' + '<span class="text-' + classStatus + '"> ' + statusOrder + '</span><br>'
                 infoHtml += '<strong>Chi tiết : </strong>'
                 $('#infoOrder').html(infoHtml);

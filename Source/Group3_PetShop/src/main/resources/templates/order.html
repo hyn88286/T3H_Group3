@@ -85,10 +85,12 @@
                 for (let i = 0; i < orderData.length; i++) {
                     let statusOrder = orderData[i].status === 1 ? "Chưa thanh toán" : "Đã thanh toán";
                     let classStatus = orderData[i].status === 1 ? "danger" : "success";
+                    let address = orderData[i].addressShipping !== null ? orderData[i].addressShipping : "...";
+                    let phone = orderData[i].phoneShipping !== null ? orderData[i].phoneShipping : "...";
                     orderHtml += '<tr>' +
-                        '<td><strong class="text-info">' + orderData[i].code + '</strong></td>' +
-                        '<td><strong class="txt-blue">' + orderData[i].addressShipping + '</strong></td>' +
-                        '<td><strong class="txt-blue">' + orderData[i].phoneShipping + '</strong></td>' +
+                        '<td><strong class="text-info text-">' + orderData[i].code + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + address + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + phone + '</strong></td>' +
                         '<td><strong class="txt-blue">' + formatPrice(orderData[i].totalAmount) + '</strong></td>' +
                         '<td><strong class="text-' + classStatus + '">' + statusOrder + '</strong></td>' +
                         '<td><a href="' + HOST + "/views/order/detail/" + orderData[i].code + '">Chi tiết</a></td>' +

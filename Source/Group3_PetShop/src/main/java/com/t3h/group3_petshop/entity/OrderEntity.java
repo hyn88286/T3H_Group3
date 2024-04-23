@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -37,8 +38,8 @@ public class OrderEntity extends AbstractEntity {
     @Column(name = "total_amount")
     private Double totalAmount;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<OrderDetailEntity> orderDetailEntities;
 }

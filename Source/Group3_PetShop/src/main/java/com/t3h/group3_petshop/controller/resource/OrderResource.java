@@ -7,6 +7,9 @@ import com.t3h.group3_petshop.service.IOrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileNotFoundException;
+
 @RestController
     @RequestMapping("api/order")
 public class OrderResource {
@@ -40,5 +43,10 @@ public class OrderResource {
     @PostMapping("/detail")
     public ResponseEntity<?> getByCode(@RequestBody OrderFilterRequest request) {
         return ResponseEntity.ok(service.getDetailByCode(request));
+    }
+
+    @GetMapping("/invoice")
+    public ResponseEntity<?> getInvoicePdf() throws FileNotFoundException {
+        return ResponseEntity.ok(service.getInvoicePdf());
     }
 }
