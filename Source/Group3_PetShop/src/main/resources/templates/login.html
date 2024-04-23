@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +30,7 @@
             <input id="email" type="email" placeholder="Email" name="email">
             <input id="password" type="password"  placeholder="Mật Khẩu" name="password">
             <span id="errorMessage" style="display:none;color:red;"></span>
+            <span id="plron" style="display:none;color: #33CC00;"></span>
             <input id="submit" class="knot" type="button" value="Đăng Ký" style="cursor: pointer;color: white; background-color: #512da8; border-radius: 22px;">
         </form>
     </div>
@@ -41,7 +46,7 @@
             <input type="text" placeholder="Tài Khoản" name="username">
             <input type="password"  placeholder="Mật Khẩu" name="password">
             <span style="color:red" id="message"></span>
-            <a href="#">Quên mật khẩu?</a>
+            <a class="password-hover" href="#">Quên mật khẩu?</a>
             <input  type="submit" value="Đăng Nhập" style="cursor: pointer;color: white; background-color: #512da8; border-radius: 22px;">
         </form>
     </div>
@@ -64,8 +69,7 @@
 <script src="/login/script.js"></script>
 </body>
 <script>
-    ///validate thông báo đăng ký tài khoản
-
+    ///validate thông báo đăng ký tài khoản khi rỗng
         $("#myForm").submit(function(event) {
             let fullName = $("#fullname").val();
             let username = $("#userName").val();
@@ -97,16 +101,14 @@
         let username = $("#userName").val().trim();
         let password = $("#password").val().trim();
         let email = $("#email").val().trim();
-
-        // Kiểm tra thông tin đã được điền đầy đủ chưa
+        // thông báo rỗng khi đăng nhập
         if (fullName === '' || username === '' || password === '' || email === '') {
-            $("#errorMessage").text("Đăng ký không thành công. Vui lòng điền đầy đủ thông tin.");
+            $("#errorMessage").text("Đăng ký không thành công. Vui lòng thử lại sau.");
             $("#errorMessage").show();
             return false;
         } else {
             $("#errorMessage").hide();
         }
-
         // Gửi request POST đến server
         $.ajax({
             type: "POST",
@@ -122,9 +124,9 @@
             success: function (response) {
                 console.log(response);
                 if (response.code === 200) {
-                    $("#errorMessage").text("Đăng ký thành công.");
-                    $("#errorMessage").removeClass("alert-danger").addClass("alert-success");
-                    $("#errorMessage").show();
+                    $("#plron").text("Đăng ký thành công.");
+                    $("#plron").removeClass("alert-danger").addClass("alert-success");
+                    $("#plron").show();
 
                 }
                 if (response.code === 400){
