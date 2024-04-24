@@ -216,6 +216,8 @@
                 }
                 $('#productItem').html(productItemHtml);
                 $('.totalAmount').html(formatPrice(response.data.totalAmount))
+                $('input[type="text"][name="address"]').val(response.data.addressShipping);
+                $('input[type="text"][name="phoneNumber"]').val(response.data.phoneShipping);
 
                 $('#payment').data("code", response.data.code);
                 console.log(response);

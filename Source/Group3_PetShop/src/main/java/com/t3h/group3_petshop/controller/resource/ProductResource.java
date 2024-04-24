@@ -35,39 +35,17 @@ public class ProductResource {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> updateProduction(@RequestParam("name") String name,
-                                              @RequestParam("code") String code,
-                                              @RequestParam("quantity") Integer quantity,
-                                              @RequestParam("price") Double price,
-                                              @RequestParam("short_description") String shortDescription,
-                                              @RequestParam("description") String description,
-                                              @RequestParam("category") Long categoryId,
-                                              @RequestParam("sizes") Set<Long> sizeIds,
-                                              @RequestParam("image") MultipartFile image) throws Exception {
+    public ResponseEntity<?> updateProduction(@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(service.createProduct(productDTO));
+    }
 
-        ProductDTO productDTO = new ProductDTO();
-
-        productDTO.setCode(code);
-
-        productDTO.setName(name);
-
-        productDTO.setQuantity(quantity);
-
-        productDTO.setPrice(price);
-
-        productDTO.setShortDescription(shortDescription);
-
-        productDTO.setDescription(description);
-
-        productDTO.setCategoryId(categoryId);
-
-        productDTO.setSizeIds(sizeIds);
-
-        return ResponseEntity.ok(service.createProduct(productDTO, image));
+    @PostMapping("/update/{code}")
+    public ResponseEntity<?> updateProduction(@PathVariable("code") String code, @RequestBody ProductDTO productDTO) throws Exception {
+        return ResponseEntity.ok(service.updateProduct(code, productDTO));
     }
 
     @PostMapping("/detail")
-    public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) {
+    public ResponseEntity<?> getProductBy(@RequestBody ProductFilterRequest filterRequest) throws Exception {
         return ResponseEntity.ok(service.getProductBy(filterRequest));
     }
 
