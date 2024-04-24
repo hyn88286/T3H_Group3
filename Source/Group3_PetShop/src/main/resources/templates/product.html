@@ -201,12 +201,10 @@
                 $('#byCreated').html(byCreatedHtml);
 
                 let byPriceHtml =
-                    '<select style="text-align: center;cursor: pointer" name="price" class="form-control wide form-light">' +
+                    '<select id="priceProduct" style="text-align: center;cursor: pointer" name="price" class="form-control wide form-light">' +
                     '<option selected disabled>Sắp xếp theo giá sản phẩm</option>' +
-                    '<option data-min="100" data-max="200" value="1">100.000 - 200.000</option data-min>' +
-                    '<option data-min="200" data-max="500" value="2">200.000 - 500.000</option>' +
-                    '<option data-min="500" data-max="1000" value="3">500.000 - 1.000.000</option>' +
-                    '<option data-min="1000" value="4">Trên 1.000.000</option>' +
+                    '<option value="asc">Từ thấp đến cao</option>' +
+                    '<option value="desc">Từ cao xuống thấp</option>' +
                     '</select>'
                 $('#byPrice').html(byPriceHtml);
 
@@ -221,7 +219,7 @@
     function searchCondition(page, size) {
         console.log(1);
         let filter = {};
-        let category, created, minPrice, maxPrice;
+        let category, created, byPrice;
         $('#category').change(function () {
             category = $(this).val();
             filter.categoryId = category;
@@ -234,10 +232,9 @@
             getProducts(page, size, filter);
         });
 
-        $('#byPrice').change(function () {
-            minPrice = $(this).data("minPrice");
-            maxPrice = $(this).data("maxPrice");
-            filter.created = created;
+        $('#priceProduct').change(function () {
+            byPrice = $(this).val();
+            filter.byPrice = byPrice;
             getProducts(page, size, filter);
         });
     }

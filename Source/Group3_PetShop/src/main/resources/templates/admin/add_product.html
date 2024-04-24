@@ -105,98 +105,62 @@
     getSizeProduct();
     changeImage();
     submitAddNew();
-    function changeImage() {
-        $('input[type="file"][name="image"]').on('change', function (e) {
-            e.preventDefault();
-            let input = e.target;
-            let reader = new FileReader();
-            reader.onload = function () {
-                let dataURL = reader.result;
-                $('#imageProduct').attr('src', dataURL);
-            }
-            reader.readAsDataURL(input.files[0]);
-        })
-    }
 
     function submitAddNew() {
         $('#submitProduct').click(function () {
-            let formData = new FormData();
+            let objectData = {};
             let code = $('input[type="text"][name="code"]').val();
             let name = $('input[type="text"][name="name_product"]').val();
             let image = $('input[type="file"][name="image"]')[0].files[0];
             let price = $('input[type="text"][name="price"]').val();
             let quantity = $('input[type="text"][name="quantity"]').val();
             let sizes = $('select[name="size"]').val();
-            let category =  $('select[name="category"]').val();
+            let category = $('select[name="category"]').val();
             let shortDescription = $('textarea[name="short_description"]').val();
             let description = $('textarea[name="description"]').val();
 
-            if (code.trim() === "") {
-                alertInfo("", "Không để trống mã sản phẩm", "error")
-                return;
-            }
-            if (name.trim() === "") {
-                alertInfo("", "Không để trống tên sản phẩm", "error")
-                return;
-            }
-            if (!image) {
-                alertInfo("", "Không để trống hình ảnh sản phẩm", "error")
-                return;
-            }
-            if (price.trim() === "") {
-                alertInfo("", "Không để trống giá sản phẩm", "error")
-                return;
-            }
-            if (quantity.trim() === "") {
-                alertInfo("", "Không để trống số lượng sản phẩm", "error")
-                return;
-            }
-            if (category === null) {
-                alertInfo("", "Không để trống danh mục sản phẩm", "error")
-                return;
-            }
-            if (shortDescription.trim() === "") {
-                alertInfo("", "Không để trống mô tả ngắn sản phẩm", "error")
-                return;
-            }
-            if (sizes.length <1) {
-                alertInfo("", "Không để trống kích cỡ sản phẩm", "error")
-                return;
-            }
-            if (description.trim() === "") {
-                alertInfo("", "Không để trống mô tả chi tiết sản phẩm", "error")
+            objectData.code = code;
+            objectData.name = name;
+            objectData.price = price;
+            objectData.quantity = quantity;
+            objectData.categoryId = category;
+            objectData.sizeIds = sizes;
+            objectData.shortDescription = shortDescription;
+            objectData.description = description;
+
+            let check = checkValidateProduct(objectData);
+            if (!check) {
                 return;
             }
 
-            formData.append('code', code);
-            formData.append('name', name);
-            formData.append('image', image);
-            formData.append('price', price);
-            formData.append('quantity', quantity);
-            formData.append('category', category);
-            formData.append('sizes', sizes);
-            formData.append('short_description', shortDescription);
-            formData.append('description', description);
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/product/create",
-                data: formData,
-                processData: false,
-                contentType: false,
-                enctype: 'multipart/form-data',
-                success: function (response) {
-                    if (response.code === 200) {
-                        alertInfo("", response.message, "success")
-                    } else alertInfo("", response.message, "error")
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+            if (image) {
+                uploadImage(image).then(function (data) {
+                    objectData.image = data.data;
+                    newProduct(objectData);
+                }).catch(function (error) {
+                    console.error(error);
+                });
+            } else alertInfo("", "Không để trống hình ảnh sản phẩm", "error");
         })
     }
 
+    function newProduct(objectData) {
+        $.ajax({
+            type: "POST",
+            url: HOST + "/api/product/create",
+            contentType: "application/json",
+            data: JSON.stringify(objectData),
+            dataType: "json",
+            success: function (response) {
+                if (response.code === 200) {
+                    alertAndRedirect("", response.message, "success", HOST + "/admin/product");
+                } else alertInfo("", response.message, "error")
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 </script>
 </body>
 </html>

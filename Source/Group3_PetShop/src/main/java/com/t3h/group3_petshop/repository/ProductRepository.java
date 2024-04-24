@@ -28,9 +28,11 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "AND (:#{#condition.price} is null or p.price = :#{#condition.price} )" +
             "AND (:#{#condition.sizeId} is null or s.id = :#{#condition.sizeId} ) " +
             "AND (:#{#condition.categoryId} is null or c.id = :#{#condition.categoryId} )" +
-            "AND p.deleted=false ORDER BY "+
+            "AND p.deleted=false ORDER BY " +
             "CASE WHEN :#{#condition.created} = 'asc' THEN p.createdDate END ASC, " +
-            "CASE WHEN :#{#condition.created} = 'desc' THEN p.createdDate END DESC"
+            "CASE WHEN :#{#condition.created} = 'desc' THEN p.createdDate END DESC," +
+            "CASE WHEN :#{#condition.byPrice} = 'asc' THEN p.price END ASC, " +
+            "CASE WHEN :#{#condition.byPrice} = 'desc' THEN p.price END DESC"
     )
     Page<ProductEntity> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
 
@@ -44,6 +46,12 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     )
     ProductEntity findByFilter(@Param("condition") ProductFilterRequest filterRequest);
 
-    @Query(value = "select p from ProductEntity p where lower(p.code) = :#{#code}  and p.deleted=false ORDER BY p.createdDate desc LIMIT 1")
-    ProductEntity findByCode(String code );
+    @Query(value = "SELECT p FROM ProductEntity p " +
+            "LEFT JOIN p.categoryEntity c " +
+            "LEFT JOIN p.sizeEntities s " +
+            " WHERE " +
+            " (:#{#code} is null or lower(p.code) = :#{#code}) " +
+            "AND p.deleted=false ORDER BY p.createdDate desc LIMIT 1"
+    )
+    ProductEntity findByCode(String code);
 }
