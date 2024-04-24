@@ -90,7 +90,7 @@
         <div class="form-group row"></div>
         <div class="form-group row">
             <div class="col-10">
-                <button id="submitProduct" type="button" class="btn btn-success mr-2">Cập nhật</button>
+                <button id="submitUpdate" type="button" class="btn btn-success mr-2">Cập nhật</button>
             </div>
         </div>
     </div>
@@ -103,24 +103,67 @@
 <script>
     getCategoryProduct();
     getSizeProduct();
-    changeImage();
     getProductWithCode();
+    changeImage();
+    submitUpdate();
 
-    function changeImage() {
-        $('input[type="file"][name="image"]').on('change', function (e) {
-            e.preventDefault();
-            let input = e.target;
-            let reader = new FileReader();
-            reader.onload = function () {
-                let dataURL = reader.result;
-                $('#imageProduct').attr('src', dataURL);
+    function submitUpdate() {
+        $('#submitUpdate').click(function () {
+            let objectData = {};
+            let code = $('input[type="text"][name="code"]').val();
+            let name = $('input[type="text"][name="name_product"]').val();
+            let image = $('input[type="file"][name="image"]')[0].files[0];
+            let price = $('input[type="text"][name="price"]').val();
+            let quantity = $('input[type="text"][name="quantity"]').val();
+            let sizes = $('select[name="size"]').val();
+            let category = $('select[name="category"]').val();
+            let shortDescription = $('textarea[name="short_description"]').val();
+            let description = $('textarea[name="description"]').val();
+
+            objectData.code = code;
+            objectData.name = name;
+            objectData.price = price;
+            objectData.quantity = quantity;
+            objectData.categoryId = category;
+            objectData.sizeIds = sizes;
+            objectData.shortDescription = shortDescription;
+            objectData.description = description;
+            objectData.image = null;
+            let check = checkValidateProduct(objectData);
+            if (!check) {
+                return;
             }
-            reader.readAsDataURL(input.files[0]);
+            if (image) {
+                uploadImage(image).then(function (data) {
+                    objectData.image = data.data;
+                    updateProduct(objectData)
+                }).catch(function (error) {
+                    console.error(error);
+                });
+            } else updateProduct(objectData);
         })
     }
 
-    function selectedSize(selected){
-        $('#size option').map(function() {
+    function updateProduct(objectData) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/product/update/" + getCode(),
+            contentType: "application/json",
+            data: JSON.stringify(objectData),
+            dataType: "json",
+            success: function (response) {
+                if (response.code === 200) {
+                    alertAndRedirect("", response.message, "success", HOST + "/admin/product/update/" + objectData.code);
+                } else alertInfo("", response.message, "error")
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function selectedSize(selected) {
+        $('#size option').map(function () {
             $(this).prop('selected', false);
             for (let j = 0; j < selected.length; j++) {
                 if (selected[j].id === parseInt($(this).val())) {
@@ -129,15 +172,17 @@
             }
         })
     }
-    function selectedCategory(selected){
-        $('#category option').map(function() {
-            console.log($(this).val(),selected);
+
+    function selectedCategory(selected) {
+        $('#category option').map(function () {
+            console.log($(this).val(), selected);
             $(this).prop('selected', false);
             if (selected === parseInt($(this).val())) {
                 $(this).prop('selected', true);
             }
         });
     }
+
     function getProductWithCode() {
         let objectFilter = {
             code: getCode()
@@ -157,102 +202,19 @@
                     $('#imageProduct').attr('src', productData.image);
                     $('input[type="text"][name="price"]').val(productData.price);
                     $('input[type="text"][name="quantity"]').val(productData.quantity);
+
                     selectedCategory(productData.categoryId);
                     $('textarea[name="short_description"]').val(productData.shortDescription);
+
                     selectedSize(productData.sizes);
                     $('textarea[name="description"]').val(productData.description);
-                } else {
-                    alertInfo("", response.message, "error");
-                    setTimeout(function() {
-                        window.location.href = HOST + "/admin/product/new";
-                    }, 2000);
-                }
+                } else alertAndRedirect("", response.message, "error", HOST + "/admin/product/new");
             },
             error: function (error) {
                 console.log(error);
             }
         })
     }
-
-    function getgg() {
-        $('#submitProduct').click(function () {
-            let formData = new FormData();
-            let code = $('input[type="text"][name="code"]').val();
-            let name = $('input[type="text"][name="name_product"]').val();
-            let image = $('input[type="file"][name="image"]')[0].files[0];
-            let price = $('input[type="text"][name="price"]').val();
-            let quantity = $('input[type="text"][name="quantity"]').val();
-            let sizes = $('select[name="size"]').val();
-            let category = $('select[name="category"]').val();
-            let shortDescription = $('textarea[name="short_description"]').val();
-            let description = $('textarea[name="description"]').val();
-
-            if (code.trim() === "") {
-                alertInfoAdmin("", "Không để trống mã sản phẩm", "error")
-                return;
-            }
-            if (name.trim() === "") {
-                alertInfoAdmin("", "Không để trống tên sản phẩm", "error")
-                return;
-            }
-            if (!image) {
-                alertInfoAdmin("", "Không để trống hình ảnh sản phẩm", "error")
-                return;
-            }
-            if (price.trim() === "") {
-                alertInfoAdmin("", "Không để trống giá sản phẩm", "error")
-                return;
-            }
-            if (quantity.trim() === "") {
-                alertInfoAdmin("", "Không để trống số lượng sản phẩm", "error")
-                return;
-            }
-            if (category === null) {
-                alertInfoAdmin("", "Không để trống danh mục sản phẩm", "error")
-                return;
-            }
-            if (shortDescription.trim() === "") {
-                alertInfoAdmin("", "Không để trống mô tả ngắn sản phẩm", "error")
-                return;
-            }
-            if (sizes.length < 1) {
-                alertInfoAdmin("", "Không để trống kích cỡ sản phẩm", "error")
-                return;
-            }
-            if (description.trim() === "") {
-                alertInfoAdmin("", "Không để trống mô tả chi tiết sản phẩm", "error")
-                return;
-            }
-
-            formData.append('code', code);
-            formData.append('name', name);
-            formData.append('image', image);
-            formData.append('price', price);
-            formData.append('quantity', quantity);
-            formData.append('category', category);
-            formData.append('sizes', sizes);
-            formData.append('short_description', shortDescription);
-            formData.append('description', description);
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/product/create",
-                data: formData,
-                processData: false,
-                contentType: false,
-                enctype: 'multipart/form-data',
-                success: function (response) {
-                    if (response.code === 200) {
-                        alertInfoAdmin("", response.message, "success")
-                    } else alertInfoAdmin("", response.message, "error")
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        })
-    }
-
 </script>
 </body>
 </html>

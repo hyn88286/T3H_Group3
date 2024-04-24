@@ -20,3 +20,17 @@ function alertInfo(title, text, icon) {
         icon: icon,
     });
 }
+
+function alertAndRedirect(title, text, icon, url) {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+    }).then((result) => {
+        let then_result = Object.values(result)[0]
+        if (then_result == true) {
+            window.location.replace(url);
+        }
+    })
+}
+

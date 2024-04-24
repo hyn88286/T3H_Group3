@@ -93,6 +93,7 @@ public class CartServiceImpl implements ICartService {
             String productName = cartEntity.getProductEntity().getName();
             cartDTO.setProductName(productName);
 
+            cartDTO.setProductCode(cartEntity.getProductEntity().getCode());
             // Set giá sản phẩm
             Double productPrice = cartEntity.getProductEntity().getPrice();
             cartDTO.setProductPrice(productPrice);
@@ -104,9 +105,11 @@ public class CartServiceImpl implements ICartService {
             // Set tổng tiền trên 1 sản phẩm
             Double totalOneP = productPrice * weightSize * quantity;
             cartDTO.setTotalOneP(totalOneP);
-
-
-            cartDTO.setImgProduct("data:image/jpeg;base64,"+cartEntity.getProductEntity().getImage());
+            try {
+                cartDTO.setImgProduct("data:image/jpeg;base64," + Constant.encodeImage(cartEntity.getProductEntity().getImage()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             return cartDTO;
         }).collect(Collectors.toList());
