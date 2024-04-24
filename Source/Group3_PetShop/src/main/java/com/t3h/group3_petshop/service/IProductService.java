@@ -12,11 +12,11 @@ import java.util.Set;
 public interface IProductService {
     BaseResponse<Page<ProductDTO>> getAll(ProductFilterRequest filterRequest, int page, int size);
 
-    BaseResponse<?> updateProduct(ProductDTO productDTO, MultipartFile file) throws Exception;
+    BaseResponse<?> updateProduct(String code,ProductDTO productDTO);
 
-    BaseResponse<?> createProduct(ProductDTO productDTO, MultipartFile file) throws Exception;
+    BaseResponse<?> createProduct(ProductDTO productDTO);
 
-    BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest);
+    BaseResponse<ProductDTO> getProductBy(ProductFilterRequest filterRequest) throws Exception;
 
     BaseResponse<?> deleteProduct(Long id);
 }

@@ -37,4 +37,6 @@ public class CartDTO {
     private Double totalOneP;
     // Cân nặng size
     private Integer weightSize;
+    //
+    private String productCode;
 }
