@@ -31,6 +31,8 @@ public class OrderDTO {
     private String phoneShipping;
     // Tổng số tiền đơn hàng
     private Double totalAmount;
+    private String username;
+private String productname;
     // Chi tiết đơn hàng
     private List<OrderDetailDTO> orderDetails;
 }

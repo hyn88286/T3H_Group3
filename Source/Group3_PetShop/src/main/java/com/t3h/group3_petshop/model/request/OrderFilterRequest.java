@@ -9,4 +9,6 @@ public class OrderFilterRequest {
     private Long userId;
 
     private String code;
+    private String username;
+    private String productname;
 }
