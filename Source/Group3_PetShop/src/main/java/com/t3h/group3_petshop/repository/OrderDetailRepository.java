@@ -15,6 +15,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
             "LEFT JOIN od.sizeEntity s" +
             " WHERE " +
             " (:#{#orderId} is null or od.orderEntity.id = :#{#orderId}) " +
+//            "AND  (:#{#productname} is null or p.name = :#{#name}) " +
             "AND p.deleted=false"
     )
     List<OrderDetailEntity> findByCode(Long orderId);
@@ -24,6 +25,8 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
             "WHERE " +
             "(:#{#userId} is null or u.userEntity.id = :#{#userId})" +
             " AND (:#{#productId} is null or p.id = :#{#productId} )" +
+
+            "AND (+:#{#filter.name} IS NULL OR p.name = :#{#filter.name})" +
             "AND o.deleted=false ORDER BY o.createdDate desc ")
     OrderDetailEntity findOrderEntitiesBy(Long userId, Long productId);
 

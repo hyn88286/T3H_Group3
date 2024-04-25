@@ -67,5 +67,67 @@
                 }
             });
         }
+
+        function changeImage() {
+            $('input[type="file"][name="image"]').on('change', function (e) {
+                e.preventDefault();
+                let input = e.target;
+                let reader = new FileReader();
+                reader.onload = function () {
+                    let dataURL = reader.result;
+                    $('#imageProduct').attr('src', dataURL);
+                }
+                reader.readAsDataURL(input.files[0]);
+            })
+        }
+
+        function uploadImage(file) {
+            let objectData = new FormData();
+            objectData.append('image', file);
+            return $.ajax({
+                type: "POST",
+                url: HOST + "/api/image/storage",
+                data: objectData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function checkValidateProduct(objectData) {
+            let check;
+            if (objectData.code.trim() === "") {
+                alertInfo("", "Không để trống mã sản phẩm", "error");
+                check = false;
+            } else if (objectData.name.trim() === "") {
+                alertInfo("", "Không để trống tên sản phẩm", "error");
+                check = false;
+            } else if (objectData.price.trim() === "") {
+                alertInfo("", "Không để trống giá sản phẩm", "error");
+                check = false;
+            } else if (objectData.quantity.trim() === "") {
+                alertInfo("", "Không để trống số lượng sản phẩm", "error");
+                check = false;
+            } else if (objectData.categoryId === null) {
+                alertInfo("", "Không để trống danh mục sản phẩm", "error");
+                check = false;
+            } else if (objectData.shortDescription.trim() === "") {
+                alertInfo("", "Không để trống mô tả ngắn sản phẩm", "error");
+                check = false;
+            } else if (objectData.sizeIds.length < 1) {
+                alertInfo("", "Không để trống kích cỡ sản phẩm", "error");
+                check = false;
+            } else if (objectData.description.trim() === "") {
+                alertInfo("", "Không để trống mô tả chi tiết sản phẩm", "error");
+                check = false;
+            } else check = true;
+
+            return check;
+        }
     </script>
 </div>

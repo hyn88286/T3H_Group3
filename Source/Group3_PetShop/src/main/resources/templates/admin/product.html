@@ -108,10 +108,10 @@
                         }
                         console.log(productData[p].sizes[i]);
                     }
-                    let formattedPrice = productData[p].minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    let formattedPrice = productData[p].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                     producT +=
                         '</td>' +
-                        '<td data-price="' + productData[p].minPrice + '">' + formattedPrice + '</td>' +
+                        '<td data-price="' + productData[p].price + '">' + formattedPrice + '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
                         '<td style="width: 13%" > <img src="' + productData[p].image + '" style="width: 58%; margin-left: 21%">  </td>' +
                         '<td  style="text-align: center"  id="iconUpdate"><a href="' + HOST + "/admin/product/update/" + productData[p].code + '"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></a></td>' +
