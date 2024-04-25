@@ -18,6 +18,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "LEFT JOIN o.orderDetailEntities d " +
             "WHERE " +
             "(:#{#condition.userId} is null or u.id = :#{#condition.userId})" +
+            " AND (:#{#condition.username} is null or u.username = :#{#condition.username} )" +
             " AND (:#{#condition.orderId} is null or o.id = :#{#condition.orderId} )" +
             " AND (:#{#condition.code} is null or lower(o.code)  = :#{#condition.code} )" +
             "AND o.deleted=false ORDER BY o.createdDate desc "

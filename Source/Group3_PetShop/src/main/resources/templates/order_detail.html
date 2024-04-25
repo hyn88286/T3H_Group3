@@ -92,6 +92,13 @@
 
 <script>
     initOrderDetailCustom();
+    checkoutReturn();
+
+    function checkoutReturn(code) {
+        $('#checkoutCart').click(function () {
+            window.location.href = HOST + "/views/order/place-order/" + code
+        });
+    }
 
     function initOrderDetailCustom() {
         let page = 0;
@@ -141,6 +148,7 @@
                         '<button class="btn-theme bg-orange btn-shadow" id="checkoutCart">Tiến hành thanh toán </button>' +
                         '</div>';
                     $('.list-unstyled').append(checkoutHtml);
+                    checkoutReturn(response.data.code)
                 }
                 console.log(formatPrice(response.data.totalAmount));
             },

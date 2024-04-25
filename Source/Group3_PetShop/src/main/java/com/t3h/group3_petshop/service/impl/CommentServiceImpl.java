@@ -86,6 +86,7 @@ public class CommentServiceImpl implements CommentService {
 
 
     // Phương thức thêm mới comment
+    @Override
     public BaseResponse<CommentDTO> addComment(CommentDTO commentDTO) {
         BaseResponse<CommentDTO> response = new BaseResponse<>();
         UserDTO userDTO = iUserService.getCurrentUser(true);
