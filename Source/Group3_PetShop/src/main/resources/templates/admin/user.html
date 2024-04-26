@@ -180,14 +180,6 @@
          });
      };
 
-   function searchUser(page,size){
-       let filter = {};
-
-       filter.username = $("#usernamee").val() === '' ? null : $("#usernamee").val();
-
-       getUserAdmin(page,size,filter);
-   }
-
    function loadUser(page, size, event){
        event.preventDefault();
        getUserAdmin(page, size, {});
@@ -271,8 +263,6 @@
              }
          });
      });
-
-
 
  </script>
 </body>
