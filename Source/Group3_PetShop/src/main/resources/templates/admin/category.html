@@ -37,14 +37,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Danh Sách Danh Mục <span data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm mới</span ></h5>
-                        <div class="search-bar">
-                            <form class="search-form d-flex align-items-center">
-                                <input class="input2" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                                <button class="buton-icon" id="btnSearch" onclick="searchCondition(0,5)">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </form>
-                        </div>
                         <table class="table" id="tableDate">
                             <thead>
                             <tr>
@@ -185,6 +177,7 @@
          getCategoryAdmin(page,size,objFilter);
      }
      function getCategoryAdmin(page,size,objectFilter){
+         console.log(objectFilter);
          $.ajax({
              type: "POST",
              url: "http://localhost:8080/api/category?page=" + page + "&size=" + size,
@@ -351,6 +344,8 @@
              }
          });
      });
+
+
  </script>
 </body>
 

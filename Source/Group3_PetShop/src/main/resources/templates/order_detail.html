@@ -134,7 +134,7 @@
                 $('#infoOrder').html(infoHtml);
                 for (let i = 0; i < data.length; i++) {
                     detailHtml += '<tr>' +
-                        '<td><strong class="text-info">' + data[i].productName + '</strong></td>' +
+                        '<td><a href="'+HOST+"/views/product/detail/"+data[i].productCode+'" ><strong class="text-info">' + data[i].productName + '</strong></a></td>' +
                         '<td><strong class="txt-blue">' + formatPrice(data[i].total / data[i].quantity) + '</strong></td>' +
                         '<td><strong class="txt-blue">' + data[i].sizeName + '</strong></td>' +
                         '<td><strong class="txt-blue">' + data[i].quantity + '</strong></td>' +

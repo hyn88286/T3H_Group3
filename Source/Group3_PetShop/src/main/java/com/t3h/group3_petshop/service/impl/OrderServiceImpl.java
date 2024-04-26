@@ -121,7 +121,11 @@ public class OrderServiceImpl implements IOrderService {
             Optional<ProductEntity> product = productRepository.findById(orderDetailEntity.getProductEntity().getId());
             if (product.isEmpty()) {
                 orderDetailDTO.setProductName(null);
-            } else orderDetailDTO.setProductName(product.get().getName());
+                orderDetailDTO.setProductCode(null);
+            } else {
+                orderDetailDTO.setProductName(product.get().getName());
+                orderDetailDTO.setProductCode(product.get().getCode());
+            }
 
             Optional<SizeEntity> size = sizeRepository.findById(orderDetailEntity.getSizeEntity().getId());
             if (size.isEmpty()) {

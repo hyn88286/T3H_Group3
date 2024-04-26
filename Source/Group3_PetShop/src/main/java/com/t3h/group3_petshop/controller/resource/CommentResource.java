@@ -37,7 +37,7 @@ public class CommentResource {
         }
 
         // Thực hiện kiểm tra và xử lý comment ở đây
-        return ResponseEntity.ok(commentService.addComment(commentDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.addComment(commentDTO));
     }
     @PutMapping("/{commentId}")
     public ResponseEntity<BaseResponse<CommentDTO>> updateComment(@PathVariable Long commentId,
