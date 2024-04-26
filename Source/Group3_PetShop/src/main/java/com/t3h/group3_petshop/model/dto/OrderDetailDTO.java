@@ -33,4 +33,6 @@ public class OrderDetailDTO {
     // Tên size
     private String sizeName;
 
+    private String productCode;
+
 }

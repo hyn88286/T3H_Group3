@@ -139,7 +139,7 @@
 
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h5 class="modal-title">Cập Nhật Bình Luận</h5>
+                                <h5 class="modal-title">Cập Nhật Đánh Giá</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
@@ -166,7 +166,7 @@
 
 
                 <div class="comment-reply-form">
-                    <h3 class="txt-white fw-7 mb-3"> THÊM BÌNH LUẬN</h3>
+                    <h3 class="txt-white fw-7 mb-3">Đánh Giá</h3>
                     <form novalidate="novalidate" class="rounded-field">
                         <div class="form-row mb-4">
                             <div class="col">
@@ -176,7 +176,7 @@
                         </div>
 
                         <div class="form-row">
-                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Bình luận
+                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Đánh Giá
                             </button>
                         </div>
                     </form>
@@ -404,7 +404,10 @@
 
             }),
             success: function (response) {
-                console.log(" đã được thêm thành công");
+                if (response.code !==200) {
+                    alertInfo("", "Bạn chưa mua hàng ", "error")
+
+                }
                 let object = {
                     productCode: getCode(),
 
@@ -456,7 +459,9 @@
                 content: $('#conten').val()
             }),
             success: function (response) {
-                console.log(response);
+                if (response.code ===200) {
+                    alertInfo("", "Sửa bình luận thành công ", "success")
+                }
                 let object = {
                     productCode: getCode(),
 
@@ -487,7 +492,9 @@
             contentType: "application/json",
             dataType: "json",
             success: function (response) {
-                console.log("Xóa bình luận thành công");
+                if (response.code ===200) {
+                    alertInfo("", "Xóa bình luận thành công ", "success")
+                }
                 let object = {
                     productCode: getCode(),
 
