@@ -26,6 +26,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
             "(:#{#userId} is null or u.userEntity.id = :#{#userId})" +
             " AND (:#{#productId} is null or p.id = :#{#productId} )" +
 
+//            "AND (+:#{#productId.name} IS NULL OR p.name = :#{#filter.name})" +
             "AND o.deleted=false ORDER BY o.createdDate desc ")
     OrderDetailEntity findOrderEntitiesBy(Long userId, Long productId);
 

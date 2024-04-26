@@ -11,6 +11,9 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Sản phẩm</h1>
+        <div id="notification-delete" style=" right: -300px ;top: 11%; z-index: 10; position: fixed;" class="alert alert-success" role="alert">
+            <strong><i style="font-size: larger" class="fa-regular fa-circle-check"></i></i></strong> bạn xóa thành công !
+        </div>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin}">Trang Chủ</a></li>
@@ -28,14 +31,7 @@
                                 style="margin-left: 1%;color:#ffffff"
                                 type="button" class="badge bg-warning">+ Thêm mới</span></a>
                         </h5>
-                        <div class="search-bar">
-                            <form class="search-form d-flex align-items-center">
-                                <input class="input2" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                                <button class="buton-icon" id="btnSearch" onclick="searchCondition(0,5)">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </form>
-                        </div>
+
                         <div class="bd-example">
                             <table class="table table-bordered">
                                 <thead>
@@ -162,7 +158,12 @@
             }),
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                $('#notification-delete').show().animate({right: '1%'}, 500);
+                setTimeout(function() {
+                    $('#notification-delete').animate({right: '-300px'}, 500, function() {
+                        $(this).hide();
+                    });
+                },2000);
                 getProductAdmin(0, 5, {});
             },
             error: function (error) {

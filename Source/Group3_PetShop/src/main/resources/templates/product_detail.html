@@ -20,10 +20,11 @@
     <section class="wide-tb-100 pb-0">
         <div class="container">
             <div class="row">
-                <div style="width: 37%;border-radius: 9px;border: 4px solid #cfbdbd;" class="col-md-6">
-                    <div style="box-shadow: 0 0 68px rgba(0, 0, 0, 0.1);" class="product-gallery">
+                <div class="col-md-6">
+                    <div style="box-shadow: 0 0 68px rgba(0, 0, 0, 0.1); padding: 0" class="product-gallery">
                         <div class="outer">
-                            <div id="big" style="text-align: center; border-radius: 5px;">
+                            <div id="big" style="text-align: center">
+
                             </div>
                         </div>
                     </div>
@@ -323,7 +324,7 @@
                 // Bắt event thay đổi size
                 changeSize();
                 let object = {
-                    productCode: productData.code,
+                    productId: productData.id,
                 };
                 getCommentsAndDisplay(object);
 
@@ -403,10 +404,7 @@
 
             }),
             success: function (response) {
-                if (response.code !==200) {
-                    alertInfo("", "Bạn chưa mua hàng ", "error")
-
-                }
+                console.log(" đã được thêm thành công");
                 let object = {
                     productCode: getCode(),
 
@@ -414,7 +412,7 @@
                 getCommentsAndDisplay(object);
             },
             error: function (error) {
-                console.log("Lỗi khi thêm bình luận mục");
+                console.log("Lỗi khi thêm danh mục");
             }
         });
     });
@@ -458,10 +456,6 @@
                 content: $('#conten').val()
             }),
             success: function (response) {
-                if (response.code ===200) {
-                    alertInfo("", "Bạn sửa đánh giá thành công ", "success")
-
-                }
                 console.log(response);
                 let object = {
                     productCode: getCode(),
@@ -493,10 +487,7 @@
             contentType: "application/json",
             dataType: "json",
             success: function (response) {
-                if (response.code ===200) {
-                    alertInfo("", "Bạn đã xóa đánh giá  ", "success")
-
-                }
+                console.log("Xóa bình luận thành công");
                 let object = {
                     productCode: getCode(),
 
