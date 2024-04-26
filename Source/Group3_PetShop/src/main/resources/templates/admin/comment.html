@@ -13,6 +13,12 @@
 <!--Chứa table -->
     <div class="pagetitle">
         <h1>Data Comment</h1>
+        <div id="notification-delete" style=" right: -300px ;top: 11%; z-index: 10; position: fixed;" class="alert alert-success" role="alert">
+            <strong><i style="font-size: larger" class="fa-regular fa-circle-check"></i></i></strong> bạn xóa thành công !
+        </div>
+        <div id="notification-update" style=" right: -300px ;top: 11%; z-index: 10; position: fixed;" class="alert alert-warning" role="alert">
+            <strong><i style="font-size: larger" class="fa-regular fa-circle-check"></i></i></strong> bạn cập nhật thành công !
+        </div>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
@@ -27,8 +33,15 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Danh Sách Bình Luận <span data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm</span > </h5>
-
+                        <h5 class="card-title">Danh Sách Bình Luận <span type="button" class="badge bg-warning" style="color:#ffffff" >+ Thêm mới</span > </h5>
+                        <div class="search-bar">
+                            <form class="search-form d-flex align-items-center">
+                                <input class="input2" type="text" name="query" placeholder="Search" title="Enter search keyword">
+                                <button class="buton-icon" id="btnSearch" onclick="searchCondition(0,5)">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
                         <!-- Table thông tin muốn hiển thị -->
                         <table class="table" id="tableDate">
                             <thead>
@@ -215,31 +228,6 @@
          getCommentAdmin(page, size, {}); // lấy dữ liệu trang mới
      }
 
-
-     // hàm xóa
-         $(document).on('click', '#iconFix', function() {
-             var id = $(this).data('dle');
-             console.log (id,$(this))
-             var $tr = $(this).closest('tr');
-             $.ajax({
-                 type: "DELETE",
-                 url: "http://localhost:8080/api/comments/"  + id ,
-                 contentType: "application/json",
-                 data: JSON.stringify({
-                     id: id
-                 }),
-                 dataType: "json",
-                 success: function(response) {
-                     console.log("tài khoản được xóa thành công");
-                        getCommentAdmin(0, 5, {});
-                 },
-                 error: function(error) {
-                     console.log("tài khoản xóa không thành công");
-                 }
-             });
-
-         });
-//
 //      // hàm cập nhật
      $(document).on('click', '#iconUpdate', function() {
          var id = $(this).closest('tr').find('td:eq(0)').data('id');
@@ -271,44 +259,50 @@
                  content :$("#conten").val(),
              }),
              success: function(response) {
-                 console.log(response);
-                 console.log(1);
-                 location.reload();
+                 $('#notification-update').show().animate({right: '1%'}, 500);
+                 // Tự động ẩn thông báo sau 2 giây
+                 setTimeout(function() {
+                     $('#notification-update').animate({right: '-300px'}, 500, function() {
+                         $(this).hide();
+                     });
+                 },2000);
+                 getCategoryAdmin(0 , 5 , {});
              },
              error: function(error) {
                  console.log("lỗi");
              }
          });
-     })
-// // thêm danh mục
-//      $(document).on('click', '#buttonApply1', function() {
-//
-//          var commentConten = $('#conten1').val();
-//
-//
-//          $.ajax({
-//              type: "POST",
-//              url: " http://localhost:8080/api/comments/create",
-//              contentType: "application/json",
-//              dataType: "json",
-//              data: JSON.stringify({
-//
-//                  content: commentConten
-//              }),
-//              success: function(response) {
-//                  console.log("Danh mục đã được thêm thành công");
-//                  window.location.reload();
-//                  // Xóa nội dung cũ của tbody trong bảng
-//                  $('#tableDate tbody').empty();
-//                  // Tải lại danh sách danh mục sau khi thêm
-//                  getCommentAdmin();
-//              },
-//              error: function(error) {
-//                  console.log("Lỗi khi thêm danh mục");
-//              }
-//          });
-//      });
+     });
 
+     // hàm xóa
+     $(document).on('click', '#iconFix', function() {
+         var id = $(this).data('dle');
+         console.log (id,$(this))
+         var $tr = $(this).closest('tr');
+         $.ajax({
+             type: "DELETE",
+             url: "http://localhost:8080/api/comments/"  + id ,
+             contentType: "application/json",
+             data: JSON.stringify({
+                 id: id
+             }),
+             dataType: "json",
+             success: function(response) {
+                 $('#notification-delete').show().animate({right: '1%'}, 500);
+                 // Tự động ẩn thông báo sau 2 giây
+                 setTimeout(function() {
+                     $('#notification-delete').animate({right: '-300px'}, 500, function() {
+                         $(this).hide();
+                     });
+                 },2000);
+                 getCommentAdmin(0, 5, {});
+             },
+             error: function(error) {
+                 console.log("tài khoản xóa không thành công");
+             }
+         });
+
+     });
 
 
 
