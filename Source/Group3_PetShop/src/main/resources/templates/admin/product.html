@@ -10,7 +10,7 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Sản phẩm</h1>
+        <h1>Data Product</h1>
         <div id="notification-delete" style=" right: -300px ;top: 11%; z-index: 10; position: fixed;" class="alert alert-success" role="alert">
             <strong><i style="font-size: larger" class="fa-regular fa-circle-check"></i></i></strong> bạn xóa thành công !
         </div>
@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Danh sách sản phẩm <a th:href="@{/admin/product/new}"><span
+                        <h5 class="card-title">Danh Sách Sản Phẩm <a th:href="@{/admin/product/new}"><span
                                 style="margin-left: 1%;color:#ffffff"
                                 type="button" class="badge bg-warning">+ Thêm mới</span></a>
                         </h5>
@@ -40,7 +40,7 @@
                                     <th style="width: 12%">Mã Sản Phẩm</th>
                                     <th>Tên hiển thị</th>
                                     <th>Kích cỡ</th>
-                                    <th>Giá niêm yết</th>
+                                    <th style="width: 11%">Giá niêm yết</th>
                                     <th style="width: 12%">Danh Mục</th>
                                     <th>Hình ảnh</th>
                                     <th style="width:9%; text-align: center">Chi tiết</th>
@@ -107,7 +107,7 @@
                     let formattedPrice = productData[p].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                     producT +=
                         '</td>' +
-                        '<td data-price="' + productData[p].price + '">' + formattedPrice + '</td>' +
+                        '<td style="text-align: center;" data-price="' + productData[p].price + '">' + formattedPrice + '</td>' +
                         '<td data-category="' + productData[p].category + '">' + productData[p].category + '</td>' +
                         '<td style="width: 13%" > <img src="' + productData[p].image + '" style="width: 58%; margin-left: 21%">  </td>' +
                         '<td  style="text-align: center"  id="iconUpdate"><a href="' + HOST + "/admin/product/update/" + productData[p].code + '"><i  class="fas fa-edit" style="color: #45d25b; cursor: pointer; font-size: 20px;"></i></a></td>' +
