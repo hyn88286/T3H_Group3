@@ -13,4 +13,11 @@ public class HomeController {
         model.addAttribute("pageTitle", "Trang chủ");
         return "index";
     }
+
+    @GetMapping("/blog")
+    public String adminBlog(Model model) {
+        model.addAttribute("pageTitle", "Giới thiệu");
+        return "/blog";
+    }
+
 }

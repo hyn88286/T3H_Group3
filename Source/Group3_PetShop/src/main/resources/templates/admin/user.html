@@ -34,14 +34,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Danh Sách Tài Khoản <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm mới</span ></h5>
                         <!-- Table thông tin muốn hiển thị -->
-                        <div class="search-bar">
-                            <form class="search-form d-flex align-items-center" >
-                                <input class="input2" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                                <button class="buton-icon" id="btnSearch" onclick="searchCondition(0,5)">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </form>
-                        </div>
+
                         <table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
                             <thead>
                             <tr>
@@ -187,6 +180,14 @@
          });
      };
 
+   function searchUser(page,size){
+       let filter = {};
+
+       filter.username = $("#usernamee").val() === '' ? null : $("#usernamee").val();
+
+       getUserAdmin(page,size,filter);
+   }
+
    function loadUser(page, size, event){
        event.preventDefault();
        getUserAdmin(page, size, {});
@@ -270,6 +271,8 @@
              }
          });
      });
+
+
 
  </script>
 </body>

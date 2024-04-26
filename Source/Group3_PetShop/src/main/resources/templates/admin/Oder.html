@@ -29,14 +29,7 @@
 
                         <div class="search">
                             <h5 class="card-title">Danh Sách đơn hàng <span type="button" class="badge bg-warning" style="margin-left: 1%;color:#ffffff">+ Thêm mới</span ></h5></div>
-                        <div class="search-bar">
-                            <form class="search-form d-flex align-items-center">
-                                <input class="input2" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                                <button class="buton-icon" id="btnSearch" onclick="searchCondition(0,5)">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </form>
-                        </div>
+
 <!--                         Table thông tin muốn hiển thị -->
                         <table class="table table-bordered" id="tableDate">
                             <thead>
@@ -140,6 +133,14 @@
          event.preventDefault();
 
          getOderAdmin(page, size, {}); // lấy dữ liệu trang mới
+     }
+
+     function searchCategory(page,size){
+         let filter = {};
+
+         filter.username = $("#code").val() === '' ? null : $("#code").val();
+
+         getOderAdmin(page,size,filter);
      }
  </script>
 </body>
