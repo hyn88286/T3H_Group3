@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <div th:replace="admin/fragments/head :: head"></div>
-
 <body>
 <!-- ======= Header ======= -->
 <div th:replace="admin/fragments/header :: header"></div>
@@ -13,6 +12,12 @@
 <!--Chứa table -->
     <div class="pagetitle">
         <h1>Data Account</h1>
+        <div id="notification-delete" style=" right: -300px ;top: 11%; z-index: 10; position: fixed;" class="alert alert-success" role="alert">
+            <strong><i style="font-size: larger" class="fa-regular fa-circle-check"></i></i></strong> bạn xóa thành công !
+        </div>
+        <div id="notification-update" style=" right: -300px ;top: 11%; z-index: 10; position: fixed;" class="alert alert-warning" role="alert">
+            <strong><i style="font-size: larger" class="fa-regular fa-circle-check"></i></i></strong> bạn cập nhật thành công !
+        </div>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin}" href="index.html">Trang Chủ</a></li>
@@ -27,9 +32,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Danh Sách Tài Khoản <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm</span ></h5>
-
+                        <h5 class="card-title">Danh Sách Tài Khoản <span type="button" class="badge bg-warning" style="color:#ffffff">+ Thêm mới</span ></h5>
                         <!-- Table thông tin muốn hiển thị -->
+
                         <table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
                             <thead>
                             <tr>
@@ -37,7 +42,6 @@
                                 <th scope="col">Họ và Tên</th>
                                 <th scope="col">Tên Đăng Nhập</th>
                                 <th scope="col">Gmail</th>
-<!--                                <th scope="col">Số Điện Thoại</th>-->
                                 <th scope="col">Cập Nhật</th>
                                 <th scope="col">Xóa</th>
                             </tr>
@@ -213,8 +217,14 @@
              }),
              success: function(response) {
                  console.log(response);
-                 console.log(1);
-                 location.reload();
+                 $('#notification-update').show().animate({right: '1%'}, 500);
+                 // Tự động ẩn thông báo sau 2 giây
+                 setTimeout(function() {
+                     $('#notification-update').animate({right: '-300px'}, 500, function() {
+                         $(this).hide();
+                     });
+                 },2000);
+                 getUserAdmin(0, 5, {});
              },
              error: function(error) {
                  console.log("lỗi");
@@ -222,6 +232,9 @@
          });
      })
 
+   // $(document).ready(function() {
+   //     $('#successAlert').css('right', '-300px');
+   // });
 
      // hàm xóa
      $(document).on('click', '#iconFix', function() {
@@ -236,8 +249,14 @@
              }),
              dataType: "json",
              success: function(response) {
-                 console.log("tài khoản được xóa thành công");
-                 $tr.hide();
+                 $('#notification-delete').show().animate({right: '1%'}, 500);
+                 // Tự động ẩn thông báo sau 2 giây
+                 setTimeout(function() {
+                     $('#notification-delete').animate({right: '-300px'}, 500, function() {
+                         $(this).hide();
+                     });
+                 },2000);
+                 getUserAdmin(0, 5, {});
              },
              error: function(error) {
                  console.log("tài khoản xóa không thành công");

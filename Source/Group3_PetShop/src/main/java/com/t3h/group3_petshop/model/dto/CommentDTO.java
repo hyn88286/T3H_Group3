@@ -10,11 +10,8 @@ public class CommentDTO {
     private Long id;
     private String content;
     private LocalDateTime createdDate;
-
     private String createdBy;
-
     private LocalDateTime modifiedDate;
-
     private String modifiedBy;
     private Long productId;
     private Long userId;
