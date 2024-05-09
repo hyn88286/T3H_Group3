@@ -5,6 +5,7 @@ import com.t3h.group3_petshop.model.dto.SizeDTO;
 import com.t3h.group3_petshop.model.request.ProductFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,9 @@ import java.util.Set;
 @RequestMapping("api/product")
 public class ProductResource {
 
-    private final IProductService service;
+    @Autowired
+    private IProductService service;
 
-    public ProductResource(IProductService service) {
-        this.service = service;
-    }
 
     @PostMapping()
     public ResponseEntity<BaseResponse<Page<ProductDTO>>> getAll(@RequestBody ProductFilterRequest filterRequest,

@@ -11,7 +11,6 @@ import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.repository.RoleRepository;
 import com.t3h.group3_petshop.repository.UserRepository;
 import com.t3h.group3_petshop.service.IUserService;
-import com.t3h.group3_petshop.utils.Constant;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +25,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements IUserService {
-
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     private UserRepository userRepository;
@@ -41,12 +38,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-        logger.info("Tạo ra bean: {}", UserServiceImpl.class);
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO findUserByUsername(String username) {

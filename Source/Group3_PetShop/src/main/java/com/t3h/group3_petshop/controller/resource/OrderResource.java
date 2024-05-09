@@ -4,6 +4,7 @@ import com.t3h.group3_petshop.model.dto.OrderDetailDTO;
 import com.t3h.group3_petshop.model.request.OrderFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.IOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,8 @@ import java.io.FileNotFoundException;
     @RequestMapping("api/order")
 public class OrderResource {
 
-    private final IOrderService service;
+    @Autowired
+    private IOrderService service;
 
     public OrderResource(IOrderService service) {
         this.service = service;

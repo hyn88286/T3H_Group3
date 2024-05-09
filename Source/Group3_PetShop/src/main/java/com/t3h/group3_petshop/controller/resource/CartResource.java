@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/cart")
-public class CartResource {
+    @RequestMapping("/api/cart")
+public class    CartResource {
 
     @Autowired
     private ICartService service;

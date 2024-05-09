@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0313ed2f-dcb5-4c8a-9255-b85b0acd88bd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/static/assets/img/logo_admin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/static/assets/img/thucung_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/static/assets/img/thucung_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/static/assets/img/thucung_3.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/static/assets/img/thucung_4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/static/assets/img/thucung_5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/admin/AdminHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/admin/AdminHomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/ProductResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/ProductResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/category.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/CartResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/CartResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/Oder.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/Oder.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/comment.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/comment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/fragments/aside.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/fragments/aside.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/fragments/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/help.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/Group3_PetShop/src/main/resources/templates/admin/user.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +53,7 @@
       <workItem from="1712926190064" duration="25000" />
       <workItem from="1712938689424" duration="75000" />
       <workItem from="1712988426071" duration="11000" />
+      <workItem from="1714634338057" duration="141000" />
     </task>
     <servers />
   </component>
