@@ -964,7 +964,7 @@
                                         </div>
 
                                         <div class="search">
-                                                <input style="border-color: antiquewhite;" type="text" id="code" placeholder="Search" >
+                                                <input type="text" id="code" placeholder="Search" >
                                                 <button style="position: absolute;margin-left: -31px;background-color: white;
                                                 padding: 0;margin-top: 3px;border: none;" id="btnSearch" onclick="searchCondition(0,5)" ><i class="bi bi-search"></i></button>
                                         </div>
@@ -1200,7 +1200,11 @@
                 let OderO = '';
                 for (let i = 0; i < dataOder.length; i++) {
                     console.log(dataOder[i]);
-                    let formattedOrder =dataOder[i].totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    let formattedOrder = dataOder[i].totalAmount.toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    });
+
                     let status = dataOder[i].status === 1 ? "Chưa thanh toán" : "Đã thanh toán";
                     let classStatus = dataOder[i].status === 1 ? "danger" : "success";
                     OderO += '<tr>' +
@@ -1247,6 +1251,7 @@
             getOderAdminIndex(page, size, {});
         })
     }
+
     function searchCondition(page,size){
         let filter = {};
 
@@ -1256,5 +1261,6 @@
     }
 
 </script>
+
 
 </html>

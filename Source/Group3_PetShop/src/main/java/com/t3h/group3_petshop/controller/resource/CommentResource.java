@@ -4,6 +4,7 @@ import com.t3h.group3_petshop.model.dto.CommentDTO;
 import com.t3h.group3_petshop.model.request.CommentFilterRequest;
 import com.t3h.group3_petshop.model.response.BaseResponse;
 import com.t3h.group3_petshop.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/comments")
 public class CommentResource {
-    private final CommentService commentService;
-
-    public CommentResource(CommentService commentService) {
-        this.commentService = commentService;
-    }
+    @Autowired
+    private CommentService commentService;
 
     @PostMapping()
     public ResponseEntity<BaseResponse<Page<CommentDTO>>> getAll(@RequestBody CommentFilterRequest filterRequest,

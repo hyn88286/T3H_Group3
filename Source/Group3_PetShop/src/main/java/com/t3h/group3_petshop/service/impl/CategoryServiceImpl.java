@@ -25,16 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private final ModelMapper modelMapper;
-
-    public CategoryServiceImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+    private  ModelMapper modelMapper;
 
     @Override
     public BaseResponse<Page<CategoryDTO>> getAll(CategoryFilterRequest categoryFilterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
-
         Page<CategoryEntity> categoryEntities = categoryRepository.findAllByFilter(categoryFilterRequest,pageable);
         List<CategoryDTO> categoryDTOS = categoryEntities.getContent().stream().map(categoryEntity -> {
             CategoryDTO categoryDTO = modelMapper.map(categoryEntities,CategoryDTO.class);

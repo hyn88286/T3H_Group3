@@ -1,5 +1,4 @@
 package com.t3h.group3_petshop.service.impl;
-
 import com.t3h.group3_petshop.entity.CommentEntity;
 import com.t3h.group3_petshop.entity.OrderDetailEntity;
 import com.t3h.group3_petshop.entity.ProductEntity;
@@ -20,8 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -32,32 +29,18 @@ public class CommentServiceImpl implements CommentService {
     private Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
 
     // Khai báo các repository cần thiết
-    private final CommentRepository commentRepository;
-    private final OrderRepository orderRepository;
-    private final IUserService iUserService;
-    private final UserRepository userRepository;
-    private final ProductRepository productRepository;
-    private final OrderDetailRepository orderDetailRepository;
-
-    // Sử dụng ModelMapper để ánh xạ giữa các đối tượng
     @Autowired
-    private final ModelMapper modelMapper;
-
-    // Constructor để inject các repository và ModelMapper
+    private CommentRepository commentRepository;
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, OrderRepository orderRepository, IUserService iUserService,
-                              UserRepository userRepository, ProductRepository productRepository,
-                              OrderDetailRepository orderDetailRepository, ModelMapper modelMapper) {
-        this.commentRepository = commentRepository;
-        this.orderRepository = orderRepository;
-        this.iUserService = iUserService;
-        this.userRepository = userRepository;
-        this.productRepository = productRepository;
-        this.orderDetailRepository = orderDetailRepository;
-        this.modelMapper = modelMapper;
-    }
-
-    // Phương thức lấy tất cả comment với điều kiện lọc
+    private IUserService iUserService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private ModelMapper modelMapper;
     @Override
     public BaseResponse<Page<CommentDTO>> getAll(CommentFilterRequest commentFilterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);

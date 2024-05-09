@@ -22,9 +22,6 @@ import java.util.stream.Collectors;
 public class SizeServiceImpl implements ISizeService {
     @Autowired
     private SizeRepository sizeRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-
     @Override
     public BaseResponse<Page<SizeDTO>> getAll(SizeFilterRequest filterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
