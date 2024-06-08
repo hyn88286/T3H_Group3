@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="95440e83-21b3-4d6d-b7c6-7ae6ae2eba83" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/FileResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/IFileService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/FileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Design/database/pet_shop.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Design/database/pet_shop.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/ErrorController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/ProductResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/controller/resource/ProductResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/entity/ProductEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/entity/ProductEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/entity/SizeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/entity/SizeEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/model/dto/CartDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/model/dto/CartDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/model/request/ProductFilterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/model/request/ProductFilterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/IProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/CartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/CartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/service/impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/java/com/t3h/group3_petshop/utils/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/static/common/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/static/common/func.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/static/invoice/invoice.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/add_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/add_product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/fragments/script.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/fragments/script.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/update_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/admin/update_product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/order_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/order_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/place_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/place_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/product_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/product_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/shop_cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Group3_PetShop/src/main/resources/templates/shop_cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713802765" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713802804.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713802909.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713803062.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713807933.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713808224.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713809031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713829473.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713829482.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713829502.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713829825.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713829947.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713830984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/1713881342.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Images/product/sp_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Pdf/invoice/invoice.pdf" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2dZvXf4IimcVRJJqi1rxCss6FXg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/T3H_Group3/Source/Group3_PetShop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Group3PetShopApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Group3_PetShop" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.t3h.group3_petshop.Group3PetShopApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-cf227e86" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="95440e83-21b3-4d6d-b7c6-7ae6ae2eba83" name="Changes" comment="" />
+      <created>1710228455968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710228455968</updated>
+      <workItem from="1710228457036" duration="734000" />
+      <workItem from="1711399178054" duration="175000" />
+      <workItem from="1711399464492" duration="51000" />
+      <workItem from="1713945932002" duration="18000" />
+      <workItem from="1713958136836" duration="33000" />
+      <workItem from="1713958582540" duration="22000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

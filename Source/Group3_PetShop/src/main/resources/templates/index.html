@@ -1,10 +1,6 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:03 GMT -->
 <head th:replace="layout/head :: head"></head>
-
 <body>
 
 <div id="pageloader">
@@ -16,99 +12,12 @@
 </div>
 <b class="screen-overlay"></b>
 <div th:replace="layout/header :: header"></div>
+<div th:replace="layout/banner :: banner"></div>
 
-<article class="card mobile-offcanvas offcanvas-right" id="card_mobile">
-    <div class="shop-sidebar">
-        <div class="offcanvas-header">
-            <button class="btn btn-close"> <i data-feather="x-circle"></i> </button>
-        </div>
-        <h3 class="head">My Cart</h3>
-        <ul class="list-unstyled">
-            <li>
-                <img src="/frontend/images/shop/sidebar_shop_1.jpg" alt>
-                <div>
-                    <h4><a href="shop-single.html">Lounger Dog Bed</a></h4>
-                    <h6>$85</h6>
-                </div>
-                <div class="delete-btn">
-                    <a href="#"><i class="icofont-close-line"></i></a>
-                </div>
-            </li>
-            <li>
-                <img src="/frontend/images/shop/sidebar_shop_2.jpg" alt>
-                <div>
-                    <h4><a href="shop-single.html">Sara's Doggie Treat</a></h4>
-                    <h6>$45</h6>
-                </div>
-                <div class="delete-btn">
-                    <a href="#"><i class="icofont-close-line"></i></a>
-                </div>
-            </li>
-        </ul>
-        <div class="sidebar-subtotal">
-            <span>Subtotal</span>
-            <strong>$130</strong>
-        </div>
-        <div class="btn-holder">
-            <div class="col">
-                <a href="shop-cart.html" class="btn-theme bordered bg-navy-blue btn-sm btn-block">View Cart</a>
-            </div>
-            <div class="col">
-                <a href="shop-checkout.html" class="btn-theme bg-orange btn-shadow btn-sm btn-block">Checkout</a>
-            </div>
-        </div>
-    </div>
-</article>
-<section>
-    <div id="rev_slider_26_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="mask-showcase" data-source="gallery" style="background:#aaaaaa;padding:0px;">
-
-        <div id="rev_slider_26_1" class="rev_slider fullscreenbanner tiny_bullet_slider" style="display:none;" data-version="5.4.1">
-            <ul>
-
-                <li data-index="rs-73" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1 data-param2 data-param3 data-param4 data-param5 data-param6 data-param7 data-param8 data-param9 data-param10 data-description>
-
-                    <img src="/frontend/images/slider/h5_slider_1.jpg" data-kenburns="on" data-duration="5000" data-ease="Power3.easeInOut" data-scalestart="110" data-scaleend="100" data-rotatestart="0" style="background:linear-gradient(90deg, rgba(134,143,150,1) 0%, rgba(89,97,100,1) 100%)" alt data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="off" class="rev-slidebg" data-no-retina>
-
-
-                    <div class="tp-caption btn-theme bg-orange btn-shadow" id="slide-73-layer-4" data-x="['left','left','left','left']" data-hoffset="['65','120','70','40']" data-y="['middle','middle','middle','middle']" data-voffset="['150','150','150','10']" data-width="['180','180','180','180']" data-height="none" data-whitespace="normal" data-type="button" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:1000,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;},{&quot;frame&quot;:&quot;hover&quot;,&quot;speed&quot;:&quot;0&quot;,&quot;ease&quot;:&quot;Linear.easeNone&quot;,&quot;to&quot;:&quot;o:1;rX:0;rY:0;rZ:0;z:0;&quot;,&quot;style&quot;:&quot;c:rgb(0,0,0);bg:rgb(255,255,255);&quot;}]" data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[30,30,30,30]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[30,30,30,30]" style="z-index: 5; white-space: normal; font-size: 18px; line-height: 50px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Karla', sans-serif;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; font-weight: 600; text-transform: uppercase;">
-                        Give us call </div>
-
-                    <div class="tp-caption tp-resizeme" id="slide-73-layer-1" data-x="['left','left','left','left']" data-hoffset="['270','325','270','40']" data-y="['middle','middle','middle','middle']" data-voffset="['150','150','150','65']" data-width="['180','180','180','180']" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:400,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#2f3b4a&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 6; color: #FFF; font-size: 18px;">
-                        (+44) 123 456 789 </div>
-
-                    <div class="tp-caption   tp-resizeme" id="slide-73-layer-3" data-x="['left','left','left','left']" data-hoffset="['45','100','50','20']" data-y="['middle','middle','middle','middle']" data-voffset="['-177','-135','-135','-220']" data-width="['360','360','360','250']" data-height="none" data-whitespace="normal" data-type="text" ata-responsive_offset="on" data-frames="[{&quot;delay&quot;:300,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['left','left','left','left']" data-paddingtop="[10,10,10,10]" data-paddingright="[20,20,20,20]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[20,20,20,20]" style="z-index: 7; white-space: normal; font-size: 20px; line-height: 20px; font-weight: 400; color: #ffffff; font-family:Karla', sans-serif;">
-                        Pet Care Services, in New York City </div>
-
-                    <div class="tp-caption tp-resizeme" id="slide-73-layer-2" data-x="['left','left','left','left']" data-hoffset="['45','100','50','20']" data-y="['middle','middle','middle','middle']" data-voffset="['-50','-30','-30','-110']" data-fontsize="['70','70','70','50']" data-lineheight="['70','70','70','50']" data-width="['600','650','620','380']" data-height="['200','200','200','200']" data-whitespace="normal" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:200,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#98cb46&quot;,&quot;sfx_effect&quot;:&quot;blockfromleft&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktoleft&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['left','left','left','left']" data-paddingtop="[20,20,20,20]" data-paddingright="[20,20,20,20]" data-paddingbottom="[30,30,30,30]" data-paddingleft="[20,20,20,20]" style="z-index: 8; font-family: 'Changa', sans-serif; min-width : 650px; max-width: 650px; white-space: normal; font-size: 70px; line-height: 70px; font-weight: 400; color: #ffffff; letter-spacing: -2px; font-weight: 700;">
-                        We Provide Care, That Your Pet Deserves! </div>
-                </li>
-
-                <li data-index="rs-75" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300" data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1 data-param2 data-param3 data-param4 data-param5 data-param6 data-param7 data-param8 data-param9 data-param10 data-description>
-
-                    <img src="/frontend/images/slider/h5_slider_2.jpg" data-kenburns="on" data-duration="5000" data-ease="Power3.easeInOut" data-scalestart="110" data-scaleend="100" data-rotatestart="0" data-bgcolor="linear-gradient(180deg, rgba(22,160,133,1) 0%, rgba(244,208,63,1) 100%)" style="background:linear-gradient(180deg, rgba(22,160,133,1) 0%, rgba(244,208,63,1) 100%)" alt data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="off" class="rev-slidebg" data-no-retina>
-
-
-                    <div class="tp-caption   tp-resizeme rs-parallaxlevel-2" id="slide-75-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['250','200','135','50']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="image" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#27304b&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 6; color: #FFF; font-size: 18px;">
-                        (+44) 123 456 789 </div>
-
-                    <div class="tp-caption   tp-resizeme" id="slide-75-layer-2" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['10','-50','-100','-140']" data-fontsize="['70','70','70','50']" data-lineheight="['70','70','70','50']" data-width="['650','650','620','380']" data-height="none" data-whitespace="normal" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:200,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['center','center','center','center']" data-paddingtop="[20,20,20,20]" data-paddingright="[20,20,20,20]" data-paddingbottom="[30,30,30,30]" data-paddingleft="[20,20,20,20]" style="z-index: 8; font-family: 'Changa', sans-serif; min-width: 650px; max-width: 650px; white-space: normal; font-size: 70px; line-height: 70px; font-weight: 400; color: #ffffff; letter-spacing: -2px; font-weight: 700;">
-                        We Provide Care, That Your Pet Deserves! </div>
-
-                    <div class="tp-caption   tp-resizeme" id="slide-75-layer-3" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-140','-200','-250','-250']" data-width="['360','360','360','360']" data-height="none" data-whitespace="normal" data-type="text" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:300,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;}]" data-textAlign="['left','left','left','left']" data-paddingtop="[10,10,10,10]" data-paddingright="[20,20,20,20]" data-paddingbottom="[10,10,10,10]" data-paddingleft="[20,20,20,20]" style="z-index: 7; text-align: center !important;  white-space: normal; font-size: 20px; line-height: 20px; font-weight: 400; color: #ffffff; font-family:Karla', sans-serif;">
-                        Pet Care Services, in New York City </div>
-
-                    <div class="tp-caption btn-theme bg-green btn-shadow tp-resizeme" id="slide-75-layer-4" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['180','120','50','-20']" data-width="['180','180','180','180']" data-height="none" data-whitespace="normal" data-type="button" data-responsive_offset="on" data-frames="[{&quot;delay&quot;:400,&quot;speed&quot;:750,&quot;sfxcolor&quot;:&quot;#f15e42&quot;,&quot;sfx_effect&quot;:&quot;blockfromtop&quot;,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;z:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:500,&quot;sfxcolor&quot;:&quot;#ffffff&quot;,&quot;sfx_effect&quot;:&quot;blocktotop&quot;,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;z:0;&quot;,&quot;ease&quot;:&quot;Power4.easeOut&quot;},{&quot;frame&quot;:&quot;hover&quot;,&quot;speed&quot;:&quot;0&quot;,&quot;ease&quot;:&quot;Linear.easeNone&quot;,&quot;to&quot;:&quot;o:1;rX:0;rY:0;rZ:0;z:0;&quot;,&quot;style&quot;:&quot;c:rgb(0,0,0);bg:rgb(255,255,255);&quot;}]" data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[30,30,30,30]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[30,30,30,30]" style="z-index: 5; white-space: normal; font-size: 18px; line-height: 50px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Karla', sans-serif;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; font-weight: 600; text-transform: uppercase;">
-                        Give us call </div>
-                </li>
-            </ul>
-            <div class="tp-bannertimer tp-bottom" style="height: 5px; background: rgba(255, 255, 255, 0.15);"></div>
-        </div>
-    </div>
-</section>
 
 <main id="body-content">
 
-    <section class="wide-tb-150">
+    <section   class="wide-tb-150">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
@@ -116,16 +25,19 @@
                 </div>
                 <div class="col-lg-5">
                     <h1 class="heading-main">
-                        <small>Quality & Experience <i class="pethund_repeat_grid"></i></small>
-                        <span>Welcome to</span> Pethund
+                        <small>Chất Lượng & Giá Cả <i class="pethund_repeat_grid"></i></small>
+                        <span>Chào Mừng Đến</span> PetHund
                     </h1>
-                    <p>At Pethund, the ambition is that you should always feel welcome both as an advertiser and a visitor. A modern and easy-to-manage page makes it easier for Users to maneuver forward. or then randomised words which don't look even slightly believable you need to be sure there isn't anything embarrassing vestibu lum at eros.</p>
+                    <p style="text-indent: 1em;">    Tại Pethund, khát vọng của chúng tôi là bạn luôn cảm thấy được chào
+                        đón dù là người quảng cáo hay khách truy cập. Một trang web hiện đại và
+                        dễ quản lý và hiểu được người dùng cần gì, hoặc các vấn đề về các bé cún sẽ không để bạn phải lo lắng. Trang web PestHund là một
+                        trang đáng được tin cậy, và chúng tôi đảm bảo rằng sẽ không để phụ lòng khách hàng khi sử dụng dịch vụ PetHund.</p>
                     <ul class="list-unstyled icons-listing theme-green paws fw-7 mt-5 txt-blue">
-                        <li>Abore et dolore magna aliqua ut enim veniam</li>
-                        <li>Quis nostrud exercitation ullamco laboris nisi aliquip</li>
-                        <li>Eiusmod tempor incididunt labore.</li>
+                        <li>Cung cấp thức ăn cho thú cưng chất lượng</li>
+                        <li>Đào tạo và chăm sóc các bé cún chuyên nghiệp</li>
+                        <li>giải quyết các vấn đề khách hàng nhanh chóng</li>
                     </ul>
-                    <a href="about.html" class="btn-theme bg-navy-blue capusle mt-4 wow fadeInDown">Discover More</a>
+                    <a href="#" class="btn-theme bg-navy-blue capusle mt-4 wow fadeInDown">Khám Phá PestHund</a>
                 </div>
             </div>
         </div>
@@ -141,8 +53,8 @@
                         <img src="/frontend/images/gdr_img_1.jpg" alt class="ms-auto d-flex">
                         <div class="info-text">
                             <i class="icofont-paw"></i>
-                            <h3>We Heal</h3>
-                            <div>Quick Veterinary Services</div>
+                            <h3>Chúng tôi điều trị</h3>
+                            <div>Dịch vụ thú y nhanh chóng</div>
                         </div>
                     </div>
 
@@ -150,11 +62,11 @@
                 <div class="col-lg-4 col-md-4 wow pulse" data-wow-duration="0" data-wow-delay="0.2s">
 
                     <div class="gdr-img-box bg-orange">
-                        <img src="/frontend/images/gdr_img_2.jpg" alt class="ms-auto d-flex">
+                        <img src="/frontend/images/vn-2.2.jpg" alt class="ms-auto d-flex">
                         <div class="info-text">
                             <i class="icofont-paw"></i>
-                            <h3>Our Mission</h3>
-                            <div>Offer quick & easy services</div>
+                            <h3>Sứ mệnh của chúng tôi</h3>
+                            <div>Cung cấp dịch vụ nhanh chóng & dễ dàng</div>
                         </div>
                     </div>
 
@@ -162,26 +74,25 @@
                 <div class="col-lg-4 col-md-4 wow pulse" data-wow-duration="0" data-wow-delay="0.4s">
 
                     <div class="gdr-img-box bg-blue">
-                        <img src="/frontend/images/gdr_img_3.jpg" alt class="ms-auto d-flex">
+                        <img src="/frontend/images/vn-3.3.jpg" alt class="ms-auto d-flex">
                         <div class="info-text">
                             <i class="icofont-paw"></i>
-                            <h3>Adopt Anyone</h3>
-                            <div>Join Our Club to help them</div>
+                            <h3>Nhận nuôi bất kỳ ai</h3>
+                            <div>Tham gia câu lạc bộ của chúng tôi để giúp đỡ họ
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-10 mx-auto text-center txt-white">
-                    <p>Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In
-                        aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum.
-                    </p>
-                    <div class="text-center mt-4">
-                        <a href="contact-us.html" class="btn-theme bg-orange capusle bordered me-4"><span class="txt-white">Contact us</span></a>
-                        (+44) 123 456 789
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 mx-auto text-center txt-white">
+                        <p>PestHund chăm sóc thú cưng pest không chỉ là một nhiệm vụ, mà còn là một trải nghiệm sâu sắc và đầy ý nghĩa trong cuộc sống hàng ngày của chúng ta. Việc nuôi thú cưng không chỉ mang lại niềm vui và sự đồng cảm mà PestHund chăm sóc thú cưng pest còn đặt ra nhiều trách nhiệm.</p>
+                        <div class="text-center mt-4">
+                            <a th:href="@{${'/views/contact'}}" href="#" class="btn-theme bg-orange capusle bordered me-4"><span class="txt-white">Liên hệ chúng tôi</span></a>
+                            (+84) 0989-089-089
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,11 +100,11 @@
     </section>
 
 
-    <section class="wide-tb-150">
+    <section class="wide-tb-150" style="padding-bottom: 0">
         <div class="container">
             <h1 class="heading-main center wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
-                <small>What we offer for you <i class="pethund_repeat_grid"></i></small>
-                <span>Our Providing </span> Services
+                <small>Những gì chúng tôi cung cấp cho bạn <i class="pethund_repeat_grid"></i></small>
+                <span>Dịch vụ cung cấp của  </span> chúng tôi
             </h1>
             <div class="row">
 
@@ -203,12 +114,8 @@
                             <i class="pethund_petsitting"></i>
                         </div>
                         <div class="text">
-                            <h3>Pet Sitting</h3>
-                            <p>Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu
-                                risus. </p>
-                            <a href="services-single.html" class="read-more-arrow">
-                                Read More <span> <i class="icofont-simple-right"></i></span>
-                            </a>
+                            <h3>Con thú nuôi đang ngồi</h3>
+                            <p>Aliquam là một loại thuốc giảm đau. Trong sự phân giải của nó, tăng cường fermentum, và pellentesque làm cho leo. Maecenas ở cung đường cong. </p>
                         </div>
                     </div>
                 </div>
@@ -220,12 +127,8 @@
                             <i class="pethund_pet_grooming"></i>
                         </div>
                         <div class="text">
-                            <h3>Pet Grooming</h3>
-                            <p>Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu
-                                risus. </p>
-                            <a href="services-single.html" class="read-more-arrow">
-                                Read More <span> <i class="icofont-simple-right"></i></span>
-                            </a>
+                            <h3>Chăm sóc thú cưng</h3>
+                            <p>Aliquam là một loại thuốc giảm đau. Trong sự phân giải của nó, fermentum tăng lên, và pellentesque làm cho leo. Maecenas ở đường cong. </p>
                         </div>
                     </div>
                 </div>
@@ -237,12 +140,8 @@
                             <i class="pethund_adoption"></i>
                         </div>
                         <div class="text">
-                            <h3>Pet Adoption</h3>
-                            <p>Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu
-                                risus. </p>
-                            <a href="services-single.html" class="read-more-arrow">
-                                Read More <span> <i class="icofont-simple-right"></i></span>
-                            </a>
+                            <h3>Nhận nuôi thú cưng</h3>
+                            <p>Aliquam là một loại thuốc giảm đau. Trong sự phân giải, fermentum tăng lên, và pellentesque làm cho leo. Maecenas ở đường cong. </p>
                         </div>
                     </div>
                 </div>
@@ -254,12 +153,8 @@
                             <i class="pethund_natural_product"></i>
                         </div>
                         <div class="text">
-                            <h3>Natural Products</h3>
-                            <p>Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu
-                                risus. </p>
-                            <a href="services-single.html" class="read-more-arrow">
-                                Read More <span> <i class="icofont-simple-right"></i></span>
-                            </a>
+                            <h3>Sản phẩm tự nhiên</h3>
+                            <p>Giới thiệu thuốc tự nhiên cho thú cưng của bạn. Chăm sóc an toàn, hiệu quả từ thiên nhiên để thú cưng luôn khỏe mạnh và hạnh phúc. </p>
                         </div>
                     </div>
                 </div>
@@ -271,12 +166,8 @@
                             <i class="pethund_vaccinated"></i>
                         </div>
                         <div class="text">
-                            <h3>Pet Vaccination</h3>
-                            <p>Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu
-                                risus. </p>
-                            <a href="services-single.html" class="read-more-arrow">
-                                Read More <span> <i class="icofont-simple-right"></i></span>
-                            </a>
+                            <h3>Tiêm phòng cho thú cưng</h3>
+                            <p>Tiêm phòng cho thú cưng của bạn. Bảo vệ sức khỏe, an toàn và hiệu quả từ các giải pháp tiên tiến. </p>
                         </div>
                     </div>
                 </div>
@@ -288,108 +179,20 @@
                             <i class="pethund_pet_food"></i>
                         </div>
                         <div class="text">
-                            <h3>Pet Foods</h3>
-                            <p>Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu
-                                risus. </p>
-                            <a href="services-single.html" class="read-more-arrow">
-                                Read More <span> <i class="icofont-simple-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center wow fadeInUp col-md-12" data-wow-duration="0" data-wow-delay="0s">
-                    <a href="our-services.html" class="btn-theme bordered capusle bg-navy-blue">View All Services</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="bg-green">
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-                <div class="col-lg-6">
-                    <div class="about-home-one-img h-100">
-                        <img src="/frontend/images/counter_bg.jpg" class="d-lg-none d-block" alt>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="about-home-one">
-                        <h1 class="heading-main light-mode">
-                            <small>Get to know us <i class="pethund_repeat_grid"></i></small>
-                            About Us <span class="txt-blue">Few words</span>
-                        </h1>
-                        <p class="mb-4">
-                            Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall.
-                        </p>
-                        <div class="accordion accordion-flush theme-accordian" id="accordionFlushExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        Our Philosophy
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="content">
-                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna
-                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
-                                            convall.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                        Our Organization
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="content">
-                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna
-                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
-                                            convall.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                        Know More About Adoption
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="content">
-                                            Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna
-                                            nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum
-                                            convall.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="about-video">
-                            <a href="https://player.vimeo.com/video/7449107" class="popup-video">
-                                <i class="pethund_videoPlay"></i>
-                            </a>
+                            <h3>Thức ăn cho thú cưng</h3>
+                            <p>Dinh dưỡng tốt, nguồn gốc tự nhiên giúp thú cưng luôn khỏe mạnh. </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <section class="wide-tb-100">
         <div class="container">
             <h1 class="heading-main center wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
-                <small>Our perfect staff <i class="pethund_repeat_grid"></i></small>
-                <span>Meet Our</span> Groomers
+                <small>Đội ngũ nhân viên hoàn hảo của chúng tôi <i class="pethund_repeat_grid"></i></small>
+                <span>Gặp chúng tôi</span> về thức ăn thú cưng
             </h1>
             <div class="owl-carousel owl-theme" id="team-slider-about">
 
@@ -401,15 +204,12 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="/frontend/images/team/team-1.jpg" alt>
+                            <img src="/frontend/images/vn_1.jpg" alt>
                         </div>
                         <div class="team-name">
-                            <h4><a href="team-single.html">Meghan Smith</a></h4>
-                            <div><strong>Pet Trainer</strong></div>
+                            <h4><a href="#">Sumiho Pet Boutique</a></h4>
+                            <div><strong>Chăm sóc răng miệng, Hỗ trợ tiêu hóa</strong></div>
                         </div>
-                        <a href="team-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
                     </div>
                 </div>
 
@@ -422,15 +222,12 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="/frontend/images/team/team-2.jpg" alt>
+                            <img src="/frontend/images/vn_2.jpg" alt>
                         </div>
                         <div class="team-name">
-                            <h4><a href="team-single.html">Alissa Silva</a></h4>
-                            <div><strong>Pet Trainer</strong></div>
+                            <h4><a href="#">Bone Appétit By Sumiho</a></h4>
+                            <div><strong>Chăm sóc mắt, Chăm sóc tóc và da</strong></div>
                         </div>
-                        <a href="team-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
                     </div>
                 </div>
 
@@ -443,15 +240,12 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="/frontend/images/team/team-3.jpg" alt>
+                            <img src="/frontend/images/vn_3.jpg" alt>
                         </div>
                         <div class="team-name">
-                            <h4><a href="team-single.html">Lucas Manson</a></h4>
-                            <div><strong>Pet Trainer</strong></div>
+                            <h4><a href="#">Thức Ăn Chó GRAND MAGIC</a></h4>
+                            <div><strong>Dinh dưỡng và cân bằng protein</strong></div>
                         </div>
-                        <a href="team-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
                     </div>
                 </div>
 
@@ -464,15 +258,12 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="/frontend/images/team/team-4.jpg" alt>
+                            <img src="/frontend/images/vn_4.jpg" alt>
                         </div>
                         <div class="team-name">
-                            <h4><a href="team-single.html">Cindey Harris</a></h4>
-                            <div><strong>Veterinarian</strong></div>
+                            <h4><a href="#">Chew Dog Bổ Sung Thịt</a></h4>
+                            <div><strong>Thành phần này có thể xem như dưỡng chất</strong></div>
                         </div>
-                        <a href="team-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
                     </div>
                 </div>
 
@@ -485,15 +276,12 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="/frontend/images/team/team-5.jpg" alt>
+                            <img src="/frontend/images/vn_5.jpg" alt>
                         </div>
                         <div class="team-name">
-                            <h4><a href="team-single.html">Alissa Silva</a></h4>
-                            <div><strong>Veterinarian</strong></div>
+                            <h4><a href="#">Hạt thức ăn cho chó Makka</a></h4>
+                            <div><strong>Chứa sự kết hợp của Omega 3-6-9</strong></div>
                         </div>
-                        <a href="team-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
                     </div>
                 </div>
 
@@ -506,175 +294,26 @@
                                 <a href="#"><i data-feather="facebook"></i></a>
                                 <a href="#"><i data-feather="instagram"></i></a>
                             </div>
-                            <img src="/frontend/images/team/team-6.jpg" alt>
+                            <img src="/frontend/images/vn_6.jpg" alt>
                         </div>
                         <div class="team-name">
-                            <h4><a href="team-single.html">Lucas Manson</a></h4>
-                            <div><strong>Veterinarian</strong></div>
+                            <h4><a href="team-single.html">Thức Ăn Hạt Chó PETVIE</a></h4>
+                            <div><strong>Kết hợp với nguyên liệu sạch 100%</strong></div>
                         </div>
-                        <a href="team-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-12 mt-4 wow fadeInUp" data-wow-duration="0" data-wow-delay="0s">
-                    <div class="text-center">
-                        <strong>Meet our professionals</strong>
-                        <p>We have an experienced qualified team to take care of your best friend</p>
-                        <a href="our-team.html" class="btn-theme bg-orange capusle bordered me-4">View All Team</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-    <section class="wide-tb-40 counter-bg-curve bg-orange">
-        <div class="container">
-            <div class="row">
-
-                <div class="col col-6 col-lg-3 col-sm-6 wow fadeInLeft">
-                    <div class="icon-box-3">
-                        <div class="icon-font">
-                            <i class="pethund_pet_belt"></i>
-                        </div>
-                        <div class="text">
-                            <div class="counter-txt"><span class="counter">325</span>+</div>
-                            <div>Adopted Pets</div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col col-6 col-lg-3 col-sm-6 wow fadeInLeft">
-                    <div class="icon-box-3">
-                        <div class="icon-font">
-                            <i class="pethund_pet_professional"></i>
-                        </div>
-                        <div class="text">
-                            <div class="counter-txt"><span class="counter">20</span>+</div>
-                            <div>Professionals</div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="w-100 d-none d-md-block d-lg-none spacer-60"></div>
-
-
-                <div class="col col-6 col-lg-3 col-sm-6 wow fadeInRight">
-                    <div class="icon-box-3">
-                        <div class="icon-font">
-                            <i class="pethund_pet_awards"></i>
-                        </div>
-                        <div class="text">
-                            <div class="counter-txt"><span class="counter">14</span>+</div>
-                            <div>Pet Awards</div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col col-6 col-lg-3 col-sm-6 wow fadeInRight">
-                    <div class="icon-box-3">
-                        <div class="icon-font">
-                            <i class="pethund_pet_salon"></i>
-                        </div>
-                        <div class="text">
-                            <div class="counter-txt"><span class="counter">795</span>+</div>
-                            <div>Pets Gromming</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="spacer-70">
-        <p>&nbsp;</p>
-    </section>
-
-    <section class="wide-tb-150">
-        <div class="container">
-            <h1 class="heading-main center wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
-                <small>Image Tour <i class="pethund_repeat_grid"></i></small>
-                <span>Our</span> Gallery
-            </h1>
-            <div class="row">
-                <div class="col-md-4 gallery-item mb-0">
-                    <div class="captured-gallery-item mb-4">
-                        <div class="gallery-content">
-                            <span href="/frontend/images/gallery/home/img_gallery1.jpg" title="Simba Jake"><i class="icofont-plus"></i></span>
-                            <h3><a href="gallery-single.html">Simba Jake</a></h3>
-                            <h5>Kitten</h5>
-                        </div>
-                        <img src="/frontend/images/gallery/home/img_gallery1.jpg" class="rounded" alt>
-                    </div>
-                    <div class="captured-gallery-item mb-4">
-                        <div class="gallery-content">
-                            <span href="/frontend/images/gallery/home/img_gallery5.jpg" title="Molly Cat"><i class="icofont-plus"></i></span>
-                            <h3><a href="gallery-single.html">Molly Cat</a></h3>
-                            <h5>Kitten</h5>
-                        </div>
-                        <img src="/frontend/images/gallery/home/img_gallery5.jpg" class="rounded" alt>
-                    </div>
-                </div>
-                <div class="col-md-4 gallery-item mb-0">
-                    <div class="captured-gallery-item mb-4">
-                        <div class="gallery-content">
-                            <span href="/frontend/images/gallery/home/img_gallery2.jpg" title="Tiger Wood"><i class="icofont-plus"></i></span>
-                            <h3><a href="gallery-single.html">Tiger Wood</a></h3>
-                            <h5>Kitten</h5>
-                        </div>
-                        <img src="/frontend/images/gallery/home/img_gallery2.jpg" class="rounded" alt>
-                    </div>
-                    <div class="captured-gallery-item mb-4">
-                        <div class="gallery-content">
-                            <span href="/frontend/images/gallery/home/img_gallery6.jpg" title="Gizmo Moody"><i class="icofont-plus"></i></span>
-                            <h3><a href="gallery-single.html">Gizmo Moody</a></h3>
-                            <h5>Kitten</h5>
-                        </div>
-                        <img src="/frontend/images/gallery/home/img_gallery6.jpg" class="rounded" alt>
-                    </div>
-                </div>
-                <div class="col-md-4 gallery-item mb-0">
-                    <div class="captured-gallery-item mb-4">
-                        <div class="gallery-content">
-                            <span href="/frontend/images/gallery/home/img_gallery3.jpg" title="Charlie Taz"><i class="icofont-plus"></i></span>
-                            <h3><a href="gallery-single.html">Charlie Taz</a></h3>
-                            <h5>Kitten</h5>
-                        </div>
-                        <img src="/frontend/images/gallery/home/img_gallery3.jpg" class="rounded" alt>
-                    </div>
-                    <div class="captured-gallery-item mb-4">
-                        <div class="gallery-content">
-                            <span href="/frontend/images/gallery/home/img_gallery7.jpg" title="Sophie Cute"><i class="icofont-plus"></i></span>
-                            <h3><a href="gallery-single.html">Sophie Cute</a></h3>
-                            <h5>Kitten</h5>
-                        </div>
-                        <img src="/frontend/images/gallery/home/img_gallery7.jpg" class="rounded" alt>
-                    </div>
-                </div>
-                <div class="text-center wow fadeInUp col-md-12" data-wow-duration="0" data-wow-delay="0s">
-                    <a href="gallery-4-col.html" class="btn-theme bg-orange btn-shadow">View Full Gallery</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
 
     <section class="wide-tb-150 bg-snow pos-rel bg-navy-blue">
         <div class="container">
             <div class="row">
 
-                <div class="col-sm-12 wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
-                    <h1 class="heading-main center light-mode wow fadeInDown" data-wow-duration="0" data-wow-delay="0s">
-                        <small>What Our Customers Are Saying <i class="pethund_repeat_grid"></i></small>
-                        <span>Amazing</span> Feedback
+                <div class="col-sm-12 wow fadeInDown" data-wow-duration="0" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInDown;">
+                    <h1 class="heading-main center light-mode wow fadeInDown" data-wow-duration="0" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInDown;">
+                        <small>Chúng tôi sẽ mang tới sản phẩm tốt nhất cho bạn bởi các đội ngủ chuyên gia <i class="pethund_repeat_grid"></i></small>
+                        <span> Đội ngũ chuyên gia <strong style="color: white">của chúng tôi</strong></span>
                     </h1>
                 </div>
 
@@ -682,240 +321,72 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="testimonial-rounded">
-                        <div class="owl-carousel owl-theme" id="testimonial-rounded">
+                        <div class="owl-carousel owl-theme owl-loaded owl-drag" id="testimonial-rounded">
 
-                            <div class="item">
+                            <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-1024px, 0px, 0px); transition: all 0s ease 0s; width: 3584px;"><div class="owl-item cloned" style="width: 482px; margin-right: 30px;"><div class="item">
                                 <div class="client-testimonial">
                                     <div class="quote-icon">
                                         <i class="pethund_quotes"></i>
                                     </div>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Aliquam gravida, urna quis ornare
-                                        imperdiet, </p>
+                                    <p>PetHund sẽ giúp thú cưng của bạn tránh tăng cân, thức ăn ướt chứa ít calo hơn thức ăn khô, có thể giúp thú cưng của bạn duy trì cân nặng khỏe mạnh.</p>
                                     <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
-                                        <img src="/frontend/images/testimonial_thumb_1.jpg" alt class="rounded-circle">
-                                        <h3>Tina Cambell <span>Pet Owner</span></h3>
+                                        <img src="https://my.hibariclinic.com/wp-content/themes/hibariclinic/images/img-doctor-vivien.jpg" alt="" class="rounded-circle">
+                                        <h3>Bác Sĩ Thú Y - Guo Fei <span>Lĩnh vực tư vấn dinh dưỡng</span></h3>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="item">
+                            </div></div><div class="owl-item cloned" style="width: 482px; margin-right: 30px;"><div class="item">
                                 <div class="client-testimonial">
                                     <div class="quote-icon">
                                         <i class="pethund_quotes"></i>
                                     </div>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Aliquam gravida, urna quis ornare
-                                        imperdiet, </p>
+                                    <p>PetHund: bác sĩ khuyên đưa thú cưng của bạn tới gặp bác sĩ thú y để kiểm tra sức khỏe định kỳ, tiêm phòng,
+                                        tẩy giun sán và phòng ngừa kí sinh trùng tránh có hành vi bất thường và các dấu hiệu bị bệnh.</p>
+
                                     <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
-                                        <img src="/frontend/images/team_2.jpg" alt class="rounded-circle">
-                                        <h3>Tina Cambell <span>Pet Owner</span></h3>
+                                        <img src="https://rafflesmedical.vn/wp-content/uploads/2019/08/14.png" alt="" class="rounded-circle">
+                                        <h3>Bác Sĩ - Jeonbuk<span>lĩnh vực sức khỏe</span></h3>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="item">
+                            </div></div><div class="owl-item active" style="width: 482px; margin-right: 30px;"><div class="item">
                                 <div class="client-testimonial">
                                     <div class="quote-icon">
                                         <i class="pethund_quotes"></i>
                                     </div>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Aliquam gravida, urna quis ornare
-                                        imperdiet, </p>
+                                    <p>PetHund có đội ngũ bác sĩ phẫu thuật trong lĩnh vực cho các bé thứ cưng, với trình độ chuyên môn cao giàu kinh nghiệm </p>
+
                                     <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
-                                        <img src="/frontend/images/team_3.jpg" alt class="rounded-circle">
-                                        <h3>Tina Cambell <span>Pet Owner</span></h3>
+                                        <img src="https://afamilycdn.com/2019/7/9/bac-si-10-1562660210141493717830.jpg" alt="" class="rounded-circle">
+                                        <h3> Bác Sĩ Thú Y - Paul <span>Lĩnh vực sức khoẻ & phẫu thuật</span></h3>
                                     </div>
                                 </div>
-                            </div>
+                            </div></div><div class="owl-item" style="width: 482px; margin-right: 30px;"><div class="item">
+                                <div class="client-testimonial">
+                                    <div class="quote-icon">
+                                        <i class="pethund_quotes"></i>
+                                    </div>
+                                    <p>Với PestHund “Healing From The Heart” tôi và đội ngũ bác sĩ tư vấn sẽ tư vấn chăm sóc thú cưng của bạn tận tâm với tất cả trái tim mình.</p>
 
-                        </div>
+                                    <div class="client-testimonial-icon justify-content-center d-flex align-items-center">
+                                        <img src="https://keystonecareer.com/wp-content/uploads/2021/05/keystone-career-specialist-doctor-subang-jaya-2-782x1024.jpg" alt="" class="rounded-circle">
+                                        <h3>Bác Sĩ Thú Y - Dr.Kim Jungnam <span>Lĩnh vực tư vấn & chăm sóc</span></h3>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div></div></div></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><i class="icofont-simple-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="icofont-simple-right"></i></button></div><div class="owl-dots disabled"></div></div>
                     </div>
                 </div>
-                <div class="col-md-6 order-md-first wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
-                    <img src="/frontend/images/dog_sitting.png" alt>
+                <div class="col-md-6 order-md-first wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInLeft;">
+                    <img src="/frontend/images/logo_14896749.png" alt="">
                 </div>
             </div>
         </div>
     </section>
-
-
-    <section class="wide-tb-100">
-        <div class="container">
-            <h1 class="heading-main center">
-                <small>Recent Blog Post <i class="pethund_repeat_grid"></i></small>
-                <span>Latest News </span> & Articles
-            </h1>
-            <div class="owl-carousel owl-theme" id="blog-slider-home-one">
-
-                <div class="item">
-                    <div class="blog-wrap">
-                        <div class="img">
-                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_1.jpg" alt></a>
-                        </div>
-                        <div class="meta-wrap">
-                            <div class="date">08 <span>APR</span></div>
-                            <a href="#" class="link-green">2 Comments</a>
-                        </div>
-                        <h3 class="title">
-                            <a href="blog-single.html">How to Create a Cat’s Patio, or Outdoor Space</a>
-                        </h3>
-                        <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
-                        </div>
-                        <a href="blog-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <div class="blog-wrap">
-                        <div class="img">
-                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_2.jpg" alt></a>
-                        </div>
-                        <div class="meta-wrap">
-                            <div class="date">08 <span>APR</span></div>
-                            <a href="#" class="link-green">2 Comments</a>
-                        </div>
-                        <h3 class="title">
-                            <a href="blog-single.html">Fun Overload Is When A Girl Is Exhausted From Fun</a>
-                        </h3>
-                        <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
-                        </div>
-                        <a href="blog-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <div class="blog-wrap">
-                        <div class="img">
-                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_3.jpg" alt></a>
-                        </div>
-                        <div class="meta-wrap">
-                            <div class="date">08 <span>APR</span></div>
-                            <a href="#" class="link-green">2 Comments</a>
-                        </div>
-                        <h3 class="title">
-                            <a href="blog-single.html">Dog Flu – Does Your Dog Need Protecting?</a>
-                        </h3>
-                        <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
-                        </div>
-                        <a href="blog-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <div class="blog-wrap">
-                        <div class="img">
-                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_4.jpg" alt></a>
-                        </div>
-                        <div class="meta-wrap">
-                            <div class="date">08 <span>APR</span></div>
-                            <a href="#" class="link-green">2 Comments</a>
-                        </div>
-                        <h3 class="title">
-                            <a href="blog-single.html">Watch Your Step When You Have a Cat</a>
-                        </h3>
-                        <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
-                        </div>
-                        <a href="blog-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <div class="blog-wrap">
-                        <div class="img">
-                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_5.jpg" alt></a>
-                        </div>
-                        <div class="meta-wrap">
-                            <div class="date">08 <span>APR</span></div>
-                            <a href="#" class="link-green">2 Comments</a>
-                        </div>
-                        <h3 class="title">
-                            <a href="blog-single.html">5 Tips to Help with Dog Separation Anxiety</a>
-                        </h3>
-                        <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
-                        </div>
-                        <a href="blog-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <div class="blog-wrap">
-                        <div class="img">
-                            <a href="blog-single.html"><img src="/frontend/images/blog/blog_img_6.jpg" alt></a>
-                        </div>
-                        <div class="meta-wrap">
-                            <div class="date">08 <span>APR</span></div>
-                            <a href="#" class="link-green">2 Comments</a>
-                        </div>
-                        <h3 class="title">
-                            <a href="blog-single.html">How To Train Your Canine Running Partner</a>
-                        </h3>
-                        <div class="description">
-                            <p>Proin viverra nisi at nisl imperdiet auctor. Donec ornare, est sed tincidunt placerat, sem mi suscipit mi.</p>
-                        </div>
-                        <a href="blog-single.html" class="read-more-arrow">
-                            Read More <span> <i class="icofont-simple-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="text-center mt-4 wow fadeInUp" data-wow-duration="0" data-wow-delay="0s">
-                <a href="blog-classic.html" class="btn-theme bordered bg-orange capusle">View All Blog</a>
-            </div>
-        </div>
-    </section>
-
 </main>
 
-<div class="container footer-top-callout">
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="callout-style-side-img d-lg-flex align-items-center">
-                <div class="img-callout">
-                    <img src="/frontend/images/callout_side_img.jpg" alt>
-                </div>
-                <div class="text-callout">
-                    <div class="d-md-flex align-items-center">
-                        <div class="icon">
-                            <i data-feather="headphones"></i>
-                        </div>
-                        <div class="heading">
-                            <h3>Have Questions? Call Us <span class="txt-green">+1 (800) 123 456 789</span>
-                            </h3>
-                            <div>In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat,
-                                nec elementum ipsum convall.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
+<div th:replace="layout/call_us :: call_us"></div>
 <footer th:replace="layout/footer :: footer"></footer>
 
 <div class="overlay overlay-hugeinc">
@@ -944,5 +415,4 @@
 
 </body>
 
-<!-- Mirrored from mannatstudio.com/html/pethund/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Feb 2024 07:39:23 GMT -->
 </html>

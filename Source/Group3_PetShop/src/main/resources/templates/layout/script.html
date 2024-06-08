@@ -1,121 +1,258 @@
 <div th:fragment="script">
-  <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script th:src="@{/frontend/js/jquery.min.js}"></script>
-  <script th:src="@{/frontend/js/theme-plugins.min.js}"></script>
+    </script>
+    <script th:src="@{/frontend/js/jquery.min.js}"></script>
+    <script th:src="@{/frontend/js/theme-plugins.min.js}"></script>
 
-  <script th:src="@{/frontend/js/site-custom.js}"></script>
+    <script th:src="@{/frontend/js/site-custom.js}"></script>
 
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/jquery.themepunch.tools.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+    <script type="text/javascript" th:src="@{/frontend/revolution/js/jquery.themepunch.tools.min.js}"></script>
+    <script type="text/javascript" th:src="@{/frontend/revolution/js/jquery.themepunch.revolution.min.js}"></script>
 
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
-  <script type="text/javascript" th:src="@{/frontend/revolution/js/extensions/revolution.extension.video.min.js}"></script>
-  <script type="text/javascript">
-
-    var tpj=jQuery;
-    var revapi26;
-    tpj(document).ready(function() {
-      if(tpj("#rev_slider_26_1").revolution == undefined){
-        revslider_showDoubleJqueryError("#rev_slider_26_1");
-      }else{
-        revapi26 = tpj("#rev_slider_26_1").show().revolution({
-          sliderType:"standard",
-          jsFileLocation:"revolution/js/",
-          sliderLayout:"fullscreen",
-          dottedOverlay:"none",
-          delay:9000,
-          navigation: {
-            keyboardNavigation:"off",
-            keyboard_direction: "horizontal",
-            mouseScrollNavigation:"off",
-            mouseScrollReverse:"default",
-            onHoverStop:"off",
-            touch:{
-              touchenabled:"on",
-              touchOnDesktop:"off",
-              swipe_threshold: 75,
-              swipe_min_touches: 1,
-              swipe_direction: "horizontal",
-              drag_block_vertical: false
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/frontend/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+    <script type="text/javascript" th:src="@{/common/constant.js}"></script>
+    <script type="text/javascript" th:src="@{/common/func.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        var tpj = jQuery;
+        var revapi26;
+        tpj(document).ready(function () {
+            if (tpj("#rev_slider_26_1").revolution == undefined) {
+                revslider_showDoubleJqueryError("#rev_slider_26_1");
+            } else {
+                revapi26 = tpj("#rev_slider_26_1").show().revolution({
+                    sliderType: "standard",
+                    jsFileLocation: "revolution/js/",
+                    sliderLayout: "fullscreen",
+                    dottedOverlay: "none",
+                    delay: 9000,
+                    navigation: {
+                        keyboardNavigation: "off",
+                        keyboard_direction: "horizontal",
+                        mouseScrollNavigation: "off",
+                        mouseScrollReverse: "default",
+                        onHoverStop: "off",
+                        touch: {
+                            touchenabled: "on",
+                            touchOnDesktop: "off",
+                            swipe_threshold: 75,
+                            swipe_min_touches: 1,
+                            swipe_direction: "horizontal",
+                            drag_block_vertical: false
+                        }
+                        ,
+                        arrows: {
+                            style: "metis",
+                            enable: true,
+                            hide_onmobile: true,
+                            hide_under: 778,
+                            hide_onleave: false,
+                            tmp: '',
+                            left: {
+                                h_align: "left",
+                                v_align: "center",
+                                h_offset: 15,
+                                v_offset: 0
+                            },
+                            right: {
+                                h_align: "right",
+                                v_align: "center",
+                                h_offset: 15,
+                                v_offset: 0
+                            }
+                        }
+                        ,
+                        bullets: {
+                            enable: true,
+                            hide_onmobile: false,
+                            style: "zeus",
+                            hide_onleave: false,
+                            direction: "horizontal",
+                            h_align: "center",
+                            v_align: "bottom",
+                            h_offset: 0,
+                            v_offset: 30,
+                            space: 5,
+                            tmp: ''
+                        }
+                    },
+                    responsiveLevels: [1240, 1024, 778, 480],
+                    visibilityLevels: [1240, 1024, 778, 480],
+                    gridwidth: [1240, 1024, 778, 480],
+                    gridheight: [868, 768, 960, 300],
+                    lazyType: "none",
+                    parallax: {
+                        type: "scroll",
+                        origo: "slidercenter",
+                        speed: 2000,
+                        levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50, 51, 55],
+                    },
+                    shadow: 0,
+                    spinner: "spinner0",
+                    stopLoop: "off",
+                    stopAfterLoops: -1,
+                    stopAtSlide: -1,
+                    shuffle: "off",
+                    autoHeight: "on",
+                    fullScreenAutoWidth: "off",
+                    fullScreenAlignForce: "off",
+                    fullScreenOffsetContainer: "",
+                    fullScreenOffset: "0px",
+                    hideThumbsOnMobile: "off",
+                    hideSliderAtLimit: 0,
+                    hideCaptionAtLimit: 0,
+                    hideAllCaptionAtLilmit: 0,
+                    debugMode: false,
+                    fallbacks: {
+                        simplifyAll: "off",
+                        nextSlideOnWindowFocus: "off",
+                        disableFocusListener: false,
+                    }
+                });
             }
-            ,
-            arrows: {
-              style:"metis",
-              enable:true,
-              hide_onmobile:true,
-              hide_under:778,
-              hide_onleave:false,
-              tmp:'',
-              left: {
-                h_align:"left",
-                v_align:"center",
-                h_offset:15,
-                v_offset:0
-              },
-              right: {
-                h_align:"right",
-                v_align:"center",
-                h_offset:15,
-                v_offset:0
-              }
-            }
-            ,
-            bullets: {
-              enable:true,
-              hide_onmobile:false,
-              style:"zeus",
-              hide_onleave:false,
-              direction:"horizontal",
-              h_align:"center",
-              v_align:"bottom",
-              h_offset:0,
-              v_offset:30,
-              space:5,
-              tmp:''
-            }
-          },
-          responsiveLevels:[1240,1024,778,480],
-          visibilityLevels:[1240,1024,778,480],
-          gridwidth:[1240,1024,778,480],
-          gridheight:[868,768,960,300],
-          lazyType:"none",
-          parallax: {
-            type:"scroll",
-            origo:"slidercenter",
-            speed:2000,
-            levels:[5,10,15,20,25,30,35,40,45,46,47,48,49,50,51,55],
-          },
-          shadow:0,
-          spinner:"spinner0",
-          stopLoop:"off",
-          stopAfterLoops:-1,
-          stopAtSlide:-1,
-          shuffle:"off",
-          autoHeight:"on",
-          fullScreenAutoWidth:"off",
-          fullScreenAlignForce:"off",
-          fullScreenOffsetContainer: "",
-          fullScreenOffset: "0px",
-          hideThumbsOnMobile:"off",
-          hideSliderAtLimit:0,
-          hideCaptionAtLimit:0,
-          hideAllCaptionAtLilmit:0,
-          debugMode:false,
-          fallbacks: {
-            simplifyAll:"off",
-            nextSlideOnWindowFocus:"off",
-            disableFocusListener:false,
-          }
+        });	/*ready*/
+    </script>
+    <script>
+        $(document).ready(function () {
+            countCart();
+            showUserName();
         });
-      }
-    });	/*ready*/
-  </script>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"857f41a68b843e0e","version":"2024.2.1","r":1,"token":"64224fc8786846928480d180dfc466bd","b":1}' crossorigin="anonymous"></script>
 
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        $(document).on('click', '#logout',function (e) {
+            console.log(200);
+            $.ajax({
+                type: "POST",
+                url: HOST + "/logout",
+                success: function (response) {
+                    $('body').html(response);
+                },
+            })
+        });
+        function showUserName() {
+            $.ajax({
+                type: "GET",
+                url: HOST + "/api/account/current-user",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    let logHtml;
+                    if (response.username != null) {
+                        logHtml = '<a href="#" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">' + response.username + '</a>'
+                        $('#logCheck').html(logHtml);
+                        $('.loading').append('<div id="logout" class="col-md-auto">\n' +
+                            '                            <div class="user">\n' +
+                            '                                <div class="bg-img" style="background-image: url(/frontend/images/vn_logo.png)"></div>\n' +
+                            '                                <span class="fas fa-sign-out-alt"></span>\n' + // fas fa-power-off
+                            '                                <span >Đăng Xuất</span>\n' +
+                            '                            </div>\n' +
+                            '                        </div>');
+
+                    } else {
+                        logHtml = '<a href="http://localhost:8080/login" class="btn-theme bg-green btn-shadow ms-3 d-none d-sm-block">Đăng Nhập</a>'
+                        $('#logCheck').html(logHtml);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+
+        function countCart() {
+            $.ajax({
+                type: "GET",
+                url: HOST + "/api/cart/count",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response.data != null) {
+                        $('.badge-success').html(response.data);
+                    } else $('.badge-success').html(0);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+
+        function formatPrice(amount) {
+            return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function changeQuantity(classItem, quantity) {
+            checkQuantity(classItem, quantity);
+        }
+
+        function checkQuantity(classItem, quantity) {
+            if (quantity === "") {
+                $('input[type="text"][name="' + classItem + '"]').val(1)
+                $('button[type="button"][name="' + classItem + '"]').val(1)
+            }
+            if (!$.isNumeric(quantity)) {
+                $('input[type="text"][name="' + classItem + '"]').val(1)
+                $('button[type="button"][name="' + classItem + '"]').val(1)
+            }
+        }
+
+        function plusQuantity(classItem, quantity) {
+            checkQuantity(quantity);
+            let value = parseInt(quantity);
+            if (value < 10) {
+                value += 1;
+            }
+            $('input[type="text"][name="' + classItem + '"]').val(value)
+            $('button[type="button"][name="' + classItem + '"]').val(value)
+        }
+
+        function minusQuantity(classItem, quantity) {
+            checkQuantity(quantity);
+            let value = parseInt(quantity);
+            if (value > 1) {
+                value -= 1;
+            }
+            $('input[type="text"][name="' + classItem + '"]').val(value)
+            $('button[type="button"][name="' + classItem + '"]').val(value)
+        }
+
+        function getCode() {
+            let url = window.location.href;
+            return url.split('/').pop();
+        }
+
+        function alertInfo(title, text, icon) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+            });
+        }
+    </script>
 </div>

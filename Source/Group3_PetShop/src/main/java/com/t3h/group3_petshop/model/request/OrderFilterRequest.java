@@ -4,5 +4,11 @@ import lombok.Data;
 
 @Data
 public class OrderFilterRequest {
-    private Integer userId;
+    private Long orderId;
+
+    private Long userId;
+
+    private String code;
+    private String username;
+    private String productname;
 }

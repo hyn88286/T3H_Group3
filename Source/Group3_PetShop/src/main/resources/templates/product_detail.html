@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+
+<div th:replace="layout/banner :: banner"></div>
+
+<main id="body-content">
+    <section class="wide-tb-100 pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="box-shadow: 0 0 68px rgba(0, 0, 0, 0.1); padding: 0" class="product-gallery">
+                        <div class="outer">
+                            <div id="big" style="text-align: center">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-description">
+                        <h2 class="title"></h2>
+                        <div class="price"></div>
+                        <div id="shortDes"></div>
+                        <div class="product-highlight">
+                            <h5><strong>Size</strong></h5>
+                            <div class="custom-choose mb-3" id="chooseSize"></div>
+                            <h5><strong>Vận chuyển</strong></h5>
+                            <p>Miễn phí vận chuyển</p>
+                            <h5><strong>Danh mục</strong></h5>
+                            <p id="cate"></p>
+                        </div>
+                        <div class="quantity">
+                            <button name="qtt-0" onclick="minusQuantity(this.name, this.value)" value="1"
+                                    class="minus-btn" type="button">
+                                <i data-feather="minus"></i>
+                            </button>
+                            <input type="text" onchange="changeQuantity(this.name,this.value)" name="qtt-0" value="1">
+                            <button name="qtt-0" onclick="plusQuantity(this.name, this.value)" value="1"
+                                    class="plus-btn" type="button">
+                                <i data-feather="plus"></i>
+                            </button>
+                        </div>
+                        <button class="btn-theme bg-green btn-shadow ms-4" id="addToCart" type="button">Thêm vào giỏ
+                            hàng
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12 col-lg-10 mx-auto">
+                    <div class="review-tabbing">
+                        <ul class="nav nav-pills theme-tabbing mb-3 justify-content-center" id="pills-tab"
+                            role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home"
+                                   role="tab" aria-controls="pills-home" aria-selected="true">Mô tả sản phẩm</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile"
+                                   role="tab" aria-controls="pills-profile" aria-selected="false" tabindex="-1">Thông
+                                    tin chi tiêt</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content theme-tabbing" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                 aria-labelledby="pills-home-tab"><p>Ngô, cám lúa mì, bột gia cầm, sắn, bột hạt cọ, mỡ
+                                gia cầm, khoáng chất (canxi carbonate, monocalcium phosphate, natri clorua, kali clorua,
+                                sắt ii sulfate, đồng sulfate, ôxít mangan, cobalt sulfate, ôxít kẽm, kali iodua, selen),
+                                vitamin (vitamin a, d, e, k, thiamine (b1), riboflavin (b2), niacin (b3), axít
+                                panthothenic (b5), pyridoxine (b6), cobalamin (b12), biotin, axít folic, colin), chất
+                                chống oxy hóa, màu thực phẩm.</p></div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                 aria-labelledby="pills-profile-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                        <tr>
+                                            <th class="text-extra-dark-gray font-weight-500">Color</th>
+                                            <td>Black, Blue, Brown, Red, Silver</td>
+                                        </tr>
+                                        <tr class="bg-light-gray">
+                                            <th class="text-extra-dark-gray font-weight-500">Size</th>
+                                            <td>L, M, S, XL</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-extra-dark-gray font-weight-500">Style/Type</th>
+                                            <td>Sports, Formal</td>
+                                        </tr>
+                                        <tr class="bg-light-gray">
+                                            <th class="text-extra-dark-gray font-weight-500">Lining</th>
+                                            <td>100% polyester taffeta with a DWR finish</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-extra-dark-gray font-weight-500">Material</th>
+                                            <td>Lather, Cotton, Silk</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                // comen-->
+                <div class="commnets-reply">
+
+                    <div class="media">
+                        <img class="thumb" src="/frontend/images/blog/comment_thumg_1.jpg" alt="">
+                        <div class="media-body">
+                            <div class="name">
+                                <small></small>
+                                <h5 style="font-size: 35px; color: black;"></h5>
+                                <a href="#" class="btn-theme bg-green btn-sm text-capitalize">Reply</a>
+                            </div>
+                            <p></p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cập Nhật Bình Luận</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form id="updateForm">
+
+                                    <div class="mb-3">
+                                        <label for="conten" class="form-label">Nội dung chỉnh sửa</label>
+                                        <textarea class="form-control" id="conten" rows="4"></textarea>
+                                    </div>
+                                    <input type="hidden" id="id">
+                                </form>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success" id="buttonApply">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="comment-reply-form">
+                    <h3 class="txt-white fw-7 mb-3"> THÊM BÌNH LUẬN</h3>
+                    <form novalidate="novalidate" class="rounded-field">
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <textarea rows="7" id="content" placeholder="Nội dung......"
+                                          class="form-control form-light"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <button type="button" id="post" class="btn-theme bg-navy-blue capusle mb-3"> Bình luận
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+<div th:replace="layout/script :: script"></div>
+<script>
+    initProductDetail();
+    clickCart();
+    function clickCart() {
+        $('#addToCart').click(function () {
+            let sizeId = $('input[type="radio"][name=sizeOption]:checked').val();
+            let quantity = $('input[type="text"][name="qtt-0"]').val();
+            let weight = $('input[type="radio"][name=sizeOption]:checked').data("weight");
+            let price = $('span[name=priceProduct]').data("value");
+            let productId = $('span[name=nameProduct]').data("value");
+
+            if ($.isNumeric(price) && price !== 0) {
+                let totalOneP = price * weight * quantity;
+                console.log(sizeId, quantity, weight, price, totalOneP, productId);
+                let objCart = {
+                    productId: productId,
+                    sizeId: sizeId,
+                    quantity: quantity,
+                    totalOneP: totalOneP
+                };
+                addToCart(objCart);
+            } else alertInfo("", "Bạn cần chọn size để tiếp tục", "error");
+
+        })
+    }
+
+    function initProductDetail() {
+        let codeProduct = getCode();
+        let objFilter = {
+            code: codeProduct,
+            sizeId: null
+        };
+        getProduct(objFilter, true);
+    }
+
+    function getProduct(objectFilter, loadImg) {
+        $.ajax({
+            type: "POST",
+            url: HOST + "/api/product/detail",
+            contentType: "application/json",
+            data: JSON.stringify(objectFilter),
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                // Lấy thông tin product theo response trả về
+                let productData = response.data;
+                let price;
+                // minPrice là giá sản phẩm theo size nhỏ nhất
+                // maxPrice là giá sản phẩm theo size lớn nhất
+                // Nếu minPrice = maxPrice thì sản phẩm có 1 size
+                if (productData.minPrice !== productData.maxPrice) {
+                    price = formatPrice(productData.minPrice) + ' - ' + formatPrice(productData.maxPrice);
+                } else price = formatPrice(productData.minPrice);
+
+                // price là giá sản phẩm theo size đang đc chọn
+                // Nếu = 0 thì ko có size đc chọn nếu != 0 thì lấy ra giá sản phẩm theo size đc chọn
+                if (productData.priceActive !== 0) {
+                    price = formatPrice(productData.priceActive);
+                }
+                let img =
+                    '<div class="item">' +
+                    '<img style="width=auto; padding-top: 3%; margin-bottom: -2%"   src="' + productData.image + '" alt>' +
+                    '</div>';
+
+                $('#big').html(img);
+
+                // Load tên sản phẩm
+                let nameProductHtml = '<span name="nameProduct" data-value="' + productData.id + '">' + productData.name + '</span>'
+                $('.title').html(nameProductHtml);
+                // Load giá sản phẩm
+                let priceHtml = '<span name="priceProduct" data-value="' + productData.priceActive + '">' + price + '</span>'
+                $('.price').html(priceHtml)
+
+                // Sắp xếp theo số kg của size từ nhỏ > lớn
+                let arraySize = productData.sizes;
+                for (let i = 0; i < arraySize.length - 1; i++) {
+                    for (let j = 0; j < arraySize.length - i - 1; j++) {
+                        if (arraySize[j].weight > arraySize[j + 1].weight) {
+                            let temp = arraySize[j];
+                            arraySize[j] = arraySize[j + 1];
+                            arraySize[j + 1] = temp;
+                        }
+                    }
+                }
+                let chooseSize = '';
+                // Duyệt mảng các size của sản phẩm
+                for (let i = 0; i < arraySize.length; i++) {
+                    let sizeData = arraySize[i];
+                    if (sizeData.id === productData.sizeActive) {
+                        chooseSize += '<input checked type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption" data-weight="' + sizeData.weight + '">' +
+                            '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
+                    } else {
+                        chooseSize += '<input  type="radio" id="opt-' + i + '" value="' + sizeData.id + '" name="sizeOption" data-weight="' + sizeData.weight + '">' +
+                            '<label for="opt-' + i + '">' + sizeData.name + ' ' + sizeData.weight + 'kg' + '</label>';
+                    }
+                }
+
+                // Load danh sách size của sản phẩm ra màn hình
+                $('#chooseSize').html(chooseSize);
+
+                // Load mô tả ngắn
+                let shortDesciption = '<p>' + productData.shortDescription + '</p>';
+                $('#shortDes').html(shortDesciption);
+
+                // Load mô tả sản phẩm
+                let description = '<p>' + productData.description + '</p>';
+                $('#pills-home').html(description);
+
+                let category = '<a href="#" class="link-oragne">' + productData.category + '</a>'
+                $('#cate').html(category);
+                // Bắt event thay đổi size
+                changeSize();
+                let object = {
+                    productCode: productData.code,
+                };
+                getCommentsAndDisplay(object);
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+
+    function changeSize() {
+        let sizeOptionValue;
+        let codeProduct = getCode();
+        $('input[type=radio][name=sizeOption]').change(function () {
+            sizeOptionValue = $(this).val();
+            $('input[type="radio"][name=sizeOption]').not(this).prop('checked', false);
+
+            let objFilter = {
+                code: codeProduct,
+                sizeId: sizeOptionValue
+            };
+            getProduct(objFilter, false);
+            $(this).prop('checked', true);
+        })
+    }
+
+    // hiển thị comment
+
+
+    function getCommentsAndDisplay(object) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/comments",
+            contentType: "application/json",
+            data: JSON.stringify(object),
+            dataType: "json",
+            success: function (response) {
+                // Xử lý dữ liệu nhận được từ API
+                let comments = response.data.content;
+
+                // Hiển thị dữ liệu comment trên trang web
+                displayComments(comments);
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    function displayComments(comments) {
+        let commentsHTML = '';
+        comments.forEach(function (comment) {
+            commentsHTML += '<div class="card mb-3">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title" style="font-size: 35px; color: black;">' + comment.username +
+                '<i style="line-height: 1.3; color: #f14b4b; font-size: 71%; float:right; margin-left: 10px;" class="fas fa-trash-alt delete-icon" data-id="' + comment.id + '"></i>' +
+                '<i style="line-height: 1.3; color: #51f14b; font-size: 71%; float:right;" class="fas fas fa-pen update-icon" data-id="' + comment.id + '"></i>' +
+                '</h5>' +
+                '<p class="card-text">' + comment.content + '</p>' +
+                '<p class="card-text"><small class="text-muted">' + comment.createdDate + '</small></p>' +
+                '</div>' +
+                '</div>';
+        });
+        $('.media').html(commentsHTML);
+    }
+
+    $(document).on('click', '#post', function () {
+        var content1 = $('#content').val();
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/comments/create",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                productCode: getCode(),
+                content: content1
+
+            }),
+            success: function (response) {
+                if (response.code !==200) {
+                    alertInfo("", "Bạn chưa mua hàng ", "error")
+
+                }
+                let object = {
+                    productCode: getCode(),
+
+                };
+                getCommentsAndDisplay(object);
+            },
+            error: function (error) {
+                console.log("Lỗi khi thêm bình luận mục");
+            }
+        });
+    });
+    // sưửa
+    // Update icon click event
+    $(document).ready(function () {
+        // Edit icon click event
+        $(document).on('click', '.update-icon', function () {
+            console.log("Edit button clicked");
+
+            var id = $(this).data('id'); // Retrieve data-id from the clicked icon
+            var CommentUserName = $(this).closest('.card-body').find('.card-title').text().trim();
+            var CommentContent = $(this).closest('.card-body').find('.card-text').first().text().trim();
+
+            // Update modal with comment details
+            $('#myModal').attr('data-id', id);
+            $('#id').val(id);
+            $('#username').val(CommentUserName);
+            $('#conten').val(CommentContent);
+
+            // Show the modal
+            $('#myModal').modal('show');
+        });
+    });
+
+    // Apply button click event
+    $(document).on('click', '#buttonApply', function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        var id = $('#myModal').data('id');
+
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:8080/api/comments/" + id,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+                id: id,
+                username: $('#username').val(),
+                name: $('#name').val(),
+                content: $('#conten').val()
+            }),
+            success: function (response) {
+                if (response.code ===200) {
+                    alertInfo("", "Bạn sửa đánh giá thành công ", "success")
+
+                }
+                console.log(response);
+                let object = {
+                    productCode: getCode(),
+
+                };
+                getCommentsAndDisplay(object);
+                $('#myModal').modal('hide');
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
+    });
+    // xoóa
+    $(document).on('click', '.delete-icon', function () {
+        var id = $(this).data('id'); // Lấy ID từ thuộc tính data-id của biểu tượng
+        console.log("Nút Xóa được nhấn cho ID:", id);
+
+        // Kiểm tra nếu id không tồn tại hoặc không hợp lệ
+        if (!id) {
+            console.log("ID không tồn tại hoặc không hợp lệ");
+            return;
+        }
+
+        var $tr = $(this).closest('tr'); // Lấy thẻ <tr> chứa biểu tượng
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/api/comments/" + id,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                if (response.code ===200) {
+                    alertInfo("", "Bạn đã xóa đánh giá  ", "success")
+
+                }
+                let object = {
+                    productCode: getCode(),
+
+                };
+                getCommentsAndDisplay(object);
+
+            },
+            error: function (error) {
+                console.log("Lỗi khi xóa bình luận:", error);
+            }
+        });
+    });
+
+
+    function addToCart(objCart) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/cart/add-to-cart",
+            contentType: "application/json",
+            data: JSON.stringify(objCart),
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response.code === 200) {
+                    alertInfo("", "Bạn đã thêm sản phẩm vào giỏ hàng", "success")
+                    countCart();
+                } else  window.location.href = HOST + "/login";
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
+</body>
+</html>

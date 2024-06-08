@@ -1,0 +1,51 @@
+package com.t3h.group3_petshop.controller.resource;
+
+import com.t3h.group3_petshop.model.dto.CommentDTO;
+import com.t3h.group3_petshop.model.request.CommentFilterRequest;
+import com.t3h.group3_petshop.model.response.BaseResponse;
+import com.t3h.group3_petshop.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("api/comments")
+public class CommentResource {
+    @Autowired
+    private CommentService commentService;
+
+    @PostMapping()
+    public ResponseEntity<BaseResponse<Page<CommentDTO>>> getAll(@RequestBody CommentFilterRequest filterRequest,
+                                                                 @RequestParam(name = "page",required = false,defaultValue = "0") int page,
+                                                                 @RequestParam(name = "size",required = false,defaultValue = "10") int size){
+
+        return ResponseEntity.ok(commentService.getAll(filterRequest,page,size));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<BaseResponse<CommentDTO>> addComment(@RequestBody CommentDTO commentDTO) {
+        if (commentDTO == null || commentDTO.getContent() == null || commentDTO.getProductCode() == null) {
+            // Trả về lỗi nếu thông tin comment không hợp lệ
+            BaseResponse<CommentDTO> response = new BaseResponse<>();
+            response.setCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Invalid comment data");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // Thực hiện kiểm tra và xử lý comment ở đây
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.addComment(commentDTO));
+    }
+    @PutMapping("/{commentId}")
+    public ResponseEntity<BaseResponse<CommentDTO>> updateComment(@PathVariable Long commentId,
+                                                                  @RequestBody CommentDTO commentDTO) {
+        BaseResponse<CommentDTO> response = commentService.updateComment(commentId, commentDTO);
+        return ResponseEntity.status(response.getCode()).body(response);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<?>> deletecommet(@PathVariable("id") Long commentId){
+        BaseResponse<?> baseResponse = commentService.deleteComment(commentId);
+        return ResponseEntity.status(HttpStatus.OK).body(baseResponse);
+    }
+}

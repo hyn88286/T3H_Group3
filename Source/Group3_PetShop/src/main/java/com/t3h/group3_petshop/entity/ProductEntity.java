@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
-
 
 @Table(name = "product")
 @Entity
@@ -19,14 +19,19 @@ public class ProductEntity extends AbstractEntity{
     private String shortDescription;
     private Double price;
     private int quantity;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     private CategoryEntity categoryEntity;
 
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productEntities",fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JoinTable(name = "product_size",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id")
+    )
     private Set<SizeEntity> sizeEntities;
-
 }

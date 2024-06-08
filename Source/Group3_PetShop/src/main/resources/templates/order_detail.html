@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/head :: head"></head>
+<body>
+
+<div id="pageloader">
+    <div class="loader-item">
+        <div class="loader-item-content">
+            <i class="icofont-paw"></i>
+        </div>
+    </div>
+</div>
+
+<b class="screen-overlay"></b>
+<div th:replace="layout/header :: header"></div>
+<div th:replace="layout/banner :: banner"></div>
+
+<main id="body-content">
+    <section style="margin-top: 1%" class="pb-0">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table">
+                    <div id="infoOrder" style="margin-bottom: 1%"></div>
+                    <thead class="thead-dark theme-head">
+                    <tr>
+                        <th scope="col"><span style="color: white">Sản phẩm</span></th>
+                        <th scope="col"><span style="color: white">Đơn giá / Kg</span></th>
+                        <th scope="col"><span style="color: white">Kích thước</span></th>
+                        <th scope="col"><span style="color: white">Số lượng</span></th>
+                        <th scope="col"><span style="color: white">Tổng</span></th>
+                    </tr>
+                    </thead>
+                    <tbody class="theme-body" id="bodyDetailOrder">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mt-5 justify-content-md-end">
+                <div class="col-lg-4 col-md-6">
+                    <div class="cart-totals">
+                        <div class="px-4">
+                            <div class="order-head">
+                                <span>Thanh toán ( Đơn vị : VNĐ )</span>
+                            </div>
+                        </div>
+                        <div class="order-list">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <span>Giá trị đơn hàng</span>
+                                    <span class="subtotalDetail"></span>
+                                </li>
+                                <li>
+                                    <span>Vận chuyển</span>
+                                    <span class="txt-green">Miễn phí vận chuyển</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="layout/call_us :: call_us"></div>
+<footer th:replace="layout/footer :: footer"></footer>
+
+<div class="overlay overlay-hugeinc">
+    <form class="form-inline mt-2 mt-md-0">
+        <div class="form-inner">
+            <div class="form-inner-div d-inline-flex align-items-center g-0">
+                <div class="col-md-1">
+                    <i class="icofont-search"></i>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-md-1">
+                    <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<a id="mkdf-back-to-top" href="#" class="off"><i class="icofont-rounded-up"></i></a>
+
+
+<div th:replace="layout/script :: script"></div>
+
+<script>
+    initOrderDetailCustom();
+    checkoutReturn();
+
+    function checkoutReturn(code) {
+        $('#checkoutCart').click(function () {
+            window.location.href = HOST + "/views/order/place-order/" + code
+        });
+    }
+
+    function initOrderDetailCustom() {
+        let page = 0;
+        let size = 100;
+        let orderCode = getCode();
+        let objData = {
+            code: orderCode
+        }
+        getDetailOrderCustom(page, size, objData);
+    }
+
+    function getDetailOrderCustom(page, size, objData) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/order/detail",
+            contentType: "application/json",
+            data: JSON.stringify(objData),
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                let data = response.data.orderDetails;
+                let detailHtml = '';
+                let infoHtml = '';
+                let statusOrder = response.data.status === 1 ? "Chưa thanh toán" : "Đã thanh toán";
+                let address = response.data.addressShipping === null ? "..." : response.data.addressShipping;
+                let phone = response.data.phoneShipping === null ? "..." : response.data.phoneShipping;
+                let classStatus = response.data.status === 1 ? "danger" : "success";
+                infoHtml += '<strong >Mã đơn hàng : </strong>' + '<span> ' + response.data.code + '</span><br>'
+                infoHtml += '<strong >Số điện thoại : </strong>' + '<span> ' + phone + '</span><br>'
+                infoHtml += '<strong >Địa chỉ : </strong>' + '<span> ' + address + '</span><br>'
+                infoHtml += '<strong>Trạng thái : </strong>' + '<span class="text-' + classStatus + '"> ' + statusOrder + '</span><br>'
+                infoHtml += '<strong>Chi tiết : </strong>'
+                $('#infoOrder').html(infoHtml);
+                for (let i = 0; i < data.length; i++) {
+                    detailHtml += '<tr>' +
+                        '<td><a href="'+HOST+"/views/product/detail/"+data[i].productCode+'" ><strong class="text-info">' + data[i].productName + '</strong></a></td>' +
+                        '<td><strong class="txt-blue">' + formatPrice(data[i].total / data[i].quantity) + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + data[i].sizeName + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + data[i].quantity + '</strong></td>' +
+                        '<td><strong class="txt-blue">' + formatPrice(data[i].total) + '</strong></td>' +
+                        '</tr>';
+                }
+                $('#bodyDetailOrder').html(detailHtml);
+                $('.subtotalDetail').html(formatPrice(response.data.totalAmount));
+                if (response.data.status === 1) {
+                    let checkoutHtml = '<div style="margin-top: 6%" class="px-4">' +
+                        '<button class="btn-theme bg-orange btn-shadow" id="checkoutCart">Tiến hành thanh toán </button>' +
+                        '</div>';
+                    $('.list-unstyled').append(checkoutHtml);
+                    checkoutReturn(response.data.code)
+                }
+                console.log(formatPrice(response.data.totalAmount));
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
+</body>
+</html>

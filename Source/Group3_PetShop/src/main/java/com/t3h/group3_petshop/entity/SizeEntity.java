@@ -12,14 +12,14 @@ import java.util.Set;
 @Data
 public class SizeEntity extends AbstractEntity{
 
+    private String code;
+
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Integer weight;
+
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "sizeEntities",fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JoinTable(name = "product_size",
-            joinColumns = @JoinColumn(name = "size_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<ProductEntity> productEntities;
+    Set<ProductEntity> productEntities;
+
 }

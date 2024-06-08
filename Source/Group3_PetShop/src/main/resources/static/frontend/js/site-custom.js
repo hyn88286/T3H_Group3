@@ -372,47 +372,6 @@ Custom Javascript
             });  
         },
 
-        minus_btn: function () {
-            if ($('.minus-btn').length) {
-
-                $('.minus-btn').on('click', function(e) {
-                    e.preventDefault();
-                    var $this = $(this);
-                    var $input = $this.closest('div').find('input');
-                    var value = parseInt($input.val());
-            
-                    if (value > 1) {
-                        value = value - 1;
-                    } else {
-                        value = 0;
-                    }
-            
-                    $input.val(value);
-            
-                });
-            }
-        },
-
-        plus_btn: function () {
-            if ($('.plus-btn').length) {
-
-                $('.plus-btn').on('click', function(e) {
-                    e.preventDefault();
-                    var $this = $(this);
-                    var $input = $this.closest('div').find('input');
-                    var value = parseInt($input.val());
-            
-                    if (value < 100) {
-                        value = value + 1;
-                    } else {
-                        value =100;
-                    }
-            
-                    $input.val(value);
-                });
-            }
-        },
-
         // All Slider Script
         testimonial_rounded: function () {
             if ($('#testimonial-rounded').length) {
@@ -902,8 +861,6 @@ Custom Javascript
             this.flickr_feed();
             this.select_nice();
             this.contact_form_validate();
-            this.minus_btn();
-            this.plus_btn();
 
             // All Slider Script
             this.testimonial_rounded();
